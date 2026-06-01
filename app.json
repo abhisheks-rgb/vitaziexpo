@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "VitaziApp",
+    "slug": "VitaziApp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.vitazi.app"
+    },
+    "android": {
+      "package": "com.vitazi.app"
+    }
+  }
+}
