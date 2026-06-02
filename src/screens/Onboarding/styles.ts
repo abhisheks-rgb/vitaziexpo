@@ -3,6 +3,11 @@ import { Theme } from '../../theme';
 
 const { width } = Dimensions.get('window');
 
+export const DOT_SIZE = 8;
+export const DOT_GAP = 20;
+export const STEP = DOT_SIZE + DOT_GAP; // distance between dot centers
+export const PILL_WIDTH = 32;
+
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
     screen: {
@@ -11,8 +16,11 @@ export const createStyles = (theme: Theme) =>
 
     container: {
       flex: 1,
-      paddingHorizontal: theme.spacing.lg,
       paddingBottom: theme.spacing.xl,
+    },
+
+    paddedRow: {
+      paddingHorizontal: theme.spacing.lg,
     },
 
     topBar: {
@@ -30,71 +38,87 @@ export const createStyles = (theme: Theme) =>
     skipButton: {
       position: 'absolute',
       right: 0,
-      justifyContent: 'center',
-      alignItems: 'center',
     },
 
     skip: {
       color: theme.colors.textMuted,
     },
 
-    /**
-     * Main content section
-     */
     content: {
-        flex: 1,
+      flex: 1,
+      width: '100%',
     },
 
     slide: {
-        flex: 1,
-        justifyContent: 'center',
+      flex: 1,
+      alignItems: 'center',
+      paddingHorizontal: theme.spacing.lg
     },
 
     imageWrap: {
-        height: 300,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: theme.spacing.lg,
+      height: 340,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 12,
     },
 
     image: {
-        width: width * 0.82,
-        height: 280,
+      width: width * 0.86,
+      height: 300,
     },
 
     textWrap: {
-        alignItems: 'center',
-        marginTop: theme.spacing.xl,
-        paddingHorizontal: 32,
+      width: '100%',
+      alignItems: 'center',
+      paddingHorizontal: 24,
+      marginTop: 10,
     },
 
     title: {
-        ...theme.typography.title,
-        textAlign: 'center',
-        color: theme.colors.text,
-        maxWidth: 320,
+      ...theme.typography.title,
+      textAlign: 'center',
+      maxWidth: 320,
     },
 
     subtitle: {
-        ...theme.typography.body,
-        textAlign: 'center',
-        color: theme.colors.textMuted,
-        marginTop: theme.spacing.md,
-        maxWidth: 340,
-        lineHeight: 26,
+      ...theme.typography.body,
+      textAlign: 'center',
+      color: theme.colors.textMuted,
+      marginTop: 16,
+      maxWidth: 340,
+      lineHeight: 28,
     },
 
-    dots: {
-      flexDirection: 'row',
-      justifyContent: 'center',
+    pagination: {
       alignItems: 'center',
-      marginBottom: theme.spacing.lg,
+      justifyContent: 'center',
+      marginBottom: 32,
+      height: 16,
     },
 
-    dot: {
-      height: 6,
-      borderRadius: theme.radius.full,
-      marginHorizontal: theme.spacing.xs,
+    indicatorRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      position: 'relative',
+    },
+
+    smallDot: {
+      width: DOT_SIZE,
+      height: DOT_SIZE,
+      borderRadius: DOT_SIZE / 2,
+      backgroundColor: theme.colors.accent,
+      opacity: 0.35,
+      marginHorizontal: DOT_GAP / 2,
+    },
+
+    activePill: {
+      position: 'absolute',
+      width: PILL_WIDTH,
+      height: DOT_SIZE,
+      borderRadius: 999,
+      backgroundColor: theme.colors.accent,
+      top: 0,
+      left: 0,
     },
 
     nav: {
@@ -104,20 +128,18 @@ export const createStyles = (theme: Theme) =>
     },
 
     back: {
-      ...theme.typography.body,
       color: theme.colors.accent,
     },
 
     nextBtn: {
       borderWidth: 1,
       borderColor: theme.colors.accent,
-      borderRadius: theme.radius.xl,
-      paddingHorizontal: 28,
+      borderRadius: 30,
+      paddingHorizontal: 30,
       paddingVertical: 12,
     },
 
     nextText: {
-      ...theme.typography.button,
       color: theme.colors.accent,
     },
   });
