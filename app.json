@@ -5,12 +5,19 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
+    "splash": {
+      "backgroundColor": "#C8F000",
+      "resizeMode": "contain"
+    },
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.vitazi.app"
     },
     "android": {
-      "package": "com.vitazi.app"
+      "package": "com.vitazi.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#C8F000"
+      }
     }
   }
 }
