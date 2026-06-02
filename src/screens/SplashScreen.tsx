@@ -5,31 +5,40 @@ import {
   Easing,
   Image,
   StyleSheet,
-  View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { useTheme } from '../theme';
+import { AppImages } from '../constants';
 
 const { width, height } = Dimensions.get('window');
 
-const PILL_W        = 180;
-const PILL_H        = 64;
+const PILL_W = 180;
+const PILL_H = 64;
 const PILL_LEFT_PAD = 28;
-const BIG_DOT       = PILL_H;
-const SMALL_DOT     = 14;
 
-const LOGO_W    = 280;
-const LOGO_H    = 90;
+const BIG_DOT = PILL_H;
+const SMALL_DOT = 14;
+
+const LOGO_W = 280;
+const LOGO_H = 90;
+
 const LOGO_LEFT = (width - LOGO_W) / 2;
-const LOGO_CY   = height / 2;
-const DOT_CX    = LOGO_LEFT + 187;
-const DOT_CY    = LOGO_CY + 3;
+const LOGO_TOP = height / 2 - LOGO_H / 2;
 
-const BIG_LAND_L = DOT_CX - BIG_DOT / 2;
+const DOT_CX = LOGO_LEFT + 198;
+const DOT_CY = LOGO_TOP + LOGO_H / 2;
+
+const BIG_LAND_CX = DOT_CX + 16;
+const BIG_LAND_L = BIG_LAND_CX - BIG_DOT / 2;
 const BIG_LAND_T = DOT_CY - BIG_DOT / 2;
-const SMALL_L    = DOT_CX - SMALL_DOT / 2;
-const SMALL_T    = DOT_CY - SMALL_DOT / 2;
 
-interface Props { onFinish: () => void; }
+const SHRINK_L = BIG_LAND_CX + 12 - SMALL_DOT / 2;
+const SHRINK_T = DOT_CY + 12 - SMALL_DOT / 2;
+
+interface Props {
+  onFinish: () => void;
+}
 
 export default function SplashScreen({ onFinish }: Props) {
   const theme = useTheme();
@@ -39,101 +48,141 @@ export default function SplashScreen({ onFinish }: Props) {
   const sW = useRef(new Animated.Value(width)).current;
   const sH = useRef(new Animated.Value(height)).current;
   const sR = useRef(new Animated.Value(0)).current;
-  const logoOp = useRef(new Animated.Value(0)).current;
-  const logoSc = useRef(new Animated.Value(0.94)).current;
 
-  const t = (val: Animated.Value, toValue: number, duration: number) =>
-    Animated.timing(val, { toValue, duration, easing: Easing.out(Easing.cubic), useNativeDriver: false });
+  const logoOpacity = useRef(new Animated.Value(0)).current;
+  const logoScale = useRef(new Animated.Value(0.94)).current;
 
-  const tn = (val: Animated.Value, toValue: number, duration: number) =>
-    Animated.timing(val, { toValue, duration, easing: Easing.out(Easing.cubic), useNativeDriver: true });
+  const animateLayout = (
+    value: Animated.Value,
+    toValue: number,
+    duration: number,
+  ) =>
+    Animated.timing(value, {
+      toValue,
+      duration,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: false,
+    });
+
+  const animateNative = (
+    value: Animated.Value,
+    toValue: number,
+    duration: number,
+  ) =>
+    Animated.timing(value, {
+      toValue,
+      duration,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: true,
+    });
 
   useEffect(() => {
-    const pillTop   = height / 2 - PILL_H / 2;
+    const pillTop = height / 2 - PILL_H / 2;
     const bigDotTop = height / 2 - BIG_DOT / 2;
 
     Animated.sequence([
-      // 1. Hold full green
-      Animated.delay(500),
+      Animated.delay(700),
 
-      // 2. Collapse to pill — all animating simultaneously, fluid
       Animated.parallel([
-        t(sW, PILL_W,        380),
-        t(sH, PILL_H,        380),
-        t(sL, PILL_LEFT_PAD, 380),
-        t(sT, pillTop,       380),
-        t(sR, PILL_H / 2,    380),
+        animateLayout(sW, PILL_W, 600),
+        animateLayout(sH, PILL_H, 600),
+        animateLayout(sL, PILL_LEFT_PAD, 600),
+        animateLayout(sT, pillTop, 600),
+        animateLayout(sR, PILL_H / 2, 600),
       ]),
 
-      // 3. Pill → circle (squeeze width only)
       Animated.parallel([
-        t(sW, BIG_DOT,  260),
-        t(sT, bigDotTop, 260),
+        animateLayout(sW, BIG_DOT, 420),
+        animateLayout(sT, bigDotTop, 420),
       ]),
 
-      // 4. Circle slides right → lands on logo dot — no pause, fluid
       Animated.parallel([
-        t(sL, BIG_LAND_L, 460),
-        t(sT, BIG_LAND_T, 460),
+        animateLayout(sL, BIG_LAND_L, 700),
+        animateLayout(sT, BIG_LAND_T, 700),
       ]),
 
-      // 5. Logo appears NOW that circle is in position
       Animated.parallel([
-        tn(logoOp, 1, 280),
-        tn(logoSc, 1, 280),
+        animateNative(logoOpacity, 1, 380),
+        animateNative(logoScale, 1, 380),
       ]),
 
-      // 6. Circle shrinks into logo dot
       Animated.parallel([
-        t(sW, SMALL_DOT, 320),
-        t(sH, SMALL_DOT, 320),
-        t(sL, SMALL_L,   320),
-        t(sT, SMALL_T,   320),
+        animateLayout(sW, SMALL_DOT, 480),
+        animateLayout(sH, SMALL_DOT, 480),
+        animateLayout(sL, SHRINK_L, 480),
+        animateLayout(sT, SHRINK_T, 480),
+        animateLayout(sR, SMALL_DOT / 2, 480),
       ]),
 
-      // 7. Dot disappears — logo dot takes over
       Animated.parallel([
-        t(sW, 0, 100),
-        t(sH, 0, 100),
+        animateLayout(sW, 0, 150),
+        animateLayout(sH, 0, 150),
       ]),
 
-      // Hold
-      Animated.delay(1400),
+      Animated.delay(1600),
 
-      // Fade out
-      tn(logoOp, 0, 400),
-
-    ]).start(() => onFinish());
+      animateNative(logoOpacity, 0, 500),
+    ]).start(onFinish);
   }, []);
 
   return (
-    <View style={[StyleSheet.absoluteFill, { backgroundColor: theme.bg }]}>
-      <Animated.View style={[styles.centred, { opacity: logoOp, transform: [{ scale: logoSc }] }]}>
+    <SafeAreaView
+      style={[
+        StyleSheet.absoluteFill,
+        {
+          backgroundColor: theme.colors.background,
+        },
+      ]}
+    >
+      <Animated.View
+        style={[
+          styles.centered,
+          {
+            opacity: logoOpacity,
+            transform: [{ scale: logoScale }],
+          },
+        ]}
+      >
         <Image
-          source={theme.isDark ? require('../../assets/logo-dark.png') : require('../../assets/logo-light.png')}
+          source={
+            theme.isDark
+              ? AppImages.logoDark
+              : AppImages.logoLight
+          }
           style={styles.logo}
           resizeMode="contain"
         />
       </Animated.View>
+
       <Animated.View
         style={{
           position: 'absolute',
-          left: sL, top: sT,
-          width: sW, height: sH,
+          left: sL,
+          top: sT,
+          width: sW,
+          height: sH,
           borderRadius: sR,
-          backgroundColor: '#C8F000',
+          backgroundColor: theme.colors.accent,
         }}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  centred: {
+  centered: {
     position: 'absolute',
-    top: 0, left: 0, right: 0, bottom: 0,
-    alignItems: 'center',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+
     justifyContent: 'center',
+    alignItems: 'center',
   },
-  logo: { width: LOGO_W, height: LOGO_H },
+
+  logo: {
+    width: LOGO_W,
+    height: LOGO_H,
+  },
 });
