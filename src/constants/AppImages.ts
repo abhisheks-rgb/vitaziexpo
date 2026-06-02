@@ -1,8 +1,14 @@
-export const AppImages = {
-  logoLight: require('../../assets/images/logo-light.png'),
-  logoDark: require('../../assets/images/logo-dark.png'),
+// import LogoDark from '../../assets/images/svg/logo-dark.svg';
 
-  onboarding1: require('../../assets/images/onboarding-1.png'),
-  onboarding2: require('../../assets/images/onboarding-2.png'),
-  onboarding3: require('../../assets/images/onboarding-3.png'),
+export const AppImages = {
+  placeholder: require('../../assets/images/png/image-placeholder.png'),
+
+  logoDark: require('../../assets/images/png/logo-dark.png'),
+  logoLight: require('../../assets/images/png/logo-light.png'),
+
+
+
+  onboarding1: require('../../assets/images/png/onboarding-1.png'),
+  onboarding2: require('../../assets/images/png/onboarding-2.png'),
+  onboarding3: require('../../assets/images/png/onboarding-3.png'),
 } as const;

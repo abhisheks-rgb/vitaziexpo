@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   Animated,
-  Image,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -18,6 +17,7 @@ import {
 import { useTheme } from '../../theme';
 import GradientText from '../../components/GradientText';
 import AppText from '../../components/AppText';
+import AppImage, { AppImageSource } from '../../components/AppImage';
 import { AppImages } from '../../constants';
 
 interface Props {
@@ -27,7 +27,7 @@ interface Props {
 interface Slide {
   title: string;
   subtitle: string;
-  image: any;
+  image: AppImageSource;
   imageScale?: number;
 }
 
@@ -123,7 +123,7 @@ export default function OnboardingScreen({ onFinish }: Props) {
         <View style={styles.container}>
           {/* Header */}
           <View style={[styles.topBar, styles.paddedRow]}>
-            <Image source={AppImages.logoDark} style={styles.logo} resizeMode="contain" />
+            <AppImage source={AppImages.logoDark} containerStyle={styles.logo} />
             <TouchableOpacity style={styles.skipButton} onPress={onFinish}>
               <AppText variant="body" style={styles.skip}>Skip</AppText>
             </TouchableOpacity>
@@ -144,10 +144,9 @@ export default function OnboardingScreen({ onFinish }: Props) {
             {slides.map((slide, idx) => (
               <View key={idx} style={styles.slide}>
                 <View style={styles.imageWrap}>
-                  <Image
+                  <AppImage
                     source={slide.image}
-                    resizeMode="contain"
-                    style={[
+                    containerStyle={[
                       styles.image,
                       { transform: [{ scale: slide.imageScale ?? 1 }] },
                     ]}
