@@ -36,7 +36,7 @@ const slides: Slide[] = [
     title: 'Access images of your eye.',
     subtitle: 'Your eye holds many clues to your health.',
     image: AppImages.onboarding1,
-    imageScale: 1.08,
+    imageScale: 0.92,
   },
   {
     title: 'Connected Health Platform',
