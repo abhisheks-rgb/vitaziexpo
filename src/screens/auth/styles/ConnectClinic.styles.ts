@@ -22,7 +22,7 @@ export const createStyles = (theme: Theme) =>
       paddingHorizontal: Spacing.md,
     },
 
-     topBar: {
+    topBar: {
         height: 44,
         justifyContent: 'center',
         marginTop: Spacing.sm,
