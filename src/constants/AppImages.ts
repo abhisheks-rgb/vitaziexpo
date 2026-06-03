@@ -11,6 +11,9 @@ export const AppImages = {
   onboarding2: require('../../assets/images/png/onboarding-2.png'),
   onboarding3: require('../../assets/images/png/onboarding-3.png'),
   eyeHero: require('../../assets/images/png/eye-hero.png'),
+  retinalImage: require('../../assets/images/png/retinal-image.jpg'),
+  avatar: require('../../assets/images/png/avatar.png'),
+  doctorAvatar: require('../../assets/images/png/doctor-avatar.png'),
 
   //SVG Images 
   scanQRTextIcon: ScanQRTextIcon,
