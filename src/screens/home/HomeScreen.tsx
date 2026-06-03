@@ -18,25 +18,49 @@ import { Colors } from '../../theme/colors';
 import { Spacing } from '../../theme/spacing';
 import { Radius } from '../../theme/radius';
 import type { HomeScreenProps } from '../../navigation/types';
+import { createHomeStyles } from './styles/Home.styles';
+import { createHeaderStyles } from './styles/HomeHeader.styles';
+import { createAppointmentStyles } from './styles/HomeAppointment.styles';
+import { quickActionsStyles } from './styles/HomeQuickActions.styles';
+import { clinicStyles } from './styles/HomeClinic.styles';
+import { screeningStyles } from './styles/HomeScreening.styles';
+import { useTranslation } from '../../hooks/useTranslation';
 
 // ─── Quick action data ─────────────────────────────────────────────────────────
 const QUICK_ACTIONS = [
-  { key: 'visits',    label: 'Visits',  icon: '📋' },
-  { key: 'appts',     label: 'Appts',   icon: '📅' },
-  { key: 'chat',      label: 'Chat',    icon: '💬' },
-  { key: 'ask_ai',    label: 'Ask AI',  icon: '🤖' },
+  { key: 'visits',    label: 'Visits',  icon: AppImages.report },
+  { key: 'appts',     label: 'Appts',   icon: AppImages.calendar },
+  { key: 'chat',      label: 'Chat',    icon: AppImages.chat },
+  { key: 'ask_ai',    label: 'Ask AI',  icon: AppImages.aiChat },
 ] as const;
 
 // ─── Appointment detail rows ───────────────────────────────────────────────────
-const APPT_DETAILS = [
-  { icon: '🗓', label: 'Date & Time',       value: 'Monday, 9 June 2026  •  12:30 PM' },
-  { icon: '📍', label: 'Macula & Retina Center', value: '3891 Ranchview, California 62839' },
-  { icon: '⚕️', label: 'Appointment Type',  value: 'Retinal screening — OD & OS' },
-] as const;
+const getApptDetails = (t: any) => [
+  {
+    icon: '🗓',
+    label: t('home.dateTime'),
+    value: 'Monday, 9 June 2026  •  12:30 PM',
+  },
+  {
+    icon: '📍',
+    label: t('home.location'),
+    value: '3891 Ranchview, California 62839',
+  },
+  {
+    icon: '⚕️',
+    label: t('home.appointmentType'),
+    value: 'Retinal screening — OD & OS',
+  },
+];
 
 export default function HomeScreen({ navigation }: HomeScreenProps) {
   const theme  = useTheme();
-  const styles = createStyles(theme);
+  const { t } = useTranslation();
+  const APPT_DETAILS = getApptDetails(t);
+
+const styles = createHomeStyles(theme);
+const headerStyles = createHeaderStyles(theme);
+const apptStyles = createAppointmentStyles(theme);
   const [activeTab, setActiveTab] = useState<TabKey>('home');
 
   return (
@@ -49,26 +73,28 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
       >
 
         {/* ── Header ── */}
-        <View style={styles.header}>
+        <View style={headerStyles.header}>
           <View>
-            <AppText variant="caption" style={styles.greeting} color={Colors.muted}>
-              Good Morning,
+            <AppText variant="caption" style={headerStyles.greeting} color={Colors.muted}>
+              {t('home.greetingMorning')}
             </AppText>
             <AppText variant="subtitle" color={theme.colors.text}>
               Betty Steward
             </AppText>
           </View>
-          <View style={styles.headerRight}>
-            <TouchableOpacity style={styles.iconBtn}>
-              <AppText style={styles.headerIcon}>🔍</AppText>
+          <View style={headerStyles.headerRight}>
+            <TouchableOpacity>
+              <AppImage source={AppImages.searchAi} containerStyle={headerStyles.headerIcon} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.iconBtn}>
-              <AppText style={styles.headerIcon}>🔔</AppText>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Notifications')}
+            >
+              <AppImage source={AppImages.notification} containerStyle={headerStyles.headerIcon} />  
             </TouchableOpacity>
             {/* Avatar */}
             <AppImage
               source={AppImages.avatar ?? AppImages.logoDark}
-              containerStyle={styles.avatar}
+              containerStyle={headerStyles.avatar}
               contentFit="cover"
               showLoader={false}
             />
@@ -76,35 +102,35 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
         </View>
 
         {/* ── Clinic banner ── */}
-        <Card elevated style={styles.clinicCard}>
-          <View style={styles.clinicRow}>
-            <View style={styles.clinicIconWrap}>
-              <AppText style={{ fontSize: 20 }}>🏥</AppText>
+        <Card elevated style={clinicStyles.clinicCard}>
+          <View style={clinicStyles.clinicRow}>
+            <View style={clinicStyles.clinicIconWrap}>
+              <AppImage source={AppImages.clinic}  />
             </View>
-            <View style={styles.clinicInfo}>
-              <AppText variant="caption" color={theme.colors.text} style={styles.clinicName}>
+            <View style={clinicStyles.clinicInfo}>
+              <AppText variant="caption" color={theme.colors.text} style={clinicStyles.clinicName}>
                 Macula & Retina Center
               </AppText>
-              <AppText variant="caption" color={Colors.muted} style={styles.clinicAddress}>
+              <AppText variant="caption" color={Colors.muted} style={clinicStyles.clinicAddress}>
                 3891 Ranchview, California 62839
               </AppText>
             </View>
-            <AppText variant="caption" color={Colors.muted} style={styles.visitCount}>
-              6 Visits
+            <AppText variant="caption" color={Colors.muted} style={clinicStyles.visitCount}>
+              6 {t('visits')}
             </AppText>
           </View>
         </Card>
 
         {/* ── Quick Actions ── */}
-        <View style={styles.quickActions}>
+        <View style={quickActionsStyles.quickActions}>
           {QUICK_ACTIONS.map(action => (
-            <TouchableOpacity key={action.key} style={styles.quickAction}>
-              <Card elevated style={styles.quickActionCard} noPadding>
-                <View style={styles.quickActionInner}>
-                  <AppText style={styles.quickActionIcon}>{action.icon}</AppText>
+            <TouchableOpacity key={action.key} style={quickActionsStyles.quickAction}>
+              <Card elevated style={quickActionsStyles.quickActionCard} noPadding>
+                <View style={quickActionsStyles.quickActionInner}>
+                  <AppImage source={action.icon} containerStyle={quickActionsStyles.quickActionIcon} />
                 </View>
               </Card>
-              <AppText variant="caption" color={theme.colors.text} style={styles.quickActionLabel}>
+              <AppText variant="caption" color={theme.colors.text} style={quickActionsStyles.quickActionLabel}>
                 {action.label}
               </AppText>
             </TouchableOpacity>
@@ -113,22 +139,22 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
 
         {/* ── Latest Screening ── */}
         <AppText variant="subtitle" color={theme.colors.text} style={styles.sectionTitle}>
-          Latest Screening
+          {t('home.latestScreening')}
         </AppText>
 
-        <Card elevated noPadding style={styles.screeningCard}>
+        <Card elevated noPadding style={screeningStyles.screeningCard}>
           {/* Retinal scan image */}
           <AppImage
             source={AppImages.retinalImage ?? AppImages.onboarding1}
-            containerStyle={styles.screeningImage}
+            containerStyle={screeningStyles.screeningImage}
             contentFit="cover"
             showLoader={false}
           />
 
           {/* Clinic + Visit Review row */}
-          <View style={styles.screeningFooter}>
-            <View style={styles.screeningFooterLeft}>
-              <AppText variant="caption" color={theme.colors.text} style={styles.screeningClinic}>
+          <View style={screeningStyles.screeningFooter}>
+            <View style={screeningStyles.screeningFooterLeft}>
+              <AppText variant="caption" color={theme.colors.text} style={screeningStyles.screeningClinic}>
                 Macula & Retina Center
               </AppText>
               <AppText variant="caption" color={Colors.muted}>
@@ -138,21 +164,21 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
 
             {/* Visit Review — rounded button with right-arrow icon */}
             <AppButton
-              title="Visit Review"
+              title={t('home.visitReview')}
               variant="rounded"
               size="sm"
               onPress={() => {}}
               rightIcon={
-                <View style={styles.arrowCircle}>
-                  <AppText style={styles.arrowText} color={Colors.navyDark}>›</AppText>
+                <View style={screeningStyles.arrowCircle}>
+                  <AppText style={screeningStyles.arrowText} color={Colors.navyDark}>›</AppText>
                 </View>
               }
             />
           </View>
 
           {/* Follow-up recommendation */}
-          <View style={styles.followUp}>
-            <AppText style={styles.followUpArrow}>↗</AppText>
+          <View style={screeningStyles.followUp}>
+            <AppText style={screeningStyles.followUpArrow}>↗</AppText>
             <AppText variant="caption" color={theme.colors.text}>
               Follow-up recommended in 6 months
             </AppText>
@@ -161,20 +187,20 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
 
         {/* ── Upcoming Appointment ── */}
         <AppText variant="subtitle" color={theme.colors.text} style={styles.sectionTitle}>
-          Upcoming Appointment
+          {t('home.upcomingAppointment')}
         </AppText>
 
-        <Card elevated style={styles.apptCard}>
+        <Card elevated style={apptStyles.apptCard}>
           {/* Doctor row */}
-          <View style={styles.doctorRow}>
+          <View style={apptStyles.doctorRow}>
             <AppImage
               source={AppImages.doctorAvatar ?? AppImages.onboarding2}
-              containerStyle={styles.doctorAvatar}
+              containerStyle={apptStyles.doctorAvatar}
               contentFit="cover"
               showLoader={false}
             />
             <View>
-              <AppText variant="caption" color={theme.colors.text} style={styles.doctorName}>
+              <AppText variant="caption" color={theme.colors.text} style={apptStyles.doctorName}>
                 Dr. Priya Patel
               </AppText>
               <AppText variant="caption" color={Colors.muted}>
@@ -184,16 +210,16 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
           </View>
 
           {/* Divider */}
-          <View style={styles.divider} />
+          <View style={apptStyles.divider} />
 
           {/* Detail rows */}
           {APPT_DETAILS.map((row, i) => (
-            <View key={i} style={styles.apptRow}>
-              <View style={styles.apptIconWrap}>
-                <AppText style={styles.apptIcon}>{row.icon}</AppText>
+            <View key={i} style={apptStyles.apptRow}>
+              <View style={apptStyles.apptIconWrap}>
+                <AppText style={apptStyles.apptIcon}>{row.icon}</AppText>
               </View>
-              <View style={styles.apptRowText}>
-                <AppText variant="caption" color={Colors.muted} style={styles.apptRowLabel}>
+              <View style={apptStyles.apptRowText}>
+                <AppText variant="caption" color={Colors.muted} style={apptStyles.apptRowLabel}>
                   {row.label}
                 </AppText>
                 <AppText variant="caption" color={theme.colors.text}>
@@ -212,220 +238,4 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
 
     </SafeAreaView>
   );
-}
-
-// ─── Styles ────────────────────────────────────────────────────────────────────
-function createStyles(theme: ReturnType<typeof useTheme>) {
-  return StyleSheet.create({
-    screen: {
-      flex: 1,
-      backgroundColor: theme.colors.background,
-    },
-    scroll: {
-      flex: 1,
-    },
-    scrollContent: {
-      paddingHorizontal: Spacing.md,
-      paddingTop: Spacing.sm,
-    },
-
-    // Header
-    header: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: Spacing.md,
-    },
-    greeting: {
-      fontSize: 13,
-    },
-    headerRight: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: Spacing.xs,
-    },
-    iconBtn: {
-      width: 36,
-      height: 36,
-      borderRadius: Radius.full,
-      backgroundColor: theme.colors.surface,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    headerIcon: {
-      fontSize: 16,
-    },
-    avatar: {
-      width: 36,
-      height: 36,
-      borderRadius: Radius.full,
-      marginLeft: Spacing.xs,
-    },
-
-    // Clinic card
-    clinicCard: {
-      marginBottom: Spacing.md,
-    },
-    clinicRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: Spacing.sm,
-    },
-    clinicIconWrap: {
-      width: 40,
-      height: 40,
-      borderRadius: Radius.md,
-      backgroundColor: `${Colors.skyBlue}22`,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    clinicInfo: {
-      flex: 1,
-    },
-    clinicName: {
-      fontWeight: '600',
-    },
-    clinicAddress: {
-      fontSize: 11,
-      marginTop: 1,
-    },
-    visitCount: {
-      fontSize: 11,
-    },
-
-    // Quick actions
-    quickActions: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      marginBottom: Spacing.md,
-    },
-    quickAction: {
-      alignItems: 'center',
-      gap: Spacing.xs,
-    },
-    quickActionCard: {
-      width: 60,
-      height: 60,
-      borderRadius: Radius.lg,
-    },
-    quickActionInner: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    quickActionIcon: {
-      fontSize: 24,
-    },
-    quickActionLabel: {
-      fontSize: 11,
-    },
-
-    // Section titles
-    sectionTitle: {
-      marginBottom: Spacing.sm,
-      fontSize: 16,
-    },
-
-    // Latest screening card
-    screeningCard: {
-      marginBottom: Spacing.md,
-      overflow: 'hidden',
-    },
-    screeningImage: {
-      width: '100%',
-      height: 160,
-      backgroundColor: '#111',
-    },
-    screeningFooter: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      padding: Spacing.md,
-    },
-    screeningFooterLeft: {
-      flex: 1,
-      gap: 2,
-    },
-    screeningClinic: {
-      fontWeight: '600',
-    },
-    arrowCircle: {
-      width: 18,
-      height: 18,
-      borderRadius: Radius.full,
-      backgroundColor: Colors.navyDark,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    arrowText: {
-      fontSize: 14,
-      lineHeight: 18,
-      fontWeight: '600',
-    },
-
-    // Follow-up banner
-    followUp: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: Spacing.xs,
-      backgroundColor: `${Colors.skyBlue}22`,
-      marginHorizontal: Spacing.md,
-      marginBottom: Spacing.md,
-      paddingHorizontal: Spacing.sm,
-      paddingVertical: Spacing.xs,
-      borderRadius: Radius.md,
-    },
-    followUpArrow: {
-      fontSize: 14,
-      color: Colors.navyDark,
-    },
-
-    // Upcoming appointment
-    apptCard: {
-      gap: Spacing.sm,
-    },
-    doctorRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: Spacing.sm,
-    },
-    doctorAvatar: {
-      width: 44,
-      height: 44,
-      borderRadius: Radius.full,
-    },
-    doctorName: {
-      fontWeight: '700',
-      fontSize: 14,
-    },
-    divider: {
-      height: 1,
-      backgroundColor: theme.colors.border,
-      marginVertical: Spacing.xs,
-    },
-    apptRow: {
-      flexDirection: 'row',
-      alignItems: 'flex-start',
-      gap: Spacing.sm,
-    },
-    apptIconWrap: {
-      width: 32,
-      height: 32,
-      borderRadius: Radius.md,
-      backgroundColor: theme.colors.surface,
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexShrink: 0,
-    },
-    apptIcon: {
-      fontSize: 14,
-    },
-    apptRowText: {
-      flex: 1,
-      gap: 1,
-    },
-    apptRowLabel: {
-      fontSize: 11,
-    },
-  });
 }

@@ -1,49 +1,87 @@
 {
-   "login":{
-      "title":"Login to Vitazi.ai",
-      "subtitle":"Securely continue your retinal health and care journey.",
-      "emailLabel":"Email Address",
-      "emailPlaceholder":"Enter your email ID",
-      "passwordLabel":"Password",
-      "passwordPlaceholder":"Enter password",
-      "rememberMe":"Remember Me",
-      "forgotPassword":"Forgot Password?",
-      "continue":"Continue",
-      "noAccount":"👤 Don't have account?"
-   },
-   "register": {
-      "title": "Register to Vitazi.ai",
-      "subtitle": "Complete the sign up request form below:",
-      "continue": "Continue"
-   },
-   "completeForm":{
-      "title":"Complete The Form Below to Finish Setting Up Your Account.",
-      "subtitle":"Enter your details to securely complete your account setup.",
-      "firstName":"First Name",
-      "firstNamePlaceholder":"Enter your first name",
-      "lastName":"Last Name",
-      "lastNamePlaceholder":"Enter your last name",
-      "dob":"Date of Birth",
-      "dobPlaceholder":"MM/DD/YYYY",
-      "password":"Password",
-      "passwordPlaceholder":"Enter password",
-      "confirmPassword":"Confirm Password",
-      "confirmPasswordPlaceholder":"Confirm password",
-      "submit":"Submit",
-      "consent":"I authorize Vitazi.ai Inc. to share my de-identified health information with third-party (such as research organizations) for purposes of medical research."
-   },
-   "connectClinic":{
-      "title":"Scan QR Code To Connect With Your Clinic",
-      "subtitle":"Scan the clinic QR code to securely connect your account and continue setup."
-   },
-   "qrScanner":{
-      "cameraPermission":"Camera permission required",
-      "hint":"Align QR code within the frame",
-      "rescan":"Rescan"
-   },
-   "continue":"Continue",
-    "needHelp": "❓ Need Help?",
-    "haveAccount": "👤 Have an account?",
-    "orgIdLabel": "Organization ID",
-    "orgIdPlaceholder": "Enter the organization ID"
+  "login": {
+    "title": "Login to Vitazi.ai",
+    "subtitle": "Securely continue your retinal health and care journey.",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "Enter your email ID",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter password",
+    "rememberMe": "Remember Me",
+    "forgotPassword": "Forgot Password?",
+    "continue": "Continue",
+    "noAccount": "👤 Don't have account?"
+  },
+  "register": {
+    "title": "Register to Vitazi.ai",
+    "subtitle": "Complete the sign up request form below:",
+    "continue": "Continue"
+  },
+  "completeForm": {
+    "title": "Complete The Form Below to Finish Setting Up Your Account.",
+    "subtitle": "Enter your details to securely complete your account setup.",
+    "firstName": "First Name",
+    "firstNamePlaceholder": "Enter your first name",
+    "lastName": "Last Name",
+    "lastNamePlaceholder": "Enter your last name",
+    "dob": "Date of Birth",
+    "dobPlaceholder": "MM/DD/YYYY",
+    "password": "Password",
+    "passwordPlaceholder": "Enter password",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Confirm password",
+    "submit": "Submit",
+    "consent": "I authorize Vitazi.ai Inc. to share my de-identified health information with third-party (such as research organizations) for purposes of medical research."
+  },
+  "connectClinic": {
+    "title": "Scan QR Code To Connect With Your Clinic",
+    "subtitle": "Scan the clinic QR code to securely connect your account and continue setup."
+  },
+  "qrScanner": {
+    "cameraPermission": "Camera permission required",
+    "hint": "Align QR code within the frame",
+    "rescan": "Rescan"
+  },
+  "home": {
+    "greetingMorning": "Good Morning,",
+    "greetingAfternoon": "Good Afternoon,",
+    "greetingEvening": "Good Evening,",
+ 
+    "quickActions": {
+      "visits": "Visits",
+      "appts": "Appts",
+      "chat": "Chat",
+      "askAi": "Ask AI"
+    },
+ 
+    "latestScreening": "Latest Screening",
+    "visitReview": "Visit Review",
+    "followUpRecommended": "Follow-up recommended in 6 months",
+ 
+    "upcomingAppointment": "Upcoming Appointment",
+    "dateTime": "Date & Time",
+    "appointmentType": "Appointment Type"
+  },
+  "tabs": {
+    "home": "Home",
+    "education": "Education",
+    "more": "More"
+  },
+  "notifications": {
+    "screenTitle": "Notifications",
+    "today": "Today",
+    "appointmentDetails": "Appointment Details",
+    "reschedule": "Reschedule",
+    "confirm": "Confirm",
+    "reminderNote": "{{days}} days away. A reminder will be sent again 1 day before your appointment.",
+    "arriveEarly": "Hi, you have an upcoming retinal screening appointment. Please arrive 10 minutes early and bring your insurance card.",
+    "dateTime": "Date & Time",
+    "location": "Location",
+    "appointmentType": "Appointment Type"
+  },
+  "continue": "Continue",
+  "needHelp": "❓ Need Help?",
+  "haveAccount": "👤 Have an account?",
+  "orgIdLabel": "Organization ID",
+  "orgIdPlaceholder": "Enter the organization ID",
+    "visits": "Visits"
 }

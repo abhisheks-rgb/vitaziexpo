@@ -15,6 +15,8 @@ export interface Theme {
     textMuted: string;
     border: string;
     accent: string;
+    accentLight: string;
+    limeAccent: string;
     primary: string;
     gradientStart: string;
     gradientEnd: string;
@@ -40,6 +42,8 @@ export const lightTheme: Theme = {
     border: '#E5E7EB',
 
     accent: Colors.accent,
+    accentLight: Colors.accentLight,
+    limeAccent: Colors.limeGreen,
     primary: Colors.navyDark,
 
     gradientStart: Colors.primaryGradientStart,
@@ -67,6 +71,8 @@ export const darkTheme: Theme = {
     border: '#2D2D2D',
 
     accent: Colors.accent,
+    accentLight: Colors.accentLight,
+    limeAccent: Colors.limeGreen,
     primary: Colors.white,
 
     gradientStart: Colors.primaryGradientStart,

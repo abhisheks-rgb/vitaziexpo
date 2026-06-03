@@ -7,6 +7,7 @@ export const Colors = {
   primaryGradientEnd: '#355FAA',
 
   accent: '#CBFD42',
+  accentLight: '#E6F7FF',
   limeGreen: '#CBFD42',
 
   // Base
