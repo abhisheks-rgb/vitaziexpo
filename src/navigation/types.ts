@@ -18,8 +18,6 @@ export type AuthStackParamList = {
   CompleteForm: { orgId: string };
 };
 
-// CompositeScreenProps gives each auth screen access to BOTH its own stack
-// AND the root stack — so navigation.navigate('App') is fully type-safe.
 export type LoginScreenProps = CompositeScreenProps<
   NativeStackScreenProps<AuthStackParamList, 'Login'>,
   NativeStackScreenProps<RootStackParamList>
@@ -49,9 +47,9 @@ export type CompleteFormScreenProps = CompositeScreenProps<
 export type AppStackParamList = {
   Home: undefined;
   Notifications: undefined;
-  NotificationDetail: {
-    notificationId: string;
-  };
+  NotificationDetail: { notificationId: string };
+  ClinicList: undefined;
+  ClinicVisits: { clinicId: string };
 };
 
 export type HomeScreenProps = NativeStackScreenProps<AppStackParamList, 'Home'>;
@@ -60,3 +58,5 @@ export type NotificationDetailScreenProps = NativeStackScreenProps<
   AppStackParamList,
   'NotificationDetail'
 >;
+export type ClinicListScreenProps = NativeStackScreenProps<AppStackParamList, 'ClinicList'>;
+export type ClinicVisitsScreenProps = NativeStackScreenProps<AppStackParamList, 'ClinicVisits'>;

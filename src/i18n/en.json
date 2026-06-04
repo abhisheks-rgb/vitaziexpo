@@ -83,5 +83,6 @@
   "haveAccount": "👤 Have an account?",
   "orgIdLabel": "Organization ID",
   "orgIdPlaceholder": "Enter the organization ID",
-  "visits": "Visits"
+  "visits": "Visits",
+  "yourClinics": "Your Clinics"
 }

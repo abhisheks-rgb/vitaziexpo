@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AppImage from '../../components/AppImage';
 import AppText from '../../components/AppText';
+import BackgroundBlobs from '../../components/BackgroundBlobs';
 import Card from '../../components/Card';
 import { AppImages } from '../../constants';
 import { useTranslation } from '../../hooks/useTranslation';
@@ -13,8 +14,6 @@ import { useTheme } from '../../theme';
 import { Colors } from '../../theme/colors';
 import { Spacing } from '../../theme/spacing';
 import BottomTabBar, { TabKey } from '../home/components/BottomTabBar';
-
-import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { createHomeStyles } from './styles/Home.styles';
 import { createAppointmentStyles } from './styles/HomeAppointment.styles';
 import { clinicStyles } from './styles/HomeClinic.styles';
@@ -59,6 +58,18 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
   const apptStyles = createAppointmentStyles(theme);
   const [activeTab, setActiveTab] = useState<TabKey>('home');
 
+  const handleTabPress = (key: TabKey) => {
+    setActiveTab(key);
+    switch (key) {
+      case 'visits':
+        navigation.navigate('ClinicList');
+        break;
+      // future tabs wired here
+      default:
+        break;
+    }
+  };
+
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
       <BackgroundBlobs />
@@ -84,7 +95,6 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
             <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
               <AppImage source={AppImages.notification} containerStyle={headerStyles.headerIcon} />
             </TouchableOpacity>
-            {/* Avatar */}
             <AppImage
               source={AppImages.avatar ?? AppImages.logoDark}
               containerStyle={headerStyles.avatar}
@@ -122,7 +132,13 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
         {/* ── Quick Actions ── */}
         <View style={quickActionsStyles.quickActions}>
           {QUICK_ACTIONS.map((action) => (
-            <TouchableOpacity key={action.key} style={quickActionsStyles.quickAction}>
+            <TouchableOpacity
+              key={action.key}
+              style={quickActionsStyles.quickAction}
+              onPress={() => {
+                if (action.key === 'visits') navigation.navigate('ClinicList');
+              }}
+            >
               <Card elevated style={quickActionsStyles.quickActionCard} noPadding>
                 <View style={quickActionsStyles.quickActionInner}>
                   <AppImage
@@ -148,15 +164,12 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
         </AppText>
 
         <Card elevated noPadding style={screeningStyles.screeningCard}>
-          {/* Retinal scan image */}
           <AppImage
             source={AppImages.retinalImage ?? AppImages.onboarding1}
             containerStyle={screeningStyles.screeningImage}
             contentFit="cover"
             showLoader={false}
           />
-
-          {/* Clinic + Visit Review row */}
           <View style={screeningStyles.screeningFooter}>
             <View style={screeningStyles.screeningFooterLeft}>
               <AppText
@@ -170,8 +183,6 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
                 Monday Jan 20, 2026
               </AppText>
             </View>
-
-            {/* Visit Review — rounded button with right-arrow icon */}
             <TouchableOpacity
               style={screeningStyles.visitReviewBtn}
               onPress={() => {}}
@@ -189,8 +200,6 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
               </View>
             </TouchableOpacity>
           </View>
-
-          {/* Follow-up recommendation */}
           <View style={screeningStyles.followUp}>
             <View style={screeningStyles.followUpIconCircle}>
               <Feather name="arrow-up-right" size={14} color={Colors.navyDark} />
@@ -207,7 +216,6 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
         </AppText>
 
         <Card elevated style={apptStyles.apptCard}>
-          {/* Doctor row */}
           <View style={apptStyles.doctorRow}>
             <AppImage
               source={AppImages.doctorAvatar ?? AppImages.onboarding2}
@@ -224,11 +232,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
               </AppText>
             </View>
           </View>
-
-          {/* Divider */}
           <View style={apptStyles.divider} />
-
-          {/* Detail rows */}
           {APPT_DETAILS.map((row, i) => (
             <View key={i} style={apptStyles.apptRow}>
               <View style={apptStyles.apptIconWrap}>
@@ -251,7 +255,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
 
       {/* ── Bottom Tab Bar ── */}
       <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
-        <BottomTabBar active={activeTab} onPress={setActiveTab} />
+        <BottomTabBar active={activeTab} onPress={handleTabPress} />
       </View>
     </SafeAreaView>
   );
