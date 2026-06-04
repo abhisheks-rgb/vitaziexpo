@@ -1,6 +1,7 @@
 // components/DetailRow.tsx
 import React from 'react';
 import { View } from 'react-native';
+
 import AppImage from '../../../components/AppImage';
 import AppText from '../../../components/AppText';
 import { useTheme } from '../../../theme';

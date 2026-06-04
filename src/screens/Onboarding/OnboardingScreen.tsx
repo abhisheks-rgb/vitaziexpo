@@ -10,7 +10,7 @@ import GradientText from '../../components/GradientText';
 import { AppImages } from '../../constants';
 import { useTheme } from '../../theme';
 
-import { createStyles, DOT_SIZE, STEP, PILL_WIDTH } from './styles';
+import { createStyles, DOT_SIZE, PILL_WIDTH, STEP } from './styles';
 
 interface Props {
   onFinish: () => void;
@@ -41,7 +41,7 @@ const slides: Slide[] = [
     title: 'Digital Wallet',
     subtitle: 'View encounters, track trends and share your data with health care professionals.',
     image: AppImages.onboarding3,
-    imageScale: 0.96,
+    imageScale: 1.08,
   },
 ];
 

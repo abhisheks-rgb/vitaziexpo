@@ -9,7 +9,7 @@
     "rememberMe": "Remember Me",
     "forgotPassword": "Forgot Password?",
     "continue": "Continue",
-    "noAccount": "👤 Don't have account?"
+    "noAccount": "Don't have account?"
   },
   "register": {
     "title": "Register to Vitazi.ai",
@@ -79,8 +79,8 @@
     "appointmentType": "Appointment Type"
   },
   "continue": "Continue",
-  "needHelp": "❓ Need Help?",
-  "haveAccount": "👤 Have an account?",
+  "needHelp": "Need Help?",
+  "haveAccount": "Have an account?",
   "orgIdLabel": "Organization ID",
   "orgIdPlaceholder": "Enter the organization ID",
   "visits": "Visits",

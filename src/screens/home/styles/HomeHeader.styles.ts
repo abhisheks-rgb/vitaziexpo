@@ -12,6 +12,10 @@ export const createHeaderStyles = (theme: Theme) =>
       alignItems: 'center',
       marginBottom: Spacing.md,
     },
+    name: {
+      ...theme.typography.title,
+      fontSize: 24,
+    },
     greeting: {
       fontSize: 13,
     },

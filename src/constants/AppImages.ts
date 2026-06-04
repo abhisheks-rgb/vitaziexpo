@@ -7,7 +7,9 @@ import chat from '../../assets/images/svg/chat.svg';
 import clinic from '../../assets/images/svg/clinic.svg';
 import clinicVector from '../../assets/images/svg/clinic_vector.svg';
 import doctorSethoscope from '../../assets/images/svg/doctor_sethoscope.svg';
+import haveAccount from '../../assets/images/svg/have_account.svg';
 import location from '../../assets/images/svg/location.svg';
+import needHelp from '../../assets/images/svg/need_help.svg';
 import Notification from '../../assets/images/svg/notification.svg';
 import notificationYellow from '../../assets/images/svg/notification_yellow.svg';
 import report from '../../assets/images/svg/report.svg';
@@ -16,6 +18,7 @@ import Scanner from '../../assets/images/svg/scanner.svg';
 import searchAi from '../../assets/images/svg/search_ai.svg';
 
 export const AppImages = {
+  //PNG Images
   placeholder: require('../../assets/images/png/image-placeholder.png'),
 
   logoDark: require('../../assets/images/png/logo-dark.png'),
@@ -46,4 +49,6 @@ export const AppImages = {
   doctorSethoscope: doctorSethoscope,
   location: location,
   calendarAppt: calendarAppt,
+  needHelp: needHelp,
+  haveAccount: haveAccount,
 } as const;

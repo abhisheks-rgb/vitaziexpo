@@ -20,8 +20,6 @@ import { useTranslation } from '../../hooks/useTranslation';
 import type { LoginScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
 import { Colors } from '../../theme/colors';
-import { Radius } from '../../theme/radius';
-import { Spacing } from '../../theme/spacing';
 
 import { createStyles } from './styles/Login.styles';
 
@@ -158,14 +156,23 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                 /* TODO: NeedHelp modal */
               }}
             >
-              <AppText variant="caption" color={Colors.navyDark}>
-                {t('needHelp')}
-              </AppText>
+              <View style={styles.footerIconText}>
+                <AppImage source={AppImages.needHelp} containerStyle={{ width: 24, height: 24 }} />
+                <AppText variant="caption" color={Colors.navyDark}>
+                  {t('needHelp')}
+                </AppText>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-              <AppText variant="caption" color={Colors.navyDark}>
-                {t('login.noAccount')}
-              </AppText>
+              <View style={styles.footerIconText}>
+                <AppImage
+                  source={AppImages.haveAccount}
+                  containerStyle={{ width: 24, height: 24 }}
+                />
+                <AppText variant="caption" color={Colors.navyDark}>
+                  {t('haveAccount')}
+                </AppText>
+              </View>
             </TouchableOpacity>
           </View>
         </ScrollView>

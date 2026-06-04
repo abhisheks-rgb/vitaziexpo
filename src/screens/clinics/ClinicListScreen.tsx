@@ -8,6 +8,7 @@ import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { useTranslation } from '../../hooks/useTranslation';
 import type { ClinicListScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
+
 import { clinics } from './data';
 import { createStyles } from './styles';
 

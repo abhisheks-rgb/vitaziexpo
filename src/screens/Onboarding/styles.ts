@@ -65,7 +65,8 @@ export const createStyles = (theme: Theme) =>
 
     image: {
       width: width * 0.86,
-      height: 300,
+      height: undefined,
+      aspectRatio: 1,
     },
 
     textWrap: {

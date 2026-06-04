@@ -31,13 +31,13 @@ export const createStyles = (theme: Theme) =>
     },
 
     heroTitle: {
-      fontSize: 24,
+      fontSize: 28,
       lineHeight: 32,
       fontWeight: '500',
     },
 
     heroSubtitle: {
-      color: Colors.skyBlue,
+      color: Colors.white,
       marginTop: Spacing.xs,
     },
 

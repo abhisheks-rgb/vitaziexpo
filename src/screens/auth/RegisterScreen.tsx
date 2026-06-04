@@ -1,6 +1,14 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState } from 'react';
-import { Image, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AppHeader from '../../components/AppHeader';
@@ -12,13 +20,9 @@ import { useTranslation } from '../../hooks/useTranslation';
 import type { RegisterScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
 import { Colors } from '../../theme/colors';
-import { Radius } from '../../theme/radius';
-import { Spacing } from '../../theme/spacing';
 
+import CardWithCutout from './components/CardWithCutout';
 import { createStyles } from './styles/Register.styles';
-
-const ICON_SIZE = 120;
-const OVERLAP = ICON_SIZE / 2;
 
 export default function RegisterScreen({ navigation }: RegisterScreenProps) {
   const theme = useTheme();
@@ -28,14 +32,15 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
 
   return (
     <View style={styles.screen}>
-      {/* ── Hero ── */}
-      <View style={styles.heroContainer}>
+      {/* BACKGROUND */}
+      <View style={StyleSheet.absoluteFill}>
         <AppImage
           source={AppImages.eyeHero}
           containerStyle={StyleSheet.absoluteFill}
           contentFit="cover"
           showLoader={false}
         />
+
         <LinearGradient
           colors={[
             theme.colors.gradientStart,
@@ -44,79 +49,104 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
           ]}
           style={StyleSheet.absoluteFill}
         />
-        <SafeAreaView edges={['top']} style={styles.heroInner}>
-          <AppHeader showLogo logoPosition="center" />
-          <View style={styles.heroText}>
-            <GradientText text={t('connectClinic.title')} style={styles.heroTitle} />
-            <AppText variant="caption" style={styles.heroSubtitle}>
-              {t('connectClinic.subtitle')}
-            </AppText>
-          </View>
-        </SafeAreaView>
       </View>
-
-      {/* ── Overlap zone: icon straddles hero/card boundary ── */}
-      <View style={styles.overlapZone}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('QRScanner', { source: 'register' })}
-          activeOpacity={0.85}
-          style={styles.scanBtn}
-        >
-          <AppImage
-            source={AppImages.scanQRTextIcon}
-            containerStyle={styles.scanIcon}
-            showLoader={false}
-          />
-        </TouchableOpacity>
-      </View>
-
-      {/* ── Card ── */}
-      <View style={styles.card}>
-        {/* Pushes content below the overlapping icon */}
-        <View style={{ height: OVERLAP + Spacing.md }} />
-
-        <AppText variant="caption" style={styles.label}>
-          {t('orgIdLabel')}
-        </AppText>
-        <TextInput
-          style={styles.input}
-          placeholder={t('orgIdPlaceholder')}
-          placeholderTextColor={theme.colors.textMuted}
-          autoCapitalize="characters"
-          value={orgId}
-          onChangeText={setOrgId}
-        />
-
-        <TouchableOpacity
-          style={styles.btnPrimary}
-          onPress={() => navigation.navigate('ConnectClinic', { orgId })}
-          activeOpacity={0.85}
-        >
-          <LinearGradient
-            colors={[Colors.navyDark, Colors.primaryGradientEnd]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={styles.btnGradient}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+      >
+        <SafeAreaView style={{ flex: 1 }}>
+          <ScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
           >
-            <AppText variant="button" color={Colors.white}>
-              {t('continue')}
-            </AppText>
-          </LinearGradient>
-        </TouchableOpacity>
+            {/* CONTENT */}
+            <SafeAreaView edges={['top']} style={styles.heroInner}>
+              <AppHeader showLogo logoPosition="center" />
 
-        <View style={styles.footerLinks}>
-          <TouchableOpacity>
-            <AppText variant="caption" color={Colors.navyDark}>
-              {t('needHelp')}
-            </AppText>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <AppText variant="caption" color={Colors.navyDark}>
-              {t('haveAccount')}
-            </AppText>
-          </TouchableOpacity>
-        </View>
-      </View>
+              <View style={styles.heroText}>
+                <GradientText text={t('connectClinic.title')} style={styles.heroTitle} />
+                <AppText variant="caption" style={styles.heroSubtitle}>
+                  {t('connectClinic.subtitle')}
+                </AppText>
+              </View>
+            </SafeAreaView>
+
+            {/* SCAN BUTTON */}
+            <View style={styles.scanAbsolute}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('QRScanner', { source: 'register' })}
+                activeOpacity={0.85}
+                style={styles.scanBtn}
+              >
+                <AppImage
+                  source={AppImages.scanQRTextIcon}
+                  containerStyle={styles.scanIcon}
+                  showLoader={false}
+                />
+              </TouchableOpacity>
+            </View>
+            {/* ── Card with transparent cut-out notch ── */}
+            <CardWithCutout>
+              <AppText variant="caption" style={styles.label}>
+                {t('orgIdLabel')}
+              </AppText>
+
+              <TextInput
+                style={styles.input}
+                placeholder={t('orgIdPlaceholder')}
+                placeholderTextColor={theme.colors.textMuted}
+                autoCapitalize="characters"
+                value={orgId}
+                onChangeText={setOrgId}
+              />
+
+              <TouchableOpacity
+                style={styles.btnPrimary}
+                onPress={() => navigation.navigate('ConnectClinic', { orgId })}
+                activeOpacity={0.85}
+              >
+                <LinearGradient
+                  colors={[Colors.navyDark, Colors.primaryGradientEnd]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 0 }}
+                  style={styles.btnGradient}
+                >
+                  <AppText variant="button" color={Colors.white}>
+                    {t('continue')}
+                  </AppText>
+                </LinearGradient>
+              </TouchableOpacity>
+
+              <View style={[styles.row, styles.footerLinks]}>
+                <TouchableOpacity>
+                  <View style={styles.footerIconText}>
+                    <AppImage
+                      source={AppImages.needHelp}
+                      containerStyle={{ width: 24, height: 24 }}
+                    />
+                    <AppText variant="caption" color={Colors.navyDark}>
+                      {t('needHelp')}
+                    </AppText>
+                  </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                  <View style={styles.footerIconText}>
+                    <AppImage
+                      source={AppImages.haveAccount}
+                      containerStyle={{ width: 24, height: 24 }}
+                    />
+                    <AppText variant="caption" color={Colors.navyDark}>
+                      {t('haveAccount')}
+                    </AppText>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </CardWithCutout>
+          </ScrollView>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
     </View>
   );
 }

@@ -5,12 +5,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AppHeader from '../../components/AppHeader';
 import AppImage from '../../components/AppImage';
 import AppText from '../../components/AppText';
-import { NotificationDetailScreenProps } from '../../navigation/types';
-import { useTheme } from '../../theme';
-
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { AppImages } from '../../constants';
 import { useTranslation } from '../../hooks/useTranslation';
+import { NotificationDetailScreenProps } from '../../navigation/types';
+import { useTheme } from '../../theme';
+
 import DetailRow from './components/DetailRow';
 import { appointmentDetails } from './data';
 import { createDetailStyles } from './styles/NotificationDetail.styles';
