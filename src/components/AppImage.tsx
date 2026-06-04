@@ -1,19 +1,9 @@
-import React, { useState } from 'react';
-import {
-  ActivityIndicator,
-  StyleProp,
-  StyleSheet,
-  View,
-  ViewStyle,
-} from 'react-native';
 import { Image, ImageSource } from 'expo-image';
+import React, { useState } from 'react';
+import { ActivityIndicator, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 
-export type AppImageSource =
-  | string
-  | number
-  | ImageSource
-  | React.ComponentType<SvgProps>;
+export type AppImageSource = string | number | ImageSource | React.ComponentType<SvgProps>;
 
 interface AppImageProps {
   source: AppImageSource;
@@ -49,11 +39,7 @@ const AppImage: React.FC<AppImageProps> = ({
   }
 
   const imageSource =
-    hasError && placeholder
-      ? placeholder
-      : typeof source === 'string'
-      ? { uri: source }
-      : source;
+    hasError && placeholder ? placeholder : typeof source === 'string' ? { uri: source } : source;
 
   return (
     <View style={[styles.container, containerStyle]}>

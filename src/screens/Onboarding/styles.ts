@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
+
 import { Theme } from '../../theme';
 
 const { width } = Dimensions.get('window');
@@ -52,7 +53,7 @@ export const createStyles = (theme: Theme) =>
     slide: {
       flex: 1,
       alignItems: 'center',
-      paddingHorizontal: theme.spacing.lg
+      paddingHorizontal: theme.spacing.lg,
     },
 
     imageWrap: {

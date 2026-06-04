@@ -1,24 +1,16 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Animated,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Animated, TouchableOpacity, View } from 'react-native';
 import PagerView from 'react-native-pager-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { LinearGradient } from 'expo-linear-gradient';
 
-import {
-  createStyles,
-  DOT_SIZE,
-  STEP,
-  PILL_WIDTH,
-} from './styles';
-import { useTheme } from '../../theme';
-import GradientText from '../../components/GradientText';
-import AppText from '../../components/AppText';
 import AppImage, { AppImageSource } from '../../components/AppImage';
+import AppText from '../../components/AppText';
+import GradientText from '../../components/GradientText';
 import { AppImages } from '../../constants';
+import { useTheme } from '../../theme';
+
+import { createStyles, DOT_SIZE, STEP, PILL_WIDTH } from './styles';
 
 interface Props {
   onFinish: () => void;
@@ -47,16 +39,14 @@ const slides: Slide[] = [
   },
   {
     title: 'Digital Wallet',
-    subtitle:
-      'View encounters, track trends and share your data with health care professionals.',
+    subtitle: 'View encounters, track trends and share your data with health care professionals.',
     image: AppImages.onboarding3,
     imageScale: 0.96,
   },
 ];
 
 // Center the pill over the dot at given index
-const pillTargetX = (i: number) =>
-  i * STEP + DOT_SIZE / 2 - PILL_WIDTH / 2;
+const pillTargetX = (i: number) => i * STEP + DOT_SIZE / 2 - PILL_WIDTH / 2;
 
 export default function OnboardingScreen({ onFinish }: Props) {
   const theme = useTheme();
@@ -125,7 +115,9 @@ export default function OnboardingScreen({ onFinish }: Props) {
           <View style={[styles.topBar, styles.paddedRow]}>
             <AppImage source={AppImages.logoDark} containerStyle={styles.logo} />
             <TouchableOpacity style={styles.skipButton} onPress={onFinish}>
-              <AppText variant="body" style={styles.skip}>Skip</AppText>
+              <AppText variant="body" style={styles.skip}>
+                Skip
+              </AppText>
             </TouchableOpacity>
           </View>
 
@@ -135,7 +127,7 @@ export default function OnboardingScreen({ onFinish }: Props) {
             style={styles.content}
             initialPage={0}
             overScrollMode="never"
-            onPageSelected={e => {
+            onPageSelected={(e) => {
               const page = e.nativeEvent.position;
               setIndex(page);
               animateIndicator(page);
@@ -182,7 +174,9 @@ export default function OnboardingScreen({ onFinish }: Props) {
           <View style={[styles.nav, styles.paddedRow]}>
             {index > 0 ? (
               <TouchableOpacity onPress={goBack}>
-                <AppText variant="body" style={styles.back}>{'< Back'}</AppText>
+                <AppText variant="body" style={styles.back}>
+                  {'< Back'}
+                </AppText>
               </TouchableOpacity>
             ) : (
               <View style={{ width: 80 }} />
@@ -194,7 +188,6 @@ export default function OnboardingScreen({ onFinish }: Props) {
             </TouchableOpacity>
           </View>
         </View>
-
       </SafeAreaView>
     </LinearGradient>
   );

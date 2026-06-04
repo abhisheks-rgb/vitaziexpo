@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+
 import { Typography } from './typography';
 
 export const GlobalStyles = StyleSheet.create({

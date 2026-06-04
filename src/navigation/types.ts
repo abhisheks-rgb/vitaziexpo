@@ -48,6 +48,15 @@ export type CompleteFormScreenProps = CompositeScreenProps<
 // ─── App (authenticated) stack ─────────────────────────────────────────────────
 export type AppStackParamList = {
   Home: undefined;
+  Notifications: undefined;
+  NotificationDetail: {
+    notificationId: string;
+  };
 };
 
 export type HomeScreenProps = NativeStackScreenProps<AppStackParamList, 'Home'>;
+export type NotificationsScreenProps = NativeStackScreenProps<AppStackParamList, 'Notifications'>;
+export type NotificationDetailScreenProps = NativeStackScreenProps<
+  AppStackParamList,
+  'NotificationDetail'
+>;

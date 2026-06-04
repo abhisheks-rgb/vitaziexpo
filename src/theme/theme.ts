@@ -3,9 +3,9 @@
 import { useColorScheme } from 'react-native';
 
 import { Colors } from './colors';
+import { Radius } from './radius';
 import { Spacing } from './spacing';
 import { Typography } from './typography';
-import { Radius } from './radius';
 
 export interface Theme {
   colors: {
@@ -15,6 +15,8 @@ export interface Theme {
     textMuted: string;
     border: string;
     accent: string;
+    accentLight: string;
+    limeAccent: string;
     primary: string;
     gradientStart: string;
     gradientEnd: string;
@@ -37,14 +39,16 @@ export const lightTheme: Theme = {
     text: Colors.navyDark,
     textMuted: Colors.muted,
 
-    border: '#E5E7EB',
+    border: Colors.border,
 
     accent: Colors.accent,
+    accentLight: Colors.accentLight,
+    limeAccent: Colors.limeGreen,
     primary: Colors.navyDark,
 
     gradientStart: Colors.primaryGradientStart,
     gradientEnd: Colors.primaryGradientEnd,
-    
+
     gradientTextStart: Colors.primaryGradientTextStart,
     gradientTextEnd: Colors.primaryTextGradientTextEnd,
   },
@@ -64,9 +68,11 @@ export const darkTheme: Theme = {
     text: Colors.white,
     textMuted: '#9CA3AF',
 
-    border: '#2D2D2D',
+    border: Colors.borderDark,
 
     accent: Colors.accent,
+    accentLight: Colors.accentLight,
+    limeAccent: Colors.limeGreen,
     primary: Colors.white,
 
     gradientStart: Colors.primaryGradientStart,
@@ -86,7 +92,5 @@ export const darkTheme: Theme = {
 export const useTheme = (): Theme => {
   const scheme = useColorScheme();
 
-  return scheme === 'dark'
-    ? darkTheme
-    : lightTheme;
+  return scheme === 'dark' ? darkTheme : lightTheme;
 };

@@ -1,38 +1,33 @@
-import React, { useState } from 'react';
-import {
-  Image,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
+import React, { useState } from 'react';
+import { Image, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { useTheme } from '../../theme';
-import AppText from '../../components/AppText';
+import AppHeader from '../../components/AppHeader';
 import AppImage from '../../components/AppImage';
-import { AppImages } from '../../constants';
-import { Colors } from '../../theme/colors';
-import { Spacing } from '../../theme/spacing';
-import { Radius } from '../../theme/radius';
-import type { RegisterScreenProps } from '../../navigation/types';
-import { useTranslation } from '../../hooks/useTranslation';
-import { createStyles } from './styles/Register.styles';
+import AppText from '../../components/AppText';
 import GradientText from '../../components/GradientText';
+import { AppImages } from '../../constants';
+import { useTranslation } from '../../hooks/useTranslation';
+import type { RegisterScreenProps } from '../../navigation/types';
+import { useTheme } from '../../theme';
+import { Colors } from '../../theme/colors';
+import { Radius } from '../../theme/radius';
+import { Spacing } from '../../theme/spacing';
+
+import { createStyles } from './styles/Register.styles';
 
 const ICON_SIZE = 120;
-const OVERLAP   = ICON_SIZE / 2;
+const OVERLAP = ICON_SIZE / 2;
 
 export default function RegisterScreen({ navigation }: RegisterScreenProps) {
-  const theme  = useTheme();
+  const theme = useTheme();
   const styles = createStyles(theme);
   const { t } = useTranslation();
   const [orgId, setOrgId] = useState('');
 
   return (
     <View style={styles.screen}>
-
       {/* ── Hero ── */}
       <View style={styles.heroContainer}>
         <AppImage
@@ -50,16 +45,9 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
           style={StyleSheet.absoluteFill}
         />
         <SafeAreaView edges={['top']} style={styles.heroInner}>
-          <View style={styles.logoWrap}>
-            <AppImage
-              source={AppImages.logoDark}
-              containerStyle={styles.logo}
-              contentFit="contain"
-              showLoader={false}
-            />
-          </View>
+          <AppHeader showLogo logoPosition="center" />
           <View style={styles.heroText}>
-            <GradientText text={t('connectClinic.title')} style={styles.heroTitle}/>
+            <GradientText text={t('connectClinic.title')} style={styles.heroTitle} />
             <AppText variant="caption" style={styles.heroSubtitle}>
               {t('connectClinic.subtitle')}
             </AppText>
@@ -110,20 +98,25 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
             end={{ x: 1, y: 0 }}
             style={styles.btnGradient}
           >
-            <AppText variant="button" color={Colors.white}>{t('continue')}</AppText>
+            <AppText variant="button" color={Colors.white}>
+              {t('continue')}
+            </AppText>
           </LinearGradient>
         </TouchableOpacity>
 
         <View style={styles.footerLinks}>
           <TouchableOpacity>
-            <AppText variant="caption" color={Colors.navyDark}>{t('needHelp')}</AppText>
+            <AppText variant="caption" color={Colors.navyDark}>
+              {t('needHelp')}
+            </AppText>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <AppText variant="caption" color={Colors.navyDark}>{t('haveAccount')}</AppText>
+            <AppText variant="caption" color={Colors.navyDark}>
+              {t('haveAccount')}
+            </AppText>
           </TouchableOpacity>
         </View>
       </View>
-
     </View>
   );
 }

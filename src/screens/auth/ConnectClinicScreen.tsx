@@ -1,33 +1,33 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { LinearGradient } from 'expo-linear-gradient';
 
-import { useTheme } from '../../theme';
-import AppText from '../../components/AppText';
+import AppHeader from '../../components/AppHeader';
 import AppImage from '../../components/AppImage';
-import { AppImages } from '../../constants';
-import { Colors } from '../../theme/colors';
-import { Spacing } from '../../theme/spacing';
-import { Radius } from '../../theme/radius';
-import type { ConnectClinicScreenProps } from '../../navigation/types';
-import { useTranslation } from '../../hooks/useTranslation';
-import { createStyles } from './styles/ConnectClinic.styles';
+import AppText from '../../components/AppText';
 import GradientText from '../../components/GradientText';
-import BackButton from '../../components/BackButton';
+import { AppImages } from '../../constants';
+import { useTranslation } from '../../hooks/useTranslation';
+import type { ConnectClinicScreenProps } from '../../navigation/types';
+import { useTheme } from '../../theme';
+import { Colors } from '../../theme/colors';
+import { Radius } from '../../theme/radius';
+import { Spacing } from '../../theme/spacing';
+
+import { createStyles } from './styles/ConnectClinic.styles';
 
 const ICON_SIZE = 120;
-const OVERLAP   = ICON_SIZE / 2;
+const OVERLAP = ICON_SIZE / 2;
 
 export default function ConnectClinicScreen({ navigation, route }: ConnectClinicScreenProps) {
-  const theme  = useTheme();
+  const theme = useTheme();
   const styles = createStyles(theme);
   const { t } = useTranslation();
   const { orgId } = route.params;
 
   return (
     <View style={styles.screen}>
-
       {/* ── Hero ── */}
       <View style={styles.heroContainer}>
         <AppImage
@@ -45,24 +45,16 @@ export default function ConnectClinicScreen({ navigation, route }: ConnectClinic
           style={StyleSheet.absoluteFill}
         />
         <SafeAreaView edges={['top']} style={styles.heroInner}>
-          <View style={styles.topBar}>
-            <BackButton onPress={() => navigation.goBack()} />
+          <AppHeader
+            showBackButton={true}
+            showLogo
+            logoPosition="center"
+            onBackPress={() => navigation.goBack()}
+          />
 
-            {/* Absolute Center Logo */}
-            <View style={styles.logoAbsolute}>
-              <AppImage
-                source={AppImages.logoDark}
-                containerStyle={styles.logo}
-                contentFit="contain"
-                showLoader={false}
-              />
-            </View>
-          </View>
-          
           <View style={styles.heroText}>
-            <GradientText text={t('connectClinic.title')} style={styles.heroTitle}/>
-             
-            
+            <GradientText text={t('connectClinic.title')} style={styles.heroTitle} />
+
             <AppText variant="caption" style={styles.heroSubtitle}>
               {t('connectClinic.subtitle')}
             </AppText>
@@ -109,19 +101,21 @@ export default function ConnectClinicScreen({ navigation, route }: ConnectClinic
             end={{ x: 1, y: 0 }}
             style={styles.btnGradient}
           >
-            <AppText variant="button" color={Colors.white}>{t('continue')}</AppText>
+            <AppText variant="button" color={Colors.white}>
+              {t('continue')}
+            </AppText>
           </LinearGradient>
         </TouchableOpacity>
 
         <View style={styles.footerLinks}>
-          <TouchableOpacity>
-          </TouchableOpacity>
+          <TouchableOpacity></TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <AppText variant="caption" color={Colors.navyDark}>{t('haveAccount')}</AppText>
+            <AppText variant="caption" color={Colors.navyDark}>
+              {t('haveAccount')}
+            </AppText>
           </TouchableOpacity>
         </View>
       </View>
-
     </View>
   );
 }

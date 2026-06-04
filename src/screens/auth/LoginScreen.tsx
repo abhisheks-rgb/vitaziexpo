@@ -1,3 +1,4 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState } from 'react';
 import {
   KeyboardAvoidingView,
@@ -9,19 +10,20 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { LinearGradient } from 'expo-linear-gradient';
 
-import { useTheme } from '../../theme';
-import AppText from '../../components/AppText';
+import AppHeader from '../../components/AppHeader';
 import AppImage from '../../components/AppImage';
-import { AppImages } from '../../constants';
-import { Colors } from '../../theme/colors';
-import { Spacing } from '../../theme/spacing';
-import { Radius } from '../../theme/radius';
-import type { LoginScreenProps } from '../../navigation/types';
-import { createStyles } from './styles/Login.styles';
-import { useTranslation } from '../../hooks/useTranslation';
+import AppText from '../../components/AppText';
 import GradientText from '../../components/GradientText';
+import { AppImages } from '../../constants';
+import { useTranslation } from '../../hooks/useTranslation';
+import type { LoginScreenProps } from '../../navigation/types';
+import { useTheme } from '../../theme';
+import { Colors } from '../../theme/colors';
+import { Radius } from '../../theme/radius';
+import { Spacing } from '../../theme/spacing';
+
+import { createStyles } from './styles/Login.styles';
 
 export default function LoginScreen({ navigation }: LoginScreenProps) {
   const theme = useTheme();
@@ -56,17 +58,10 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           style={StyleSheet.absoluteFill}
         />
         <SafeAreaView edges={['top']} style={styles.heroInner}>
-          <View style={styles.logoWrap}>
-            <AppImage
-              source={AppImages.logoDark}
-              containerStyle={styles.logo}
-              contentFit="contain"
-              showLoader={false}
-            />
-          </View>
+          <AppHeader showLogo logoPosition="center" />
           <View style={styles.heroText}>
             <GradientText text={t('login.title')} style={styles.heroTitle} />
-           
+
             <AppText variant="caption" style={styles.heroSubtitle}>
               {t('login.subtitle')}
             </AppText>
@@ -108,10 +103,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
               value={password}
               onChangeText={setPassword}
             />
-            <TouchableOpacity
-              style={styles.eyeBtn}
-              onPress={() => setShowPassword(v => !v)}
-            >
+            <TouchableOpacity style={styles.eyeBtn} onPress={() => setShowPassword((v) => !v)}>
               <AppText variant="caption" color={Colors.muted}>
                 {showPassword ? '🙈' : '👁'}
               </AppText>
@@ -119,10 +111,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           </View>
 
           <View style={styles.row}>
-            <TouchableOpacity
-              style={styles.checkRow}
-              onPress={() => setRememberMe(v => !v)}
-            >
+            <TouchableOpacity style={styles.checkRow} onPress={() => setRememberMe((v) => !v)}>
               <View style={[styles.checkbox, rememberMe && styles.checkboxActive]}>
                 {rememberMe && (
                   <AppText variant="caption" color={Colors.white} style={styles.checkMark}>
@@ -135,7 +124,11 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
               </AppText>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => {/* TODO: ForgotPassword screen */}}>
+            <TouchableOpacity
+              onPress={() => {
+                /* TODO: ForgotPassword screen */
+              }}
+            >
               <AppText variant="caption" color={Colors.navyDark} style={styles.forgot}>
                 {t('login.forgotPassword')}
               </AppText>
@@ -144,7 +137,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
 
           <TouchableOpacity
             style={styles.btnPrimary}
-            onPress={() => navigation.navigate('App')}  // valid: CompositeScreenProps includes RootStackParamList
+            onPress={() => navigation.navigate('App')} // valid: CompositeScreenProps includes RootStackParamList
             activeOpacity={0.85}
           >
             <LinearGradient
@@ -160,7 +153,11 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           </TouchableOpacity>
 
           <View style={[styles.row, styles.footerLinks]}>
-            <TouchableOpacity onPress={() => {/* TODO: NeedHelp modal */}}>
+            <TouchableOpacity
+              onPress={() => {
+                /* TODO: NeedHelp modal */
+              }}
+            >
               <AppText variant="caption" color={Colors.navyDark}>
                 {t('needHelp')}
               </AppText>

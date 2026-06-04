@@ -7,6 +7,7 @@ export const Colors = {
   primaryGradientEnd: '#355FAA',
 
   accent: '#CBFD42',
+  accentLight: '#E6F7FF',
   limeGreen: '#CBFD42',
 
   // Base
@@ -27,4 +28,7 @@ export const Colors = {
 
   primaryGradientTextStart: '#AFFFFF',
   primaryTextGradientTextEnd: '#CBFD42',
+
+  border: '#0099E8',
+  borderDark: '#2D2D2D',
 } as const;

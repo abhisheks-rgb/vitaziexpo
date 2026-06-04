@@ -1,8 +1,8 @@
+import { NavigationContainer } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useColorScheme } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { useFonts } from 'expo-font';
-import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { AppFontAssets } from './src/constants';
