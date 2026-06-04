@@ -1,37 +1,33 @@
+import { Feather } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { useTheme } from '../../theme';
-import AppText from '../../components/AppText';
 import AppImage from '../../components/AppImage';
-import AppButton from '../../components/AppButton';
+import AppText from '../../components/AppText';
 import Card from '../../components/Card';
-import BottomTabBar, { TabKey } from '../home/components/BottomTabBar';
 import { AppImages } from '../../constants';
+import { useTranslation } from '../../hooks/useTranslation';
+import type { HomeScreenProps } from '../../navigation/types';
+import { useTheme } from '../../theme';
 import { Colors } from '../../theme/colors';
 import { Spacing } from '../../theme/spacing';
-import { Radius } from '../../theme/radius';
-import type { HomeScreenProps } from '../../navigation/types';
+import BottomTabBar, { TabKey } from '../home/components/BottomTabBar';
+
+import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { createHomeStyles } from './styles/Home.styles';
-import { createHeaderStyles } from './styles/HomeHeader.styles';
 import { createAppointmentStyles } from './styles/HomeAppointment.styles';
-import { quickActionsStyles } from './styles/HomeQuickActions.styles';
 import { clinicStyles } from './styles/HomeClinic.styles';
+import { createHeaderStyles } from './styles/HomeHeader.styles';
+import { quickActionsStyles } from './styles/HomeQuickActions.styles';
 import { screeningStyles } from './styles/HomeScreening.styles';
-import { useTranslation } from '../../hooks/useTranslation';
 
 // ─── Quick action data ─────────────────────────────────────────────────────────
 const QUICK_ACTIONS = [
-  { key: 'visits',    label: 'Visits',  icon: AppImages.report },
-  { key: 'appts',     label: 'Appts',   icon: AppImages.calendar },
-  { key: 'chat',      label: 'Chat',    icon: AppImages.chat },
-  { key: 'ask_ai',    label: 'Ask AI',  icon: AppImages.aiChat },
+  { key: 'visits', label: 'Visits', icon: AppImages.report },
+  { key: 'appts', label: 'Appts', icon: AppImages.calendar },
+  { key: 'chat', label: 'Chat', icon: AppImages.chat },
+  { key: 'ask_ai', label: 'Ask AI', icon: AppImages.aiChat },
 ] as const;
 
 // ─── Appointment detail rows ───────────────────────────────────────────────────
@@ -54,24 +50,23 @@ const getApptDetails = (t: any) => [
 ];
 
 export default function HomeScreen({ navigation }: HomeScreenProps) {
-  const theme  = useTheme();
+  const theme = useTheme();
   const { t } = useTranslation();
   const APPT_DETAILS = getApptDetails(t);
 
-const styles = createHomeStyles(theme);
-const headerStyles = createHeaderStyles(theme);
-const apptStyles = createAppointmentStyles(theme);
+  const styles = createHomeStyles(theme);
+  const headerStyles = createHeaderStyles(theme);
+  const apptStyles = createAppointmentStyles(theme);
   const [activeTab, setActiveTab] = useState<TabKey>('home');
 
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
-
+      <BackgroundBlobs />
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-
         {/* ── Header ── */}
         <View style={headerStyles.header}>
           <View>
@@ -86,10 +81,8 @@ const apptStyles = createAppointmentStyles(theme);
             <TouchableOpacity>
               <AppImage source={AppImages.searchAi} containerStyle={headerStyles.headerIcon} />
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Notifications')}
-            >
-              <AppImage source={AppImages.notification} containerStyle={headerStyles.headerIcon} />  
+            <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
+              <AppImage source={AppImages.notification} containerStyle={headerStyles.headerIcon} />
             </TouchableOpacity>
             {/* Avatar */}
             <AppImage
@@ -105,7 +98,12 @@ const apptStyles = createAppointmentStyles(theme);
         <Card elevated style={clinicStyles.clinicCard}>
           <View style={clinicStyles.clinicRow}>
             <View style={clinicStyles.clinicIconWrap}>
-              <AppImage source={AppImages.clinic}  />
+              <AppImage
+                source={AppImages.clinic}
+                containerStyle={{ width: 40, height: 40 }}
+                contentFit="contain"
+                showLoader={false}
+              />
             </View>
             <View style={clinicStyles.clinicInfo}>
               <AppText variant="caption" color={theme.colors.text} style={clinicStyles.clinicName}>
@@ -123,14 +121,21 @@ const apptStyles = createAppointmentStyles(theme);
 
         {/* ── Quick Actions ── */}
         <View style={quickActionsStyles.quickActions}>
-          {QUICK_ACTIONS.map(action => (
+          {QUICK_ACTIONS.map((action) => (
             <TouchableOpacity key={action.key} style={quickActionsStyles.quickAction}>
               <Card elevated style={quickActionsStyles.quickActionCard} noPadding>
                 <View style={quickActionsStyles.quickActionInner}>
-                  <AppImage source={action.icon} containerStyle={quickActionsStyles.quickActionIcon} />
+                  <AppImage
+                    source={action.icon}
+                    containerStyle={quickActionsStyles.quickActionIcon}
+                  />
                 </View>
               </Card>
-              <AppText variant="caption" color={theme.colors.text} style={quickActionsStyles.quickActionLabel}>
+              <AppText
+                variant="caption"
+                color={theme.colors.text}
+                style={quickActionsStyles.quickActionLabel}
+              >
                 {action.label}
               </AppText>
             </TouchableOpacity>
@@ -154,7 +159,11 @@ const apptStyles = createAppointmentStyles(theme);
           {/* Clinic + Visit Review row */}
           <View style={screeningStyles.screeningFooter}>
             <View style={screeningStyles.screeningFooterLeft}>
-              <AppText variant="caption" color={theme.colors.text} style={screeningStyles.screeningClinic}>
+              <AppText
+                variant="caption"
+                color={theme.colors.text}
+                style={screeningStyles.screeningClinic}
+              >
                 Macula & Retina Center
               </AppText>
               <AppText variant="caption" color={Colors.muted}>
@@ -163,24 +172,31 @@ const apptStyles = createAppointmentStyles(theme);
             </View>
 
             {/* Visit Review — rounded button with right-arrow icon */}
-            <AppButton
-              title={t('home.visitReview')}
-              variant="rounded"
-              size="sm"
+            <TouchableOpacity
+              style={screeningStyles.visitReviewBtn}
               onPress={() => {}}
-              rightIcon={
-                <View style={screeningStyles.arrowCircle}>
-                  <AppText style={screeningStyles.arrowText} color={Colors.navyDark}>›</AppText>
-                </View>
-              }
-            />
+              activeOpacity={0.8}
+            >
+              <AppText
+                variant="caption"
+                color={Colors.white}
+                style={{ fontWeight: '600', marginRight: 6 }}
+              >
+                {t('home.visitReview')}
+              </AppText>
+              <View style={screeningStyles.visitReviewArrow}>
+                <Feather name="chevron-right" size={12} color={Colors.navyDark} />
+              </View>
+            </TouchableOpacity>
           </View>
 
           {/* Follow-up recommendation */}
           <View style={screeningStyles.followUp}>
-            <AppText style={screeningStyles.followUpArrow}>↗</AppText>
-            <AppText variant="caption" color={theme.colors.text}>
-              Follow-up recommended in 6 months
+            <View style={screeningStyles.followUpIconCircle}>
+              <Feather name="arrow-up-right" size={14} color={Colors.navyDark} />
+            </View>
+            <AppText variant="caption" color={theme.colors.text} style={{ fontWeight: '600' }}>
+              {t('home.followUpRecommended')}
             </AppText>
           </View>
         </Card>
@@ -234,8 +250,9 @@ const apptStyles = createAppointmentStyles(theme);
       </ScrollView>
 
       {/* ── Bottom Tab Bar ── */}
-      <BottomTabBar active={activeTab} onPress={setActiveTab} />
-
+      <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
+        <BottomTabBar active={activeTab} onPress={setActiveTab} />
+      </View>
     </SafeAreaView>
   );
 }

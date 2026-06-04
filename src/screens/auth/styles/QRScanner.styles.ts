@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { Theme } from '../../../theme/theme';
+
 import { Colors } from '../../../theme/colors';
-import { Spacing } from '../../../theme/spacing';
 import { Radius } from '../../../theme/radius';
+import { Spacing } from '../../../theme/spacing';
+import { Theme } from '../../../theme/theme';
 
 const VIEWFINDER_SIZE = 240;
 const CORNER_SIZE = 28;
@@ -28,25 +29,6 @@ export const createStyles = (theme: Theme) =>
 
     safeArea: {
       flex: 1,
-    },
-
-   topBar: {
-        height: 44,
-        justifyContent: 'center',
-        marginTop: Spacing.sm,
-    },
-
-    logoAbsolute: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    logo: {
-        height: 32,
-        width: 120,
     },
 
     viewfinderWrap: {

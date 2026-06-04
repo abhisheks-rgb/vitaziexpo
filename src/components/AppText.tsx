@@ -1,20 +1,9 @@
 import React from 'react';
-import {
-  Text,
-  TextProps,
-  StyleProp,
-  TextStyle,
-} from 'react-native';
+import { Text, TextProps, StyleProp, TextStyle } from 'react-native';
 
 import { useTheme } from '../theme';
 
-type Variant =
-  | 'titleXL'
-  | 'title'
-  | 'subtitle'
-  | 'body'
-  | 'caption'
-  | 'button';
+type Variant = 'titleXL' | 'title' | 'subtitle' | 'body' | 'caption' | 'button';
 
 interface Props extends TextProps {
   variant?: Variant;
@@ -22,13 +11,7 @@ interface Props extends TextProps {
   style?: StyleProp<TextStyle>;
 }
 
-export default function AppText({
-  variant = 'body',
-  color,
-  style,
-  children,
-  ...rest
-}: Props) {
+export default function AppText({ variant = 'body', color, style, children, ...rest }: Props) {
   const theme = useTheme();
 
   return (
@@ -37,9 +20,7 @@ export default function AppText({
       style={[
         theme.typography[variant],
         {
-          color:
-            color ??
-            theme.colors.text,
+          color: color ?? theme.colors.text,
         },
         style,
       ]}

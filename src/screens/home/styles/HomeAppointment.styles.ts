@@ -1,8 +1,9 @@
 // styles/HomeAppointment.styles.ts
 import { StyleSheet } from 'react-native';
-import { Theme } from '../../../theme/theme';
-import { Spacing } from '../../../theme/spacing';
+
 import { Radius } from '../../../theme/radius';
+import { Spacing } from '../../../theme/spacing';
+import { Theme } from '../../../theme/theme';
 
 export const createAppointmentStyles = (theme: Theme) =>
   StyleSheet.create({

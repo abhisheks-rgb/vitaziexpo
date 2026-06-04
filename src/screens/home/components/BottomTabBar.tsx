@@ -1,46 +1,33 @@
+import { Feather } from '@expo/vector-icons';
+import { BlurView } from 'expo-blur';
 import React from 'react';
-import {
-  Dimensions,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import Svg, { Path } from 'react-native-svg';
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import AppText from '../../../components/AppText';
 import AppImage from '../../../components/AppImage';
+import AppText from '../../../components/AppText';
 import { AppImages } from '../../../constants';
-import { Colors } from '../../../theme/colors';
-import { Radius } from '../../../theme/radius';
-import { Spacing } from '../../../theme/spacing';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { Colors } from '../../../theme/colors';
 
 export type TabKey = 'home' | 'visits' | 'fab' | 'education' | 'more';
 
 interface TabItem {
   key: Exclude<TabKey, 'fab'>;
   label: string;
-  icon: keyof typeof AppImages;
+  icon: string;
 }
 
 const { width: SCREEN_W } = Dimensions.get('window');
 
-// Curve geometry
-const BAR_H    = 64;
-const NOTCH_W  = 80;
-const NOTCH_D  = 32;
-const CX       = SCREEN_W / 2;
-
-const barPath = [
-  `M0,0`,
-  `L${CX - NOTCH_W / 2},0`,
-  `C${CX - NOTCH_W / 4},0 ${CX - NOTCH_W / 4},${NOTCH_D} ${CX},${NOTCH_D}`,
-  `C${CX + NOTCH_W / 4},${NOTCH_D} ${CX + NOTCH_W / 4},0 ${CX + NOTCH_W / 2},0`,
-  `L${SCREEN_W},0`,
-  `L${SCREEN_W},${BAR_H}`,
-  `L0,${BAR_H}`,
-  `Z`,
-].join(' ');
+const BAR_H = 90;
+const FAB_SIZE = 64;
+const FAB_RING = 6;
+const FAB_TOTAL = FAB_SIZE + FAB_RING * 2;
+const FAB_OVERHANG = FAB_TOTAL / 2 - BAR_H / 2 + 8; // how much FAB sticks above bar
+const CONTAINER_H = BAR_H + FAB_OVERHANG;
+const H_MARGIN = 0; // gap from screen edges
+const PILL_RADIUS = BAR_H / 2; // full pill — radius = half height
+const CX = SCREEN_W / 2;
 
 interface Props {
   active: TabKey;
@@ -50,75 +37,72 @@ interface Props {
 export default function BottomTabBar({ active, onPress }: Props) {
   const { t } = useTranslation();
 
-  // ✅ Dynamic tabs using i18
   const LEFT_TABS: TabItem[] = [
-    { key: 'home', label: t('tabs.home'), icon: 'logoDark' },
-    { key: 'visits', label: t('visits'), icon: 'onboarding1' },
+    { key: 'home', label: t('tabs.home'), icon: 'home' },
+    { key: 'visits', label: t('visits'), icon: 'file-text' },
   ];
-
   const RIGHT_TABS: TabItem[] = [
-    { key: 'education', label: t('tabs.education'), icon: 'onboarding2' },
-    { key: 'more', label: t('tabs.more'), icon: 'onboarding3' },
+    { key: 'education', label: t('tabs.education'), icon: 'play-circle' },
+    { key: 'more', label: t('tabs.more'), icon: 'more-horizontal' },
   ];
 
   return (
-    <View style={styles.wrapper}>
-      {/* Background */}
-      <Svg
-        width={SCREEN_W}
-        height={BAR_H}
-        style={StyleSheet.absoluteFill}
-        pointerEvents="none"
-      >
-        <Path d={barPath} fill={Colors.white} />
-      </Svg>
+    <View style={[styles.wrapper, { height: CONTAINER_H }]}>
+      {/* ── Pill glass bar ── */}
+      <View style={styles.pill}>
+        {/* Blur layer */}
+        <BlurView
+          intensity={60}
+          tint="light"
+          style={[StyleSheet.absoluteFill, { borderRadius: PILL_RADIUS, overflow: 'hidden' }]}
+        />
+        {/* White tint over blur — uniform across full bar */}
+        <View style={styles.pillTint} />
 
-      {/* Border */}
-      <View style={styles.borderLeft} pointerEvents="none" />
-      <View style={styles.borderRight} pointerEvents="none" />
-
-      {/* Left tabs */}
-      <View style={styles.side}>
-        {LEFT_TABS.map(tab => (
-          <TabButton
-            key={tab.key}
-            tab={tab}
-            active={active === tab.key}
-            onPress={() => onPress(tab.key)}
-          />
-        ))}
+        {/* Tab rows */}
+        <View style={styles.tabRow}>
+          <View style={styles.side}>
+            {LEFT_TABS.map((tab) => (
+              <TabButton
+                key={tab.key}
+                tab={tab}
+                active={active === tab.key}
+                onPress={() => onPress(tab.key)}
+              />
+            ))}
+          </View>
+          {/* FAB spacer */}
+          <View style={{ width: FAB_TOTAL + 8 }} />
+          <View style={styles.side}>
+            {RIGHT_TABS.map((tab) => (
+              <TabButton
+                key={tab.key}
+                tab={tab}
+                active={active === tab.key}
+                onPress={() => onPress(tab.key)}
+              />
+            ))}
+          </View>
+        </View>
       </View>
 
-      {/* FAB */}
+      {/* ── FAB — floats above pill, centred ── */}
       <TouchableOpacity
-        style={styles.fab}
+        style={[styles.fabRing, { left: CX - FAB_TOTAL / 2, top: 0 }]}
         onPress={() => onPress('fab')}
         activeOpacity={0.85}
       >
         <AppImage
           source={AppImages.aiBottom}
-          containerStyle={styles.fabIcon}
+          containerStyle={styles.fabImage}
           contentFit="contain"
           showLoader={false}
         />
       </TouchableOpacity>
-
-      {/* Right tabs */}
-      <View style={styles.side}>
-        {RIGHT_TABS.map(tab => (
-          <TabButton
-            key={tab.key}
-            tab={tab}
-            active={active === tab.key}
-            onPress={() => onPress(tab.key)}
-          />
-        ))}
-      </View>
     </View>
   );
 }
 
-// ─── Tab Button ───────────────────────────────────────────────────────────────
 function TabButton({
   tab,
   active,
@@ -130,15 +114,7 @@ function TabButton({
 }) {
   return (
     <TouchableOpacity style={styles.tab} onPress={onPress} activeOpacity={0.7}>
-      <AppImage
-        source={AppImages[tab.icon]}
-        containerStyle={[
-          styles.tabIcon,
-          { opacity: active ? 1 : 0.45 },
-        ]}
-        contentFit="contain"
-        showLoader={false}
-      />
+      <Feather name={tab.icon as any} size={22} color={active ? Colors.navyDark : Colors.muted} />
       <AppText
         variant="caption"
         color={active ? Colors.navyDark : Colors.muted}
@@ -146,83 +122,83 @@ function TabButton({
       >
         {tab.label}
       </AppText>
-      {active && <View style={styles.activeDot} />}
     </TouchableOpacity>
   );
 }
 
-// ─── Styles ───────────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
   wrapper: {
     width: SCREEN_W,
-    height: BAR_H + Spacing.md,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    paddingTop: 4,
     backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
 
-  borderLeft: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: CX - NOTCH_W / 2,
-    height: 1,
-    backgroundColor: '#E5E7EB',
+  // The pill — sits at bottom of wrapper
+  pill: {
+    width: SCREEN_W - H_MARGIN * 2,
+    height: BAR_H,
+    borderRadius: PILL_RADIUS,
+    overflow: 'hidden',
+    // Border
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.55)',
+    // Shadow so pill lifts off content
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.12,
+    shadowRadius: 16,
+    elevation: 8,
   },
-  borderRight: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    width: CX - NOTCH_W / 2,
-    height: 1,
-    backgroundColor: '#E5E7EB',
+
+  // Semi-transparent white tint — same density everywhere
+  pillTint: {
+    ...StyleSheet.absoluteFill,
+    backgroundColor: 'rgba(255,255,255,0.45)',
+  },
+
+  tabRow: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 
   side: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingTop: Spacing.xs,
   },
 
   tab: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: 4,
-    gap: 2,
-  },
-  tabIcon: {
-    width: 22,
-    height: 22,
-  },
-  tabLabel: {
-    fontSize: 10,
-    marginTop: 1,
-  },
-  activeDot: {
-    width: 4,
-    height: 4,
-    borderRadius: Radius.full,
-    backgroundColor: Colors.navyDark,
-    marginTop: 2,
+    gap: 3,
+    paddingVertical: 8,
   },
 
-  fab: {
-    width: 56,
-    height: 56,
-    borderRadius: Radius.full,
-    marginTop: -(56 / 2 + 4),
-    alignSelf: 'flex-start',
-    shadowColor: Colors.navyDark,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 8,
+  tabLabel: {
+    fontSize: 10,
   },
-  fabIcon: {
-    width: 56,
-    height: 56,
-    borderRadius: Radius.full,
+
+  // White ring around FAB
+  fabRing: {
+    position: 'absolute',
+    width: FAB_TOTAL,
+    height: FAB_TOTAL,
+    borderRadius: FAB_TOTAL / 2,
+    backgroundColor: Colors.white,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.18,
+    shadowRadius: 12,
+    elevation: 12,
+  },
+
+  fabImage: {
+    width: FAB_SIZE,
+    height: FAB_SIZE,
+    borderRadius: FAB_SIZE / 2,
   },
 });

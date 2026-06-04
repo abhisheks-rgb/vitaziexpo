@@ -1,15 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import {
-  Animated,
-  Dimensions,
-  Easing,
-  Image,
-  StyleSheet,
-} from 'react-native';
+import { Animated, Dimensions, Easing, Image, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { useTheme } from '../theme';
 import { AppImages } from '../constants';
+import { useTheme } from '../theme';
 
 const { width, height } = Dimensions.get('window');
 
@@ -52,11 +46,7 @@ export default function SplashScreen({ onFinish }: Props) {
   const logoOpacity = useRef(new Animated.Value(0)).current;
   const logoScale = useRef(new Animated.Value(0.94)).current;
 
-  const animateLayout = (
-    value: Animated.Value,
-    toValue: number,
-    duration: number,
-  ) =>
+  const animateLayout = (value: Animated.Value, toValue: number, duration: number) =>
     Animated.timing(value, {
       toValue,
       duration,
@@ -64,11 +54,7 @@ export default function SplashScreen({ onFinish }: Props) {
       useNativeDriver: false,
     });
 
-  const animateNative = (
-    value: Animated.Value,
-    toValue: number,
-    duration: number,
-  ) =>
+  const animateNative = (value: Animated.Value, toValue: number, duration: number) =>
     Animated.timing(value, {
       toValue,
       duration,
@@ -91,20 +77,11 @@ export default function SplashScreen({ onFinish }: Props) {
         animateLayout(sR, PILL_H / 2, 600),
       ]),
 
-      Animated.parallel([
-        animateLayout(sW, BIG_DOT, 420),
-        animateLayout(sT, bigDotTop, 420),
-      ]),
+      Animated.parallel([animateLayout(sW, BIG_DOT, 420), animateLayout(sT, bigDotTop, 420)]),
 
-      Animated.parallel([
-        animateLayout(sL, BIG_LAND_L, 700),
-        animateLayout(sT, BIG_LAND_T, 700),
-      ]),
+      Animated.parallel([animateLayout(sL, BIG_LAND_L, 700), animateLayout(sT, BIG_LAND_T, 700)]),
 
-      Animated.parallel([
-        animateNative(logoOpacity, 1, 380),
-        animateNative(logoScale, 1, 380),
-      ]),
+      Animated.parallel([animateNative(logoOpacity, 1, 380), animateNative(logoScale, 1, 380)]),
 
       Animated.parallel([
         animateLayout(sW, SMALL_DOT, 480),
@@ -114,10 +91,7 @@ export default function SplashScreen({ onFinish }: Props) {
         animateLayout(sR, SMALL_DOT / 2, 480),
       ]),
 
-      Animated.parallel([
-        animateLayout(sW, 0, 150),
-        animateLayout(sH, 0, 150),
-      ]),
+      Animated.parallel([animateLayout(sW, 0, 150), animateLayout(sH, 0, 150)]),
 
       Animated.delay(1600),
 
@@ -144,11 +118,7 @@ export default function SplashScreen({ onFinish }: Props) {
         ]}
       >
         <Image
-          source={
-            theme.isDark
-              ? AppImages.logoDark
-              : AppImages.logoLight
-          }
+          source={theme.isDark ? AppImages.logoDark : AppImages.logoLight}
           style={styles.logo}
           resizeMode="contain"
         />

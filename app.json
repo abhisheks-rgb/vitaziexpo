@@ -19,9 +19,6 @@
         "backgroundColor": "#C8F000"
       }
     },
-    "plugins": [
-      "expo-font",
-      "expo-image"
-    ]
+    "plugins": ["expo-font", "expo-image"]
   }
 }

@@ -1,8 +1,9 @@
 // styles/HomeScreening.styles.ts
 import { StyleSheet } from 'react-native';
+
 import { Colors } from '../../../theme/colors';
-import { Spacing } from '../../../theme/spacing';
 import { Radius } from '../../../theme/radius';
+import { Spacing } from '../../../theme/spacing';
 
 export const screeningStyles = StyleSheet.create({
   screeningCard: {
@@ -40,19 +41,41 @@ export const screeningStyles = StyleSheet.create({
     lineHeight: 18,
     fontWeight: '600',
   },
+  // In screeningStyles:
   followUp: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.xs,
-    backgroundColor: `${Colors.skyBlue}22`,
+    backgroundColor: `${Colors.skyBlue}20`, // ~12% opacity light blue
     marginHorizontal: Spacing.md,
     marginBottom: Spacing.md,
     paddingHorizontal: Spacing.sm,
-    paddingVertical: Spacing.xs,
+    paddingVertical: 8,
     borderRadius: Radius.md,
   },
-  followUpArrow: {
-    fontSize: 14,
-    color: Colors.navyDark,
+  followUpIconCircle: {
+    width: 24,
+    height: 24,
+    borderRadius: Radius.sm,
+    backgroundColor: Colors.white,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  // Add to screeningStyles:
+  visitReviewBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Colors.navyDark,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: Radius.full,
+  },
+  visitReviewArrow: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: Colors.white,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

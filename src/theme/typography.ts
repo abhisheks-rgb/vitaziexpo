@@ -1,4 +1,4 @@
-import { AppFonts } from "../constants/AppFonts";
+import { AppFonts } from '../constants/AppFonts';
 
 export const Typography = {
   titleXL: {

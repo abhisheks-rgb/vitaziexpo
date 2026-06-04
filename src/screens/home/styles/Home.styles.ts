@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { Theme } from '../../../theme/theme';
+
 import { Spacing } from '../../../theme/spacing';
+import { Theme } from '../../../theme/theme';
 
 export const createHomeStyles = (theme: Theme) =>
   StyleSheet.create({
@@ -14,6 +15,7 @@ export const createHomeStyles = (theme: Theme) =>
     scrollContent: {
       paddingHorizontal: Spacing.md,
       paddingTop: Spacing.sm,
+      paddingBottom: 100,
     },
     sectionTitle: {
       marginBottom: Spacing.sm,

@@ -22,18 +22,15 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import AppText from './AppText';
+
 import { useTheme } from '../theme';
 import { Colors } from '../theme/colors';
 import { Radius } from '../theme/radius';
 import { Spacing } from '../theme/spacing';
 
-export type ButtonVariant =
-  | 'filled'
-  | 'outline'
-  | 'ghost'
-  | 'rounded'
-  | 'roundedOutline';
+import AppText from './AppText';
+
+export type ButtonVariant = 'filled' | 'outline' | 'ghost' | 'rounded' | 'roundedOutline';
 
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
@@ -80,13 +77,13 @@ export default function AppButton({
 }: Props) {
   const theme = useTheme();
 
-  const isFilled   = variant === 'filled'  || variant === 'rounded';
-  const isOutline  = variant === 'outline' || variant === 'roundedOutline';
-  const isPill     = variant === 'rounded' || variant === 'roundedOutline';
+  const isFilled = variant === 'filled' || variant === 'rounded';
+  const isOutline = variant === 'outline' || variant === 'roundedOutline';
+  const isPill = variant === 'rounded' || variant === 'roundedOutline';
 
-  const bgColor    = isFilled ? Colors.accent : 'transparent';
-  const textColor  = isFilled ? Colors.navyDark : Colors.accent;
-  const radius     = isPill ? Radius.full : Radius.xl;
+  const bgColor = isFilled ? Colors.accent : 'transparent';
+  const textColor = isFilled ? Colors.navyDark : Colors.accent;
+  const radius = isPill ? Radius.full : Radius.xl;
 
   return (
     <TouchableOpacity

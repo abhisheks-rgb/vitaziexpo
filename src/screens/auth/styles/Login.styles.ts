@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { Theme } from '../../../theme/theme';
+
 import { Colors } from '../../../theme/colors';
-import { Spacing } from '../../../theme/spacing';
 import { Radius } from '../../../theme/radius';
+import { Spacing } from '../../../theme/spacing';
+import { Theme } from '../../../theme/theme';
 
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
@@ -20,24 +21,13 @@ export const createStyles = (theme: Theme) =>
       paddingHorizontal: Spacing.md,
     },
 
-    logoWrap: {
-      width: '100%',
-      alignItems: 'center',
-      marginTop: Spacing.sm,
-    },
-
-    logo: {
-      height: 32,
-      width: 120,
-    },
-
     heroText: {
       marginTop: Spacing.md,
     },
 
     heroTitle: {
-       fontSize: 24,
-      lineHeight: 32,   
+      fontSize: 24,
+      lineHeight: 32,
       fontWeight: '500',
     },
 

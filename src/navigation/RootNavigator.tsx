@@ -1,19 +1,18 @@
-import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-
-import type { RootStackParamList } from './types';
+import React from 'react';
 
 // These screens use onFinish — we bridge via the children render prop
-import SplashScreen from '../screens/SplashScreen';
 import OnboardingScreen from '../screens/Onboarding/OnboardingScreen';
+import SplashScreen from '../screens/SplashScreen';
 
-import AuthNavigator from './AuthNavigator';
 import AppNavigator from './AppNavigator';
+import AuthNavigator from './AuthNavigator';
+import type { RootStackParamList } from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-type SplashProps     = NativeStackScreenProps<RootStackParamList, 'Splash'>;
+type SplashProps = NativeStackScreenProps<RootStackParamList, 'Splash'>;
 type OnboardingProps = NativeStackScreenProps<RootStackParamList, 'Onboarding'>;
 
 export default function RootNavigator() {
@@ -37,7 +36,7 @@ export default function RootNavigator() {
 
       {/* Standard navigator screens */}
       <Stack.Screen name="Auth" component={AuthNavigator} />
-      <Stack.Screen name="App"  component={AppNavigator} />
+      <Stack.Screen name="App" component={AppNavigator} />
     </Stack.Navigator>
   );
 }

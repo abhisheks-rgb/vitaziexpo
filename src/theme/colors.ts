@@ -28,4 +28,7 @@ export const Colors = {
 
   primaryGradientTextStart: '#AFFFFF',
   primaryTextGradientTextEnd: '#CBFD42',
+
+  border: '#0099E8',
+  borderDark: '#2D2D2D',
 } as const;

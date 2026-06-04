@@ -45,18 +45,18 @@
     "greetingMorning": "Good Morning,",
     "greetingAfternoon": "Good Afternoon,",
     "greetingEvening": "Good Evening,",
- 
+
     "quickActions": {
       "visits": "Visits",
       "appts": "Appts",
       "chat": "Chat",
       "askAi": "Ask AI"
     },
- 
+
     "latestScreening": "Latest Screening",
     "visitReview": "Visit Review",
     "followUpRecommended": "Follow-up recommended in 6 months",
- 
+
     "upcomingAppointment": "Upcoming Appointment",
     "dateTime": "Date & Time",
     "appointmentType": "Appointment Type"
@@ -72,7 +72,7 @@
     "appointmentDetails": "Appointment Details",
     "reschedule": "Reschedule",
     "confirm": "Confirm",
-    "reminderNote": "{{days}} days away. A reminder will be sent again 1 day before your appointment.",
+    "reminderNote": "%{days} days away. A reminder will be sent again 1 day before your appointment.",
     "arriveEarly": "Hi, you have an upcoming retinal screening appointment. Please arrive 10 minutes early and bring your insurance card.",
     "dateTime": "Date & Time",
     "location": "Location",
@@ -83,5 +83,5 @@
   "haveAccount": "👤 Have an account?",
   "orgIdLabel": "Organization ID",
   "orgIdPlaceholder": "Enter the organization ID",
-    "visits": "Visits"
+  "visits": "Visits"
 }

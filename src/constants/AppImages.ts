@@ -1,14 +1,19 @@
-import ScanQRTextIcon from '../../assets/images/svg/scan_qr_text_icon.svg';
-import Scanner from '../../assets/images/svg/scanner.svg';
-import Notification from '../../assets/images/svg/notification.svg';
-import searchAi from '../../assets/images/svg/search_ai.svg';
-import clinic from '../../assets/images/svg/clinic.svg';
 import aiBottom from '../../assets/images/svg/ai_bottom.svg';
 import aiChat from '../../assets/images/svg/ai_chat.svg';
-import chat from '../../assets/images/svg/chat.svg';
-import clinicVector from '../../assets/images/svg/clinic_vector.svg';
+import arrowForward from '../../assets/images/svg/arrow_forward.svg';
 import calendar from '../../assets/images/svg/calendar.svg';
+import calendarAppt from '../../assets/images/svg/calendar_appt.svg';
+import chat from '../../assets/images/svg/chat.svg';
+import clinic from '../../assets/images/svg/clinic.svg';
+import clinicVector from '../../assets/images/svg/clinic_vector.svg';
+import doctorSethoscope from '../../assets/images/svg/doctor_sethoscope.svg';
+import location from '../../assets/images/svg/location.svg';
+import Notification from '../../assets/images/svg/notification.svg';
+import notificationYellow from '../../assets/images/svg/notification_yellow.svg';
 import report from '../../assets/images/svg/report.svg';
+import ScanQRTextIcon from '../../assets/images/svg/scan_qr_text_icon.svg';
+import Scanner from '../../assets/images/svg/scanner.svg';
+import searchAi from '../../assets/images/svg/search_ai.svg';
 
 export const AppImages = {
   placeholder: require('../../assets/images/png/image-placeholder.png'),
@@ -24,7 +29,7 @@ export const AppImages = {
   avatar: require('../../assets/images/png/avatar.png'),
   doctorAvatar: require('../../assets/images/png/doctor-avatar.png'),
 
-  //SVG Images 
+  //SVG Images
   scanQRTextIcon: ScanQRTextIcon,
   scanner: Scanner,
   notification: Notification,
@@ -36,5 +41,9 @@ export const AppImages = {
   clinicVector: clinicVector,
   calendar: calendar,
   report: report,
-
+  notificationYellow: notificationYellow,
+  arrowForward: arrowForward,
+  doctorSethoscope: doctorSethoscope,
+  location: location,
+  calendarAppt: calendarAppt,
 } as const;

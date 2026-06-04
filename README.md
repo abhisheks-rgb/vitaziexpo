@@ -15,6 +15,7 @@ npx expo start
 That's it! No Xcode build needed, no pod install, no Metro setup.
 
 ## Notes
+
 - Press 'i' for iOS simulator
 - Press 'a' for Android
 - Shake simulator (Cmd+Ctrl+Z) to reload

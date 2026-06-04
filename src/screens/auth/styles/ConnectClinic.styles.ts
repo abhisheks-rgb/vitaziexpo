@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { Theme } from '../../../theme/theme';
+
 import { Colors } from '../../../theme/colors';
-import { Spacing } from '../../../theme/spacing';
 import { Radius } from '../../../theme/radius';
+import { Spacing } from '../../../theme/spacing';
+import { Theme } from '../../../theme/theme';
 
 const ICON_SIZE = 120;
 
@@ -22,33 +23,13 @@ export const createStyles = (theme: Theme) =>
       paddingHorizontal: Spacing.md,
     },
 
-    topBar: {
-        height: 44,
-        justifyContent: 'center',
-        marginTop: Spacing.sm,
-    },
-
-    logoAbsolute: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    logo: {
-        height: 32,
-        width: 120,
-    },
-
-
     heroText: {
       marginTop: Spacing.md,
     },
 
     heroTitle: {
-       fontSize: 24,
-      lineHeight: 32,   
+      fontSize: 24,
+      lineHeight: 32,
       fontWeight: '500',
     },
 

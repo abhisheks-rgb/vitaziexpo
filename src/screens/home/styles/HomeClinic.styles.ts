@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
+
 import { Colors } from '../../../theme/colors';
-import { Spacing } from '../../../theme/spacing';
 import { Radius } from '../../../theme/radius';
+import { Spacing } from '../../../theme/spacing';
 
 export const clinicStyles = StyleSheet.create({
   clinicCard: {
@@ -12,13 +13,14 @@ export const clinicStyles = StyleSheet.create({
     alignItems: 'center',
     gap: Spacing.sm,
   },
+  // clinicStyles
   clinicIconWrap: {
-    width: 40,
-    height: 40,
+    width: 44,
+    height: 44,
     borderRadius: Radius.md,
-    backgroundColor: `${Colors.skyBlue}22`,
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
   },
   clinicInfo: {
     flex: 1,

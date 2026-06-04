@@ -1,19 +1,20 @@
+import { CameraView, useCameraPermissions } from 'expo-camera';
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { CameraView, useCameraPermissions } from 'expo-camera';
 
-import { useTheme } from '../../theme';
+import AppHeader from '../../components/AppHeader';
+import AppImage from '../../components/AppImage';
 import AppText from '../../components/AppText';
 import { AppImages } from '../../constants';
-import { Colors } from '../../theme/colors';
-import { Spacing } from '../../theme/spacing';
-import { Radius } from '../../theme/radius';
-import type { QRScannerScreenProps } from '../../navigation/types';
 import { useTranslation } from '../../hooks/useTranslation';
+import type { QRScannerScreenProps } from '../../navigation/types';
+import { useTheme } from '../../theme';
+import { Colors } from '../../theme/colors';
+import { Radius } from '../../theme/radius';
+import { Spacing } from '../../theme/spacing';
+
 import { createStyles } from './styles/QRScanner.styles';
-import AppImage from '../../components/AppImage';
-import BackButton from '../../components/BackButton';
 
 const VIEWFINDER_SIZE = 240;
 const CORNER_SIZE = 28;
@@ -36,7 +37,11 @@ export default function QRScannerScreen({ navigation, route }: QRScannerScreenPr
   useEffect(() => {
     const loop = Animated.loop(
       Animated.sequence([
-        Animated.timing(scanLineY, { toValue: VIEWFINDER_SIZE - 2, duration: 2200, useNativeDriver: true }),
+        Animated.timing(scanLineY, {
+          toValue: VIEWFINDER_SIZE - 2,
+          duration: 2200,
+          useNativeDriver: true,
+        }),
         Animated.timing(scanLineY, { toValue: 0, duration: 2200, useNativeDriver: true }),
       ]),
     );
@@ -66,26 +71,21 @@ export default function QRScannerScreen({ navigation, route }: QRScannerScreenPr
         />
       ) : (
         <View style={[StyleSheet.absoluteFill, styles.noCamera]}>
-          <AppText variant="body" color={Colors.white}>Camera permission required</AppText>
+          <AppText variant="body" color={Colors.white}>
+            Camera permission required
+          </AppText>
         </View>
       )}
 
       <View style={styles.overlay} pointerEvents="none" />
 
       <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
-       <View style={styles.topBar}>
-            <BackButton onPress={() => navigation.goBack()} />
-
-            {/* Absolute Center Logo */}
-            <View style={styles.logoAbsolute}>
-              <AppImage
-                source={AppImages.logoDark}
-                containerStyle={styles.logo}
-                contentFit="contain"
-                showLoader={false}
-              />
-            </View>
-          </View>
+        <AppHeader
+          showBackButton
+          showLogo
+          logoPosition="center"
+          onBackPress={() => navigation.goBack()}
+        />
 
         <View style={styles.viewfinderWrap}>
           <View style={styles.viewfinder}>
@@ -104,7 +104,12 @@ export default function QRScannerScreen({ navigation, route }: QRScannerScreenPr
         </View>
 
         <View style={styles.bottomBar}>
-          <AppImage source={AppImages.scanner} containerStyle={styles.rescanBtn} contentFit="contain" showLoader={false} />
+          <AppImage
+            source={AppImages.scanner}
+            containerStyle={styles.rescanBtn}
+            contentFit="contain"
+            showLoader={false}
+          />
         </View>
       </SafeAreaView>
     </View>

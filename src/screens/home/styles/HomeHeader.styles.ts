@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { Theme } from '../../../theme/theme';
-import { Spacing } from '../../../theme/spacing';
+
 import { Radius } from '../../../theme/radius';
+import { Spacing } from '../../../theme/spacing';
+import { Theme } from '../../../theme/theme';
 
 export const createHeaderStyles = (theme: Theme) =>
   StyleSheet.create({
@@ -19,7 +20,7 @@ export const createHeaderStyles = (theme: Theme) =>
       alignItems: 'center',
       gap: Spacing.xs,
     },
-    
+
     headerIcon: {
       width: 36,
       height: 36,

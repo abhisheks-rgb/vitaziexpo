@@ -1,7 +1,9 @@
 // styles/HomeQuickActions.styles.ts
 import { StyleSheet } from 'react-native';
-import { Spacing } from '../../../theme/spacing';
+
+import { Colors } from '../../../theme';
 import { Radius } from '../../../theme/radius';
+import { Spacing } from '../../../theme/spacing';
 
 export const quickActionsStyles = StyleSheet.create({
   quickActions: {
@@ -13,10 +15,14 @@ export const quickActionsStyles = StyleSheet.create({
     alignItems: 'center',
     gap: Spacing.xs,
   },
+  // HomeQuickActions.styles.ts
   quickActionCard: {
-    width: 60,
-    height: 60,
-    borderRadius: Radius.lg,
+    width: 64,
+    height: 64,
+    borderRadius: 32, // ← perfect circle
+    borderWidth: 1.5,
+    borderColor: '#E5E7EB',
+    backgroundColor: Colors.white,
   },
   quickActionInner: {
     flex: 1,
@@ -24,8 +30,8 @@ export const quickActionsStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   quickActionIcon: {
-    width: 24,
-    height: 24,
+    width: 26,
+    height: 26,
   },
   quickActionLabel: {
     fontSize: 11,
