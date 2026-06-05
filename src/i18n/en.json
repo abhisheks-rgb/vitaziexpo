@@ -84,7 +84,10 @@
   "orgIdLabel": "Organization ID",
   "orgIdPlaceholder": "Enter the organization ID",
   "visits": "Visits",
+  "visitHistory": "Visit History",
   "yourClinics": "Your Clinics",
+  "reportDetails": "Report Details",
+  "images": "Images",
   "generalHealth": {
     "screenTitle": "General Health Questions",
     "progress": {

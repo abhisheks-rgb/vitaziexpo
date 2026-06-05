@@ -12,10 +12,13 @@ import location from '../../assets/images/svg/location.svg';
 import needHelp from '../../assets/images/svg/need_help.svg';
 import Notification from '../../assets/images/svg/notification.svg';
 import notificationYellow from '../../assets/images/svg/notification_yellow.svg';
+import print from '../../assets/images/svg/print.svg';
 import report from '../../assets/images/svg/report.svg';
 import ScanQRTextIcon from '../../assets/images/svg/scan_qr_text_icon.svg';
 import Scanner from '../../assets/images/svg/scanner.svg';
 import searchAi from '../../assets/images/svg/search_ai.svg';
+import share from '../../assets/images/svg/share.svg';
+import visitPlaceholder from '../../assets/images/svg/visit_placeholder.svg';
 
 export const AppImages = {
   //PNG Images
@@ -51,4 +54,7 @@ export const AppImages = {
   calendarAppt: calendarAppt,
   needHelp: needHelp,
   haveAccount: haveAccount,
+  visitPlaceholder: visitPlaceholder,
+  share: share,
+  print: print,
 } as const;
