@@ -4,39 +4,47 @@ import { Radius } from '../../../theme/radius';
 import { Spacing } from '../../../theme/spacing';
 import { Theme } from '../../../theme/theme';
 
-const ICON_SIZE = 120;
-const CARD_TOP = 220;
+export const ICON_SIZE = 120;
 
-export const createStyles = (theme: Theme) =>
+export const getCardTop = (screenHeight: number) =>
+  Math.min(Math.max(screenHeight * 0.42, 200), 320);
+
+export const createStyles = (theme: Theme, cardTop: number) =>
   StyleSheet.create({
     screen: {
       flex: 1,
-      backgroundColor: 'transparent',
+      backgroundColor: theme.colors.gradientStart,
     },
 
+    // Hero is absolutely positioned — never affected by keyboard
     heroInner: {
-      flex: 1,
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
       paddingHorizontal: Spacing.md,
     },
+
     heroText: {
       marginTop: Spacing.md,
     },
+
     heroTitle: {
       fontSize: 28,
       lineHeight: 32,
     },
+
     heroSubtitle: {
       color: Colors.white,
       marginTop: Spacing.xs,
     },
 
-    // ── Scan button ──────────────────────────────────────────────
-    scanAbsolute: {
-      position: 'absolute',
-      top: CARD_TOP - ICON_SIZE / 2, // 👈 PERFECT alignment
-      alignSelf: 'center',
-      zIndex: 20,
+    // KAV fills full screen — must know total height to work correctly
+    kavWrapper: {
+      ...StyleSheet.absoluteFill,
+      flexDirection: 'column',
     },
+
     scanBtn: {
       borderRadius: ICON_SIZE,
       overflow: 'hidden',
@@ -46,17 +54,18 @@ export const createStyles = (theme: Theme) =>
       shadowRadius: 10,
       elevation: 10,
     },
+
     scanIcon: {
       width: ICON_SIZE,
       height: ICON_SIZE,
     },
 
-    // ── Card internals ────────────────────────────────────────────
     label: {
       color: Colors.navyDark,
       fontWeight: '600',
       marginBottom: Spacing.xs,
     },
+
     input: {
       borderWidth: 1,
       borderColor: '#D0DAE8',
@@ -66,25 +75,28 @@ export const createStyles = (theme: Theme) =>
       color: Colors.navyDark,
       fontSize: 14,
     },
+
     btnPrimary: {
       marginTop: Spacing.lg,
       borderRadius: Radius.lg,
       overflow: 'hidden',
     },
+
     btnGradient: {
       paddingVertical: 14,
       alignItems: 'center',
     },
+
     footerLinks: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
       marginTop: Spacing.md,
     },
+
     footerIconText: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: Spacing.xs,
     },
+
     row: {
       flexDirection: 'row',
       alignItems: 'center',

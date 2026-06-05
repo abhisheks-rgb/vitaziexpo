@@ -84,5 +84,23 @@
   "orgIdLabel": "Organization ID",
   "orgIdPlaceholder": "Enter the organization ID",
   "visits": "Visits",
-  "yourClinics": "Your Clinics"
+  "yourClinics": "Your Clinics",
+  "generalHealth": {
+    "screenTitle": "General Health Questions",
+    "progress": {
+      "label": "{{current}} out of {{total}}"
+    },
+    "next": "Next",
+    "options": {
+      "yes": "Yes",
+      "no": "No",
+      "notSure": "Not Sure"
+    },
+    "questions": {
+      "allergies": "Do you have any known allergies?",
+      "medications": "Are you currently taking any regular medications?",
+      "chronicConditions": "Do you have any chronic conditions (e.g., diabetes, hypertension, asthma)?",
+      "recentSymptoms": "In the past 7 days, have you experienced any unusual symptoms like fever, chest pain, or severe headaches?"
+    }
+  }
 }

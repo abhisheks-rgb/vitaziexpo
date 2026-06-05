@@ -50,6 +50,7 @@ export type AppStackParamList = {
   NotificationDetail: { notificationId: string };
   ClinicList: undefined;
   ClinicVisits: { clinicId: string };
+  GeneralHealthQuestions: undefined;
 };
 
 export type HomeScreenProps = NativeStackScreenProps<AppStackParamList, 'Home'>;
@@ -60,3 +61,7 @@ export type NotificationDetailScreenProps = NativeStackScreenProps<
 >;
 export type ClinicListScreenProps = NativeStackScreenProps<AppStackParamList, 'ClinicList'>;
 export type ClinicVisitsScreenProps = NativeStackScreenProps<AppStackParamList, 'ClinicVisits'>;
+export type GeneralHealthQuestionsScreenProps = NativeStackScreenProps<
+  AppStackParamList,
+  'GeneralHealthQuestions'
+>;
