@@ -1,34 +1,62 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 import type { AuthSession } from '../../domain/Auth/models/AuthSession';
+import type { User } from '../../domain/Auth/models/User';
 
 interface AuthState {
   session: AuthSession | null;
-  isFirstLaunch: boolean;
+  currentUser: User | null;
+
+  hasHydrated: boolean;
   hasSeenOnboarding: boolean;
 
-  // Actions
-  setSession: (session: AuthSession) => void;
+  setSession: (session: AuthSession, user: User) => void;
   clearSession: () => void;
-  setHasSeenOnboarding: () => void;
-  setIsFirstLaunch: (value: boolean) => void;
+  setHealthQuestionsComplete: () => void;
+
+  setHasHydrated: (value: boolean) => void;
+  setOnboardingSeen: () => void;
 }
 
-/**
- * authStore — client state only (Zustand).
- * React Query handles all server-fetched data; this store holds
- * session tokens and one-time UI flags.
- */
-export const useAuthStore = create<AuthState>((set) => ({
-  session: null,
-  isFirstLaunch: true,
-  hasSeenOnboarding: false,
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      session: null,
+      currentUser: null,
 
-  setSession: (session) => set({ session }),
+      hasHydrated: false,
+      hasSeenOnboarding: false,
 
-  clearSession: () => set({ session: null }),
+      setSession: (session, user) => set({ session, currentUser: user }),
 
-  setHasSeenOnboarding: () => set({ hasSeenOnboarding: true }),
+      clearSession: () => set({ session: null, currentUser: null }),
 
-  setIsFirstLaunch: (value) => set({ isFirstLaunch: value }),
-}));
+      setHealthQuestionsComplete: () =>
+        set((state) => ({
+          currentUser: state.currentUser
+            ? { ...state.currentUser, hasCompletedHealthQuestions: true }
+            : null,
+        })),
+
+      setHasHydrated: (value) => set({ hasHydrated: value }),
+
+      setOnboardingSeen: () => set({ hasSeenOnboarding: true }),
+    }),
+    {
+      name: 'vitazi-auth',
+      storage: createJSONStorage(() => AsyncStorage),
+
+      onRehydrateStorage: () => {
+        return (state, error) => {
+          if (error) {
+            console.log('rehydration error', error);
+          }
+          // ✅ ALWAYS set hydration complete
+          state?.setHasHydrated(true);
+        };
+      },
+    },
+  ),
+);

@@ -8,11 +8,15 @@ import NotificationDetailScreen from '../screens/notifications/NotificationDetai
 import NotificationsScreen from '../screens/notifications/NotificationScreen';
 
 import ReportDetailsScreen from '../screens/clinics/ReportDetailsScreen';
-import GeneralHealthQuestionsScreen from '../screens/generalHealthQuestions/GeneralHealthQuestionsScreen';
 import type { AppStackParamList } from './types';
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
+/**
+ * AppNavigator — authenticated screens only.
+ * GeneralHealthQuestions has been moved to the Root stack since it's a
+ * one-time post-registration bridge, not a recurring in-app screen.
+ */
 export default function AppNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -21,7 +25,6 @@ export default function AppNavigator() {
       <Stack.Screen name="NotificationDetail" component={NotificationDetailScreen} />
       <Stack.Screen name="ClinicList" component={ClinicListScreen} />
       <Stack.Screen name="ClinicVisits" component={ClinicVisitsScreen} />
-      <Stack.Screen name="GeneralHealthQuestions" component={GeneralHealthQuestionsScreen} />
       <Stack.Screen name="ReportDetails" component={ReportDetailsScreen} />
     </Stack.Navigator>
   );

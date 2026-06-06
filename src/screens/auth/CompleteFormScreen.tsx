@@ -13,7 +13,6 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AppHeader from '../../components/AppHeader';
-import AppImage from '../../components/AppImage';
 import AppText from '../../components/AppText';
 import GradientText from '../../components/GradientText';
 import { AppImages } from '../../constants';
@@ -21,7 +20,6 @@ import { useTranslation } from '../../hooks/useTranslation';
 import type { CompleteFormScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
 import { Colors } from '../../theme/colors';
-import { Radius } from '../../theme/radius';
 import { Spacing } from '../../theme/spacing';
 
 import { createStyles } from './styles/CompleteForm.styles';
@@ -75,10 +73,11 @@ export default function CompleteFormScreen({ navigation, route }: CompleteFormSc
 
   const handleSubmit = () => {
     if (!isValid) return;
-    // TODO: call auth API, then navigate
-    // navigate('App') works because CompleteFormScreenProps is CompositeScreenProps
-    // which includes RootStackParamList — so TypeScript knows 'App' is valid here.
-    navigation.navigate('App');
+    // TODO: call completeRegistration use case here.
+    // After successful registration, the user is authenticated but
+    // has not yet answered the health questionnaire, so we go there next.
+    // replace() so the back button doesn't return to the form.
+    navigation.replace('GeneralHealthQuestions');
   };
 
   return (

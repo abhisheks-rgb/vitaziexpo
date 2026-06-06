@@ -1,6 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState } from 'react';
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -11,6 +12,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { loginUseCase } from '../../application/useCases/LoginUseCase';
 import AppHeader from '../../components/AppHeader';
 import AppImage from '../../components/AppImage';
 import AppText from '../../components/AppText';
@@ -32,14 +34,29 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleLogin = async () => {
+    setError('');
+    setIsLoading(true);
+    try {
+      await loginUseCase({ email: email.trim(), password, rememberMe });
+      // RootNavigator reacts to session being set — no navigation.replace() needed.
+      // If user.hasCompletedHealthQuestions=false  → GeneralHealthQuestions
+      // If user.hasCompletedHealthQuestions=true   → App (Home)
+    } catch (e: any) {
+      setError(e.message ?? 'Login failed. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
-    // KeyboardAvoidingView wraps everything so the card slides up on keyboard open
     <KeyboardAvoidingView
       style={styles.screen}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      {/* Hero — sits behind, shrinks naturally as keyboard pushes card up */}
       <View style={styles.heroContainer}>
         <AppImage
           source={AppImages.eyeHero}
@@ -59,7 +76,6 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           <AppHeader showLogo logoPosition="center" />
           <View style={styles.heroText}>
             <GradientText text={t('login.title')} style={styles.heroTitle} />
-
             <AppText variant="caption" style={styles.heroSubtitle}>
               {t('login.subtitle')}
             </AppText>
@@ -67,13 +83,23 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         </SafeAreaView>
       </View>
 
-      {/* Card — anchored to bottom, scrollable so fields stay visible */}
       <View style={styles.card}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
           bounces={false}
         >
+          {/* Mock mode hint */}
+          <View
+            style={{ backgroundColor: '#FFF8E1', borderRadius: 8, padding: 10, marginBottom: 12 }}
+          >
+            <AppText variant="caption" style={{ color: '#856404', fontSize: 11 }}>
+              {
+                '🧪 Mock mode — use:\nsarah.mitchell@example.com  (needs health Qs)\njames.carter@example.com  (goes to Home directly)\nAny password works.'
+              }
+            </AppText>
+          </View>
+
           <AppText variant="caption" style={styles.label}>
             {t('login.emailLabel')}
           </AppText>
@@ -85,7 +111,10 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
             autoCapitalize="none"
             returnKeyType="next"
             value={email}
-            onChangeText={setEmail}
+            onChangeText={(v) => {
+              setEmail(v);
+              setError('');
+            }}
           />
 
           <AppText variant="caption" style={[styles.label, styles.labelGap]}>
@@ -99,7 +128,11 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
               secureTextEntry={!showPassword}
               returnKeyType="done"
               value={password}
-              onChangeText={setPassword}
+              onChangeText={(v) => {
+                setPassword(v);
+                setError('');
+              }}
+              onSubmitEditing={handleLogin}
             />
             <TouchableOpacity style={styles.eyeBtn} onPress={() => setShowPassword((v) => !v)}>
               <AppText variant="caption" color={Colors.muted}>
@@ -107,6 +140,12 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
               </AppText>
             </TouchableOpacity>
           </View>
+
+          {error ? (
+            <AppText variant="caption" style={{ color: '#DC2626', marginTop: 6 }}>
+              {error}
+            </AppText>
+          ) : null}
 
           <View style={styles.row}>
             <TouchableOpacity style={styles.checkRow} onPress={() => setRememberMe((v) => !v)}>
@@ -121,12 +160,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                 {t('login.rememberMe')}
               </AppText>
             </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => {
-                /* TODO: ForgotPassword screen */
-              }}
-            >
+            <TouchableOpacity>
               <AppText variant="caption" color={Colors.navyDark} style={styles.forgot}>
                 {t('login.forgotPassword')}
               </AppText>
@@ -134,8 +168,9 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           </View>
 
           <TouchableOpacity
-            style={styles.btnPrimary}
-            onPress={() => navigation.navigate('App')} // valid: CompositeScreenProps includes RootStackParamList
+            style={[styles.btnPrimary, isLoading && { opacity: 0.7 }]}
+            onPress={handleLogin}
+            disabled={isLoading}
             activeOpacity={0.85}
           >
             <LinearGradient
@@ -144,18 +179,18 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
               end={{ x: 1, y: 0 }}
               style={styles.btnGradient}
             >
-              <AppText variant="button" color={Colors.white}>
-                {t('continue')}
-              </AppText>
+              {isLoading ? (
+                <ActivityIndicator color={Colors.white} />
+              ) : (
+                <AppText variant="button" color={Colors.white}>
+                  {t('continue')}
+                </AppText>
+              )}
             </LinearGradient>
           </TouchableOpacity>
 
           <View style={[styles.row, styles.footerLinks]}>
-            <TouchableOpacity
-              onPress={() => {
-                /* TODO: NeedHelp modal */
-              }}
-            >
+            <TouchableOpacity>
               <View style={styles.footerIconText}>
                 <AppImage source={AppImages.needHelp} containerStyle={{ width: 24, height: 24 }} />
                 <AppText variant="caption" color={Colors.navyDark}>

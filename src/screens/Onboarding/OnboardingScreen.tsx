@@ -10,6 +10,7 @@ import GradientText from '../../components/GradientText';
 import { AppImages } from '../../constants';
 import { useTheme } from '../../theme';
 
+import { useAuthStore } from '../../state/store/authStore';
 import { createStyles, DOT_SIZE, PILL_WIDTH, STEP } from './styles';
 
 interface Props {
@@ -57,6 +58,7 @@ export default function OnboardingScreen({ onFinish }: Props) {
 
   const pillX = useRef(new Animated.Value(pillTargetX(0))).current;
   const pillScaleX = useRef(new Animated.Value(1)).current;
+  const setOnboardingSeen = useAuthStore((s) => s.setOnboardingSeen);
 
   const animateIndicator = (nextIndex: number) => {
     Animated.parallel([
@@ -93,6 +95,8 @@ export default function OnboardingScreen({ onFinish }: Props) {
       pagerRef.current?.setPage(index + 1);
       return;
     }
+
+    setOnboardingSeen();
     onFinish();
   };
 
@@ -114,7 +118,13 @@ export default function OnboardingScreen({ onFinish }: Props) {
           {/* Header */}
           <View style={[styles.topBar, styles.paddedRow]}>
             <AppImage source={AppImages.logoDark} containerStyle={styles.logo} />
-            <TouchableOpacity style={styles.skipButton} onPress={onFinish}>
+            <TouchableOpacity
+              style={styles.skipButton}
+              onPress={() => {
+                setOnboardingSeen();
+                onFinish();
+              }}
+            >
               <AppText variant="body" style={styles.skip}>
                 Skip
               </AppText>

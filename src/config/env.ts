@@ -1,11 +1,37 @@
-/**
- * Global feature flags.
- *
- * Set USE_MOCKS=true during development (APIs not ready).
- * Flip to false when the real backend is available — zero UI changes required.
- */
-export const USE_MOCKS = true;
+import Constants from 'expo-constants';
+import { z } from 'zod';
 
-export const API_BASE_URL = 'https://api.vitazi.ai/v1';
+console.log('ENV DEBUG:', Constants.expoConfig?.extra);
 
-export const MOCK_DELAY_MS = 600; // simulates network latency in mock mode
+// ✅ Get env from Expo config
+const extra = Constants.expoConfig?.extra ?? {};
+
+// ─── Schema ─────────────────────────────────────────────────────
+
+const EnvSchema = z.object({
+  EXPO_PUBLIC_ENV: z.enum(['mock', 'dev', 'prod']),
+  EXPO_PUBLIC_API_BASE_URL: z.string().optional(), // optional for mock
+});
+
+// ─── Parse ──────────────────────────────────────────────────────
+
+const parsed = EnvSchema.safeParse({
+  EXPO_PUBLIC_ENV: extra.env,
+  EXPO_PUBLIC_API_BASE_URL: extra.apiBaseUrl,
+});
+
+if (!parsed.success) {
+  console.error('❌ Invalid environment variables:', parsed.error.format());
+  throw new Error('Invalid environment variables');
+}
+
+// ─── Export ─────────────────────────────────────────────────────
+
+const env = parsed.data;
+
+export const ENV = env.EXPO_PUBLIC_ENV;
+export const API_BASE_URL = env.EXPO_PUBLIC_API_BASE_URL ?? 'http://mock.api'; // fallback for mock
+
+export const IS_MOCK = ENV === 'mock';
+export const IS_DEV = ENV === 'dev';
+export const IS_PROD = ENV === 'prod';

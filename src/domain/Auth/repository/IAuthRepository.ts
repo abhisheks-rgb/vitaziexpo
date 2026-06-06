@@ -20,15 +20,20 @@ export interface CompleteFormPayload {
   consentGiven: boolean;
 }
 
+export interface AuthResult {
+  session: AuthSession;
+  user: User;
+}
+
 /**
  * IAuthRepository
- * Contract for all authentication operations.
- * The UI depends ONLY on this interface — never on the concrete implementation.
+ * login and completeRegistration return AuthResult (session + user together)
+ * so the use case can store both atomically in a single setSession(session, user) call.
  */
 export interface IAuthRepository {
-  login(credentials: LoginCredentials): Promise<AuthSession>;
+  login(credentials: LoginCredentials): Promise<AuthResult>;
   register(payload: RegisterPayload): Promise<{ userId: string }>;
-  completeRegistration(payload: CompleteFormPayload): Promise<User>;
+  completeRegistration(payload: CompleteFormPayload): Promise<AuthResult>;
   logout(): Promise<void>;
   refreshSession(refreshToken: string): Promise<AuthSession>;
   getStoredSession(): Promise<AuthSession | null>;

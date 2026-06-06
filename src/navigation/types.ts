@@ -2,10 +2,14 @@ import type { CompositeScreenProps } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 // ─── Root stack ────────────────────────────────────────────────────────────────
+// Splash sits at root so the resolver can replace() to any top-level route.
+// GeneralHealthQuestions lives here (not inside AppStack) because it bridges
+// Auth → App: the user is authenticated but not fully set up yet.
 export type RootStackParamList = {
   Splash: undefined;
   Onboarding: undefined;
   Auth: undefined;
+  GeneralHealthQuestions: undefined;
   App: undefined;
 };
 
@@ -50,7 +54,6 @@ export type AppStackParamList = {
   NotificationDetail: { notificationId: string };
   ClinicList: undefined;
   ClinicVisits: { clinicId: string };
-  GeneralHealthQuestions: undefined;
   ReportDetails: { reportId: string };
 };
 
@@ -62,8 +65,10 @@ export type NotificationDetailScreenProps = NativeStackScreenProps<
 >;
 export type ClinicListScreenProps = NativeStackScreenProps<AppStackParamList, 'ClinicList'>;
 export type ClinicVisitsScreenProps = NativeStackScreenProps<AppStackParamList, 'ClinicVisits'>;
+
+// GeneralHealthQuestions is in the Root stack (bridges Auth → App)
 export type GeneralHealthQuestionsScreenProps = NativeStackScreenProps<
-  AppStackParamList,
+  RootStackParamList,
   'GeneralHealthQuestions'
 >;
 export type ReportDetailsScreenProps = NativeStackScreenProps<AppStackParamList, 'ReportDetails'>;

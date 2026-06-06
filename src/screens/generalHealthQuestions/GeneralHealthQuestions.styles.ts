@@ -155,7 +155,7 @@ export const createStyles = (theme: Theme) =>
     nextButtonLabel: {
       fontSize: 15,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.accentLight,
       letterSpacing: 0.2,
     } as TextStyle,
 

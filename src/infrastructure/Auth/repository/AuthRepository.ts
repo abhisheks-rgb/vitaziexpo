@@ -1,4 +1,4 @@
-import { USE_MOCKS } from '../../../config/env';
+import { IS_MOCK } from '../../../config/env';
 import type { AuthSession } from '../../../domain/Auth/models/AuthSession';
 import type { User } from '../../../domain/Auth/models/User';
 import type {
@@ -7,29 +7,72 @@ import type {
   LoginCredentials,
   RegisterPayload,
 } from '../../../domain/Auth/repository/IAuthRepository';
-import { mockAuthSession } from '../../../mockData/MockAuthSession';
 import { mockDelay } from '../../../mockData/MockHelpers';
-import { mockCurrentUser } from '../../../mockData/MockUsers';
+import { mockUsers } from '../../../mockData/MockUsers';
 import { apiClient } from '../../api/apiClient';
 import { AuthMapper } from '../mappers/AuthMapper';
 import { UserMapper } from '../mappers/UserMapper';
 
 // ── Mock implementation ───────────────────────────────────────────────────────
 
+/**
+ * In mock mode, login() matches email against mockUsers[].
+ * Any password is accepted. This lets you test both users:
+ *
+ *   sarah.mitchell@example.com  → hasCompletedHealthQuestions: false
+ *                                 → will be routed to GeneralHealthQuestions
+ *
+ *   james.carter@example.com    → hasCompletedHealthQuestions: true
+ *                                 → goes straight to Home
+ */
 class AuthRepositoryMock implements IAuthRepository {
-  async login(_credentials: LoginCredentials): Promise<AuthSession> {
+  async login(credentials: LoginCredentials): Promise<{ session: AuthSession; user: User }> {
     await mockDelay();
-    return { ...mockAuthSession };
+
+    const user = mockUsers.find((u) => u.email.toLowerCase() === credentials.email.toLowerCase());
+
+    if (!user) {
+      throw new Error('No account found with that email address.');
+    }
+
+    const session: AuthSession = {
+      accessToken: `mock-token-${user.id}-${Date.now()}`,
+      refreshToken: `mock-refresh-${user.id}`,
+      userId: user.id,
+      expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days
+    };
+
+    return { session, user };
   }
 
   async register(_payload: RegisterPayload): Promise<{ userId: string }> {
     await mockDelay();
-    return { userId: mockCurrentUser.id };
+    return { userId: 'user-new-' + Date.now() };
   }
 
-  async completeRegistration(_payload: CompleteFormPayload): Promise<User> {
+  async completeRegistration(
+    payload: CompleteFormPayload,
+  ): Promise<{ session: AuthSession; user: User }> {
     await mockDelay();
-    return { ...mockCurrentUser };
+    // Simulate creating a new user who hasn't done health questions yet
+    const newUser: User = {
+      id: 'user-new-' + Date.now(),
+      firstName: payload.firstName,
+      lastName: payload.lastName,
+      email: '',
+      dateOfBirth: payload.dateOfBirth,
+      organizationId: payload.organizationId,
+      hasCompletedHealthQuestions: false,
+      hasCompletedOnboarding: true,
+      consentGiven: payload.consentGiven,
+    };
+    const session: AuthSession = {
+      accessToken: `mock-token-${newUser.id}`,
+      refreshToken: `mock-refresh-${newUser.id}`,
+      userId: newUser.id,
+      expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    };
+    return { session, user: newUser };
   }
 
   async logout(): Promise<void> {
@@ -39,39 +82,45 @@ class AuthRepositoryMock implements IAuthRepository {
   async refreshSession(_refreshToken: string): Promise<AuthSession> {
     await mockDelay(300);
     return {
-      ...mockAuthSession,
-      accessToken: 'mock-refreshed-token-' + Date.now(),
-      expiresAt: Date.now() + 3600 * 1000,
+      accessToken: 'mock-refreshed-' + Date.now(),
+      refreshToken: 'mock-refresh-new',
+      userId: 'user-001',
+      expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000,
     };
   }
 
+  /**
+   * Always return null — session comes from Zustand AsyncStorage persistence,
+   * not from this method. Returning a session here would bypass the login screen.
+   */
   async getStoredSession(): Promise<AuthSession | null> {
-    await mockDelay(100);
-    // Simulate a user who is already logged in
-    return { ...mockAuthSession };
+    return null;
   }
 }
 
 // ── Real implementation ───────────────────────────────────────────────────────
 
 class AuthRepositoryImpl implements IAuthRepository {
-  async login(credentials: LoginCredentials): Promise<AuthSession> {
+  async login(credentials: LoginCredentials): Promise<{ session: AuthSession; user: User }> {
     const { data } = await apiClient.post('/auth/login', {
       email: credentials.email,
       password: credentials.password,
       remember_me: credentials.rememberMe,
     });
-    return AuthMapper.toDomain(data);
+    return {
+      session: AuthMapper.toDomain(data.session),
+      user: UserMapper.toDomain(data.user),
+    };
   }
 
   async register(payload: RegisterPayload): Promise<{ userId: string }> {
-    const { data } = await apiClient.post('/auth/register', {
-      org_id: payload.organizationId,
-    });
+    const { data } = await apiClient.post('/auth/register', { org_id: payload.organizationId });
     return { userId: data.user_id };
   }
 
-  async completeRegistration(payload: CompleteFormPayload): Promise<User> {
+  async completeRegistration(
+    payload: CompleteFormPayload,
+  ): Promise<{ session: AuthSession; user: User }> {
     const { data } = await apiClient.post('/auth/complete-registration', {
       org_id: payload.organizationId,
       first_name: payload.firstName,
@@ -80,7 +129,10 @@ class AuthRepositoryImpl implements IAuthRepository {
       password: payload.password,
       consent_given: payload.consentGiven,
     });
-    return UserMapper.toDomain(data);
+    return {
+      session: AuthMapper.toDomain(data.session),
+      user: UserMapper.toDomain(data.user),
+    };
   }
 
   async logout(): Promise<void> {
@@ -88,19 +140,15 @@ class AuthRepositoryImpl implements IAuthRepository {
   }
 
   async refreshSession(refreshToken: string): Promise<AuthSession> {
-    const { data } = await apiClient.post('/auth/refresh', {
-      refresh_token: refreshToken,
-    });
+    const { data } = await apiClient.post('/auth/refresh', { refresh_token: refreshToken });
     return AuthMapper.toDomain(data);
   }
 
   async getStoredSession(): Promise<AuthSession | null> {
-    // In practice, read from SecureStore / AsyncStorage
     return null;
   }
 }
 
-// ── Export the correct implementation ─────────────────────────────────────────
-export const authRepository: IAuthRepository = USE_MOCKS
+export const authRepository: IAuthRepository = IS_MOCK
   ? new AuthRepositoryMock()
   : new AuthRepositoryImpl();

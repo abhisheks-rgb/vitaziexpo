@@ -1,19 +1,25 @@
-import type { AuthSession } from '../../domain/Auth/models/AuthSession';
 import type { LoginCredentials } from '../../domain/Auth/repository/IAuthRepository';
 import { authRepository } from '../../infrastructure/Auth/repository/AuthRepository';
 import { useAuthStore } from '../../state/store/authStore';
 
 /**
- * LoginUseCase
- * Orchestrates: call repository → store session → return result.
- * The screen calls this and never touches the repository directly.
+ * loginUseCase
+ *
+ * Validates credentials, calls the repository, then stores both the
+ * session token and the full user object in Zustand (persisted).
+ *
+ * The stored user drives:
+ *   - Display name in HomeHeader
+ *   - Health questions routing in RootNavigator
+ *   - Any other personalised UI
  */
-export const loginUseCase = async (credentials: LoginCredentials): Promise<AuthSession> => {
-  if (!credentials.email || !credentials.password) {
-    throw new Error('Email and password are required.');
+export const loginUseCase = async (credentials: LoginCredentials) => {
+  if (!credentials.email.trim() || !credentials.password) {
+    throw new Error('Please enter your email and password.');
   }
 
-  const session = await authRepository.login(credentials);
-  useAuthStore.getState().setSession(session);
-  return session;
+  const { session, user } = await authRepository.login(credentials);
+  useAuthStore.getState().setSession(session, user);
+
+  return { session, user };
 };

@@ -1,59 +1,34 @@
-import { authRepository } from '../infrastructure/Auth/repository/AuthRepository';
-import { userRepository } from '../infrastructure/Auth/repository/UserRepository';
 import { useAuthStore } from '../state/store/authStore';
 
-export type AppRoute =
-  | 'Onboarding' // first ever launch
-  | 'Auth' // not logged in
-  | 'GeneralHealthQuestions' // logged in but health questions not done
-  | 'App'; // fully set up — go to home
-
+export type AppRoute = 'Auth' | 'GeneralHealthQuestions' | 'Onboarding' | 'App';
 /**
  * resolveAppRoute
  *
- * Called once from SplashScreen. Determines the correct initial route
- * based on session validity and user setup state.
+ * Called by SplashScreen. Reads the persisted Zustand store
+ * (already hydrated from AsyncStorage by the time Splash runs).
  *
- * Decision tree:
- *   1. Never launched before                → Onboarding
- *   2. No stored session / expired          → Auth
- *   3. Session valid, health Qs incomplete  → GeneralHealthQuestions
- *   4. Everything complete                  → App (Home)
+ *   No session                              → Auth (Login)
+ *   Session valid + health Qs not done      → GeneralHealthQuestions
+ *   Session valid + health Qs done          → App (Home)
+ *
+ * Session persistence is handled entirely by Zustand + AsyncStorage.
+ * authRepository.getStoredSession() is intentionally unused here.
  */
-export const resolveAppRoute = async (): Promise<AppRoute> => {
-  const store = useAuthStore.getState();
 
-  // Step 1 — first launch flag
-  if (store.isFirstLaunch || !store.hasSeenOnboarding) {
+export const resolveAppRoute = (): AppRoute => {
+  const { session, currentUser, hasSeenOnboarding } = useAuthStore.getState();
+
+  if (!session || session.expiresAt < Date.now()) {
+    return 'Auth';
+  }
+
+  if (!currentUser?.hasCompletedHealthQuestions) {
+    return 'GeneralHealthQuestions';
+  }
+
+  if (!hasSeenOnboarding) {
     return 'Onboarding';
   }
 
-  // Step 2 — check for a stored / valid session
-  let session = store.session;
-
-  if (!session) {
-    session = await authRepository.getStoredSession();
-  }
-
-  if (!session || session.expiresAt < Date.now()) {
-    store.clearSession();
-    return 'Auth';
-  }
-
-  store.setSession(session);
-
-  // Step 3 — check user setup completeness
-  try {
-    const user = await userRepository.getById(session.userId);
-
-    if (!user.hasCompletedHealthQuestions) {
-      return 'GeneralHealthQuestions';
-    }
-
-    return 'App';
-  } catch {
-    // If user fetch fails, fall back to auth to be safe
-    store.clearSession();
-    return 'Auth';
-  }
+  return 'App';
 };
