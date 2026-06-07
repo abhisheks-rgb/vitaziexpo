@@ -1,4 +1,4 @@
-import { USE_MOCKS } from '../../../config/env';
+import { IS_MOCK } from '../../../config/env';
 import type { Appointment } from '../../../domain/Appointments/models/Appointment';
 import type { IAppointmentRepository } from '../../../domain/Appointments/repository/IAppointmentRepository';
 import { mockAppointments } from '../../../mockData/MockAppointment';
@@ -67,6 +67,6 @@ class AppointmentRepositoryImpl implements IAppointmentRepository {
 }
 
 // ── Export ────────────────────────────────────────────────────────────────────
-export const appointmentRepository: IAppointmentRepository = USE_MOCKS
+export const appointmentRepository: IAppointmentRepository = IS_MOCK
   ? new AppointmentRepositoryMock()
   : new AppointmentRepositoryImpl();

@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Image,
   KeyboardAvoidingView,
@@ -230,7 +230,7 @@ export default function CompleteFormScreen({ navigation, route }: CompleteFormSc
               style={styles.btnGradient}
             >
               <AppText variant="button" color={Colors.white}>
-                {t('completeForm.submit')}
+                {t('submit')}
               </AppText>
             </LinearGradient>
           </TouchableOpacity>

@@ -1,5 +1,4 @@
 import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
 import { TouchableOpacity, ViewStyle } from 'react-native';
 
 import { Colors } from '../../../theme/colors';
@@ -10,9 +9,10 @@ interface BackButtonProps {
   onPress: () => void;
   style?: ViewStyle;
   testID?: string;
+  variant?: 'default' | 'light';
 }
 
-export default function BackButton({ onPress, style, testID }: BackButtonProps) {
+export default function BackButton({ onPress, style, testID, variant }: BackButtonProps) {
   return (
     <TouchableOpacity
       testID={testID}

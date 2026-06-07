@@ -1,4 +1,4 @@
-import { USE_MOCKS } from '../../../config/env';
+import { IS_MOCK } from '../../../config/env';
 import type {
   HealthAnswer,
   HealthQuestionnaire,
@@ -61,6 +61,6 @@ class HealthRepositoryImpl implements IHealthRepository {
 }
 
 // ── Export ────────────────────────────────────────────────────────────────────
-export const healthRepository: IHealthRepository = USE_MOCKS
+export const healthRepository: IHealthRepository = IS_MOCK
   ? new HealthRepositoryMock()
   : new HealthRepositoryImpl();

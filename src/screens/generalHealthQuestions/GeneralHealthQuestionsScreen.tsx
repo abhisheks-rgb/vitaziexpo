@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ActivityIndicator, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { useRef, useState } from 'react';
+import { Keyboard, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useTranslation } from '../../hooks/useTranslation';
@@ -8,164 +8,109 @@ import { useSubmitHealthQuestionnaire } from '../../state/queries/UseHealthQuest
 import { useAuthStore } from '../../state/store/authStore';
 import { useTheme } from '../../theme';
 
-import { createStyles } from './GeneralHealthQuestions.styles';
+import { NextButton } from './components/NextButton';
+import { ProgressHeader } from './components/ProgressHeader';
+import { QuestionCard } from './components/QuestionCard';
 import { questions } from './data';
-
-type Answers = Record<string, string>;
-
-function RadioOption({
-  label,
-  selected,
-  onPress,
-  styles,
-}: {
-  label: string;
-  selected: boolean;
-  onPress: () => void;
-  styles: ReturnType<typeof createStyles>;
-}) {
-  return (
-    <TouchableOpacity
-      style={styles.optionRow}
-      onPress={onPress}
-      activeOpacity={0.7}
-      accessibilityRole="radio"
-      accessibilityState={{ checked: selected }}
-    >
-      <View style={[styles.radioOuter, selected && styles.radioOuterSelected]}>
-        {selected && <View style={styles.radioInner} />}
-      </View>
-      <Text style={styles.optionText}>{label}</Text>
-    </TouchableOpacity>
-  );
-}
-
-function QuestionCard({
-  questionId,
-  questionText,
-  options,
-  selectedOption,
-  onSelect,
-  styles,
-}: {
-  questionId: string;
-  questionText: string;
-  options: string[];
-  selectedOption: string | undefined;
-  onSelect: (id: string, option: string) => void;
-  styles: ReturnType<typeof createStyles>;
-}) {
-  return (
-    <View style={styles.questionCard}>
-      <Text style={styles.questionText}>{questionText}</Text>
-      {options.map((option) => (
-        <RadioOption
-          key={option}
-          label={option}
-          selected={selectedOption === option}
-          onPress={() => onSelect(questionId, option)}
-          styles={styles}
-        />
-      ))}
-    </View>
-  );
-}
 
 export default function GeneralHealthQuestionsScreen(_props: GeneralHealthQuestionsScreenProps) {
   const theme = useTheme();
-  const styles = createStyles(theme);
   const { t } = useTranslation();
 
   const userId = useAuthStore((s) => s.currentUser?.id ?? '');
   const setHealthQuestionsComplete = useAuthStore((s) => s.setHealthQuestionsComplete);
   const { mutateAsync: submitQuestionnaire, isPending } = useSubmitHealthQuestionnaire(userId);
 
-  const [answers, setAnswers] = useState<Answers>({});
+  // answers keyed by question id
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [stepIndex, setStepIndex] = useState(0);
   const [error, setError] = useState('');
 
-  const handleSelect = (questionId: string, option: string) => {
-    setAnswers((prev) => ({ ...prev, [questionId]: option }));
-    setError('');
+  // Clear error whenever the step changes
+  const prevStepRef = useRef(stepIndex);
+  if (prevStepRef.current !== stepIndex) {
+    prevStepRef.current = stepIndex;
+    if (error) setError('');
+  }
+
+  const totalSteps = questions.length;
+  const isLastStep = stepIndex === totalSteps - 1;
+  const currentQuestion = questions[stepIndex];
+
+  const handleChange = (text: string) => {
+    setAnswers((prev) => ({ ...prev, [currentQuestion.id]: text }));
+    if (error) setError('');
   };
 
   const handleNext = async () => {
-    const unanswered = questions.filter((q) => !answers[q.id]);
-    if (unanswered.length > 0) {
-      setError('Please answer all questions before continuing.');
+    Keyboard.dismiss();
+
+    const currentAnswer = (answers[currentQuestion.id] ?? '').trim();
+    if (currentAnswer.length === 0) {
+      setError('Please answer before continuing.');
       return;
     }
+
+    setError('');
+
+    if (!isLastStep) {
+      setStepIndex((prev) => prev + 1);
+      return;
+    }
+
+    // Last step — submit all answers
     try {
       await submitQuestionnaire(answers);
-      // Update currentUser.hasCompletedHealthQuestions in store + AsyncStorage.
-      // RootNavigator sees the change and swaps to App stack automatically.
       setHealthQuestionsComplete();
-    } catch {
+    } catch (e) {
+      console.error(e);
       setError('Something went wrong. Please try again.');
     }
   };
 
-  const currentStep = 1;
-  const totalSteps = 3;
-  const progressFraction = currentStep / totalSteps;
+  const styles = createStyles(theme);
 
   return (
     <SafeAreaView style={styles.screen} edges={['top', 'left', 'right']}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>{t('generalHealth.screenTitle')}</Text>
-      </View>
-
-      <View style={styles.progressContainer}>
-        <View style={styles.progressRow}>
-          <View />
-          <Text style={styles.progressLabel}>
-            {t('generalHealth.progress.label', { current: currentStep, total: totalSteps })}
-          </Text>
-        </View>
-        <View style={styles.progressTrack}>
-          <View style={[styles.progressFill, { width: `${progressFraction * 100}%` }]} />
-        </View>
-      </View>
+      <ProgressHeader
+        title={t('generalHealth.screenTitle')}
+        currentStep={stepIndex + 1}
+        totalSteps={totalSteps}
+        stepLabel={t('generalHealth.progress.label', {
+          current: stepIndex + 1,
+          total: totalSteps,
+        })}
+      />
 
       <View style={styles.divider} />
 
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
-        {questions.map((q) => (
-          <QuestionCard
-            key={q.id}
-            questionId={q.id}
-            questionText={t(q.textKey)}
-            options={q.optionKeys.map((key) => t(key))}
-            selectedOption={answers[q.id]}
-            onSelect={handleSelect}
-            styles={styles}
-          />
-        ))}
-        {error ? (
-          <Text style={{ color: '#DC2626', marginBottom: 12, fontSize: 13 }}>{error}</Text>
-        ) : null}
-      </ScrollView>
+      {/* Render only the current question */}
+      <QuestionCard
+        questionText={t(currentQuestion.textKey)}
+        value={answers[currentQuestion.id] ?? ''}
+        onChange={handleChange}
+        error={error}
+      />
 
-      <View style={styles.nextButtonContainer}>
-        <TouchableOpacity
-          style={[styles.nextButton, isPending && { opacity: 0.6 }]}
-          onPress={handleNext}
-          disabled={isPending}
-          activeOpacity={0.85}
-        >
-          {isPending ? (
-            <ActivityIndicator color="#fff" />
-          ) : (
-            <>
-              <Text style={styles.nextButtonLabel}>{t('generalHealth.next')}</Text>
-              <Text style={styles.nextButtonIcon}>{' ›'}</Text>
-            </>
-          )}
-        </TouchableOpacity>
-      </View>
+      <NextButton
+        label={isLastStep ? t('submit') : t('generalHealth.next')}
+        onPress={handleNext}
+        isLoading={isPending}
+      />
     </SafeAreaView>
   );
 }
+
+const createStyles = (theme: ReturnType<typeof useTheme>) =>
+  StyleSheet.create({
+    screen: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+    divider: {
+      height: 1,
+      backgroundColor: theme.colors.border,
+      marginHorizontal: theme.spacing.md,
+      marginBottom: theme.spacing.md,
+    },
+  });

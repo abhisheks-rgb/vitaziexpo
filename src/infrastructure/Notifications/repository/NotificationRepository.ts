@@ -1,4 +1,4 @@
-import { USE_MOCKS } from '../../../config/env';
+import { IS_MOCK } from '../../../config/env';
 import type { Notification } from '../../../domain/Notifications/models/Notification';
 import type { INotificationRepository } from '../../../domain/Notifications/repository/INotificationRepository';
 import { mockDelay } from '../../../mockData/MockHelpers';
@@ -48,6 +48,6 @@ class NotificationRepositoryImpl implements INotificationRepository {
 }
 
 // ── Export ────────────────────────────────────────────────────────────────────
-export const notificationRepository: INotificationRepository = USE_MOCKS
+export const notificationRepository: INotificationRepository = IS_MOCK
   ? new NotificationRepositoryMock()
   : new NotificationRepositoryImpl();

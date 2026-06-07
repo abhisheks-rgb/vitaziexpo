@@ -1,4 +1,4 @@
-import { USE_MOCKS } from '../../../config/env';
+import { IS_MOCK } from '../../../config/env';
 import type { User } from '../../../domain/Auth/models/User';
 import type { IUserRepository } from '../../../domain/Auth/repository/IUserRepository';
 import { mockDelay } from '../../../mockData/MockHelpers';
@@ -54,6 +54,6 @@ class UserRepositoryImpl implements IUserRepository {
 }
 
 // ── Export ────────────────────────────────────────────────────────────────────
-export const userRepository: IUserRepository = USE_MOCKS
+export const userRepository: IUserRepository = IS_MOCK
   ? new UserRepositoryMock()
   : new UserRepositoryImpl();

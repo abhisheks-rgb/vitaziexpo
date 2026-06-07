@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useRef, useState } from 'react';
 import {
   Dimensions,
   FlatList,
@@ -13,6 +14,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AppHeader from '../../components/AppHeader';
 import AppImage from '../../components/AppImage';
+import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { AppImages } from '../../constants';
 import { useTranslation } from '../../hooks/useTranslation';
 import type { Theme } from '../../theme';
@@ -20,21 +22,28 @@ import { useTheme } from '../../theme';
 
 const { width: SCREEN_W } = Dimensions.get('window');
 const IMAGE_H = 300;
-const CARD_OVERLAP = 140;
+const EYE_PILL_H = 48;
+// Approximate rendered height of AppHeader + SafeAreaView top inset.
+// Used to push the image down so it starts below the fixed header.
+const HEADER_H = 60;
 
-// ─── Mock data ────────────────────────────────────────────────────────────────
+const IMAGE_EYE_MAP: Record<number, EyeTab> = {
+  0: 'Right OD',
+  1: 'Left OS',
+  2: 'Left OS',
+};
+
 const IMAGES = [
   { id: '1', source: AppImages.retinalImage },
   { id: '2', source: AppImages.retinalImage },
   { id: '3', source: AppImages.retinalImage },
 ];
 
-const EYE_TABS = ['Right OD', 'Left OS'] as const;
-type EyeTab = (typeof EYE_TABS)[number];
-
+type EyeTab = 'Right OD' | 'Left OS';
 const CONTENT_TABS = ['Findings', 'Differential', 'Assessment', 'Plan', 'Instructions'] as const;
 type ContentTab = (typeof CONTENT_TABS)[number];
 
+// ─── Data ─────────────────────────────────────────────────────────────────────
 const FINDINGS_DATA: Record<EyeTab, { bullets: string[]; summary: string }> = {
   'Right OD': {
     bullets: ['Microaneurysms (OD)', 'Retinal Hemorrhages (OD)', 'Hard Exudates (OD)'],
@@ -51,11 +60,11 @@ const DIFFERENTIAL_DATA: Record<EyeTab, { title: string; body: string }[]> = {
   'Right OD': [
     {
       title: 'Nonproliferative diabetic retinopathy (OD)',
-      body: 'The recorded triad of microaneurysms, retinal hemorrhages, and hard exudates is a classic retinal lesion pattern for diabetic retinopathy; the reference specifically identifies MAs, HMs, and EXs as pathological markers used in diabetic retinopathy-focused retinal imaging.',
+      body: 'The recorded triad of microaneurysms, retinal hemorrhages, and hard exudates is a classic retinal lesion pattern for diabetic retinopathy.',
     },
     {
       title: 'Retinal vein occlusion (OD)',
-      body: 'Retinal hemorrhages and hard exudates can occur in retinal vascular occlusive disease, and the reviewed reference notes retinal vein occlusion as a vascular condition linked with retinal/systemic vascular pathology.',
+      body: 'Retinal hemorrhages and hard exudates can occur in retinal vascular occlusive disease.',
     },
   ],
   'Left OS': [
@@ -72,7 +81,7 @@ const ASSESSMENT_DATA: Record<
 > = {
   'Right OD': {
     insight:
-      'OD findings are most consistent with nonproliferative diabetic retinopathy, as the combination of microaneurysms, retinal hemorrhages, and hard exudates matches recognized diabetic retinopathy lesion markers. Retinal vein occlusion remains a secondary consideration.',
+      'OD findings are most consistent with nonproliferative diabetic retinopathy, as the combination of microaneurysms, retinal hemorrhages, and hard exudates matches recognized diabetic retinopathy lesion markers.',
     codes: [
       {
         code: 'E11.3291',
@@ -106,7 +115,7 @@ const PLAN_DATA: Record<EyeTab, { body: string; followUp: string; bullets: strin
 const INSTRUCTIONS_DATA: Record<EyeTab, { urgent: string; body: string }> = {
   'Right OD': {
     urgent:
-      'Call sooner if you notice any change in your vision or if you are told there is new swelling or blood vessel changes in the right eye, since that may need retina specialist evaluation.',
+      'Call sooner if you notice any change in your vision or if you are told there is new swelling or blood vessel changes in the right eye.',
     body: 'We found mild diabetes-related changes in the back of your right eye. There is no swelling in the center of the retina documented at this time.\n\nNext steps:\n• We will obtain or review a scan of the center of the retina in your right eye.\n• We will continue to watch your right eye for any changes over time.\n• Please return in 3 months for a dilated eye exam.',
   },
   'Left OS': { urgent: '', body: 'No specific instructions for the left eye at this visit.' },
@@ -124,7 +133,6 @@ const CARE_RESOURCES = [
   {
     id: '2',
     type: 'doc',
-    tag: 'Retinal-screening.pdf',
     title: '5 Things You Should Know about Diabetic Eye Disease.',
     desc: 'Learn what happens during a retinal scan, wh...',
     date: '12 Jan 2026',
@@ -132,7 +140,6 @@ const CARE_RESOURCES = [
   {
     id: '3',
     type: 'doc',
-    tag: 'Retinal-tutorial-ai.doc',
     title: 'What are lesions and why do they matter? (factsheet)',
     desc: 'Bright and red lesions can be early signs of diabetic...',
     date: '18 Jan 2026',
@@ -147,15 +154,14 @@ const CARE_RESOURCES = [
   },
 ];
 
-// ─── Tab content components ───────────────────────────────────────────────────
-
+// ─── Tab components ───────────────────────────────────────────────────────────
 function FindingsTab({ eye, styles }: { eye: EyeTab; styles: ReturnType<typeof createStyles> }) {
   const data = FINDINGS_DATA[eye];
   return (
     <>
       {data.bullets.map((b) => (
         <View key={b} style={styles.bulletRow}>
-          <View style={styles.bullet} />
+          <Text style={styles.bulletDot}>•</Text>
           <Text style={styles.bulletText}>{b}</Text>
         </View>
       ))}
@@ -228,7 +234,7 @@ function PlanTab({ eye, styles }: { eye: EyeTab; styles: ReturnType<typeof creat
       ) : null}
       {data.bullets.map((b) => (
         <View key={b} style={[styles.bulletRow, { marginTop: 8 }]}>
-          <View style={styles.bullet} />
+          <Text style={styles.bulletDot}>•</Text>
           <Text style={styles.bulletText}>{b}</Text>
         </View>
       ))}
@@ -270,7 +276,6 @@ function CareResourceCard({
       <View style={styles.careThumbnail}>
         {item.type === 'video' ? (
           <>
-            {/* Real retinal image as video thumbnail background */}
             <AppImage
               source={AppImages.retinalImage}
               containerStyle={StyleSheet.absoluteFill}
@@ -282,25 +287,26 @@ function CareResourceCard({
             </View>
           </>
         ) : (
-          /* Visit placeholder SVG for doc/pdf cards */
           <AppImage
             source={AppImages.visitPlaceholder}
             containerStyle={[
               StyleSheet.absoluteFill,
-              { backgroundColor: theme.colors.accentLight, padding: 16 },
+              { backgroundColor: theme.colors.accentLight, padding: 12 },
             ]}
             contentFit="contain"
             showLoader={false}
           />
         )}
       </View>
-      <Text style={styles.careTitle} numberOfLines={2}>
-        {item.title}
-      </Text>
-      <Text style={styles.careDesc} numberOfLines={2}>
-        {item.desc}
-      </Text>
-      <Text style={styles.careDate}>{item.date}</Text>
+      <View style={styles.careCardBody}>
+        <Text style={styles.careTitle} numberOfLines={2}>
+          {item.title}
+        </Text>
+        <Text style={styles.careDesc} numberOfLines={2}>
+          {item.desc}
+        </Text>
+        <Text style={styles.careDate}>{item.date}</Text>
+      </View>
     </View>
   );
 }
@@ -314,17 +320,27 @@ export default function ReportDetailsScreen({ navigation }: { navigation: any })
   const [imageIndex, setImageIndex] = useState(0);
   const [activeEye, setActiveEye] = useState<EyeTab>('Right OD');
   const [activeTab, setActiveTab] = useState<ContentTab>('Findings');
+  const [isScrolled, setIsScrolled] = useState(false);
   const imageListRef = useRef<FlatList>(null);
+
+  // Frosted kicks in once the image has scrolled past the header
+  const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    setIsScrolled(e.nativeEvent.contentOffset.y > IMAGE_H - HEADER_H);
+  };
 
   const onImageScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const idx = Math.round(e.nativeEvent.contentOffset.x / SCREEN_W);
     setImageIndex(idx);
+    const mappedEye = IMAGE_EYE_MAP[idx];
+    if (mappedEye) setActiveEye(mappedEye);
   };
 
   const goImage = (dir: -1 | 1) => {
     const next = Math.max(0, Math.min(IMAGES.length - 1, imageIndex + dir));
     imageListRef.current?.scrollToIndex({ index: next, animated: true });
     setImageIndex(next);
+    const mappedEye = IMAGE_EYE_MAP[next];
+    if (mappedEye) setActiveEye(mappedEye);
   };
 
   const renderTabContent = () => {
@@ -343,21 +359,19 @@ export default function ReportDetailsScreen({ navigation }: { navigation: any })
   };
 
   const rightActions = (
-    <View style={styles.headerActions}>
-      {/* Share icon via AppImage SVG */}
+    <View style={styles.appBarActions}>
       <TouchableOpacity>
         <AppImage
           source={AppImages.share}
-          containerStyle={styles.headerIconBtn}
+          containerStyle={styles.appBarIcon}
           contentFit="contain"
           showLoader={false}
         />
       </TouchableOpacity>
-      {/* Print icon via AppImage SVG */}
       <TouchableOpacity>
         <AppImage
           source={AppImages.print}
-          containerStyle={styles.headerIconBtn}
+          containerStyle={styles.appBarIcon}
           contentFit="contain"
           showLoader={false}
         />
@@ -367,20 +381,24 @@ export default function ReportDetailsScreen({ navigation }: { navigation: any })
 
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
-      <AppHeader
-        title={t('reportDetails')}
-        titlePosition="left"
-        showBackButton
-        onBackPress={() => navigation.goBack()}
-        rightComponent={rightActions}
-      />
+      <BackgroundBlobs />
 
-      {/* Date centered below header */}
-      <Text style={styles.dateLabel}>Wednesday Dec 26, 2019</Text>
-
-      <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
+      {/*
+        ── Scrollable body — full height, starts at top of SafeAreaView ──
+        The header floats above it via absolute positioning.
+        A paddingTop on the ScrollView pushes the first item (image)
+        below the header so nothing is hidden underneath it.
+      */}
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+        bounces
+        onScroll={onScroll}
+        scrollEventThrottle={16}
+      >
         {/* ── Image carousel ── */}
-        <View style={styles.imageWrap}>
+        <View style={styles.imageSection}>
           <FlatList
             ref={imageListRef}
             data={IMAGES}
@@ -399,7 +417,15 @@ export default function ReportDetailsScreen({ navigation }: { navigation: any })
             )}
           />
 
-          {/* Left arrow — only when not on first image */}
+          {/* Date label */}
+          <LinearGradient
+            colors={['rgba(0,0,0,0.45)', 'transparent']}
+            style={styles.topGradient}
+            pointerEvents="none"
+          >
+            <Text style={styles.dateLabel}>Wednesday Dec 26, 2019</Text>
+          </LinearGradient>
+
           {imageIndex > 0 && (
             <TouchableOpacity
               style={[styles.carouselArrow, styles.carouselArrowLeft]}
@@ -408,8 +434,6 @@ export default function ReportDetailsScreen({ navigation }: { navigation: any })
               <Text style={styles.carouselArrowText}>‹</Text>
             </TouchableOpacity>
           )}
-
-          {/* Right arrow — only when not on last image */}
           {imageIndex < IMAGES.length - 1 && (
             <TouchableOpacity
               style={[styles.carouselArrow, styles.carouselArrowRight]}
@@ -419,260 +443,274 @@ export default function ReportDetailsScreen({ navigation }: { navigation: any })
             </TouchableOpacity>
           )}
 
-          {/* Dot indicators — bottom right, update with imageIndex */}
-          <View style={styles.dotsWrap}>
+          {/* Dots — sit above the pill */}
+          <View style={styles.dotsWrap} pointerEvents="none">
             {IMAGES.map((_, i) => (
               <View key={i} style={[styles.dot, i === imageIndex && styles.dotActive]} />
             ))}
           </View>
-        </View>
 
-        {/* ── Floating card overlapping image bottom ── */}
-        <View style={styles.floatingCard}>
-          {/* OD label + dot/pill image-index indicators */}
-          <View style={styles.eyeLabelRow}>
-            <Text style={styles.eyeLabel}>OD (Right) Macula</Text>
-            <View style={styles.limeDots}>
-              {IMAGES.map((_, i) => (
-                <View
-                  key={i}
-                  style={[
-                    styles.limeDot,
-                    i === imageIndex ? styles.limeDotActive : styles.limeDotInactive,
-                  ]}
-                />
-              ))}
-            </View>
-          </View>
-
-          {/* Eye selector: Right OD / Left OS */}
-          <View style={styles.eyeTabs}>
-            {EYE_TABS.map((eye) => (
+          {/*
+            Eye pill — bottom: -(EYE_PILL_H/2) so exactly 50% hangs below
+            the image edge. overflow:visible on imageSection makes it visible.
+          */}
+          <View style={styles.eyePillContainer}>
+            <View style={styles.eyePill}>
               <TouchableOpacity
-                key={eye}
-                style={[styles.eyeTab, activeEye === eye && styles.eyeTabActive]}
-                onPress={() => setActiveEye(eye)}
+                style={[
+                  styles.eyePillOption,
+                  activeEye === 'Right OD' && styles.eyePillOptionActive,
+                ]}
+                onPress={() => setActiveEye('Right OD')}
                 activeOpacity={0.8}
               >
-                <Text style={[styles.eyeTabText, activeEye === eye && styles.eyeTabTextActive]}>
-                  {eye}
+                <Text
+                  style={[
+                    styles.eyePillOptionText,
+                    activeEye === 'Right OD' && styles.eyePillOptionTextActive,
+                  ]}
+                >
+                  Right OD
                 </Text>
               </TouchableOpacity>
-            ))}
+              <TouchableOpacity
+                style={[
+                  styles.eyePillOption,
+                  activeEye === 'Left OS' && styles.eyePillOptionActive,
+                ]}
+                onPress={() => setActiveEye('Left OS')}
+                activeOpacity={0.8}
+              >
+                <Text
+                  style={[
+                    styles.eyePillOptionText,
+                    activeEye === 'Left OS' && styles.eyePillOptionTextActive,
+                  ]}
+                >
+                  Left OS
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
+        </View>
 
-          {/* Content tabs — scrollable horizontal */}
+        {/* ── White content card — butts against image, tab bar below pill ── */}
+        <View style={styles.contentCard}>
+          {/* Spacer clears the pill that hangs over the card top */}
+          <View style={{ height: EYE_PILL_H / 2 + 12 }} />
+
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            style={styles.contentTabsScroll}
+            contentContainerStyle={styles.tabBarInner}
           >
-            <View style={styles.contentTabs}>
-              {CONTENT_TABS.map((tab) => (
-                <TouchableOpacity
-                  key={tab}
-                  style={styles.contentTab}
-                  onPress={() => setActiveTab(tab)}
-                  activeOpacity={0.75}
-                >
-                  <Text
-                    style={[
-                      styles.contentTabText,
-                      activeTab === tab && styles.contentTabTextActive,
-                    ]}
-                  >
-                    {tab}
-                  </Text>
-                  {activeTab === tab && <View style={styles.contentTabUnderline} />}
-                </TouchableOpacity>
-              ))}
-            </View>
+            {CONTENT_TABS.map((tab) => (
+              <TouchableOpacity
+                key={tab}
+                style={styles.tabBarItem}
+                onPress={() => setActiveTab(tab)}
+                activeOpacity={0.7}
+              >
+                <Text style={[styles.tabBarText, activeTab === tab && styles.tabBarTextActive]}>
+                  {tab}
+                </Text>
+                {activeTab === tab && <View style={styles.tabBarUnderline} />}
+              </TouchableOpacity>
+            ))}
           </ScrollView>
 
-          {/* Tab body */}
-          <View style={styles.tabContent}>{renderTabContent()}</View>
+          <View style={styles.tabDivider} />
+          <View style={styles.tabBody}>{renderTabContent()}</View>
 
-          {/* After Care Instructions */}
           <Text style={styles.afterCareTitle}>After Care Instructions</Text>
-          <View style={styles.careGrid}>
+          <View style={styles.careList}>
             {CARE_RESOURCES.map((item) => (
               <CareResourceCard key={item.id} item={item} styles={styles} theme={theme} />
             ))}
           </View>
         </View>
       </ScrollView>
+
+      {/*
+        ── Floating AppHeader ──
+        Rendered after ScrollView so it paints on top.
+        • isScrolled=false (image visible) → variant='default': solid white bg,
+          navy text — perfectly readable at all times.
+        • isScrolled=true  (image scrolled away, white card fills screen)
+          → variant='overlay' + scrolled=true: frosted glass blur kicks in,
+          matching the notification-style translucency.
+        pointerEvents='box-none' passes scroll touches through when needed.
+      */}
+      <View style={styles.floatingHeader} pointerEvents="box-none">
+        <SafeAreaView edges={['top']}>
+          <AppHeader
+            title={t('reportDetails')}
+            titlePosition="left"
+            showBackButton
+            onBackPress={() => navigation.goBack()}
+            rightComponent={rightActions}
+            variant={isScrolled ? 'overlay' : 'default'}
+            scrolled={isScrolled}
+          />
+        </SafeAreaView>
+      </View>
     </SafeAreaView>
   );
 }
 
 // ─── Styles ───────────────────────────────────────────────────────────────────
 function createStyles(theme: Theme) {
-  const CARE_CARD_W = (SCREEN_W - theme.spacing.md * 2 - 10) / 2;
+  const NAVY = '#1B2B4B';
 
   return StyleSheet.create({
-    screen: { flex: 1, backgroundColor: theme.colors.background },
+    screen: { flex: 1, backgroundColor: '#fff' },
 
-    // Header actions
-    headerActions: { flexDirection: 'row', gap: 8 },
-    headerIconBtn: {
-      width: 36,
-      height: 36,
-    },
-
-    // Date
-    dateLabel: {
-      textAlign: 'center',
-      fontSize: 12,
-      color: theme.colors.textMuted,
-      paddingVertical: 6,
-    },
-
+    // Full-height scroll; paddingTop reserves space for the floating header
     scroll: { flex: 1 },
+    scrollContent: { paddingTop: HEADER_H },
 
-    // ── Carousel ──────────────────────────────────────────────────────────────
-    imageWrap: { width: SCREEN_W, height: IMAGE_H },
+    // ── Image section ─────────────────────────────────────────────────────
+    imageSection: {
+      width: SCREEN_W,
+      height: IMAGE_H,
+      backgroundColor: '#000',
+      overflow: 'visible', // lets the pill's bottom half show below
+    },
+    topGradient: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      height: 72,
+      paddingTop: 12,
+      alignItems: 'center',
+    },
+    dateLabel: { fontSize: 13, color: '#fff', fontWeight: '500', letterSpacing: 0.2 },
 
     carouselArrow: {
       position: 'absolute',
-      top: '50%',
-      marginTop: -20,
-      width: 40,
-      height: 40,
-      borderRadius: 20,
-      backgroundColor: 'rgba(255,255,255,0.18)',
+      top: IMAGE_H / 2 - 22,
+      width: 44,
+      height: 44,
+      borderRadius: 22,
+      backgroundColor: 'rgba(0,0,0,0.45)',
       alignItems: 'center',
       justifyContent: 'center',
     },
     carouselArrowLeft: { left: 12 },
     carouselArrowRight: { right: 12 },
-    carouselArrowText: { fontSize: 26, color: '#fff', fontWeight: '700', lineHeight: 32 },
+    carouselArrowText: { fontSize: 30, color: '#fff', fontWeight: '600', lineHeight: 36 },
 
-    // Dots — bottom-right of image, track imageIndex
     dotsWrap: {
       position: 'absolute',
-      bottom: CARD_OVERLAP + 10, // sit just above card top edge
-      right: 16,
+      bottom: EYE_PILL_H + 10, // above the pill
+      left: 0,
+      right: 0,
       flexDirection: 'row',
+      justifyContent: 'center',
       alignItems: 'center',
       gap: 5,
     },
-    dot: {
-      width: 6,
-      height: 6,
-      borderRadius: 3,
-      backgroundColor: 'rgba(255,255,255,0.35)',
-    },
-    dotActive: {
-      width: 18,
-      height: 6,
-      borderRadius: 3,
-      backgroundColor: '#fff',
-    },
+    dot: { width: 6, height: 6, borderRadius: 3, backgroundColor: 'rgba(255,255,255,0.35)' },
+    dotActive: { width: 20, height: 6, borderRadius: 3, backgroundColor: '#fff' },
 
-    // ── Floating card ─────────────────────────────────────────────────────────
-    floatingCard: {
-      marginTop: -CARD_OVERLAP,
-      marginHorizontal: theme.spacing.md,
-      backgroundColor: theme.colors.surface,
-      borderRadius: 20,
-      padding: 16,
-      shadowColor: '#000',
-      shadowOpacity: 0.1,
-      shadowRadius: 16,
-      shadowOffset: { width: 0, height: -4 },
-      elevation: 8,
-      marginBottom: 32,
-    },
-
-    // Eye label row — label left, image-index pill indicators right
-    eyeLabelRow: {
-      flexDirection: 'row',
+    // ── Eye pill — 50% inside, 50% outside image section ─────────────────
+    eyePillContainer: {
+      position: 'absolute',
+      bottom: -(EYE_PILL_H / 2),
+      left: 20,
+      right: 20,
+      zIndex: 20,
       alignItems: 'center',
-      justifyContent: 'space-between',
-      marginBottom: 12,
     },
-    eyeLabel: { fontSize: 15, fontWeight: '700', color: theme.colors.text },
-    limeDots: { flexDirection: 'row', gap: 4, alignItems: 'center' },
-    limeDot: {
-      height: 8,
-      borderRadius: 4,
-    },
-    limeDotActive: {
-      width: 20,
-      backgroundColor: theme.colors.limeAccent,
-    },
-    limeDotInactive: {
-      width: 8,
-      backgroundColor: theme.colors.border,
-    },
-
-    // Eye selector pill toggle
-    eyeTabs: {
+    eyePill: {
       flexDirection: 'row',
-      backgroundColor: theme.colors.background,
-      borderRadius: 10,
-      padding: 3,
-      marginBottom: 14,
+      width: '100%',
+      height: EYE_PILL_H,
+      backgroundColor: '#fff',
+      borderRadius: EYE_PILL_H / 2,
+      padding: 4,
+      shadowColor: '#000',
+      shadowOpacity: 0.14,
+      shadowRadius: 16,
+      shadowOffset: { width: 0, height: 4 },
+      elevation: 10,
     },
-    eyeTab: { flex: 1, paddingVertical: 9, borderRadius: 8, alignItems: 'center' },
-    eyeTabActive: { backgroundColor: theme.colors.text },
-    eyeTabText: { fontSize: 13, fontWeight: '600', color: theme.colors.textMuted },
-    eyeTabTextActive: { color: theme.colors.background },
+    eyePillOption: {
+      flex: 1,
+      borderRadius: EYE_PILL_H / 2,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    eyePillOptionActive: { backgroundColor: NAVY },
+    eyePillOptionText: { fontSize: 15, fontWeight: '600', color: '#9CA3AF' },
+    eyePillOptionTextActive: { color: '#fff', fontWeight: '700' },
 
-    // Horizontal content tab bar
-    contentTabsScroll: { marginBottom: 0 },
-    contentTabs: { flexDirection: 'row' },
-    contentTab: {
+    // ── White content card ────────────────────────────────────────────────
+    contentCard: {
+      backgroundColor: '#fff',
+      borderTopLeftRadius: 24,
+      borderTopRightRadius: 24,
+      paddingHorizontal: 20,
+      paddingBottom: 40,
+      zIndex: 10,
+      shadowColor: '#000',
+      shadowOpacity: 0.06,
+      shadowRadius: 12,
+      shadowOffset: { width: 0, height: -4 },
+      elevation: 6,
+    },
+
+    tabBarInner: { flexDirection: 'row' },
+    tabBarItem: {
+      paddingVertical: 10,
       paddingHorizontal: 2,
-      paddingVertical: 8,
-      marginRight: 20,
+      marginRight: 22,
       position: 'relative',
     },
-    contentTabText: { fontSize: 13, color: theme.colors.textMuted, fontWeight: '500' },
-    contentTabTextActive: { color: theme.colors.text, fontWeight: '700' },
-    contentTabUnderline: {
+    tabBarText: { fontSize: 15, color: theme.colors.textMuted, fontWeight: '500' },
+    tabBarTextActive: { color: theme.colors.text, fontWeight: '700' },
+    tabBarUnderline: {
       position: 'absolute',
       bottom: 0,
       left: 0,
       right: 0,
-      height: 2,
-      borderRadius: 1,
+      height: 2.5,
+      borderRadius: 2,
       backgroundColor: theme.colors.text,
     },
+    tabDivider: { height: 1, backgroundColor: theme.colors.border, opacity: 0.3, marginBottom: 4 },
+    tabBody: { paddingTop: 14, paddingBottom: 24 },
 
-    // Tab body
-    tabContent: { paddingTop: 12, paddingBottom: 20 },
     sectionLabel: {
-      fontSize: 13,
+      fontSize: 15,
       fontWeight: '700',
       color: theme.colors.text,
       marginBottom: 6,
-      marginTop: 8,
+      marginTop: 10,
     },
-    bodyText: { fontSize: 13, color: theme.colors.textMuted, lineHeight: 20 },
-    bulletRow: { flexDirection: 'row', alignItems: 'flex-start', marginBottom: 6 },
-    bullet: {
-      width: 5,
-      height: 5,
-      borderRadius: 2.5,
-      backgroundColor: theme.colors.text,
-      marginTop: 7,
-      marginRight: 8,
-      flexShrink: 0,
+    bodyText: { fontSize: 15, color: theme.colors.textMuted, lineHeight: 22 },
+    bulletRow: { flexDirection: 'row', alignItems: 'flex-start', marginBottom: 10 },
+    bulletDot: {
+      fontSize: 20,
+      color: theme.colors.text,
+      lineHeight: 24,
+      marginRight: 10,
+      marginTop: -2,
     },
-    bulletText: { fontSize: 13, color: theme.colors.text, flex: 1, lineHeight: 20 },
+    bulletText: { fontSize: 15, color: theme.colors.text, flex: 1, lineHeight: 22 },
 
     followUpBtn: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: theme.colors.background,
+      backgroundColor: '#F2F2F7',
       borderRadius: 12,
       padding: 14,
       gap: 8,
       marginVertical: 10,
     },
     followUpIcon: { fontSize: 16, color: theme.colors.text },
-    followUpText: { fontSize: 13, fontWeight: '600', color: theme.colors.text },
+    followUpText: { fontSize: 14, fontWeight: '600', color: theme.colors.text },
 
     urgentBox: {
       marginTop: 14,
@@ -682,32 +720,22 @@ function createStyles(theme: Theme) {
       borderLeftWidth: 3,
       borderLeftColor: theme.colors.border,
     },
-    urgentText: { fontSize: 13, color: theme.colors.text, lineHeight: 20 },
+    urgentText: { fontSize: 14, color: theme.colors.text, lineHeight: 20 },
 
-    // After Care
-    afterCareTitle: {
-      fontSize: 15,
-      fontWeight: '700',
-      color: theme.colors.text,
-      marginBottom: 12,
-    },
-    careGrid: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      gap: 10,
-    },
+    afterCareTitle: { fontSize: 18, fontWeight: '700', color: theme.colors.text, marginBottom: 14 },
+    careList: { gap: 12 },
     careCard: {
-      width: CARE_CARD_W,
-      backgroundColor: theme.colors.background,
-      borderRadius: 12,
+      width: '100%',
+      backgroundColor: '#F8F8F8',
+      borderRadius: 16,
       overflow: 'hidden',
+      flexDirection: 'row',
+      alignItems: 'center',
     },
     careThumbnail: {
-      width: '100%',
-      height: CARE_CARD_W * 0.65,
-      borderRadius: 10,
-      overflow: 'hidden',
-      marginBottom: 8,
+      width: 110,
+      height: 90,
+      flexShrink: 0,
       backgroundColor: theme.colors.accentLight,
     },
     playBadge: {
@@ -719,15 +747,21 @@ function createStyles(theme: Theme) {
       paddingHorizontal: 6,
       paddingVertical: 2,
     },
-    playBadgeText: { fontSize: 10, color: '#fff', fontWeight: '700' },
+    playBadgeText: { fontSize: 11, color: '#fff', fontWeight: '700' },
+    careCardBody: { flex: 1, paddingHorizontal: 12, paddingVertical: 10 },
     careTitle: {
-      fontSize: 12,
+      fontSize: 13,
       fontWeight: '700',
       color: theme.colors.text,
-      marginBottom: 3,
-      lineHeight: 16,
+      marginBottom: 4,
+      lineHeight: 18,
     },
-    careDesc: { fontSize: 11, color: theme.colors.textMuted, lineHeight: 15, marginBottom: 3 },
-    careDate: { fontSize: 10, color: theme.colors.textMuted },
+    careDesc: { fontSize: 12, color: theme.colors.textMuted, lineHeight: 16, marginBottom: 4 },
+    careDate: { fontSize: 11, color: theme.colors.textMuted },
+
+    // Floats above everything, passes touches through transparent areas
+    floatingHeader: { position: 'absolute', top: 0, left: 0, right: 0, zIndex: 100 },
+    appBarActions: { flexDirection: 'row', gap: 8 },
+    appBarIcon: { width: 18, height: 18 },
   });
 }

@@ -29,7 +29,6 @@
     "passwordPlaceholder": "Enter password",
     "confirmPassword": "Confirm Password",
     "confirmPasswordPlaceholder": "Confirm password",
-    "submit": "Submit",
     "consent": "I authorize Vitazi.ai Inc. to share my de-identified health information with third-party (such as research organizations) for purposes of medical research."
   },
   "connectClinic": {
@@ -104,6 +103,11 @@
       "medications": "Are you currently taking any regular medications?",
       "chronicConditions": "Do you have any chronic conditions (e.g., diabetes, hypertension, asthma)?",
       "recentSymptoms": "In the past 7 days, have you experienced any unusual symptoms like fever, chest pain, or severe headaches?"
+    },
+    "errors": {
+      "required": "Please answer before continuing.",
+      "submitFailed": "Something went wrong. Please try again."
     }
-  }
+  },
+  "submit": "Submit"
 }
