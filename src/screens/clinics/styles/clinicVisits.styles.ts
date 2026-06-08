@@ -1,6 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
-import { Theme } from '../../../theme';
+import { Colors, Radius, Theme } from '../../../theme';
 
 const { width } = Dimensions.get('window');
 const GRID_GAP = 10;
@@ -180,32 +180,18 @@ export const createVisitStyles = (theme: Theme) =>
     visitReviewBtn: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: theme.colors.text,
-      borderRadius: 20,
-      paddingHorizontal: 14,
-      paddingVertical: 8,
-      gap: 4,
+      backgroundColor: Colors.navyDark,
+      paddingLeft: 14,
+      paddingRight: 6,
+      paddingVertical: 6,
+      borderRadius: Radius.full,
     },
-
-    visitReviewBtnText: {
-      fontSize: 13,
-      fontWeight: '600',
-      color: theme.colors.background ?? '#fff',
-    },
-
-    visitReviewChevron: {
-      width: 20,
-      height: 20,
-      borderRadius: 10,
-      backgroundColor: theme.colors.limeAccent,
+    visitReviewArrow: {
+      width: 24,
+      height: 24,
+      borderRadius: 12,
+      backgroundColor: Colors.white,
       alignItems: 'center',
       justifyContent: 'center',
-    },
-
-    visitReviewChevronText: {
-      fontSize: 14,
-      color: theme.colors.text,
-      fontWeight: '700',
-      lineHeight: 20,
     },
   });

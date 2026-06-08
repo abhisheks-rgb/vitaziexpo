@@ -1,6 +1,8 @@
+import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
+  Animated,
   Dimensions,
   FlatList,
   NativeScrollEvent,
@@ -11,7 +13,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import AppHeader from '../../components/AppHeader';
 import AppImage from '../../components/AppImage';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
@@ -316,12 +318,26 @@ export default function ReportDetailsScreen({ navigation }: { navigation: any })
   const theme = useTheme();
   const styles = createStyles(theme);
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
 
   const [imageIndex, setImageIndex] = useState(0);
   const [activeEye, setActiveEye] = useState<EyeTab>('Right OD');
   const [activeTab, setActiveTab] = useState<ContentTab>('Findings');
   const [isScrolled, setIsScrolled] = useState(false);
   const imageListRef = useRef<FlatList>(null);
+
+  // 🔥 HEADER CONSTANTS
+  const HEADER_ROW_H = 56;
+  const overlayH = insets.top + HEADER_ROW_H;
+
+  // 🔥 SCROLL ANIMATION
+  const scrollY = React.useRef(new Animated.Value(0)).current;
+
+  const blurOpacity = scrollY.interpolate({
+    inputRange: [0, 120],
+    outputRange: [0, 1],
+    extrapolate: 'clamp',
+  });
 
   // Frosted kicks in once the image has scrolled past the header
   const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -389,12 +405,26 @@ export default function ReportDetailsScreen({ navigation }: { navigation: any })
         A paddingTop on the ScrollView pushes the first item (image)
         below the header so nothing is hidden underneath it.
       */}
-      <ScrollView
+      <Animated.ScrollView
         style={styles.scroll}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
         bounces
-        onScroll={onScroll}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: {
+                  y: scrollY,
+                },
+              },
+            },
+          ],
+          {
+            useNativeDriver: true,
+            listener: onScroll,
+          },
+        )}
         scrollEventThrottle={16}
       >
         {/* ── Image carousel ── */}
@@ -529,7 +559,7 @@ export default function ReportDetailsScreen({ navigation }: { navigation: any })
             ))}
           </View>
         </View>
-      </ScrollView>
+      </Animated.ScrollView>
 
       {/*
         ── Floating AppHeader ──
@@ -541,18 +571,35 @@ export default function ReportDetailsScreen({ navigation }: { navigation: any })
           matching the notification-style translucency.
         pointerEvents='box-none' passes scroll touches through when needed.
       */}
-      <View style={styles.floatingHeader} pointerEvents="box-none">
-        <SafeAreaView edges={['top']}>
-          <AppHeader
-            title={t('reportDetails')}
-            titlePosition="left"
-            showBackButton
-            onBackPress={() => navigation.goBack()}
-            rightComponent={rightActions}
-            variant={isScrolled ? 'overlay' : 'default'}
-            scrolled={isScrolled}
-          />
-        </SafeAreaView>
+      <View
+        style={[
+          styles.frostedOverlay,
+          {
+            height: overlayH,
+          },
+        ]}
+      >
+        <Animated.View
+          pointerEvents="none"
+          style={[
+            StyleSheet.absoluteFill,
+            {
+              opacity: blurOpacity,
+            },
+          ]}
+        >
+          <BlurView intensity={60} tint="light" style={StyleSheet.absoluteFill} />
+        </Animated.View>
+
+        <View style={{ height: insets.top }} />
+
+        <AppHeader
+          title="Report Details"
+          titlePosition="left"
+          showBackButton
+          onBackPress={() => navigation.goBack()}
+          rightComponent={rightActions}
+        />
       </View>
     </SafeAreaView>
   );
@@ -762,6 +809,23 @@ function createStyles(theme: Theme) {
     // Floats above everything, passes touches through transparent areas
     floatingHeader: { position: 'absolute', top: 0, left: 0, right: 0, zIndex: 100 },
     appBarActions: { flexDirection: 'row', gap: 8 },
-    appBarIcon: { width: 18, height: 18 },
+    appBarIcon: { width: 36, height: 36 },
+    frostedOverlay: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      zIndex: 999,
+
+      shadowColor: '#000',
+      shadowOpacity: 0.08,
+      shadowRadius: 20,
+      shadowOffset: {
+        width: 0,
+        height: 8,
+      },
+
+      elevation: 8,
+    },
   });
 }

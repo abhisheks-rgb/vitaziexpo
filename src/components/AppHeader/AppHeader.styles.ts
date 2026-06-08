@@ -1,54 +1,49 @@
 import { StyleSheet } from 'react-native';
-
 import { Colors } from '../../theme/colors';
-import { Spacing } from '../../theme/spacing';
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    height: 48,
+    height: 56,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: Spacing.md,
+    paddingHorizontal: 16,
+
+    shadowColor: '#000',
+    shadowOpacity: 0.06,
+    shadowRadius: 12,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+
+    elevation: 4,
   },
 
-  leftSection: {
+  left: {
+    flex: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    minWidth: 0,
+  },
+
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  right: {
     flex: 1,
     flexDirection: 'row',
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    zIndex: 2,
-  },
-
-  centerContainer: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  leftLogoContainer: {
-    alignItems: 'flex-start',
-    paddingLeft: 60,
-  },
-
-  rightSection: {
-    marginLeft: 'auto',
-    minWidth: 48,
-    alignItems: 'flex-end',
-  },
-
-  logo: {
-    width: 120,
-    height: 32,
   },
 
   title: {
     color: Colors.navyDark,
-    fontWeight: '600',
+    marginLeft: 8,
     flexShrink: 1,
   },
-  titleContainerLeft: {
-    flex: 1,
-    marginLeft: Spacing.sm,
-  },
 });
+
+export default styles;

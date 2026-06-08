@@ -1,9 +1,11 @@
-import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
+import { Feather } from '@expo/vector-icons';
 import AppImage from '../../../components/AppImage';
+import AppText from '../../../components/AppText';
 import { AppImages } from '../../../constants';
-import { useTheme } from '../../../theme';
+import { useTranslation } from '../../../hooks/useTranslation';
+import { Colors, useTheme } from '../../../theme';
 import type { ClinicVisit } from '../data';
 import { createVisitStyles } from '../styles/clinicVisits.styles';
 
@@ -16,6 +18,7 @@ type Props = {
 export default function VisitListItem({ visit, showImages, onPress }: Props) {
   const theme = useTheme();
   const styles = createVisitStyles(theme);
+  const { t } = useTranslation();
 
   return (
     <View style={styles.visitListCard}>
@@ -36,10 +39,17 @@ export default function VisitListItem({ visit, showImages, onPress }: Props) {
           <Text style={styles.visitListDate}>{visit.date}</Text>
         </View>
 
-        <TouchableOpacity style={styles.visitReviewBtn} activeOpacity={0.8} onPress={onPress}>
-          <Text style={styles.visitReviewBtnText}>Visit Review</Text>
-          <View style={styles.visitReviewChevron}>
-            <Text style={styles.visitReviewChevronText}>›</Text>
+        <TouchableOpacity style={styles.visitReviewBtn} onPress={onPress} activeOpacity={0.8}>
+          <AppText
+            variant="caption"
+            color={Colors.white}
+            style={{ fontWeight: '600', marginRight: 8 }}
+          >
+            {t('home.visitReview')}
+          </AppText>
+
+          <View style={styles.visitReviewArrow}>
+            <Feather name="chevron-right" size={16} color={Colors.navyDark} />
           </View>
         </TouchableOpacity>
       </View>
