@@ -6,12 +6,14 @@ import calendarAppt from '../../assets/images/svg/calendar_appt.svg';
 import chat from '../../assets/images/svg/chat.svg';
 import clinic from '../../assets/images/svg/clinic.svg';
 import clinicVector from '../../assets/images/svg/clinic_vector.svg';
+import doc from '../../assets/images/svg/doc.svg';
 import doctorSethoscope from '../../assets/images/svg/doctor_sethoscope.svg';
 import haveAccount from '../../assets/images/svg/have_account.svg';
 import location from '../../assets/images/svg/location.svg';
 import needHelp from '../../assets/images/svg/need_help.svg';
 import Notification from '../../assets/images/svg/notification.svg';
 import notificationYellow from '../../assets/images/svg/notification_yellow.svg';
+import pdf from '../../assets/images/svg/pdf.svg';
 import print from '../../assets/images/svg/print.svg';
 import report from '../../assets/images/svg/report.svg';
 import ScanQRTextIcon from '../../assets/images/svg/scan_qr_text_icon.svg';
@@ -57,4 +59,6 @@ export const AppImages = {
   visitPlaceholder: visitPlaceholder,
   share: share,
   print: print,
+  doc: doc,
+  pdf: pdf,
 } as const;

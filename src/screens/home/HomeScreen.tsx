@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -46,7 +46,10 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
 
         <ClinicBanner />
 
-        <QuickActionsSection onVisitsPress={() => navigation.navigate('ClinicList')} />
+        <QuickActionsSection
+          onVisitsPress={() => navigation.navigate('ClinicList')}
+          onAppointmentsPress={() => navigation.navigate('Appointments')}
+        />
 
         <LatestScreeningCard />
 

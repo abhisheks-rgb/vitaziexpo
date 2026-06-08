@@ -1,4 +1,3 @@
-import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
 import AppImage from '../../../components/AppImage';
@@ -11,9 +10,10 @@ import { quickActionsStyles } from '../styles/HomeQuickActions.styles';
 
 interface Props {
   onVisitsPress: () => void;
+  onAppointmentsPress: () => void;
 }
 
-export default function QuickActionsSection({ onVisitsPress }: Props) {
+export default function QuickActionsSection({ onVisitsPress, onAppointmentsPress }: Props) {
   const theme = useTheme();
 
   return (
@@ -25,6 +25,8 @@ export default function QuickActionsSection({ onVisitsPress }: Props) {
           onPress={() => {
             if (action.key === 'visits') {
               onVisitsPress();
+            } else if (action.key === 'appts') {
+              onAppointmentsPress();
             }
           }}
         >
