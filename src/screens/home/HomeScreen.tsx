@@ -30,6 +30,8 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
 
     if (key === 'visits') {
       navigation.navigate('ClinicList');
+    } else if (key === 'education') {
+      navigation.navigate('Education');
     }
   };
 

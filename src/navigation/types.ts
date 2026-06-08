@@ -56,6 +56,7 @@ export type AppStackParamList = {
   ClinicVisits: { clinicId: string };
   ReportDetails: { reportId: string };
   Appointments: undefined;
+  Education: undefined;
 };
 
 export type HomeScreenProps = NativeStackScreenProps<AppStackParamList, 'Home'>;
@@ -74,3 +75,4 @@ export type GeneralHealthQuestionsScreenProps = NativeStackScreenProps<
 >;
 export type ReportDetailsScreenProps = NativeStackScreenProps<AppStackParamList, 'ReportDetails'>;
 export type AppointmentsScreenProps = NativeStackScreenProps<AppStackParamList, 'Appointments'>;
+export type EducationScreenProps = NativeStackScreenProps<AppStackParamList, 'Education'>;

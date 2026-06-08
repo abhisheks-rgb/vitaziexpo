@@ -7,6 +7,7 @@ import NotificationDetailScreen from '../screens/notifications/NotificationDetai
 import NotificationsScreen from '../screens/notifications/NotificationScreen';
 
 import AppointmentsScreen from '../screens/Appointments/AppointmentsScreen';
+import EducationScreen from '../screens/Education/EducationScreen';
 import ReportDetailsScreen from '../screens/ReportDetails/ReportDetailsScreen';
 import type { AppStackParamList } from './types';
 
@@ -27,6 +28,7 @@ export default function AppNavigator() {
       <Stack.Screen name="ClinicVisits" component={ClinicVisitsScreen} />
       <Stack.Screen name="ReportDetails" component={ReportDetailsScreen} />
       <Stack.Screen name="Appointments" component={AppointmentsScreen} />
+      <Stack.Screen name="Education" component={EducationScreen} />
     </Stack.Navigator>
   );
 }
