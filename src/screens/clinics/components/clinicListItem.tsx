@@ -1,7 +1,7 @@
-import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 import AppImage from '../../../components/AppImage';
+import ArrowButton from '../../../components/ArrowButton';
 import { useTheme } from '../../../theme';
 import type { Clinic } from '../data';
 import { createClinicListStyles } from '../styles/clinicList.styles';
@@ -35,9 +35,7 @@ export default function ClinicListItem({ clinic, onPress }: Props) {
         </View>
 
         {/* Chevron */}
-        <View style={styles.chevronWrap}>
-          <Text style={styles.chevron}>›</Text>
-        </View>
+        <ArrowButton style={styles.chevronWrap} size="md" />
       </View>
     </TouchableOpacity>
   );

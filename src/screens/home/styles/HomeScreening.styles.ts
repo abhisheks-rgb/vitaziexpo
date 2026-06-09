@@ -71,12 +71,4 @@ export const screeningStyles = StyleSheet.create({
     paddingVertical: 6,
     borderRadius: Radius.full,
   },
-  visitReviewArrow: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: Colors.white,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
 });

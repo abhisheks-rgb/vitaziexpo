@@ -102,8 +102,6 @@ export const createClinicListStyles = (theme: Theme) =>
     },
 
     chevronWrap: {
-      width: 30,
-      height: 30,
       borderRadius: 15,
       borderWidth: 1,
       borderColor: theme.colors.border,

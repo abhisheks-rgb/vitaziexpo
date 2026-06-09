@@ -1,8 +1,8 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { Feather } from '@expo/vector-icons';
 import AppImage from '../../../components/AppImage';
 import AppText from '../../../components/AppText';
+import ArrowButton from '../../../components/ArrowButton';
 import { AppImages } from '../../../constants';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { Colors, useTheme } from '../../../theme';
@@ -48,9 +48,7 @@ export default function VisitListItem({ visit, showImages, onPress }: Props) {
             {t('home.visitReview')}
           </AppText>
 
-          <View style={styles.visitReviewArrow}>
-            <Feather name="chevron-right" size={16} color={Colors.navyDark} />
-          </View>
+          <ArrowButton />
         </TouchableOpacity>
       </View>
     </View>

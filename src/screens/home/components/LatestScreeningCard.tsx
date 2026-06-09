@@ -1,5 +1,4 @@
 import { Feather } from '@expo/vector-icons';
-import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
 import AppImage from '../../../components/AppImage';
@@ -10,6 +9,7 @@ import { useTranslation } from '../../../hooks/useTranslation';
 import { useTheme } from '../../../theme';
 import { Colors } from '../../../theme/colors';
 
+import ArrowButton from '../../../components/ArrowButton';
 import { screeningStyles } from '../styles/HomeScreening.styles';
 
 export default function LatestScreeningCard() {
@@ -62,9 +62,7 @@ export default function LatestScreeningCard() {
               {t('home.visitReview')}
             </AppText>
 
-            <View style={screeningStyles.visitReviewArrow}>
-              <Feather name="chevron-right" size={16} color={Colors.navyDark} />
-            </View>
+            <ArrowButton />
           </TouchableOpacity>
         </View>
 
