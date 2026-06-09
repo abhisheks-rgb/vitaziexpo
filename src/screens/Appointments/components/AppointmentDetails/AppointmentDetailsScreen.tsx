@@ -2,12 +2,14 @@
 
 import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import AppHeader from '../../../../components/AppHeader';
 import AppImage from '../../../../components/AppImage';
 import BackgroundBlobs from '../../../../components/BackgroundBlobs';
 import { AppImages } from '../../../../constants';
 import { useTheme } from '../../../../theme';
 import type { Appointment } from '../../types/appointments.types';
+
 import { createStyles } from './styles';
 
 interface Props {

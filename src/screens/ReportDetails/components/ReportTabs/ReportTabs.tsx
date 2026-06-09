@@ -1,9 +1,11 @@
 // File: components/ReportTabs/ReportTabs.tsx
 
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+
 import { useTheme } from '../../../../theme';
 import { CONTENT_TABS } from '../../constants/tabs';
 import type { ContentTab } from '../../types/reportDetails.types';
+
 import { createStyles } from './styles';
 
 interface Props {

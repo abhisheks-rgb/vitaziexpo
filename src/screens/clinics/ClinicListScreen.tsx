@@ -7,6 +7,7 @@ import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { useTranslation } from '../../hooks/useTranslation';
 import type { ClinicListScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
+
 import ClinicGridItem from './components/clinicGridItem';
 import ClinicListItem from './components/clinicListItem';
 import { clinics } from './data';

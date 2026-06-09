@@ -49,6 +49,7 @@ export type CompleteFormScreenProps = CompositeScreenProps<
 
 // ─── App (authenticated) stack ─────────────────────────────────────────────────
 export type AppStackParamList = {
+  Tabs: undefined;
   Home: undefined;
   Notifications: undefined;
   NotificationDetail: { notificationId: string };
@@ -59,8 +60,10 @@ export type AppStackParamList = {
   Education: undefined;
   AIAssistant: undefined;
   ChatHistory: undefined;
+  More: undefined;
 };
 
+export type TabNavigatorScreenProps = NativeStackScreenProps<AppStackParamList, 'Tabs'>;
 export type HomeScreenProps = NativeStackScreenProps<AppStackParamList, 'Home'>;
 export type NotificationsScreenProps = NativeStackScreenProps<AppStackParamList, 'Notifications'>;
 export type NotificationDetailScreenProps = NativeStackScreenProps<
@@ -80,3 +83,4 @@ export type AppointmentsScreenProps = NativeStackScreenProps<AppStackParamList, 
 export type EducationScreenProps = NativeStackScreenProps<AppStackParamList, 'Education'>;
 export type ChatHistoryScreenProps = NativeStackScreenProps<AppStackParamList, 'ChatHistory'>;
 export type AIAssistantScreenProps = NativeStackScreenProps<AppStackParamList, 'AIAssistant'>;
+export type MoreScreenProps = NativeStackScreenProps<AppStackParamList, 'More'>;

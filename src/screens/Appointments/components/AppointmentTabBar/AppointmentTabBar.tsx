@@ -1,8 +1,10 @@
 // File: Appointments/components/AppointmentTabBar/AppointmentTabBar.tsx
 
 import { Text, TouchableOpacity, View } from 'react-native';
+
 import { useTheme } from '../../../../theme';
 import type { AppointmentTab } from '../../types/appointments.types';
+
 import { createStyles } from './styles';
 
 interface Props {

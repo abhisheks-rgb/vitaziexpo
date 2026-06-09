@@ -1,8 +1,10 @@
 // File: Education/components/EducationHeader/EducationHeader.tsx
 
 import { Text, TouchableOpacity, View } from 'react-native';
+
 import { useTheme } from '../../../../theme';
 import type { ViewMode } from '../../types/education.types';
+
 import { createStyles } from './styles';
 
 interface Props {

@@ -1,6 +1,7 @@
 // File: components/ReportTabs/styles.ts
 
 import { StyleSheet } from 'react-native';
+
 import type { Theme } from '../../../../theme';
 
 export const createStyles = (theme: Theme) =>

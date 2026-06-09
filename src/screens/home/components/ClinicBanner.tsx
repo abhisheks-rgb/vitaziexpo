@@ -8,7 +8,6 @@ import { AppImages } from '../../../constants';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useTheme } from '../../../theme';
 import { Colors } from '../../../theme/colors';
-
 import { clinicStyles } from '../styles/HomeClinic.styles';
 
 export default function ClinicBanner() {

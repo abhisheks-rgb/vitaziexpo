@@ -2,6 +2,7 @@
   import { Text, View } from 'react-native';
 
   import { useTheme } from '../theme';
+
 import { createStyles } from './styles';
 
   const RADIUS_PILL = 100;

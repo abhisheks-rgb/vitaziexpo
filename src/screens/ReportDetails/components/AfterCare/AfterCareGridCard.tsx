@@ -1,10 +1,12 @@
 // File: components/AfterCare/AfterCareGridCard.tsx
 
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
 import AppImage from '../../../../components/AppImage';
 import { AppImages } from '../../../../constants';
 import { useTheme } from '../../../../theme';
 import type { CareResource } from '../../types/reportDetails.types';
+
 import { createStyles } from './styles';
 
 interface Props {

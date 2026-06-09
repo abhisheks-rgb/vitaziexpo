@@ -1,7 +1,9 @@
 // File: Education/components/ImagesToggle/ImagesToggle.tsx
 
 import { Text, TouchableOpacity, View } from 'react-native';
+
 import { useTheme } from '../../../../theme';
+
 import { createStyles } from './styles';
 
 interface Props {

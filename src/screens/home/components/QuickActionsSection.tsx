@@ -4,7 +4,6 @@ import AppImage from '../../../components/AppImage';
 import AppText from '../../../components/AppText';
 import Card from '../../../components/Card';
 import { useTheme } from '../../../theme';
-
 import { QUICK_ACTIONS } from '../data/home.data';
 import { quickActionsStyles } from '../styles/HomeQuickActions.styles';
 

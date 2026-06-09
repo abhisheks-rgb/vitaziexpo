@@ -1,43 +1,42 @@
+import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { BlurView } from 'expo-blur';
-import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
-
+import { Platform, TouchableOpacity, View } from 'react-native';
 import AppImage from '../../../components/AppImage';
 import { AppImages } from '../../../constants';
 import { useTranslation } from '../../../hooks/useTranslation';
-
 import {
   bottomTabBarStyles,
   CONTAINER_H,
+  FAB_OVERHANG,
   FAB_TOTAL,
   SCREEN_CENTER_X,
 } from '../styles/BottomTabBar.styles';
 import TabButton from './TabButton';
 
-export type TabKey = 'home' | 'visits' | 'fab' | 'education' | 'more';
+export type TabKey = 'Home' | 'Visits' | 'AIAssistant' | 'Education' | 'More';
 
 interface TabItem {
-  key: Exclude<TabKey, 'fab'>;
+  key: Exclude<TabKey, 'AIAssistant'>;
   label: string;
   icon: string;
 }
 
-interface Props {
-  active: TabKey;
-  onPress: (key: TabKey) => void;
-}
-
-export default function BottomTabBar({ active, onPress }: Props) {
+export default function BottomTabBar({ state, navigation }: BottomTabBarProps) {
+  const activeTab = state.routes[state.index].name as TabKey;
   const { t } = useTranslation();
+
+  const handlePress = (key: TabKey) => {
+    navigation.navigate(key);
+  };
 
   const leftTabs: TabItem[] = [
     {
-      key: 'home',
+      key: 'Home',
       label: t('tabs.home'),
       icon: 'home',
     },
     {
-      key: 'visits',
+      key: 'Visits',
       label: t('visits'),
       icon: 'file-text',
     },
@@ -45,12 +44,12 @@ export default function BottomTabBar({ active, onPress }: Props) {
 
   const rightTabs: TabItem[] = [
     {
-      key: 'education',
+      key: 'Education',
       label: t('tabs.education'),
       icon: 'play-circle',
     },
     {
-      key: 'more',
+      key: 'More',
       label: t('tabs.more'),
       icon: 'more-horizontal',
     },
@@ -58,51 +57,63 @@ export default function BottomTabBar({ active, onPress }: Props) {
 
   return (
     <View style={[bottomTabBarStyles.wrapper, { height: CONTAINER_H }]}>
-      <View style={bottomTabBarStyles.topShadow}>
-        <View style={bottomTabBarStyles.pill}>
-          <BlurView intensity={60} tint="light" style={bottomTabBarStyles.blurLayer} />
+      {/* full-width frosted bar */}
+      <View style={bottomTabBarStyles.pill}>
+        {Platform.OS === 'ios' ? (
+          <BlurView
+            intensity={80}
+            tint="systemUltraThinMaterialLight"
+            style={bottomTabBarStyles.blurLayer}
+          />
+        ) : (
+          <View
+            style={[bottomTabBarStyles.blurLayer, { backgroundColor: 'rgba(255,255,255,0.92)' }]}
+          />
+        )}
+        <View style={bottomTabBarStyles.pillTint} />
+      </View>
 
-          <View style={bottomTabBarStyles.pillTint} />
+      {/* tab icons — absolutely overlaid on blur, never clipped by pill */}
+      <View style={bottomTabBarStyles.tabRow}>
+        <View style={bottomTabBarStyles.side}>
+          {leftTabs.map((tab) => (
+            <TabButton
+              key={tab.key}
+              label={tab.label}
+              icon={tab.icon}
+              active={activeTab === tab.key}
+              onPress={() => handlePress(tab.key)}
+            />
+          ))}
+        </View>
 
-          <View style={bottomTabBarStyles.tabRow}>
-            <View style={bottomTabBarStyles.side}>
-              {leftTabs.map((tab) => (
-                <TabButton
-                  key={tab.key}
-                  label={tab.label}
-                  icon={tab.icon}
-                  active={active === tab.key}
-                  onPress={() => onPress(tab.key)}
-                />
-              ))}
-            </View>
+        <View style={{ width: FAB_TOTAL + 8 }} />
 
-            <View style={{ width: FAB_TOTAL + 8 }} />
-
-            <View style={bottomTabBarStyles.side}>
-              {rightTabs.map((tab) => (
-                <TabButton
-                  key={tab.key}
-                  label={tab.label}
-                  icon={tab.icon}
-                  active={active === tab.key}
-                  onPress={() => onPress(tab.key)}
-                />
-              ))}
-            </View>
-          </View>
+        <View style={bottomTabBarStyles.side}>
+          {rightTabs.map((tab) => (
+            <TabButton
+              key={tab.key}
+              label={tab.label}
+              icon={tab.icon}
+              active={activeTab === tab.key}
+              onPress={() => handlePress(tab.key)}
+            />
+          ))}
         </View>
       </View>
 
+      {/* FAB — centered horizontally, sits straddling the pill top edge */}
       <TouchableOpacity
         style={[
           bottomTabBarStyles.fabRing,
           {
             left: SCREEN_CENTER_X - FAB_TOTAL / 2,
-            top: 0,
+            // pill bottom edge is at: CONTAINER_H - 8 - BAR_H = FAB_OVERHANG - 8
+            // FAB center should be at pill top edge
+            top: FAB_OVERHANG - FAB_TOTAL / 2 - 4,
           },
         ]}
-        onPress={() => onPress('fab')}
+        onPress={() => handlePress('AIAssistant')}
         activeOpacity={0.85}
       >
         <AppImage

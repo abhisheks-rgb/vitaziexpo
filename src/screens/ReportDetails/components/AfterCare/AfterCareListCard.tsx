@@ -1,12 +1,14 @@
 // File: components/AfterCare/AfterCareListCard.tsx
 
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
 import AppImage from '../../../../components/AppImage';
 import { DurationChip } from '../../../../components/DurationChip';
 import { PlayButton } from '../../../../components/PlayButton';
 import { AppImages } from '../../../../constants';
 import { useTheme } from '../../../../theme';
 import type { CareResource } from '../../types/reportDetails.types';
+
 import { createStyles } from './styles';
 
 interface Props {

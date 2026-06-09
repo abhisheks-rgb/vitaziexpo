@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, ViewStyle } from 'react-native';
+
 import { AppImages } from '../../constants';
 import AppImage from '../AppImage';
 import AppText from '../AppText';
+
 import styles from './AppHeader.styles';
 import BackButton from './BackButton';
 

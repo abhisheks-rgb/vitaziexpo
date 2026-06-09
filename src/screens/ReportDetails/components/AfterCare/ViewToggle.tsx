@@ -1,8 +1,10 @@
 // File: components/AfterCare/ViewToggle.tsx
 
 import { Text, TouchableOpacity, View } from 'react-native';
+
 import { useTheme } from '../../../../theme';
 import type { ViewMode } from '../../types/reportDetails.types';
+
 import { createStyles } from './styles';
 
 interface Props {

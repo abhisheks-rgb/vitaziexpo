@@ -11,8 +11,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
 import AppImage from '../../../../components/AppImage';
 import type { ReportImage } from '../../types/reportDetails.types';
+
 import { createStyles, IMAGE_H } from './styles';
 
 const { width: SCREEN_W } = Dimensions.get('window');

@@ -10,10 +10,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import AppHeader from '../../components/AppHeader';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import type { AppStackParamList } from '../../navigation/types'; // adjust path to yours
 import { useTheme } from '../../theme';
+
 import ChatBubble from './components/ChatBubble/ChatBubble';
 import ChatInput from './components/ChatInput/ChatInput';
 import ChooseFilesSheet from './components/ChooseFilesSheet/ChooseFilesSheet';
@@ -28,7 +30,7 @@ import { useAIAssistant } from './hooks/useAIAssistant';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'AIAssistant'>;
 
-export default function AIAssistantScreen({ navigation }: Props) {
+export default function AIAssistantScreen({ navigation }: { navigation: any }) {
   const theme = useTheme();
   const {
     messages,

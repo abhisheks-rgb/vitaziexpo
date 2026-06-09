@@ -12,11 +12,13 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import AppHeader from '../../components/AppHeader';
 import AppImage from '../../components/AppImage';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { AppImages } from '../../constants';
 import { useTheme } from '../../theme';
+
 import AfterCareSection from './components/AfterCare/AfterCareSection';
 import EyeSelector from './components/EyeSelector/EyeSelector';
 import { EYE_PILL_H } from './components/EyeSelector/styles';

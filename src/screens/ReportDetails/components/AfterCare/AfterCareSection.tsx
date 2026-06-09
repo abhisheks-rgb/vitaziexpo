@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import { Text, View } from 'react-native';
+
 import { useTheme } from '../../../../theme';
 import type { CareResource, ViewMode } from '../../types/reportDetails.types';
+
 import AfterCareGridCard from './AfterCareGridCard';
 import AfterCareListCard from './AfterCareListCard';
 import { createStyles } from './styles';

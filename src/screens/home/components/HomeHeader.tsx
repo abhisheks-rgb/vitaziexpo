@@ -10,7 +10,6 @@ import type { HomeScreenProps } from '../../../navigation/types';
 import { useAuthStore } from '../../../state/store/authStore';
 import { useTheme } from '../../../theme';
 import { Colors } from '../../../theme/colors';
-
 import { createHeaderStyles } from '../styles/HomeHeader.styles';
 
 interface Props {

@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { appointmentRepository } from '../../infrastructure/Appointments/repository/AppointmentRepository';
+
 import { queryKeys } from './queryKeys';
 
 export const useUpcomingAppointments = (userId: string) =>

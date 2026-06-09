@@ -4,7 +4,6 @@ import { TouchableOpacity } from 'react-native';
 
 import AppText from '../../../components/AppText';
 import { Colors } from '../../../theme/colors';
-
 import { bottomTabBarStyles } from '../styles/BottomTabBar.styles';
 
 interface Props {

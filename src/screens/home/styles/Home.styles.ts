@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { Spacing } from '../../../theme/spacing';
 import { Theme } from '../../../theme/theme';
+import { CONTAINER_H } from './BottomTabBar.styles';
 
 export const createHomeStyles = (theme: Theme) =>
   StyleSheet.create({
@@ -15,7 +16,7 @@ export const createHomeStyles = (theme: Theme) =>
     scrollContent: {
       paddingHorizontal: Spacing.md,
       paddingTop: Spacing.sm,
-      paddingBottom: 100,
+      paddingBottom: CONTAINER_H + 16,
     },
     sectionTitle: {
       marginBottom: Spacing.sm,

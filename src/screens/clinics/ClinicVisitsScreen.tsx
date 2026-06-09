@@ -7,6 +7,7 @@ import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { useTranslation } from '../../hooks/useTranslation';
 import type { ClinicVisitsScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
+
 import VisitGridItem from './components/visitGridItem';
 import VisitListItem from './components/visitListItem';
 import { clinics } from './data';

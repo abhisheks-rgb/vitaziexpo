@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import { FlatList } from 'react-native';
+
 import { REPORT_DETAILS_MOCK } from '../data/reportDetails.mock';
 import type { ContentTab, EyeTab } from '../types/reportDetails.types';
 

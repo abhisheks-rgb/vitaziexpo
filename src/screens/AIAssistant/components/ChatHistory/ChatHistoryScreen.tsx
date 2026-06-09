@@ -3,6 +3,7 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import AppHeader from '../../../../components/AppHeader';
 import AppImage from '../../../../components/AppImage';
 import BackgroundBlobs from '../../../../components/BackgroundBlobs';
@@ -10,6 +11,7 @@ import type { AppStackParamList } from '../../../../navigation/types'; // adjust
 import { useTheme } from '../../../../theme';
 import { CHAT_HISTORY_MOCK } from '../../data/aiAssistant.mock';
 import type { ChatSession } from '../../types/aiAssistant.types';
+
 import { createStyles } from './styles';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'ChatHistory'>;

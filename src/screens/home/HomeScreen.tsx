@@ -4,33 +4,31 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { useTranslation } from '../../hooks/useTranslation';
-import type { HomeScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
 import { Spacing } from '../../theme/spacing';
 
-import BottomTabBar, { TabKey } from './components/BottomTabBar';
+import { TabKey } from './components/BottomTabBar';
 import ClinicBanner from './components/ClinicBanner';
 import HomeHeader from './components/HomeHeader';
 import LatestScreeningCard from './components/LatestScreeningCard';
 import QuickActionsSection from './components/QuickActionsSection';
 import UpcomingAppointmentCard from './components/UpcomingAppointmentCard';
-
 import { createHomeStyles } from './styles/Home.styles';
 
-export default function HomeScreen({ navigation }: HomeScreenProps) {
+export default function HomeScreen({ navigation }: { navigation: any }) {
   const theme = useTheme();
   const { t } = useTranslation();
 
   const styles = createHomeStyles(theme);
 
-  const [activeTab, setActiveTab] = useState<TabKey>('home');
+  const [activeTab, setActiveTab] = useState<TabKey>('Home');
 
   const handleTabPress = (key: TabKey) => {
     setActiveTab(key);
 
-    if (key === 'visits') {
+    if (key === 'Visits') {
       navigation.navigate('ClinicList');
-    } else if (key === 'education') {
+    } else if (key === 'Education') {
       navigation.navigate('Education');
     }
   };
@@ -69,7 +67,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
           right: 0,
         }}
       >
-        <BottomTabBar active={activeTab} onPress={handleTabPress} />
+        {/* <BottomTabBar active={activeTab} onPress={handleTabPress} /> */}
       </View>
     </SafeAreaView>
   );

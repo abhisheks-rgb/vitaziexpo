@@ -1,6 +1,7 @@
 // File: Appointments/hooks/useAppointments.ts
 
 import { useState } from 'react';
+
 import { APPOINTMENTS_MOCK, PAST_APPOINTMENTS_MOCK } from '../data/appointments.mock';
 import type { Appointment, AppointmentTab } from '../types/appointments.types';
 

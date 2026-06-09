@@ -1,8 +1,10 @@
 // File: components/TabContent/FindingsTab.tsx
 
 import { Text, View } from 'react-native';
+
 import { useTheme } from '../../../../theme';
 import type { Findings } from '../../types/reportDetails.types';
+
 import { createStyles } from './styles';
 
 interface Props {

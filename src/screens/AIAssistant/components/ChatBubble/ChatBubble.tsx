@@ -1,8 +1,10 @@
 // File: AIAssistant/components/ChatBubble/ChatBubble.tsx
 
 import { Text, View } from 'react-native';
+
 import { useTheme } from '../../../../theme';
 import type { ChatMessage } from '../../types/aiAssistant.types';
+
 import { createStyles } from './styles';
 
 interface Props {

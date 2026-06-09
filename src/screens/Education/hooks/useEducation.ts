@@ -1,6 +1,7 @@
 // File: Education/hooks/useEducation.ts
 
 import { useState } from 'react';
+
 import { EDUCATION_MATERIALS_MOCK } from '../data/education.mock';
 import type { EducationMaterial, ViewMode } from '../types/education.types';
 

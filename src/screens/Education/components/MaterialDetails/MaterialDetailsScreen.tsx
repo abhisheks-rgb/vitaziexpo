@@ -2,6 +2,7 @@
 
 import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import AppHeader from '../../../../components/AppHeader';
 import AppImage from '../../../../components/AppImage';
 import BackgroundBlobs from '../../../../components/BackgroundBlobs';
@@ -10,6 +11,7 @@ import { PlayButton } from '../../../../components/PlayButton';
 import { useTheme } from '../../../../theme';
 import { EDUCATION_MATERIALS_MOCK } from '../../data/education.mock';
 import type { EducationMaterial } from '../../types/education.types';
+
 import { createStyles } from './styles';
 
 interface Props {

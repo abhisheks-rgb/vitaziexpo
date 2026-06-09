@@ -1,7 +1,9 @@
 // File: components/EyeSelector/EyeSelector.tsx
 
 import { Text, TouchableOpacity, View } from 'react-native';
+
 import type { EyeTab } from '../../types/reportDetails.types';
+
 import { createStyles } from './styles';
 
 interface Props {

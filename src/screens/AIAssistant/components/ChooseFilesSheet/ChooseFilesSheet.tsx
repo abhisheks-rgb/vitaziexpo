@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import { Modal, Text, TouchableOpacity, View } from 'react-native';
+
 import AppImage from '../../../../components/AppImage';
 import { useTheme } from '../../../../theme';
 import type { PhotoOption } from '../../types/aiAssistant.types';
+
 import { createStyles, PHOTO_SIZE } from './styles';
 
 interface Props {

@@ -1,18 +1,18 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import ClinicListScreen from '../screens/clinics/ClinicListScreen';
-import ClinicVisitsScreen from '../screens/clinics/ClinicVisitsScreen';
-import HomeScreen from '../screens/home/HomeScreen';
-import NotificationDetailScreen from '../screens/notifications/NotificationDetailScreen';
-import NotificationsScreen from '../screens/notifications/NotificationScreen';
-
-import AIAssistantScreen from '../screens/AIAssistant/AIAssistantScreen';
 import ChatHistoryScreen from '../screens/AIAssistant/components/ChatHistory/ChatHistoryScreen';
 import AppointmentsScreen from '../screens/Appointments/AppointmentsScreen';
+import ClinicListScreen from '../screens/clinics/ClinicListScreen';
+import ClinicVisitsScreen from '../screens/clinics/ClinicVisitsScreen';
 import EducationScreen from '../screens/Education/EducationScreen';
-import ReportDetailsScreen from '../screens/ReportDetails/ReportDetailsScreen';
-import type { AppStackParamList } from './types';
+import HomeScreen from '../screens/home/HomeScreen';
 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import AIAssistantScreen from '../screens/AIAssistant/AIAssistantScreen';
+import BottomTabBar from '../screens/home/components/BottomTabBar';
+import MoreScreen from '../screens/MoreScreen/MoreScreen';
+import type { AppStackParamList } from './types';
+const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
 /**
@@ -20,19 +20,39 @@ const Stack = createNativeStackNavigator<AppStackParamList>();
  * GeneralHealthQuestions has been moved to the Root stack since it's a
  * one-time post-registration bridge, not a recurring in-app screen.
  */
-export default function AppNavigator() {
+
+// Visits has its own nested stack so ClinicVisits can push on top
+function VisitsStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Notifications" component={NotificationsScreen} />
-      <Stack.Screen name="NotificationDetail" component={NotificationDetailScreen} />
       <Stack.Screen name="ClinicList" component={ClinicListScreen} />
       <Stack.Screen name="ClinicVisits" component={ClinicVisitsScreen} />
-      <Stack.Screen name="ReportDetails" component={ReportDetailsScreen} />
+    </Stack.Navigator>
+  );
+}
+
+function TabNavigator() {
+  return (
+    <Tab.Navigator
+      screenOptions={{ headerShown: false }}
+      tabBar={(props) => <BottomTabBar {...props} />}
+    >
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Visits" component={VisitsStack} />
+      <Tab.Screen name="AIAssistant" component={AIAssistantScreen} />
+      <Tab.Screen name="Education" component={EducationScreen} />
+      <Tab.Screen name="More" component={MoreScreen} />
+    </Tab.Navigator>
+  );
+}
+
+// Root stack holds the tabs + any screens that should appear OVER the tab bar
+export function AppNavigator() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Tabs" component={TabNavigator} />
       <Stack.Screen name="Appointments" component={AppointmentsScreen} />
-      <Stack.Screen name="Education" component={EducationScreen} />
       <Stack.Screen name="ChatHistory" component={ChatHistoryScreen} />
-      <Stack.Screen name="AIAssistant" component={AIAssistantScreen} />
     </Stack.Navigator>
   );
 }

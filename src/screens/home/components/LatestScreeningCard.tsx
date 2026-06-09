@@ -3,13 +3,12 @@ import { TouchableOpacity, View } from 'react-native';
 
 import AppImage from '../../../components/AppImage';
 import AppText from '../../../components/AppText';
+import ArrowButton from '../../../components/ArrowButton';
 import Card from '../../../components/Card';
 import { AppImages } from '../../../constants';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useTheme } from '../../../theme';
 import { Colors } from '../../../theme/colors';
-
-import ArrowButton from '../../../components/ArrowButton';
 import { screeningStyles } from '../styles/HomeScreening.styles';
 
 export default function LatestScreeningCard() {

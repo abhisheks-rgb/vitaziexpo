@@ -1,8 +1,10 @@
 // File: components/TabContent/PlanTab.tsx
 
 import { Text, TouchableOpacity, View } from 'react-native';
+
 import { useTheme } from '../../../../theme';
 import type { Plan } from '../../types/reportDetails.types';
+
 import { createStyles } from './styles';
 
 interface Props {

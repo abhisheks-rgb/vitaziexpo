@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { notificationRepository } from '../../infrastructure/Notifications/repository/NotificationRepository';
+
 import { queryKeys } from './queryKeys';
 
 export const useNotifications = (userId: string) =>

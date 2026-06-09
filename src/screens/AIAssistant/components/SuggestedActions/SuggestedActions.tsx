@@ -1,7 +1,9 @@
 // File: AIAssistant/components/SuggestedActions/SuggestedActions.tsx
 
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+
 import { useTheme } from '../../../../theme';
+
 import { createStyles } from './styles';
 
 interface Action {

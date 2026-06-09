@@ -1,8 +1,10 @@
 // File: AIAssistant/components/ChatInput/ChatInput.tsx
 
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+
 import { useTheme } from '../../../../theme';
 import type { AttachmentSheetType, ReportOption } from '../../types/aiAssistant.types';
+
 import { createStyles } from './styles';
 
 interface Props {

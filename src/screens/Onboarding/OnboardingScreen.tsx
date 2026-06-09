@@ -8,9 +8,9 @@ import AppImage, { AppImageSource } from '../../components/AppImage';
 import AppText from '../../components/AppText';
 import GradientText from '../../components/GradientText';
 import { AppImages } from '../../constants';
+import { useAuthStore } from '../../state/store/authStore';
 import { useTheme } from '../../theme';
 
-import { useAuthStore } from '../../state/store/authStore';
 import { createStyles, DOT_SIZE, PILL_WIDTH, STEP } from './styles';
 
 interface Props {

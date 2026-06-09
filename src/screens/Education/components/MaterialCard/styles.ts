@@ -1,6 +1,7 @@
 // File: Education/components/MaterialCard/styles.ts
 
 import { Dimensions, StyleSheet } from 'react-native';
+
 import type { Theme } from '../../../../theme';
 
 const { width: SCREEN_W } = Dimensions.get('window');

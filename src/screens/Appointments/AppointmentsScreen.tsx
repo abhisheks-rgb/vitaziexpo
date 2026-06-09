@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import AppHeader from '../../components/AppHeader';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { useTheme } from '../../theme';
+
 import AppointmentCard from './components/AppointmentCard/AppointmentCard';
 import AppointmentDetailsScreen from './components/AppointmentDetails/AppointmentDetailsScreen';
 import AppointmentTabBar from './components/AppointmentTabBar/AppointmentTabBar';

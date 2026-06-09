@@ -1,15 +1,13 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
 
 import GeneralHealthQuestionsScreen from '../screens/generalHealthQuestions/GeneralHealthQuestionsScreen';
 import OnboardingScreen from '../screens/Onboarding/OnboardingScreen';
 import SplashScreen from '../screens/SplashScreen';
+import { useAuthStore } from '../state/store/authStore';
 
-import AppNavigator from './AppNavigator';
+import { AppNavigator } from './AppNavigator';
 import AuthNavigator from './AuthNavigator';
 import type { RootStackParamList } from './types';
-
-import { useAuthStore } from '../state/store/authStore';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

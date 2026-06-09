@@ -1,5 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { StyleSheet, View, ViewProps } from 'react-native';
+
 import { Colors, Spacing } from '../theme';
 
 interface Props extends ViewProps {
