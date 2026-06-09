@@ -2,6 +2,8 @@
 
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import AppImage from '../../../../components/AppImage';
+import { DurationChip } from '../../../../components/DurationChip';
+import { PlayButton } from '../../../../components/PlayButton';
 import { AppImages } from '../../../../constants';
 import { useTheme } from '../../../../theme';
 import type { CareResource } from '../../types/reportDetails.types';
@@ -62,14 +64,10 @@ function VideoThumbnailList({ item, containerStyle }: { item: CareResource; cont
       />
       <View style={videoStyles.scrim} />
       {/* Circular play button */}
-      <View style={videoStyles.playCircle}>
-        <View style={videoStyles.playTriangle} />
-      </View>
+    <PlayButton onPress={() => {}} isLoading={false} />
       {/* Duration pill */}
       {item.duration && (
-        <View style={videoStyles.durationPill}>
-          <Text style={videoStyles.durationText}>{item.duration}</Text>
-        </View>
+        <DurationChip label={item.duration} />
       )}
     </View>
   );

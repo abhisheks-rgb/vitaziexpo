@@ -5,6 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AppHeader from '../../../../components/AppHeader';
 import AppImage from '../../../../components/AppImage';
 import BackgroundBlobs from '../../../../components/BackgroundBlobs';
+import { DurationChip } from '../../../../components/DurationChip';
+import { PlayButton } from '../../../../components/PlayButton';
 import { useTheme } from '../../../../theme';
 import { EDUCATION_MATERIALS_MOCK } from '../../data/education.mock';
 import type { EducationMaterial } from '../../types/education.types';
@@ -108,10 +110,12 @@ export default function MaterialDetailsScreen({ material, navigation }: Props) {
           )}
 
           {isVideo && (
-            <TouchableOpacity style={styles.playBtn} activeOpacity={0.85}>
-              <Text style={styles.playBtnText}>▶ Play</Text>
-            </TouchableOpacity>
+            <PlayButton onPress={() => {}} />
           )}
+          {isVideo && (
+            <DurationChip label={'10:10'} />
+          )}
+
         </View>
 
         {/* Content */}

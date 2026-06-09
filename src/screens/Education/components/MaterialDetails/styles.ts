@@ -45,23 +45,6 @@ export const createStyles = (theme: Theme) =>
       fontWeight: '700',
       color: '#fff',
     },
-    playBtn: {
-      position: 'absolute',
-      bottom: 16,
-      left: 16,
-      right: 16,
-      backgroundColor: '#1B2B4B',
-      borderRadius: 14,
-      paddingVertical: 14,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    playBtnText: {
-      fontSize: 16,
-      fontWeight: '700',
-      color: '#fff',
-      letterSpacing: 0.5,
-    },
 
     // ── Content ───────────────────────────────────────────────────────────
     content: {

@@ -2,6 +2,8 @@
 
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import AppImage from '../../../../components/AppImage';
+import { DurationChip } from '../../../../components/DurationChip';
+import { PlayButton } from '../../../../components/PlayButton';
 import { useTheme } from '../../../../theme';
 import type { EducationMaterial, ViewMode } from '../../types/education.types';
 import { createStyles } from './styles';
@@ -25,10 +27,11 @@ function VideoThumbnail({ material, style }: { material: EducationMaterial; styl
         showLoader={false}
       />
       <View style={styles.scrim} />
+       {material.type==='video' && (
+                  <PlayButton onPress={() => {}} />
+                )}
       {material.duration && (
-        <View style={styles.durationPill}>
-          <Text style={styles.durationText}>{material.duration}</Text>
-        </View>
+     <DurationChip label={material.duration} />
       )}
     </View>
   );
