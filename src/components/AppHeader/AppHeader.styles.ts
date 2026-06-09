@@ -26,12 +26,6 @@ const styles = StyleSheet.create({
     minWidth: 0,
   },
 
-  center: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
   right: {
     flex: 1,
     flexDirection: 'row',
@@ -43,6 +37,17 @@ const styles = StyleSheet.create({
     color: Colors.navyDark,
     marginLeft: 8,
     flexShrink: 1,
+  },
+  logo: {
+    width: 120,
+    height: 32,
+  },
+  centerContainer: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
