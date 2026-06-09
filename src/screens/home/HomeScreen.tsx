@@ -51,6 +51,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
         <QuickActionsSection
           onVisitsPress={() => navigation.navigate('ClinicList')}
           onAppointmentsPress={() => navigation.navigate('Appointments')}
+          onChatHistoryPress={() => navigation.navigate('ChatHistory')}
         />
 
         <LatestScreeningCard />

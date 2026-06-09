@@ -6,6 +6,8 @@ import HomeScreen from '../screens/home/HomeScreen';
 import NotificationDetailScreen from '../screens/notifications/NotificationDetailScreen';
 import NotificationsScreen from '../screens/notifications/NotificationScreen';
 
+import AIAssistantScreen from '../screens/AIAssistant/AIAssistantScreen';
+import ChatHistoryScreen from '../screens/AIAssistant/components/ChatHistory/ChatHistoryScreen';
 import AppointmentsScreen from '../screens/Appointments/AppointmentsScreen';
 import EducationScreen from '../screens/Education/EducationScreen';
 import ReportDetailsScreen from '../screens/ReportDetails/ReportDetailsScreen';
@@ -29,6 +31,8 @@ export default function AppNavigator() {
       <Stack.Screen name="ReportDetails" component={ReportDetailsScreen} />
       <Stack.Screen name="Appointments" component={AppointmentsScreen} />
       <Stack.Screen name="Education" component={EducationScreen} />
+      <Stack.Screen name="ChatHistory" component={ChatHistoryScreen} />
+      <Stack.Screen name="AIAssistant" component={AIAssistantScreen} />
     </Stack.Navigator>
   );
 }

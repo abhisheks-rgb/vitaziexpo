@@ -11,9 +11,14 @@ import { quickActionsStyles } from '../styles/HomeQuickActions.styles';
 interface Props {
   onVisitsPress: () => void;
   onAppointmentsPress: () => void;
+  onChatHistoryPress: () => void;
 }
 
-export default function QuickActionsSection({ onVisitsPress, onAppointmentsPress }: Props) {
+export default function QuickActionsSection({
+  onVisitsPress,
+  onAppointmentsPress,
+  onChatHistoryPress,
+}: Props) {
   const theme = useTheme();
 
   return (
@@ -27,6 +32,8 @@ export default function QuickActionsSection({ onVisitsPress, onAppointmentsPress
               onVisitsPress();
             } else if (action.key === 'appts') {
               onAppointmentsPress();
+            } else if (action.key === 'chat') {
+              onChatHistoryPress();
             }
           }}
         >
