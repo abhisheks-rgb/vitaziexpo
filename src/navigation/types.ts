@@ -1,11 +1,12 @@
 import type { CompositeScreenProps } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 import { EducationMaterial } from '../screens/Education/types/education.types';
 
-// ─── Root stack ────────────────────────────────────────────────────────────────
-// Splash sits at root so the resolver can replace() to any top-level route.
-// GeneralHealthQuestions lives here (not inside AppStack) because it bridges
-// Auth → App: the user is authenticated but not fully set up yet.
+// ─────────────────────────────────────────────────────────────
+// Root Stack
+// ─────────────────────────────────────────────────────────────
+
 export type RootStackParamList = {
   Splash: undefined;
   Onboarding: undefined;
@@ -14,7 +15,10 @@ export type RootStackParamList = {
   App: undefined;
 };
 
-// ─── Auth stack ────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// Auth Stack
+// ─────────────────────────────────────────────────────────────
+
 export type AuthStackParamList = {
   Login: undefined;
   Register: undefined;
@@ -22,6 +26,53 @@ export type AuthStackParamList = {
   ConnectClinic: { orgId: string };
   CompleteForm: { orgId: string };
 };
+
+// ─────────────────────────────────────────────────────────────
+// App Stack (Screens above Bottom Tabs)
+// ─────────────────────────────────────────────────────────────
+
+export type AppStackParamList = {
+  Tabs: undefined;
+
+  Appointments: undefined;
+  ChatHistory: undefined;
+
+  MaterialDetails: {
+    material: EducationMaterial;
+  };
+
+  Notifications: undefined;
+  NotificationDetail: {
+    notificationId: string;
+  };
+
+  ReportDetails: {
+    reportId: string;
+  };
+};
+
+// ─────────────────────────────────────────────────────────────
+// Education Stack
+// ─────────────────────────────────────────────────────────────
+
+export type EducationStackParamList = {
+  EducationScreen: undefined;
+};
+
+// ─────────────────────────────────────────────────────────────
+// Visits Stack
+// ─────────────────────────────────────────────────────────────
+
+export type VisitsStackParamList = {
+  ClinicList: undefined;
+  ClinicVisits: {
+    clinicId: string;
+  };
+};
+
+// ─────────────────────────────────────────────────────────────
+// Screen Props
+// ─────────────────────────────────────────────────────────────
 
 export type LoginScreenProps = CompositeScreenProps<
   NativeStackScreenProps<AuthStackParamList, 'Login'>,
@@ -48,47 +99,25 @@ export type CompleteFormScreenProps = CompositeScreenProps<
   NativeStackScreenProps<RootStackParamList>
 >;
 
-// ─── App (authenticated) stack ─────────────────────────────────────────────────
-export type AppStackParamList = {
-  Tabs: undefined;
-  Home: undefined;
-  Notifications: undefined;
-  NotificationDetail: { notificationId: string };
-  ClinicList: undefined;
-  ClinicVisits: { clinicId: string };
-  ReportDetails: { reportId: string };
-  Appointments: undefined;
-  EducationScreen: undefined;
-  MaterialDetails: {
-    material: EducationMaterial;
-  };
-  AIAssistant: undefined;
-  ChatHistory: undefined;
-  More: undefined;
-};
-
-export type TabNavigatorScreenProps = NativeStackScreenProps<AppStackParamList, 'Tabs'>;
-export type HomeScreenProps = NativeStackScreenProps<AppStackParamList, 'Home'>;
-export type NotificationsScreenProps = NativeStackScreenProps<AppStackParamList, 'Notifications'>;
-export type NotificationDetailScreenProps = NativeStackScreenProps<
-  AppStackParamList,
-  'NotificationDetail'
->;
-export type ClinicListScreenProps = NativeStackScreenProps<AppStackParamList, 'ClinicList'>;
-export type ClinicVisitsScreenProps = NativeStackScreenProps<AppStackParamList, 'ClinicVisits'>;
-
-// GeneralHealthQuestions is in the Root stack (bridges Auth → App)
 export type GeneralHealthQuestionsScreenProps = NativeStackScreenProps<
   RootStackParamList,
   'GeneralHealthQuestions'
 >;
-export type ReportDetailsScreenProps = NativeStackScreenProps<AppStackParamList, 'ReportDetails'>;
-export type AppointmentsScreenProps = NativeStackScreenProps<AppStackParamList, 'Appointments'>;
-export type EducationScreenProps = NativeStackScreenProps<AppStackParamList, 'EducationScreen'>;
-export type ChatHistoryScreenProps = NativeStackScreenProps<AppStackParamList, 'ChatHistory'>;
-export type AIAssistantScreenProps = NativeStackScreenProps<AppStackParamList, 'AIAssistant'>;
-export type MoreScreenProps = NativeStackScreenProps<AppStackParamList, 'More'>;
+
+export type EducationScreenProps = NativeStackScreenProps<
+  EducationStackParamList,
+  'EducationScreen'
+>;
+
+export type ClinicListScreenProps = NativeStackScreenProps<VisitsStackParamList, 'ClinicList'>;
+
+export type ClinicVisitsScreenProps = NativeStackScreenProps<VisitsStackParamList, 'ClinicVisits'>;
+
 export type MaterialDetailsScreenProps = NativeStackScreenProps<
   AppStackParamList,
   'MaterialDetails'
 >;
+
+export type AppointmentsScreenProps = NativeStackScreenProps<AppStackParamList, 'Appointments'>;
+
+export type ChatHistoryScreenProps = NativeStackScreenProps<AppStackParamList, 'ChatHistory'>;
