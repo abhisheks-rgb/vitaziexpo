@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { useTheme } from '../../theme';
 
+import { useScrollStore } from '../../hooks/useScrollStore';
 import EducationHeader from './components/EducationHeader/EducationHeader';
 import ImagesToggle from './components/ImagesToggle/ImagesToggle';
 import MaterialCard from './components/MaterialCard/MaterialCard';
@@ -15,7 +16,7 @@ import type { EducationMaterial } from './types/education.types';
 export default function EducationScreen({ navigation }: { navigation: any }) {
   const theme = useTheme();
   const { viewMode, setViewMode, showImages, setShowImages, materials } = useEducation();
-
+  const handleScroll = useScrollStore((state) => state.handleScroll);
   const isGrid = viewMode === 'grid';
 
   return (
@@ -31,6 +32,7 @@ export default function EducationScreen({ navigation }: { navigation: any }) {
 
       {isGrid ? (
         <FlatList
+          onScroll={handleScroll}
           data={materials}
           key="grid"
           numColumns={2}
@@ -49,6 +51,7 @@ export default function EducationScreen({ navigation }: { navigation: any }) {
         />
       ) : (
         <FlatList
+          onScroll={handleScroll}
           data={materials}
           key="list"
           keyExtractor={(item) => item.id}

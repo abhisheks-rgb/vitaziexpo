@@ -6,6 +6,7 @@ import { useTranslation } from '../../hooks/useTranslation';
 import { useTheme } from '../../theme';
 import { Spacing } from '../../theme/spacing';
 
+import { useScrollStore } from '../../hooks/useScrollStore';
 import ClinicBanner from './components/ClinicBanner';
 import HomeHeader from './components/HomeHeader';
 import LatestScreeningCard from './components/LatestScreeningCard';
@@ -18,12 +19,14 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
   const { t } = useTranslation();
 
   const styles = createHomeStyles(theme);
+  const handleScroll = useScrollStore((state) => state.handleScroll);
 
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
       <BackgroundBlobs />
 
       <ScrollView
+        onScroll={handleScroll}
         style={styles.scroll}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}

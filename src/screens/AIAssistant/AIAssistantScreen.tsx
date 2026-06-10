@@ -16,6 +16,7 @@ import BackgroundBlobs from '../../components/BackgroundBlobs';
 import type { AppStackParamList } from '../../navigation/types'; // adjust path to yours
 import { useTheme } from '../../theme';
 
+import { useScrollStore } from '../../hooks/useScrollStore';
 import ChatBubble from './components/ChatBubble/ChatBubble';
 import ChatInput from './components/ChatInput/ChatInput';
 import ChooseFilesSheet from './components/ChooseFilesSheet/ChooseFilesSheet';
@@ -46,6 +47,7 @@ export default function AIAssistantScreen({ navigation }: { navigation: any }) {
     listRef,
     sendMessage,
   } = useAIAssistant();
+  const handleScroll = useScrollStore((state) => state.handleScroll);
 
   const rightActions = (
     <TouchableOpacity
@@ -74,6 +76,7 @@ export default function AIAssistantScreen({ navigation }: { navigation: any }) {
         keyboardVerticalOffset={0}
       >
         <FlatList
+          onScroll={handleScroll}
           ref={listRef}
           data={messages}
           keyExtractor={(item) => item.id}

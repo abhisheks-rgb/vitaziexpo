@@ -4,8 +4,8 @@ import { Dimensions, StyleSheet } from 'react-native';
 const { width: SCREEN_W } = Dimensions.get('window');
 
 export const BAR_H = 70;
-export const FAB_SIZE = 62;
-export const FAB_RING = 5;
+export const FAB_SIZE = 84;
+export const FAB_RING = 6;
 export const FAB_TOTAL = FAB_SIZE + FAB_RING * 2;
 export const FAB_OVERHANG = FAB_TOTAL / 2 + 4; // how far FAB pokes above pill top
 export const CONTAINER_H = BAR_H + FAB_OVERHANG;
@@ -22,6 +22,20 @@ export const bottomTabBarStyles = StyleSheet.create({
     right: 0,
     height: CONTAINER_H,
     backgroundColor: 'transparent',
+
+    shadowColor: '#000',
+
+    shadowOffset: {
+      width: 0,
+
+      height: -6,
+    },
+
+    shadowOpacity: 0.12,
+
+    shadowRadius: 12,
+
+    elevation: 12,
   },
 
   pill: {
@@ -31,25 +45,10 @@ export const bottomTabBarStyles = StyleSheet.create({
     right: 0,
     height: BAR_H + 10,
 
-    borderTopLeftRadius: 28,
-    borderTopRightRadius: 28,
+    borderTopLeftRadius: 38,
+    borderTopRightRadius: 38,
 
     overflow: 'hidden',
-
-    // iOS shadow
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: -4,
-    },
-    shadowOpacity: 0.12,
-    shadowRadius: 12,
-
-    // Android elevation
-    elevation: 12,
-
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: 'rgba(255,255,255,0.3)',
   },
 
   blurLayer: {
@@ -92,12 +91,12 @@ export const bottomTabBarStyles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.95)',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 4,
-    borderColor: '#C6F135', // lime green ring
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
+    borderWidth: 6,
+    borderColor: 'rgba(255,255,255,0.92)', // lime green ring
+    // shadowColor: '#000',
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowOpacity: 0.1,
+    // shadowRadius: 8,
     elevation: 8,
   },
 
@@ -105,5 +104,9 @@ export const bottomTabBarStyles = StyleSheet.create({
     width: FAB_SIZE,
     height: FAB_SIZE,
     borderRadius: FAB_SIZE / 2,
+  },
+  tab: {
+    alignItems: 'center',
+    gap: 4,
   },
 });

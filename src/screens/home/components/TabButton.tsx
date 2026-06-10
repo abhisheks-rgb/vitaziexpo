@@ -1,5 +1,4 @@
 import { Feather } from '@expo/vector-icons';
-import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
 import AppText from '../../../components/AppText';
@@ -21,7 +20,7 @@ export default function TabButton({ label, icon, active, onPress }: Props) {
       <AppText
         variant="caption"
         color={active ? Colors.navyDark : Colors.muted}
-        style={bottomTabBarStyles.tabLabel}
+        // style={bottomTabBarStyles.tabLabel}
       >
         {label}
       </AppText>

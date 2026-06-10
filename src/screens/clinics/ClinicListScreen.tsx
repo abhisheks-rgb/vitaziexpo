@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -8,6 +8,7 @@ import { useTranslation } from '../../hooks/useTranslation';
 import type { ClinicListScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
 
+import { useScrollStore } from '../../hooks/useScrollStore';
 import ClinicGridItem from './components/clinicGridItem';
 import ClinicListItem from './components/clinicListItem';
 import { clinics } from './data';
@@ -42,6 +43,7 @@ export default function ClinicListScreen({ navigation }: ClinicListScreenProps) 
   const styles = createClinicListStyles(theme);
   const { t } = useTranslation();
   const [viewMode, setViewMode] = useState<ViewMode>('list');
+  const handleScroll = useScrollStore((state) => state.handleScroll);
 
   const isGrid = viewMode === 'grid';
   const activeColor = theme.colors.text;
@@ -79,6 +81,7 @@ export default function ClinicListScreen({ navigation }: ClinicListScreenProps) 
       />
 
       <ScrollView
+        onScroll={handleScroll}
         style={styles.scroll}
         contentContainerStyle={isGrid ? styles.scrollContentGrid : styles.scrollContent}
         showsVerticalScrollIndicator={false}

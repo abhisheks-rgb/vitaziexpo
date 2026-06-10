@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ScrollView, Switch, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -8,6 +8,7 @@ import { useTranslation } from '../../hooks/useTranslation';
 import type { ClinicVisitsScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
 
+import { useScrollStore } from '../../hooks/useScrollStore';
 import VisitGridItem from './components/visitGridItem';
 import VisitListItem from './components/visitListItem';
 import { clinics } from './data';
@@ -37,6 +38,7 @@ export default function ClinicVisitsScreen({ route, navigation }: ClinicVisitsSc
   const { t } = useTranslation();
   const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [showImages, setShowImages] = useState(true);
+  const handleScroll = useScrollStore((state) => state.handleScroll);
 
   const clinic = clinics.find((c) => c.id === route.params.clinicId);
   if (!clinic) return null;
@@ -77,6 +79,7 @@ export default function ClinicVisitsScreen({ route, navigation }: ClinicVisitsSc
       />
 
       <ScrollView
+        onScroll={handleScroll}
         style={styles.scroll}
         contentContainerStyle={isGrid ? styles.scrollContentGrid : styles.scrollContent}
         showsVerticalScrollIndicator={false}

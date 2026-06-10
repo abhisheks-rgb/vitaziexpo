@@ -3,6 +3,7 @@ import { BlurView } from 'expo-blur';
 import { Platform, TouchableOpacity, View } from 'react-native';
 import AppImage from '../../../components/AppImage';
 import { AppImages } from '../../../constants';
+import { useScrollStore } from '../../../hooks/useScrollStore';
 import { useTranslation } from '../../../hooks/useTranslation';
 import {
   bottomTabBarStyles,
@@ -24,6 +25,7 @@ interface TabItem {
 export default function BottomTabBar({ state, navigation }: BottomTabBarProps) {
   const activeTab = state.routes[state.index].name as TabKey;
   const { t } = useTranslation();
+  const isScrolled = useScrollStore((state) => state.isScrolled);
 
   const handlePress = (key: TabKey) => {
     navigation.navigate(key);
@@ -63,7 +65,12 @@ export default function BottomTabBar({ state, navigation }: BottomTabBarProps) {
           <BlurView
             intensity={80}
             tint="systemUltraThinMaterialLight"
-            style={bottomTabBarStyles.blurLayer}
+            style={[
+              bottomTabBarStyles.blurLayer,
+              !isScrolled && {
+                backgroundColor: '#fff',
+              },
+            ]}
           />
         ) : (
           <View
@@ -110,7 +117,7 @@ export default function BottomTabBar({ state, navigation }: BottomTabBarProps) {
             left: SCREEN_CENTER_X - FAB_TOTAL / 2,
             // pill bottom edge is at: CONTAINER_H - 8 - BAR_H = FAB_OVERHANG - 8
             // FAB center should be at pill top edge
-            top: FAB_OVERHANG - FAB_TOTAL / 2 - 4,
+            bottom: FAB_OVERHANG - FAB_TOTAL / 2,
           },
         ]}
         onPress={() => handlePress('AIAssistant')}
