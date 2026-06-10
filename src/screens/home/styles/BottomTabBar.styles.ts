@@ -10,7 +10,6 @@ export const FAB_TOTAL = FAB_SIZE + FAB_RING * 2;
 export const FAB_OVERHANG = FAB_TOTAL / 2 + 4; // how far FAB pokes above pill top
 export const CONTAINER_H = BAR_H + FAB_OVERHANG;
 
-const H_MARGIN = 20; // inset from screen edges
 const PILL_RADIUS = BAR_H / 2; // fully rounded sides
 
 export const SCREEN_CENTER_X = SCREEN_W / 2;
@@ -27,14 +26,30 @@ export const bottomTabBarStyles = StyleSheet.create({
 
   pill: {
     position: 'absolute',
-    bottom: 8, // float above home indicator
-    left: H_MARGIN,
-    right: H_MARGIN,
-    height: BAR_H,
-    borderRadius: PILL_RADIUS,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: BAR_H + 10,
+
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+
     overflow: 'hidden',
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: 'rgba(255,255,255,0.5)',
+
+    // iOS shadow
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: -4,
+    },
+    shadowOpacity: 0.12,
+    shadowRadius: 12,
+
+    // Android elevation
+    elevation: 12,
+
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: 'rgba(255,255,255,0.3)',
   },
 
   blurLayer: {
@@ -43,17 +58,22 @@ export const bottomTabBarStyles = StyleSheet.create({
 
   pillTint: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: 'rgba(255,255,255,0.20)',
+    backgroundColor: 'rgba(255,255,255,0.18)',
   },
 
   tabRow: {
     position: 'absolute',
-    bottom: 8, // matches pill bottom
-    left: H_MARGIN,
-    right: H_MARGIN,
-    height: BAR_H,
+    bottom: 0,
+    left: 0,
+    right: 0,
+
+    height: BAR_H + 10,
+
     flexDirection: 'row',
     alignItems: 'center',
+
+    paddingHorizontal: 20,
+    paddingBottom: 8,
   },
 
   side: {
@@ -62,18 +82,6 @@ export const bottomTabBarStyles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     height: '100%',
-  },
-
-  tab: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 3,
-    paddingVertical: 8,
-  },
-
-  tabLabel: {
-    fontSize: 10,
   },
 
   fabRing: {
