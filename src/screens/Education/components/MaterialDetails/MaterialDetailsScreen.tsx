@@ -12,12 +12,8 @@ import { useTheme } from '../../../../theme';
 import { EDUCATION_MATERIALS_MOCK } from '../../data/education.mock';
 import type { EducationMaterial } from '../../types/education.types';
 
+import { MaterialDetailsScreenProps } from '../../../../navigation/types';
 import { createStyles } from './styles';
-
-interface Props {
-  material: EducationMaterial;
-  navigation: { goBack: () => void };
-}
 
 function SimilarCard({
   item,
@@ -62,7 +58,8 @@ function SimilarCard({
   );
 }
 
-export default function MaterialDetailsScreen({ material, navigation }: Props) {
+export default function MaterialDetailsScreen({ route, navigation }: MaterialDetailsScreenProps) {
+  const { material } = route.params;
   const theme = useTheme();
   const styles = createStyles(theme);
   const isVideo = material.type === 'video';
@@ -111,13 +108,8 @@ export default function MaterialDetailsScreen({ material, navigation }: Props) {
             </View>
           )}
 
-          {isVideo && (
-            <PlayButton onPress={() => {}} />
-          )}
-          {isVideo && (
-            <DurationChip label={'10:10'} />
-          )}
-
+          {isVideo && <PlayButton onPress={() => {}} />}
+          {isVideo && <DurationChip label={'10:10'} />}
         </View>
 
         {/* Content */}

@@ -1,5 +1,6 @@
 import type { CompositeScreenProps } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { EducationMaterial } from '../screens/Education/types/education.types';
 
 // ─── Root stack ────────────────────────────────────────────────────────────────
 // Splash sits at root so the resolver can replace() to any top-level route.
@@ -57,7 +58,10 @@ export type AppStackParamList = {
   ClinicVisits: { clinicId: string };
   ReportDetails: { reportId: string };
   Appointments: undefined;
-  Education: undefined;
+  EducationScreen: undefined;
+  MaterialDetails: {
+    material: EducationMaterial;
+  };
   AIAssistant: undefined;
   ChatHistory: undefined;
   More: undefined;
@@ -80,7 +84,11 @@ export type GeneralHealthQuestionsScreenProps = NativeStackScreenProps<
 >;
 export type ReportDetailsScreenProps = NativeStackScreenProps<AppStackParamList, 'ReportDetails'>;
 export type AppointmentsScreenProps = NativeStackScreenProps<AppStackParamList, 'Appointments'>;
-export type EducationScreenProps = NativeStackScreenProps<AppStackParamList, 'Education'>;
+export type EducationScreenProps = NativeStackScreenProps<AppStackParamList, 'EducationScreen'>;
 export type ChatHistoryScreenProps = NativeStackScreenProps<AppStackParamList, 'ChatHistory'>;
 export type AIAssistantScreenProps = NativeStackScreenProps<AppStackParamList, 'AIAssistant'>;
 export type MoreScreenProps = NativeStackScreenProps<AppStackParamList, 'More'>;
+export type MaterialDetailsScreenProps = NativeStackScreenProps<
+  AppStackParamList,
+  'MaterialDetails'
+>;

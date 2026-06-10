@@ -9,30 +9,12 @@ import { useTheme } from '../../theme';
 import EducationHeader from './components/EducationHeader/EducationHeader';
 import ImagesToggle from './components/ImagesToggle/ImagesToggle';
 import MaterialCard from './components/MaterialCard/MaterialCard';
-import MaterialDetailsScreen from './components/MaterialDetails/MaterialDetailsScreen';
 import { useEducation } from './hooks/useEducation';
 import type { EducationMaterial } from './types/education.types';
 
 export default function EducationScreen({ navigation }: { navigation: any }) {
   const theme = useTheme();
-  const {
-    viewMode,
-    setViewMode,
-    showImages,
-    setShowImages,
-    selectedMaterial,
-    setSelectedMaterial,
-    materials,
-  } = useEducation();
-
-  if (selectedMaterial) {
-    return (
-      <MaterialDetailsScreen
-        material={selectedMaterial}
-        navigation={{ goBack: () => setSelectedMaterial(null) }}
-      />
-    );
-  }
+  const { viewMode, setViewMode, showImages, setShowImages, materials } = useEducation();
 
   const isGrid = viewMode === 'grid';
 
@@ -61,7 +43,7 @@ export default function EducationScreen({ navigation }: { navigation: any }) {
               material={item}
               viewMode="grid"
               showImages={showImages}
-              onPress={setSelectedMaterial}
+              onPress={() => navigation.navigate('MaterialDetails', { material: item })}
             />
           )}
         />
@@ -77,7 +59,7 @@ export default function EducationScreen({ navigation }: { navigation: any }) {
               material={item}
               viewMode="list"
               showImages={showImages}
-              onPress={setSelectedMaterial}
+              onPress={() => navigation.navigate('MaterialDetails', { material: item })}
             />
           )}
         />

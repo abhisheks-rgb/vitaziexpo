@@ -9,6 +9,7 @@ import HomeScreen from '../screens/home/HomeScreen';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AIAssistantScreen from '../screens/AIAssistant/AIAssistantScreen';
+import MaterialDetailsScreen from '../screens/Education/components/MaterialDetails/MaterialDetailsScreen';
 import BottomTabBar from '../screens/home/components/BottomTabBar';
 import MoreScreen from '../screens/MoreScreen/MoreScreen';
 import type { AppStackParamList } from './types';
@@ -31,6 +32,16 @@ function VisitsStack() {
   );
 }
 
+// Education has its own nested stack so MaterialDetails can push on top
+function EducationStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="EducationScreen" component={EducationScreen} />
+      <Stack.Screen name="MaterialDetails" component={MaterialDetailsScreen} />
+    </Stack.Navigator>
+  );
+}
+
 function TabNavigator() {
   return (
     <Tab.Navigator
@@ -40,7 +51,7 @@ function TabNavigator() {
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Visits" component={VisitsStack} />
       <Tab.Screen name="AIAssistant" component={AIAssistantScreen} />
-      <Tab.Screen name="Education" component={EducationScreen} />
+      <Tab.Screen name="Education" component={EducationStack} />
       <Tab.Screen name="More" component={MoreScreen} />
     </Tab.Navigator>
   );
