@@ -5,8 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { fetchAppoinments } from '../../application/appoinments/FetchAppoinment';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { useScrollStore } from '../../hooks/useScrollStore';
-import { useTranslation } from '../../hooks/useTranslation';
-import { HomeScreenProps } from '../../navigation/types';
+import type { HomeScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
 import { Spacing } from '../../theme/spacing';
 
@@ -21,7 +20,6 @@ import { createHomeStyles } from './styles/Home.styles';
 
 export default function HomeScreen({ navigation }: HomeScreenProps) {
   const theme = useTheme();
-  const { t } = useTranslation();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 

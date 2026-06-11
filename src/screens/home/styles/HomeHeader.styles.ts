@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { Radius } from '../../../theme/radius';
 import { Spacing } from '../../../theme/spacing';
-import { Theme } from '../../../theme/theme';
+import type { Theme } from '../../../theme/theme';
 
 export const createHeaderStyles = (theme: Theme) =>
   StyleSheet.create({

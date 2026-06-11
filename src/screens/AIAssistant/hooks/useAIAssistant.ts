@@ -1,7 +1,7 @@
 // File: AIAssistant/hooks/useAIAssistant.ts
 
 import { useRef, useState } from 'react';
-import { FlatList } from 'react-native';
+import type { FlatList } from 'react-native';
 
 import { INITIAL_MESSAGES_MOCK } from '../data/aiAssistant.mock';
 import type { AttachmentSheetType, ChatMessage, ReportOption } from '../types/aiAssistant.types';

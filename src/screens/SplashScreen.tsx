@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Animated, Dimensions, Easing, Image, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { AppRoute } from '../application/appRouteResolver';
+import type { AppRoute } from '../application/appRouteResolver';
 import { AppImages } from '../constants';
 import { useTheme } from '../theme';
 

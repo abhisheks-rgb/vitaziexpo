@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AppHeader from '../../components/AppHeader';
 import AppText from '../../components/AppText';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
-import { NotificationsScreenProps } from '../../navigation/types';
+import type { NotificationsScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
 
 import NotificationCard from './components/NotificationCard';

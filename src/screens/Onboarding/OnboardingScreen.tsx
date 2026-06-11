@@ -4,7 +4,8 @@ import { Animated, TouchableOpacity, View } from 'react-native';
 import PagerView from 'react-native-pager-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import AppImage, { AppImageSource } from '../../components/AppImage';
+import type { AppImageSource } from '../../components/AppImage';
+import AppImage from '../../components/AppImage';
 import AppText from '../../components/AppText';
 import GradientText from '../../components/GradientText';
 import { AppImages } from '../../constants';

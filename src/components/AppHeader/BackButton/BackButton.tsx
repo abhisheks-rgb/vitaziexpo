@@ -1,4 +1,5 @@
-import { TouchableOpacity, ViewStyle } from 'react-native';
+import type { ViewStyle } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 import { Colors } from '../../../theme';
 import ArrowButton from '../../ArrowButton';

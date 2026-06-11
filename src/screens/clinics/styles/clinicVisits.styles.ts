@@ -1,6 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
-import { Colors, Radius, Theme } from '../../../theme';
+import type { Theme } from '../../../theme';
+import { Colors, Radius } from '../../../theme';
 
 const { width } = Dimensions.get('window');
 const GRID_GAP = 10;

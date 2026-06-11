@@ -14,13 +14,14 @@
  *   fullWidth
  */
 import React from 'react';
+import type {
+  StyleProp,
+  ViewStyle} from 'react-native';
 import {
   ActivityIndicator,
-  StyleProp,
   StyleSheet,
   TouchableOpacity,
-  View,
-  ViewStyle,
+  View
 } from 'react-native';
 
 import { useTheme } from '../theme';

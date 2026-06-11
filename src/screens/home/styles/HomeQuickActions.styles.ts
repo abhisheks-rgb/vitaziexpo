@@ -1,8 +1,6 @@
-// styles/HomeQuickActions.styles.ts
 import { StyleSheet } from 'react-native';
 
 import { Colors } from '../../../theme';
-import { Radius } from '../../../theme/radius';
 import { Spacing } from '../../../theme/spacing';
 
 export const quickActionsStyles = StyleSheet.create({

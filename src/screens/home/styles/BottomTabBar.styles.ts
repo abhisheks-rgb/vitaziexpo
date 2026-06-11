@@ -10,8 +10,6 @@ export const FAB_TOTAL = FAB_SIZE + FAB_RING * 2;
 export const FAB_OVERHANG = FAB_TOTAL / 2 + 4; // how far FAB pokes above pill top
 export const CONTAINER_H = BAR_H + FAB_OVERHANG;
 
-const PILL_RADIUS = BAR_H / 2; // fully rounded sides
-
 export const SCREEN_CENTER_X = SCREEN_W / 2;
 
 export const bottomTabBarStyles = StyleSheet.create({

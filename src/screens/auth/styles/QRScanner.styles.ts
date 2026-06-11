@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { Colors } from '../../../theme/colors';
 import { Radius } from '../../../theme/radius';
 import { Spacing } from '../../../theme/spacing';
-import { Theme } from '../../../theme/theme';
+import type { Theme } from '../../../theme/theme';
 
 const VIEWFINDER_SIZE = 240;
 const CORNER_SIZE = 28;

@@ -5,7 +5,7 @@ import AppImage from '../../../components/AppImage';
 import AppText from '../../../components/AppText';
 import { AppImages } from '../../../constants';
 import { useTheme } from '../../../theme';
-import { NotificationItem } from '../data';
+import type { NotificationItem } from '../data';
 import { createListStyles } from '../styles/NotificationList.styles';
 
 interface Props {

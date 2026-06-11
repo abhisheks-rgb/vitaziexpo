@@ -68,6 +68,14 @@
     "quality": "npm run lint:fix && npm run format && npm run type-check",
     "analyze": "npm run lint && npm run type-check && npm run format:check",
     "clean": "rm -rf node_modules package-lock.json .expo",
-    "reset": "npm run clean && npm install"
+    "reset": "npm run clean && npm install",
+    "lint:fix:strict": "eslint . --fix --max-warnings=0",
+    "lint:errors": "eslint . --quiet",
+    "lint:errors:fix": "eslint . --fix --quiet",
+    "lint:unused": "eslint . --rule '@typescript-eslint/no-unused-vars:error'",
+    "quality:step1": "npm run lint:errors:fix",
+    "quality:step2": "npm run lint:fix",
+    "quality:step3": "npm run type-check",
+    "quality:full": "npm run quality:step1 && npm run quality:step2 && npm run format && npm run quality:step3"
   }
 }

@@ -3,7 +3,8 @@
  * Drop it anywhere a white rounded container is needed.
  */
 import React from 'react';
-import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import type { StyleProp, ViewStyle } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { useTheme } from '../theme';
 import { Radius } from '../theme/radius';

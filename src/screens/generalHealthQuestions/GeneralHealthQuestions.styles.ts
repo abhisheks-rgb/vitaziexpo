@@ -1,6 +1,7 @@
-import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import type { TextStyle, ViewStyle } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import { Theme } from '../../theme';
+import type { Theme } from '../../theme';
 
 // Radius constants — defined locally since Theme does not expose a `radii` token
 const RADIUS_PILL = 100;

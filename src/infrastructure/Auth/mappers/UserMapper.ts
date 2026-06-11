@@ -1,5 +1,5 @@
-import { User } from '../../../domain/Auth/models/User';
-import { UserDTO } from '../dtos/UserDTO';
+import type { User } from '../../../domain/Auth/models/User';
+import type { UserDTO } from '../dtos/UserDTO';
 
 export const UserMapper = {
   toDomain(dto: UserDTO): User {

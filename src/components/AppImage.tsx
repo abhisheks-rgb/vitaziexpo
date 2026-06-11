@@ -1,7 +1,9 @@
-import { Image, ImageSource } from 'expo-image';
+import type { ImageSource } from 'expo-image';
+import { Image } from 'expo-image';
 import React, { useState } from 'react';
-import { ActivityIndicator, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import { SvgProps } from 'react-native-svg';
+import type { StyleProp, ViewStyle } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import type { SvgProps } from 'react-native-svg';
 
 export type AppImageSource = string | number | ImageSource | React.ComponentType<SvgProps>;
 

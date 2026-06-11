@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { ExpoConfig } from 'expo/config';
+import type { ExpoConfig } from 'expo/config';
 
 export default (): ExpoConfig => {
   const ENV = process.env.EXPO_PUBLIC_ENV ?? 'mock';

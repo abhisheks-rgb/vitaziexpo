@@ -8,7 +8,7 @@ import AppText from '../../components/AppText';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { AppImages } from '../../constants';
 import { useTranslation } from '../../hooks/useTranslation';
-import { NotificationDetailScreenProps } from '../../navigation/types';
+import type { NotificationDetailScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
 
 import DetailRow from './components/DetailRow';

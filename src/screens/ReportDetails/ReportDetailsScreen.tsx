@@ -2,11 +2,12 @@
 
 import { BlurView } from 'expo-blur';
 import React from 'react';
+import type {
+  NativeScrollEvent,
+  NativeSyntheticEvent} from 'react-native';
 import {
   Animated,
   Dimensions,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
   StyleSheet,
   TouchableOpacity,
   View,

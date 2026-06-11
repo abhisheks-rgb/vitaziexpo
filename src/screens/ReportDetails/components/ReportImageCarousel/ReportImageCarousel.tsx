@@ -1,12 +1,13 @@
 // File: components/ReportImageCarousel/ReportImageCarousel.tsx
 
 import { LinearGradient } from 'expo-linear-gradient';
-import { RefObject } from 'react';
+import type { RefObject } from 'react';
+import type {
+  NativeScrollEvent,
+  NativeSyntheticEvent} from 'react-native';
 import {
   Dimensions,
   FlatList,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
   Text,
   TouchableOpacity,
   View,

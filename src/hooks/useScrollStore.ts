@@ -1,4 +1,4 @@
-import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import { create } from 'zustand';
 
 type ScrollStore = {
