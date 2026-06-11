@@ -10,6 +10,7 @@ import { useTranslation } from '../../hooks/useTranslation';
 import { NotificationDetailScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
 
+import { useMemo } from 'react';
 import DetailRow from './components/DetailRow';
 import { appointmentDetails } from './data';
 import { createDetailStyles } from './styles/NotificationDetail.styles';
@@ -19,7 +20,7 @@ export default function NotificationDetailScreen({
   navigation,
 }: NotificationDetailScreenProps) {
   const theme = useTheme();
-  const styles = createDetailStyles(theme);
+  const styles = useMemo(() => createDetailStyles(theme), [theme]);
   const { t } = useTranslation();
 
   const strings = {

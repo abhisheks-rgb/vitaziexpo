@@ -1,4 +1,4 @@
-import React from 'react';
+import { useMemo } from 'react';
 import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -18,7 +18,7 @@ const strings = {
 
 export default function NotificationsScreen({ navigation }: NotificationsScreenProps) {
   const theme = useTheme();
-  const styles = createListStyles(theme);
+  const styles = useMemo(() => createListStyles(theme), [theme]);
 
   const handleCardPress = (id: string) => {
     navigation.navigate('NotificationDetail', {

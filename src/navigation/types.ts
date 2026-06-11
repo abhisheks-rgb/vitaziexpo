@@ -1,4 +1,4 @@
-import type { CompositeScreenProps } from '@react-navigation/native';
+import type { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { EducationMaterial } from '../screens/Education/types/education.types';
@@ -28,7 +28,7 @@ export type AuthStackParamList = {
 };
 
 // ─────────────────────────────────────────────────────────────
-// App Stack (Screens above Bottom Tabs)
+// Tab Param List
 // ─────────────────────────────────────────────────────────────
 
 export type TabParamList = {
@@ -39,8 +39,12 @@ export type TabParamList = {
   More: undefined;
 };
 
+// ─────────────────────────────────────────────────────────────
+// App Stack (Screens above Bottom Tabs)
+// ─────────────────────────────────────────────────────────────
+
 export type AppStackParamList = {
-  Tabs: { screen: keyof TabParamList } | undefined;
+  Tabs: NavigatorScreenParams<TabParamList> | undefined;
 
   Appointments: undefined;
   ChatHistory: undefined;
@@ -129,3 +133,10 @@ export type MaterialDetailsScreenProps = NativeStackScreenProps<
 export type AppointmentsScreenProps = NativeStackScreenProps<AppStackParamList, 'Appointments'>;
 
 export type ChatHistoryScreenProps = NativeStackScreenProps<AppStackParamList, 'ChatHistory'>;
+
+export type NotificationsScreenProps = NativeStackScreenProps<AppStackParamList, 'Notifications'>;
+
+export type NotificationDetailScreenProps = NativeStackScreenProps<
+  AppStackParamList,
+  'NotificationDetail'
+>;

@@ -12,6 +12,8 @@ import BottomTabBar from '../screens/home/components/BottomTabBar';
 import HomeScreen from '../screens/home/HomeScreen';
 import MoreScreen from '../screens/MoreScreen/MoreScreen';
 
+import NotificationDetailScreen from '../screens/notifications/NotificationDetailScreen';
+import NotificationsScreen from '../screens/notifications/NotificationScreen';
 import type { AppStackParamList, EducationStackParamList, VisitsStackParamList } from './types';
 
 const Tab = createBottomTabNavigator();
@@ -58,12 +60,11 @@ export function AppNavigator() {
   return (
     <AppStack.Navigator screenOptions={{ headerShown: false }}>
       <AppStack.Screen name="Tabs" component={TabNavigator} />
-
       <AppStack.Screen name="Appointments" component={AppointmentsScreen} />
-
       <AppStack.Screen name="ChatHistory" component={ChatHistoryScreen} />
-
       <AppStack.Screen name="MaterialDetails" component={MaterialDetailsScreen} />
+      <AppStack.Screen name="Notifications" component={NotificationsScreen} />
+      <AppStack.Screen name="NotificationDetail" component={NotificationDetailScreen} />
     </AppStack.Navigator>
   );
 }
