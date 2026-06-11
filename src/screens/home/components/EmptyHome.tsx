@@ -6,6 +6,7 @@ import { useScrollStore } from '../../../hooks/useScrollStore';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { Spacing, useTheme } from '../../../theme';
 import { createHomeStyles } from '../styles/Home.styles';
+
 import ClinicBanner from './ClinicBanner';
 import EmptyLatestScreeningCard from './EmptyLatestScreeningCard';
 import EmptyUpcomingAppointmentCard from './EmptyUpcomingAppointmentCard';

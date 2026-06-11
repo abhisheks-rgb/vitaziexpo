@@ -11,9 +11,9 @@ import EducationScreen from '../screens/Education/EducationScreen';
 import BottomTabBar from '../screens/home/components/BottomTabBar';
 import HomeScreen from '../screens/home/HomeScreen';
 import MoreScreen from '../screens/MoreScreen/MoreScreen';
-
 import NotificationDetailScreen from '../screens/notifications/NotificationDetailScreen';
 import NotificationsScreen from '../screens/notifications/NotificationScreen';
+
 import type { AppStackParamList, EducationStackParamList, VisitsStackParamList } from './types';
 
 const Tab = createBottomTabNavigator();

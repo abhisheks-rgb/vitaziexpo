@@ -1,5 +1,7 @@
 // File: AIAssistant/AIAssistantScreen.tsx
 
+import { Ionicons } from '@expo/vector-icons';
+import { useEffect } from 'react';
 import {
   FlatList,
   KeyboardAvoidingView,
@@ -12,11 +14,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AppHeader from '../../components/AppHeader';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
+import { useScrollStore } from '../../hooks/useScrollStore';
 import { Colors, useTheme } from '../../theme';
 
-import { Ionicons } from '@expo/vector-icons';
-import { useEffect } from 'react';
-import { useScrollStore } from '../../hooks/useScrollStore';
+
+
 import ChatBubble from './components/ChatBubble/ChatBubble';
 import ChatInput from './components/ChatInput/ChatInput';
 import ChooseFilesSheet from './components/ChooseFilesSheet/ChooseFilesSheet';

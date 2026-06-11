@@ -3,6 +3,7 @@ import { useNavigationState } from '@react-navigation/native';
 import { useMemo, useState } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import AppHeader from '../../components/AppHeader';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { useInteractionReady } from '../../hooks/useInteractionReady';
@@ -10,6 +11,7 @@ import { useScrollStore } from '../../hooks/useScrollStore';
 import { useTranslation } from '../../hooks/useTranslation';
 import type { ClinicListScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
+
 import ClinicGridItem from './components/clinicGridItem';
 import ClinicListItem from './components/clinicListItem';
 import { clinics } from './data';

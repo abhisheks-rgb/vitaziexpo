@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -10,7 +11,6 @@ import { useTranslation } from '../../hooks/useTranslation';
 import { NotificationDetailScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
 
-import { useMemo } from 'react';
 import DetailRow from './components/DetailRow';
 import { appointmentDetails } from './data';
 import { createDetailStyles } from './styles/NotificationDetail.styles';

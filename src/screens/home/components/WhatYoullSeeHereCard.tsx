@@ -1,4 +1,5 @@
 import { TouchableOpacity, View } from 'react-native';
+
 import AppText from '../../../components/AppText';
 import Card from '../../../components/Card';
 import { useTranslation } from '../../../hooks/useTranslation';

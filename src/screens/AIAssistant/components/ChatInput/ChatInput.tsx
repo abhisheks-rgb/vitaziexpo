@@ -1,13 +1,14 @@
 // File: AIAssistant/components/ChatInput/ChatInput.tsx
 
+import { Feather, Ionicons } from '@expo/vector-icons';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 
+import AppImage from '../../../../components/AppImage';
+import { AppImages } from '../../../../constants';
 import { useTheme } from '../../../../theme';
 import type { AttachmentSheetType, ReportOption } from '../../types/aiAssistant.types';
 
-import { Feather, Ionicons } from '@expo/vector-icons';
-import AppImage from '../../../../components/AppImage';
-import { AppImages } from '../../../../constants';
+
 import { createStyles } from './styles';
 
 interface Props {

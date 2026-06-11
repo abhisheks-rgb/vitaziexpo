@@ -1,4 +1,5 @@
 import { View } from 'react-native';
+
 import AppImage from '../../../components/AppImage';
 import AppText from '../../../components/AppText';
 import Card from '../../../components/Card';

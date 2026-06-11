@@ -1,14 +1,15 @@
+import { useEffect, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { fetchAppoinments } from '../../application/appoinments/FetchAppoinment';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { useScrollStore } from '../../hooks/useScrollStore';
 import { useTranslation } from '../../hooks/useTranslation';
 import { useTheme } from '../../theme';
 import { Spacing } from '../../theme/spacing';
 
-import { useEffect, useState } from 'react';
-import { fetchAppoinments } from '../../application/appoinments/FetchAppoinment';
+
 import ClinicBanner from './components/ClinicBanner';
 import EmptyLatestScreeningCard from './components/EmptyLatestScreeningCard';
 import EmptyUpcomingAppointmentCard from './components/EmptyUpcomingAppointmentCard';

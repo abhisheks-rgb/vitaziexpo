@@ -2,11 +2,12 @@
 
 import { Text, View } from 'react-native';
 
+import AppImage from '../../../../components/AppImage';
+import { AppImages } from '../../../../constants';
 import { useTheme } from '../../../../theme';
 import type { ChatMessage } from '../../types/aiAssistant.types';
 
-import AppImage from '../../../../components/AppImage';
-import { AppImages } from '../../../../constants';
+
 import { createStyles } from './styles';
 
 interface Props {
