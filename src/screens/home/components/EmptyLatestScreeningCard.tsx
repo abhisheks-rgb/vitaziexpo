@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
 import AppImage from '../../../components/AppImage';
 import AppText from '../../../components/AppText';
@@ -13,43 +13,61 @@ export default function EmptyLatestScreeningCard() {
   const { t } = useTranslation();
 
   return (
-    <>
     <Card elevated style={screeningStyles.eyeCareJourneyCard}>
-
-      <View style={screeningStyles.screeningFooter}>
-         <View style={screeningStyles.screeningFooterLeft}>
-<AppText
-        variant="subtitle"
-        color={theme.colors.text}
-        style={{ marginBottom: 5, fontSize: 16 }}
+      <View
+        style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}
       >
-        {t('home.welcomeText')}
-      </AppText>
-      <AppText
-        variant="body"
-        color={theme.colors.text}
-        style={{ marginBottom: 5, fontSize: 12 }}
-      >
-        {t('home.eyeHealth')}
-      </AppText>
-      <AppText
-        variant="body"
-        color={theme.colors.text}
-        style={{ marginBottom: 5, fontSize: 12 }}
-      >
-        {t('home.subtitleWelcomeText')}
-      </AppText>
+        <View style={{ flex: 1, paddingRight: 12 }}>
+          <AppText
+            variant="subtitle"
+            color={theme.colors.text}
+            style={{ fontSize: 18, fontWeight: '700', marginBottom: 10 }}
+          >
+            {t('home.welcomeText')} 👋
+          </AppText>
+          <AppText
+            variant="body"
+            color={theme.colors.textMuted}
+            style={{ fontSize: 13, marginBottom: 10 }}
+          >
+            {t('home.subtitleWelcomeText')}
+          </AppText>
+          <AppText
+            variant="body"
+            color={theme.colors.textMuted}
+            style={{ fontSize: 13, marginBottom: 16 }}
+          >
+            {t('home.clinicNotification')}
+          </AppText>
+          <TouchableOpacity
+            style={{
+              backgroundColor: theme.colors.primary,
+              borderRadius: 30,
+              paddingVertical: 12,
+              paddingHorizontal: 20,
+              flexDirection: 'row',
+              alignItems: 'center',
+              alignSelf: 'flex-start',
+              gap: 8,
+            }}
+          >
+            <AppText style={{ color: '#fff', fontWeight: '700', fontSize: 14 }}>
+              {t('home.learnHowItWorks')}
+            </AppText>
+            <View
+              style={{ backgroundColor: 'rgba(255,255,255,0.25)', borderRadius: 99, padding: 4 }}
+            >
+              <AppText style={{ color: '#fff' }}>›</AppText>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <AppImage
+          source={AppImages.emptySchedule}
+          containerStyle={{ width: 130, height: 150 }}
+          contentFit="contain"
+          showLoader={false}
+        />
       </View>
-
-   <AppImage source={AppImages.emptySchedule} containerStyle={{ width: 120,
-    height:120,}}
-            contentFit="contain"
-            showLoader={false} />
-
-      </View>
-
-
-      </Card>
-    </>
+    </Card>
   );
 }

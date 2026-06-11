@@ -1,6 +1,7 @@
 import type { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { EducationMaterial } from '../screens/Education/types/education.types';
 
 // ─────────────────────────────────────────────────────────────
@@ -117,6 +118,11 @@ export type CompleteFormScreenProps = CompositeScreenProps<
 export type GeneralHealthQuestionsScreenProps = NativeStackScreenProps<
   RootStackParamList,
   'GeneralHealthQuestions'
+>;
+
+export type HomeScreenProps = CompositeScreenProps<
+  BottomTabScreenProps<TabParamList, 'Home'>,
+  NativeStackScreenProps<AppStackParamList>
 >;
 
 export type EducationScreenProps = NativeStackScreenProps<

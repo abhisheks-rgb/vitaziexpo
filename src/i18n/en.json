@@ -62,7 +62,40 @@
 
     "upcomingAppointment": "Upcoming Appointment",
     "dateTime": "Date & Time",
-    "appointmentType": "Appointment Type"
+    "appointmentType": "Appointment Type",
+    "welcomeToYour": "Welcome to Your",
+    "eyeCareJourney": "Eye Care Journey",
+
+    "eyeCareJourneySubtitle": "Let's get started with your first retinal screening to protect your vision.",
+
+    "step1Title": "Schedule Screening",
+    "step1Desc": "Book your appointment",
+    "step2Title": "Complete Screening",
+    "step2Desc": "Visit the clinic for your screening",
+    "step3Title": "Review Results",
+    "step3Desc": "We'll analyze and share insights",
+    "step4Title": "Follow-up Care",
+    "step4Desc": "Personalized recommendations",
+
+    "scheduleScreening": "Schedule Screening",
+
+    "noUpcomingAppointmentTitle": "No Upcoming Appointment",
+    "noUpcomingAppointmentDesc": "You don't have any appointments yet. Book your first screening to get started.",
+    "bookNow": "Book Now",
+    "clinicNotification": "When a clinic uploads a new report you'll be notified instantly.",
+    "learnHowItWorks": "Learn How It Works",
+    "appointmentsTitle": "Appointments",
+    "noAppointmentsYet": "You don't have any upcoming appointments yet.",
+    "noAppointmentsClinicNote": "When your clinic schedules a visit, it will appear here.",
+    "whatYoullSeeTitle": "What You'll See Here",
+    "whatYoullSee": {
+      "reportsTitle": "Reports",
+      "reportsDesc": "Clinic findings and retinal images",
+      "aiTitle": "AI Summaries",
+      "aiDesc": "Easy-to-understand explanations",
+      "apptsTitle": "Appointments",
+      "apptsDesc": "Upcoming visits and reminders"
+    }
   },
   "tabs": {
     "home": "Home",

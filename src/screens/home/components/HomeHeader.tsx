@@ -1,4 +1,3 @@
-import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
 import AppImage from '../../../components/AppImage';
@@ -12,11 +11,7 @@ import { useTheme } from '../../../theme';
 import { Colors } from '../../../theme/colors';
 import { createHeaderStyles } from '../styles/HomeHeader.styles';
 
-interface Props {
-  navigation: HomeScreenProps['navigation'];
-}
-
-export default function HomeHeader({ navigation }: Props) {
+export default function HomeHeader({ navigation }: HomeScreenProps) {
   const theme = useTheme();
   const { t } = useTranslation();
   const styles = createHeaderStyles(theme);
@@ -43,7 +38,7 @@ export default function HomeHeader({ navigation }: Props) {
           <AppImage source={AppImages.searchAi} containerStyle={styles.headerIcon} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
+        <TouchableOpacity onPress={() => navigation.navigate({ name: 'Notifications' })}>
           <AppImage source={AppImages.notification} containerStyle={styles.headerIcon} />
         </TouchableOpacity>
 

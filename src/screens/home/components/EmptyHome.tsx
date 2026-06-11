@@ -2,20 +2,18 @@ import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import BackgroundBlobs from '../../../components/BackgroundBlobs';
-import { useScrollStore } from "../../../hooks/useScrollStore";
-import { useTranslation } from "../../../hooks/useTranslation";
-import { Spacing, useTheme } from "../../../theme";
-import { createHomeStyles } from "../styles/Home.styles";
+import { useScrollStore } from '../../../hooks/useScrollStore';
+import { useTranslation } from '../../../hooks/useTranslation';
+import { Spacing, useTheme } from '../../../theme';
+import { createHomeStyles } from '../styles/Home.styles';
 import ClinicBanner from './ClinicBanner';
 import EmptyLatestScreeningCard from './EmptyLatestScreeningCard';
 import EmptyUpcomingAppointmentCard from './EmptyUpcomingAppointmentCard';
 import HomeHeader from './HomeHeader';
 import QuickActionsSection from './QuickActionsSection';
+import WhatYoullSeeHereCard from './WhatYoullSeeHereCard';
 
-
-
-
-export default function EmptyHomeScreen({ navigation }: { navigation: any }   ) {
+export default function EmptyHomeScreen({ navigation }: { navigation: any }) {
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -42,7 +40,7 @@ export default function EmptyHomeScreen({ navigation }: { navigation: any }   ) 
         />
 
         <EmptyLatestScreeningCard />
-
+        <WhatYoullSeeHereCard navigation={navigation} />
         <EmptyUpcomingAppointmentCard />
 
         <View style={{ height: Spacing.xl }} />
