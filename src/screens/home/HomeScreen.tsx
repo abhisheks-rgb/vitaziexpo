@@ -7,7 +7,11 @@ import { useTranslation } from '../../hooks/useTranslation';
 import { useTheme } from '../../theme';
 import { Spacing } from '../../theme/spacing';
 
+import { useEffect, useState } from 'react';
+import { fetchAppoinments } from '../../application/appoinments/FetchAppoinment';
 import ClinicBanner from './components/ClinicBanner';
+import EmptyLatestScreeningCard from './components/EmptyLatestScreeningCard';
+import EmptyUpcomingAppointmentCard from './components/EmptyUpcomingAppointmentCard';
 import HomeHeader from './components/HomeHeader';
 import LatestScreeningCard from './components/LatestScreeningCard';
 import QuickActionsSection from './components/QuickActionsSection';
@@ -17,11 +21,29 @@ import { createHomeStyles } from './styles/Home.styles';
 export default function HomeScreen({ navigation }: { navigation: any }) {
   const theme = useTheme();
   const { t } = useTranslation();
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const styles = createHomeStyles(theme);
   const handleScroll = useScrollStore((state) => state.handleScroll);
-
+  useEffect(() => {
+    getAppoinments();
+  }, []);
+  const getAppoinments = async () => {
+    setError('');
+    setIsLoading(true);
+    try {
+      await fetchAppoinments();
+      console.log('Appoinments fetched successfully');
+    } catch (e: any) {
+      console.log('e.message');
+      setError(e.message ?? 'Not implemented');
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
+
     <SafeAreaView style={styles.screen} edges={['top']}>
       <BackgroundBlobs />
 
@@ -40,10 +62,18 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
           onAppointmentsPress={() => navigation.navigate('Appointments')}
           onChatHistoryPress={() => navigation.navigate('ChatHistory')}
         />
+         {error===''?(
+            <LatestScreeningCard />
 
-        <LatestScreeningCard />
+        ):(<EmptyLatestScreeningCard/>)}
 
-        <UpcomingAppointmentCard />
+        {error===''?(
+            <UpcomingAppointmentCard />
+
+        ):(<EmptyUpcomingAppointmentCard/>)}
+
+
+
 
         <View style={{ height: Spacing.xl }} />
       </ScrollView>

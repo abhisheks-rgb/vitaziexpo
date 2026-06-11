@@ -38,6 +38,8 @@ export const AppImages = {
   retinalImage: require('../../assets/images/png/retinal-image.jpg'),
   avatar: require('../../assets/images/png/avatar.png'),
   doctorAvatar: require('../../assets/images/png/doctor-avatar.png'),
+  noUpcomingAppointments: require('../../assets/images/png/no_upcoming_appoinment.png'),
+  emptySchedule: require('../../assets/images/png/empty_schedule.png'),
 
   //SVG Images
   scanQRTextIcon: ScanQRTextIcon,

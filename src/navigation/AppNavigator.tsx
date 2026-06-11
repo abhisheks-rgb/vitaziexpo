@@ -29,6 +29,7 @@ function VisitsStack() {
     <VisitsStackNav.Navigator screenOptions={{ headerShown: false }}>
       <VisitsStackNav.Screen name="ClinicList" component={ClinicListScreen} />
       <VisitsStackNav.Screen name="ClinicVisits" component={ClinicVisitsScreen} />
+      {/* <AppStack.Screen name="ReportDetails" component={ReportDetailsScreen} /> */}
     </VisitsStackNav.Navigator>
   );
 }

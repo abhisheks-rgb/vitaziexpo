@@ -10,6 +10,12 @@ export const screeningStyles = StyleSheet.create({
     marginBottom: Spacing.md,
     overflow: 'hidden',
   },
+  eyeCareJourneyCard: {
+    marginBottom: Spacing.md,
+    overflow: 'hidden',
+    padding: Spacing.md,
+    color: '',
+  },
   screeningImage: {
     width: '100%',
     height: 160,

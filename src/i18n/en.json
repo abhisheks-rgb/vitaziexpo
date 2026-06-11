@@ -53,6 +53,10 @@
     },
 
     "latestScreening": "Latest Screening",
+    "welcomeText": "Welcome to Vitazi",
+    "subtitleWelcomeText": "Your eye health reports for participating clinics will appear here automatically",
+    "eyeHealth": "Let`s get started on your eye health",
+    "noUpcomingAppointments": "No upcoming appointments found",
     "visitReview": "Visit Review",
     "followUpRecommended": "Follow-up recommended in 6 months",
 

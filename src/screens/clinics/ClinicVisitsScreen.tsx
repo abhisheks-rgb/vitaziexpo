@@ -113,7 +113,7 @@ export default function ClinicVisitsScreen({ route, navigation }: ClinicVisitsSc
               visit={{ ...visit, clinicName: clinic.name }}
               showImages={showImages}
               onPress={() => {
-                navigation.navigate('ReportDetails', { reportId: visit.id });
+                // navigation.navigate('ReportDetails', { reportId: visit.id });
               }}
             />
           ))
