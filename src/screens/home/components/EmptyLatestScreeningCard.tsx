@@ -6,64 +6,55 @@ import Card from '../../../components/Card';
 import { AppImages } from '../../../constants';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useTheme } from '../../../theme';
-import { screeningStyles } from '../styles/HomeScreening.styles';
+import { emptyScreeningStyles } from '../styles/EmptyLatestScreeningCard';
 
 export default function EmptyLatestScreeningCard() {
   const theme = useTheme();
   const { t } = useTranslation();
 
   return (
-    <Card elevated style={screeningStyles.eyeCareJourneyCard}>
+    <Card elevated style={emptyScreeningStyles.emptyScreeningCard}>
       <View
-        style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}
+        style={emptyScreeningStyles.emptyScreeningBodyView}
       >
         <View style={{ flex: 1, paddingRight: 12 }}>
           <AppText
             variant="subtitle"
             color={theme.colors.text}
-            style={{ fontSize: 18, fontWeight: '700', marginBottom: 10 }}
+            style={emptyScreeningStyles.welcomeText}
           >
             {t('home.welcomeText')} 👋
           </AppText>
           <AppText
             variant="body"
             color={theme.colors.textMuted}
-            style={{ fontSize: 13, marginBottom: 10 }}
+            style={emptyScreeningStyles.subtitleWelcomeText}
           >
             {t('home.subtitleWelcomeText')}
           </AppText>
           <AppText
             variant="body"
             color={theme.colors.textMuted}
-            style={{ fontSize: 13, marginBottom: 16 }}
+            style={emptyScreeningStyles.clinicNotificationText}
           >
             {t('home.clinicNotification')}
           </AppText>
           <TouchableOpacity
-            style={{
-              backgroundColor: theme.colors.primary,
-              borderRadius: 30,
-              paddingVertical: 12,
-              paddingHorizontal: 20,
-              flexDirection: 'row',
-              alignItems: 'center',
-              alignSelf: 'flex-start',
-              gap: 8,
-            }}
+            style={emptyScreeningStyles.learnHowItWorksButton}
           >
-            <AppText style={{ color: '#fff', fontWeight: '700', fontSize: 14 }}>
+            <AppText style={emptyScreeningStyles.learnHowItWorksText}>
               {t('home.learnHowItWorks')}
             </AppText>
             <View
-              style={{ backgroundColor: 'rgba(255,255,255,0.25)', borderRadius: 99, padding: 4 }}
+              style={emptyScreeningStyles.arrowCircle}
             >
-              <AppText style={{ color: '#fff' }}>›</AppText>
+              <AppText style={emptyScreeningStyles.arrowText}>›</AppText>
             </View>
           </TouchableOpacity>
         </View>
         <AppImage
           source={AppImages.emptySchedule}
-          containerStyle={{ width: 130, height: 150 }}
+          containerStyle={emptyScreeningStyles.emptyScheduleImage}
           contentFit="contain"
           showLoader={false}
         />
