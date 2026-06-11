@@ -21,7 +21,7 @@ export default function ChatHistoryScreen({ navigation }: Props) {
   const styles = createStyles(theme);
 
   const handleSelectSession = (_session: ChatSession) => {
-    navigation.navigate('AIAssistant');
+    navigation.navigate('Tabs', { screen: 'AIAssistant' });
   };
 
   return (

@@ -31,8 +31,16 @@ export type AuthStackParamList = {
 // App Stack (Screens above Bottom Tabs)
 // ─────────────────────────────────────────────────────────────
 
+export type TabParamList = {
+  Home: undefined;
+  Visits: undefined;
+  AIAssistant: undefined;
+  Education: undefined;
+  More: undefined;
+};
+
 export type AppStackParamList = {
-  Tabs: undefined;
+  Tabs: { screen: keyof TabParamList } | undefined;
 
   Appointments: undefined;
   ChatHistory: undefined;

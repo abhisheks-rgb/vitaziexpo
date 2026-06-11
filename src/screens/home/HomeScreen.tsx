@@ -2,11 +2,11 @@ import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import BackgroundBlobs from '../../components/BackgroundBlobs';
+import { useScrollStore } from '../../hooks/useScrollStore';
 import { useTranslation } from '../../hooks/useTranslation';
 import { useTheme } from '../../theme';
 import { Spacing } from '../../theme/spacing';
 
-import { useScrollStore } from '../../hooks/useScrollStore';
 import ClinicBanner from './components/ClinicBanner';
 import HomeHeader from './components/HomeHeader';
 import LatestScreeningCard from './components/LatestScreeningCard';

@@ -1,10 +1,8 @@
 // File: Appointments/components/AppointmentTabBar/AppointmentTabBar.tsx
-
+import { useMemo } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-
 import { useTheme } from '../../../../theme';
 import type { AppointmentTab } from '../../types/appointments.types';
-
 import { createStyles } from './styles';
 
 interface Props {
@@ -16,7 +14,7 @@ const TABS: AppointmentTab[] = ['Upcoming', 'Past'];
 
 export default function AppointmentTabBar({ activeTab, onTabChange }: Props) {
   const theme = useTheme();
-  const styles = createStyles(theme);
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
     <View style={styles.container}>

@@ -1,13 +1,11 @@
 // File: Appointments/AppointmentsScreen.tsx
-
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 import AppHeader from '../../components/AppHeader';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
+import { useInteractionReady } from '../../hooks/useInteractionReady';
 import { useTheme } from '../../theme';
-
 import AppointmentCard from './components/AppointmentCard/AppointmentCard';
 import AppointmentDetailsScreen from './components/AppointmentDetails/AppointmentDetailsScreen';
 import AppointmentTabBar from './components/AppointmentTabBar/AppointmentTabBar';
@@ -18,8 +16,10 @@ export default function AppointmentsScreen({ navigation }: { navigation: any }) 
   const theme = useTheme();
   const { activeTab, setActiveTab, appointments } = useAppointments();
   const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null);
+  const isReady = useInteractionReady();
 
-  // In-module detail navigation (swap to navigator push if preferred)
+  const screenStyle = useMemo(() => [styles.screen, { backgroundColor: '#EBF0F7' }], []);
+
   if (selectedAppointment) {
     return (
       <AppointmentDetailsScreen
@@ -30,18 +30,15 @@ export default function AppointmentsScreen({ navigation }: { navigation: any }) 
   }
 
   return (
-    <SafeAreaView style={[styles.screen, { backgroundColor: '#EBF0F7' }]} edges={['top']}>
-      <BackgroundBlobs />
-
+    <SafeAreaView style={screenStyle} edges={['top']}>
+      {isReady && <BackgroundBlobs />}
       <AppHeader
         title="Appointments"
         titlePosition="left"
         showBackButton
         onBackPress={() => navigation.goBack()}
       />
-
       <AppointmentTabBar activeTab={activeTab} onTabChange={setActiveTab} />
-
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={styles.scrollContent}

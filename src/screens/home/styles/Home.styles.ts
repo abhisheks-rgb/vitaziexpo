@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { Spacing } from '../../../theme/spacing';
 import { Theme } from '../../../theme/theme';
+
 import { CONTAINER_H } from './BottomTabBar.styles';
 
 export const createHomeStyles = (theme: Theme) =>

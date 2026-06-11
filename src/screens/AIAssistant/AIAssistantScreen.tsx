@@ -1,6 +1,5 @@
 // File: AIAssistant/AIAssistantScreen.tsx
 
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import {
   FlatList,
   KeyboardAvoidingView,
@@ -13,10 +12,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AppHeader from '../../components/AppHeader';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
-import type { AppStackParamList } from '../../navigation/types'; // adjust path to yours
+import { useScrollStore } from '../../hooks/useScrollStore';
 import { useTheme } from '../../theme';
 
-import { useScrollStore } from '../../hooks/useScrollStore';
 import ChatBubble from './components/ChatBubble/ChatBubble';
 import ChatInput from './components/ChatInput/ChatInput';
 import ChooseFilesSheet from './components/ChooseFilesSheet/ChooseFilesSheet';
@@ -28,8 +26,6 @@ import {
   SUGGESTED_ACTIONS_MOCK,
 } from './data/aiAssistant.mock';
 import { useAIAssistant } from './hooks/useAIAssistant';
-
-type Props = NativeStackScreenProps<AppStackParamList, 'AIAssistant'>;
 
 export default function AIAssistantScreen({ navigation }: { navigation: any }) {
   const theme = useTheme();

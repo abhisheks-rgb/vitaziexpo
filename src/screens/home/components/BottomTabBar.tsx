@@ -1,6 +1,7 @@
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { BlurView } from 'expo-blur';
 import { Platform, TouchableOpacity, View } from 'react-native';
+
 import AppImage from '../../../components/AppImage';
 import { AppImages } from '../../../constants';
 import { useScrollStore } from '../../../hooks/useScrollStore';
@@ -12,6 +13,7 @@ import {
   FAB_TOTAL,
   SCREEN_CENTER_X,
 } from '../styles/BottomTabBar.styles';
+
 import TabButton from './TabButton';
 
 export type TabKey = 'Home' | 'Visits' | 'AIAssistant' | 'Education' | 'More';

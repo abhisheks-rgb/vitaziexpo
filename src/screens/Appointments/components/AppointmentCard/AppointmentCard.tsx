@@ -1,12 +1,10 @@
 // File: Appointments/components/AppointmentCard/AppointmentCard.tsx
-
+import { memo, useMemo } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-
 import AppImage from '../../../../components/AppImage';
 import { AppImages } from '../../../../constants';
 import { useTheme } from '../../../../theme';
 import type { Appointment } from '../../types/appointments.types';
-
 import { createStyles } from './styles';
 
 interface Props {
@@ -14,12 +12,13 @@ interface Props {
   onPress: (appointment: Appointment) => void;
 }
 
-export default function AppointmentCard({ appointment, onPress }: Props) {
+function AppointmentCard({ appointment, onPress }: Props) {
   const theme = useTheme();
-  const styles = createStyles(theme);
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const { doctor, clinic, status } = appointment;
 
-  const renderStatusBanner = () => {
+  const statusBanner = useMemo(() => {
     if (status.kind === 'reminder') {
       const label =
         status.daysUntil === 1
@@ -41,7 +40,7 @@ export default function AppointmentCard({ appointment, onPress }: Props) {
       );
     }
     return null;
-  };
+  }, [status, styles]);
 
   return (
     <View style={styles.card}>
@@ -55,14 +54,12 @@ export default function AppointmentCard({ appointment, onPress }: Props) {
             showLoader={false}
           />
         </View>
-
         <View style={styles.doctorInfo}>
           <Text style={styles.doctorName}>{doctor.name}</Text>
           <Text style={styles.doctorSpecialty} numberOfLines={2}>
             {doctor.specialty}
           </Text>
         </View>
-
         <TouchableOpacity
           style={styles.chevronBtn}
           onPress={() => onPress(appointment)}
@@ -81,8 +78,11 @@ export default function AppointmentCard({ appointment, onPress }: Props) {
         </View>
       </View>
 
-      {/* Status banner — flush to card edges */}
-      {renderStatusBanner()}
+      {/* Status banner */}
+      {statusBanner}
     </View>
   );
 }
+
+// Prevents re-render when parent re-renders but appointment data hasn't changed
+export default memo(AppointmentCard);

@@ -4,11 +4,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AppHeader from '../../components/AppHeader';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
+import { useScrollStore } from '../../hooks/useScrollStore';
 import { useTranslation } from '../../hooks/useTranslation';
 import type { ClinicVisitsScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
 
-import { useScrollStore } from '../../hooks/useScrollStore';
 import VisitGridItem from './components/visitGridItem';
 import VisitListItem from './components/visitListItem';
 import { clinics } from './data';

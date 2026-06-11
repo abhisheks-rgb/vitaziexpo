@@ -4,9 +4,9 @@ import { FlatList, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import BackgroundBlobs from '../../components/BackgroundBlobs';
+import { useScrollStore } from '../../hooks/useScrollStore';
 import { useTheme } from '../../theme';
 
-import { useScrollStore } from '../../hooks/useScrollStore';
 import EducationHeader from './components/EducationHeader/EducationHeader';
 import ImagesToggle from './components/ImagesToggle/ImagesToggle';
 import MaterialCard from './components/MaterialCard/MaterialCard';

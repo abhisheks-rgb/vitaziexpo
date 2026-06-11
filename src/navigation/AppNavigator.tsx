@@ -4,16 +4,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AIAssistantScreen from '../screens/AIAssistant/AIAssistantScreen';
 import ChatHistoryScreen from '../screens/AIAssistant/components/ChatHistory/ChatHistoryScreen';
 import AppointmentsScreen from '../screens/Appointments/AppointmentsScreen';
-
 import ClinicListScreen from '../screens/clinics/ClinicListScreen';
 import ClinicVisitsScreen from '../screens/clinics/ClinicVisitsScreen';
-
-import EducationScreen from '../screens/Education/EducationScreen';
 import MaterialDetailsScreen from '../screens/Education/components/MaterialDetails/MaterialDetailsScreen';
-
-import HomeScreen from '../screens/home/HomeScreen';
+import EducationScreen from '../screens/Education/EducationScreen';
 import BottomTabBar from '../screens/home/components/BottomTabBar';
-
+import HomeScreen from '../screens/home/HomeScreen';
 import MoreScreen from '../screens/MoreScreen/MoreScreen';
 
 import type { AppStackParamList, EducationStackParamList, VisitsStackParamList } from './types';

@@ -8,11 +8,11 @@ import AppImage from '../../../../components/AppImage';
 import BackgroundBlobs from '../../../../components/BackgroundBlobs';
 import { DurationChip } from '../../../../components/DurationChip';
 import { PlayButton } from '../../../../components/PlayButton';
+import { MaterialDetailsScreenProps } from '../../../../navigation/types';
 import { useTheme } from '../../../../theme';
 import { EDUCATION_MATERIALS_MOCK } from '../../data/education.mock';
 import type { EducationMaterial } from '../../types/education.types';
 
-import { MaterialDetailsScreenProps } from '../../../../navigation/types';
 import { createStyles } from './styles';
 
 function SimilarCard({
