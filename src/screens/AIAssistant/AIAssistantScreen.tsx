@@ -15,6 +15,7 @@ import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { Colors, useTheme } from '../../theme';
 
 import { Ionicons } from '@expo/vector-icons';
+import { useEffect } from 'react';
 import { useScrollStore } from '../../hooks/useScrollStore';
 import ChatBubble from './components/ChatBubble/ChatBubble';
 import ChatInput from './components/ChatInput/ChatInput';
@@ -28,8 +29,15 @@ import {
 } from './data/aiAssistant.mock';
 import { useAIAssistant } from './hooks/useAIAssistant';
 
-export default function AIAssistantScreen({ navigation }: { navigation: any }) {
+export default function AIAssistantScreen({ route, navigation }: { route: any; navigation: any }) {
   const theme = useTheme();
+  const chatId = route.params?.chatId;
+
+  useEffect(() => {
+    if (chatId) {
+      // loadChat(chatId);
+    }
+  }, [chatId]);
   const {
     messages,
     inputText,

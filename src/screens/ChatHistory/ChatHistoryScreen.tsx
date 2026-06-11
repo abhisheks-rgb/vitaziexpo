@@ -4,13 +4,13 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import AppHeader from '../../../../components/AppHeader';
-import AppImage from '../../../../components/AppImage';
-import BackgroundBlobs from '../../../../components/BackgroundBlobs';
-import type { AppStackParamList } from '../../../../navigation/types'; // adjust path to yours
-import { useTheme } from '../../../../theme';
-import { CHAT_HISTORY_MOCK } from '../../data/aiAssistant.mock';
-import type { ChatSession } from '../../types/aiAssistant.types';
+import AppHeader from '../../components/AppHeader';
+import AppImage from '../../components/AppImage';
+import BackgroundBlobs from '../../components/BackgroundBlobs';
+import type { AppStackParamList } from '../../navigation/types'; // adjust path to yours
+import { useTheme } from '../../theme';
+import { CHAT_HISTORY_MOCK } from '../AIAssistant/data/aiAssistant.mock';
+import type { ChatSession } from '../AIAssistant/types/aiAssistant.types';
 
 import { createStyles } from './styles';
 
@@ -20,8 +20,10 @@ export default function ChatHistoryScreen({ navigation }: Props) {
   const theme = useTheme();
   const styles = createStyles(theme);
 
-  const handleSelectSession = (_session: ChatSession) => {
-    navigation.navigate('Tabs', { screen: 'AIAssistant' });
+  const handleSelectSession = (session: ChatSession) => {
+    navigation.navigate('AIAssistant', {
+      chatId: session.id,
+    });
   };
 
   return (

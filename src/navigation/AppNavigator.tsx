@@ -2,8 +2,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import AIAssistantScreen from '../screens/AIAssistant/AIAssistantScreen';
-import ChatHistoryScreen from '../screens/AIAssistant/components/ChatHistory/ChatHistoryScreen';
 import AppointmentsScreen from '../screens/Appointments/AppointmentsScreen';
+import ChatHistoryScreen from '../screens/ChatHistory/ChatHistoryScreen';
 import ClinicListScreen from '../screens/clinics/ClinicListScreen';
 import ClinicVisitsScreen from '../screens/clinics/ClinicVisitsScreen';
 import MaterialDetailsScreen from '../screens/Education/components/MaterialDetails/MaterialDetailsScreen';
@@ -70,7 +70,7 @@ export function AppNavigator() {
         name="AIAssistant"
         component={AIAssistantScreen}
         options={{
-          presentation: 'fullScreenModal',
+          presentation: 'card',
           animation: 'slide_from_bottom',
         }}
       />
