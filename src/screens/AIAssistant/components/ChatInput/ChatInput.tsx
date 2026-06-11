@@ -5,6 +5,9 @@ import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useTheme } from '../../../../theme';
 import type { AttachmentSheetType, ReportOption } from '../../types/aiAssistant.types';
 
+import { Feather, Ionicons } from '@expo/vector-icons';
+import AppImage from '../../../../components/AppImage';
+import { AppImages } from '../../../../constants';
 import { createStyles } from './styles';
 
 interface Props {
@@ -46,12 +49,8 @@ export default function ChatInput({
       )}
 
       <View style={styles.inputRow}>
-        <TouchableOpacity
-          style={styles.attachBtn}
-          onPress={() => onAttachPress('import_report')}
-          activeOpacity={0.7}
-        >
-          <Text style={styles.attachIcon}>📎</Text>
+        <TouchableOpacity onPress={() => onAttachPress('import_report')} activeOpacity={0.7}>
+          <Feather style={styles.uploadIcon} name="file-text" size={20} />
         </TouchableOpacity>
 
         <TextInput
@@ -65,12 +64,8 @@ export default function ChatInput({
           onSubmitEditing={onSend}
         />
 
-        <TouchableOpacity
-          style={styles.micBtn}
-          onPress={() => onAttachPress('choose_files')}
-          activeOpacity={0.7}
-        >
-          <Text style={styles.micIcon}>🖼️</Text>
+        <TouchableOpacity onPress={() => onAttachPress('choose_files')} activeOpacity={0.7}>
+          <Ionicons style={styles.uploadIcon} name="cloud-upload-outline" size={20} />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -79,7 +74,12 @@ export default function ChatInput({
           disabled={!hasText}
           activeOpacity={0.85}
         >
-          <Text style={styles.sendIcon}>➤</Text>
+          <AppImage
+            source={AppImages.chatSendButton}
+            containerStyle={styles.sendIcon}
+            contentFit="contain"
+            showLoader={false}
+          />
         </TouchableOpacity>
       </View>
     </View>

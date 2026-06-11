@@ -5,6 +5,8 @@ import { Text, View } from 'react-native';
 import { useTheme } from '../../../../theme';
 import type { ChatMessage } from '../../types/aiAssistant.types';
 
+import AppImage from '../../../../components/AppImage';
+import { AppImages } from '../../../../constants';
 import { createStyles } from './styles';
 
 interface Props {
@@ -33,7 +35,12 @@ export default function ChatBubble({ message, showDateSeparator }: Props) {
       ) : (
         <View style={styles.rowAssistant}>
           <View style={styles.robotIconWrap}>
-            <Text style={styles.robotIcon}>🤖</Text>
+            <AppImage
+              source={AppImages.chatBubbleAi}
+              containerStyle={{ width: 18 }}
+              contentFit="contain"
+              showLoader={false}
+            />
           </View>
           <View style={styles.bubbleAssistant}>
             <Text style={styles.textAssistant}>{message.content}</Text>

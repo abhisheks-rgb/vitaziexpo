@@ -5,16 +5,17 @@ import {
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
-  Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AppHeader from '../../components/AppHeader';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
-import { useScrollStore } from '../../hooks/useScrollStore';
-import { useTheme } from '../../theme';
+import { Colors, useTheme } from '../../theme';
 
+import { Ionicons } from '@expo/vector-icons';
+import { useScrollStore } from '../../hooks/useScrollStore';
 import ChatBubble from './components/ChatBubble/ChatBubble';
 import ChatInput from './components/ChatInput/ChatInput';
 import ChooseFilesSheet from './components/ChooseFilesSheet/ChooseFilesSheet';
@@ -50,7 +51,9 @@ export default function AIAssistantScreen({ navigation }: { navigation: any }) {
       onPress={() => navigation.navigate('ChatHistory')}
       hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
     >
-      <Text style={{ fontSize: 20, color: theme.colors.text }}>💬</Text>
+      <View style={{ backgroundColor: Colors.white, padding: 8, borderRadius: 50 }}>
+        <Ionicons size={22} name="chatbubble-ellipses-outline" />
+      </View>
     </TouchableOpacity>
   );
 

@@ -4,6 +4,8 @@ import arrowForward from '../../assets/images/svg/arrow_forward.svg';
 import calendar from '../../assets/images/svg/calendar.svg';
 import calendarAppt from '../../assets/images/svg/calendar_appt.svg';
 import chat from '../../assets/images/svg/chat.svg';
+import chatBubbleAi from '../../assets/images/svg/chat_bubble_ai.svg';
+import chatSendButton from '../../assets/images/svg/chat_send_button.svg';
 import clinic from '../../assets/images/svg/clinic.svg';
 import clinicVector from '../../assets/images/svg/clinic_vector.svg';
 import doc from '../../assets/images/svg/doc.svg';
@@ -61,4 +63,6 @@ export const AppImages = {
   print: print,
   doc: doc,
   pdf: pdf,
+  chatBubbleAi: chatBubbleAi,
+  chatSendButton: chatSendButton,
 } as const;

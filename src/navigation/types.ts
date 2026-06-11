@@ -61,6 +61,7 @@ export type AppStackParamList = {
   ReportDetails: {
     reportId: string;
   };
+  AIAssistant: undefined;
 };
 
 // ─────────────────────────────────────────────────────────────

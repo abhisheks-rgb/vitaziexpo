@@ -49,7 +49,7 @@ function TabNavigator() {
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Visits" component={VisitsStack} />
-      <Tab.Screen name="AIAssistant" component={AIAssistantScreen} />
+      {/* <Tab.Screen name="AIAssistant" component={AIAssistantScreen} /> */}
       <Tab.Screen name="Education" component={EducationStack} />
       <Tab.Screen name="More" component={MoreScreen} />
     </Tab.Navigator>
@@ -65,6 +65,14 @@ export function AppNavigator() {
       <AppStack.Screen name="MaterialDetails" component={MaterialDetailsScreen} />
       <AppStack.Screen name="Notifications" component={NotificationsScreen} />
       <AppStack.Screen name="NotificationDetail" component={NotificationDetailScreen} />
+      <AppStack.Screen
+        name="AIAssistant"
+        component={AIAssistantScreen}
+        options={{
+          presentation: 'fullScreenModal',
+          animation: 'slide_from_bottom',
+        }}
+      />
     </AppStack.Navigator>
   );
 }

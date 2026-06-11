@@ -2,7 +2,7 @@
 
 import { Dimensions, StyleSheet } from 'react-native';
 
-import type { Theme } from '../../../../theme';
+import { type Theme } from '../../../../theme';
 
 const { width: SCREEN_W } = Dimensions.get('window');
 const MAX_BUBBLE_W = SCREEN_W * 0.72;
@@ -24,14 +24,16 @@ export const createStyles = (theme: Theme) =>
       gap: 8,
     },
     robotIconWrap: {
-      width: 30,
-      height: 30,
-      borderRadius: 15,
-      backgroundColor: '#EBF0F7',
+      width: 35,
+      height: 35,
+      borderRadius: 50,
+      backgroundColor: theme.colors.primary,
       alignItems: 'center',
       justifyContent: 'center',
       marginTop: 2,
       flexShrink: 0,
+      borderColor: theme.colors.limeAccent,
+      borderWidth: 2,
     },
     robotIcon: {
       fontSize: 14,
@@ -73,7 +75,7 @@ export const createStyles = (theme: Theme) =>
     },
     dateSeparatorText: {
       fontSize: 12,
-      color: theme.colors.textMuted,
+      color: theme.colors.primary,
       fontWeight: '500',
     },
   });

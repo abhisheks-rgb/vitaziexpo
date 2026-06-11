@@ -37,10 +37,18 @@ export const INITIAL_MESSAGES_MOCK: ChatMessage[] = [
 ];
 
 export const SUGGESTED_ACTIONS_MOCK = [
-  { id: '1', label: 'Next steps' },
-  { id: '2', label: 'Vision health status' },
-  { id: '3', label: 'Recommended actions after screening' },
-  { id: '4', label: 'Current overall eye condition' },
+  { id: '1', label: 'Next steps', subText: 'Recommended actions after screening' },
+  { id: '2', label: 'Vision health status', subText: 'Current overall eye condition' },
+  {
+    id: '3',
+    label: 'Recommended actions after screening',
+    subText: 'Next steps based on your screening results',
+  },
+  {
+    id: '4',
+    label: 'Current overall eye condition',
+    subText: 'Summary of your current eye condition',
+  },
 ];
 
 export const REPORT_OPTIONS_MOCK: ReportOption[] = [
