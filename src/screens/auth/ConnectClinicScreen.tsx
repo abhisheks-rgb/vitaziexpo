@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import {
   Animated,
   Keyboard,
@@ -36,20 +36,24 @@ export default function ConnectClinicScreen({ navigation, route }: ConnectClinic
   const orgId = route?.params?.orgId ?? '';
 
   // Staggered content reveal — each item fades + slides up after card arrives
-  const fadeAnims = [
-    useRef(new Animated.Value(0)).current, // org ID label + box
-    useRef(new Animated.Value(0)).current, // continue button
-    useRef(new Animated.Value(0)).current, // footer
-  ];
-  const slideAnims = fadeAnims.map(() => useRef(new Animated.Value(12)).current);
+  const fadeAnims = useRef([
+    new Animated.Value(0),
+    new Animated.Value(0),
+    new Animated.Value(0),
+  ]).current;
 
+  const slideAnims = useRef([
+    new Animated.Value(12),
+    new Animated.Value(12),
+    new Animated.Value(12),
+  ]).current;
   useEffect(() => {
     const animations = fadeAnims.map((fade, i) =>
       Animated.parallel([
         Animated.timing(fade, {
           toValue: 1,
           duration: 280,
-          delay: 180 + i * 80, // stagger: 180ms, 260ms, 340ms after mount
+          delay: 180 + i * 80,
           useNativeDriver: true,
         }),
         Animated.timing(slideAnims[i], {
@@ -60,8 +64,9 @@ export default function ConnectClinicScreen({ navigation, route }: ConnectClinic
         }),
       ]),
     );
+
     Animated.parallel(animations).start();
-  }, []);
+  }, [fadeAnims, slideAnims]);
 
   const animatedStyle = (index: number) => ({
     opacity: fadeAnims[index],

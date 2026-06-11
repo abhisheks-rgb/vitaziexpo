@@ -59,4 +59,35 @@ export const createStyles = (theme: Theme) =>
       fontSize: 18,
       color: theme.colors.textMuted,
     },
+
+    emptyListContainer: {
+      flex: 1, // 👈 FULL HEIGHT
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingHorizontal: 24,
+    },
+
+    emptyContainer: {
+      alignItems: 'center',
+      maxWidth: 420,
+    },
+
+    emptyImage: {
+      width: 180,
+      height: 180,
+      marginBottom: 16,
+    },
+
+    emptyTitle: {
+      fontSize: 16,
+      fontWeight: '600',
+      marginBottom: 8,
+      textAlign: 'center',
+    },
+
+    emptySubtitle: {
+      fontSize: 13,
+      textAlign: 'center',
+      lineHeight: 18,
+    },
   });

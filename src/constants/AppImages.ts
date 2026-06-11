@@ -13,6 +13,8 @@ import doctorSethoscope from '../../assets/images/svg/doctor_sethoscope.svg';
 import haveAccount from '../../assets/images/svg/have_account.svg';
 import location from '../../assets/images/svg/location.svg';
 import needHelp from '../../assets/images/svg/need_help.svg';
+import noChat from '../../assets/images/svg/no_chat.svg';
+import noVisits from '../../assets/images/svg/no_visits.svg';
 import Notification from '../../assets/images/svg/notification.svg';
 import notificationYellow from '../../assets/images/svg/notification_yellow.svg';
 import pdf from '../../assets/images/svg/pdf.svg';
@@ -67,4 +69,6 @@ export const AppImages = {
   pdf: pdf,
   chatBubbleAi: chatBubbleAi,
   chatSendButton: chatSendButton,
+  noVisits: noVisits,
+  noChat: noChat,
 } as const;

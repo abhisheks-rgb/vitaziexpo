@@ -8,7 +8,6 @@ import { AppImages } from '../../../../constants';
 import { useTheme } from '../../../../theme';
 import type { AttachmentSheetType, ReportOption } from '../../types/aiAssistant.types';
 
-
 import { createStyles } from './styles';
 
 interface Props {

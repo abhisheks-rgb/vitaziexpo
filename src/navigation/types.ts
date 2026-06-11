@@ -11,9 +11,11 @@ import { EducationMaterial } from '../screens/Education/types/education.types';
 export type RootStackParamList = {
   Splash: undefined;
   Onboarding: undefined;
-  Auth: undefined;
+
+  Auth: NavigatorScreenParams<AuthStackParamList>;
   GeneralHealthQuestions: undefined;
-  App: undefined;
+
+  App: NavigatorScreenParams<AppStackParamList>;
 };
 
 // ─────────────────────────────────────────────────────────────
@@ -23,29 +25,51 @@ export type RootStackParamList = {
 export type AuthStackParamList = {
   Login: undefined;
   Register: undefined;
+
   QRScanner: { source: 'register' | 'connectClinic' };
   ConnectClinic: { orgId: string };
   CompleteForm: { orgId: string };
 };
 
 // ─────────────────────────────────────────────────────────────
-// Tab Param List
+// Visits Stack
+// ─────────────────────────────────────────────────────────────
+
+export type VisitsStackParamList = {
+  ClinicList: undefined;
+  ClinicVisits: {
+    clinicId: string;
+  };
+};
+
+// ─────────────────────────────────────────────────────────────
+// Education Stack
+// ─────────────────────────────────────────────────────────────
+
+export type EducationStackParamList = {
+  EducationScreen: undefined;
+};
+
+// ─────────────────────────────────────────────────────────────
+// Bottom Tabs
 // ─────────────────────────────────────────────────────────────
 
 export type TabParamList = {
   Home: undefined;
-  Visits: undefined;
-  AIAssistant: undefined;
+
+  // ✅ Proper nested typing
+  Visits: NavigatorScreenParams<VisitsStackParamList>;
+
   Education: undefined;
   More: undefined;
 };
 
 // ─────────────────────────────────────────────────────────────
-// App Stack (Screens above Bottom Tabs)
+// App Stack (Above Tabs)
 // ─────────────────────────────────────────────────────────────
 
 export type AppStackParamList = {
-  Tabs: NavigatorScreenParams<TabParamList> | undefined;
+  Tabs: NavigatorScreenParams<TabParamList>;
 
   Appointments: undefined;
   ChatHistory: undefined;
@@ -62,27 +86,10 @@ export type AppStackParamList = {
   ReportDetails: {
     reportId: string;
   };
+
+  // ✅ SINGLE SOURCE OF TRUTH (matches navigator)
   AIAssistant: {
     chatId?: string;
-  };
-};
-
-// ─────────────────────────────────────────────────────────────
-// Education Stack
-// ─────────────────────────────────────────────────────────────
-
-export type EducationStackParamList = {
-  EducationScreen: undefined;
-};
-
-// ─────────────────────────────────────────────────────────────
-// Visits Stack
-// ─────────────────────────────────────────────────────────────
-
-export type VisitsStackParamList = {
-  ClinicList: undefined;
-  ClinicVisits: {
-    clinicId: string;
   };
 };
 
@@ -90,6 +97,7 @@ export type VisitsStackParamList = {
 // Screen Props
 // ─────────────────────────────────────────────────────────────
 
+// Auth Screens
 export type LoginScreenProps = CompositeScreenProps<
   NativeStackScreenProps<AuthStackParamList, 'Login'>,
   NativeStackScreenProps<RootStackParamList>
@@ -115,25 +123,36 @@ export type CompleteFormScreenProps = CompositeScreenProps<
   NativeStackScreenProps<RootStackParamList>
 >;
 
+// Root Screens
 export type GeneralHealthQuestionsScreenProps = NativeStackScreenProps<
   RootStackParamList,
   'GeneralHealthQuestions'
 >;
 
+// Home (Tab + App Stack)
 export type HomeScreenProps = CompositeScreenProps<
   BottomTabScreenProps<TabParamList, 'Home'>,
   NativeStackScreenProps<AppStackParamList>
 >;
 
+// Visits Screens
+export type ClinicListScreenProps = CompositeScreenProps<
+  NativeStackScreenProps<VisitsStackParamList, 'ClinicList'>,
+  NativeStackScreenProps<AppStackParamList>
+>;
+
+export type ClinicVisitsScreenProps = CompositeScreenProps<
+  NativeStackScreenProps<VisitsStackParamList, 'ClinicVisits'>,
+  NativeStackScreenProps<AppStackParamList>
+>;
+
+// Education
 export type EducationScreenProps = NativeStackScreenProps<
   EducationStackParamList,
   'EducationScreen'
 >;
 
-export type ClinicListScreenProps = NativeStackScreenProps<VisitsStackParamList, 'ClinicList'>;
-
-export type ClinicVisitsScreenProps = NativeStackScreenProps<VisitsStackParamList, 'ClinicVisits'>;
-
+// App Stack Screens
 export type MaterialDetailsScreenProps = NativeStackScreenProps<
   AppStackParamList,
   'MaterialDetails'

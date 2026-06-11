@@ -1,9 +1,10 @@
 // screens/clinics/ClinicListScreen.tsx
 import { useNavigationState } from '@react-navigation/native';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { fetchAppoinments } from '../../application/appoinments/FetchAppoinment';
 import AppHeader from '../../components/AppHeader';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { useInteractionReady } from '../../hooks/useInteractionReady';
@@ -14,6 +15,7 @@ import { useTheme } from '../../theme';
 
 import ClinicGridItem from './components/clinicGridItem';
 import ClinicListItem from './components/clinicListItem';
+import EmptyClinicVisitsCard from './components/EmptyClinicVisitsCard';
 import { clinics } from './data';
 import { createClinicListStyles } from './styles/clinicList.styles';
 
@@ -52,6 +54,25 @@ export default function ClinicListScreen({ navigation }: ClinicListScreenProps) 
   const activeColor = theme.colors.text;
   const inactiveColor = theme.colors.textMuted;
 
+  const [error, setError] = useState('');
+
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    getAppoinments();
+  }, []);
+  const getAppoinments = async () => {
+    setError('');
+    setIsLoading(true);
+    try {
+      await fetchAppoinments();
+      console.log('Appoinments fetched successfully');
+    } catch (e: any) {
+      console.log('e.message');
+      setError(e.message ?? 'Not implemented');
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const toggleRight = (
     <View style={styles.toggleWrap}>
       <TouchableOpacity
@@ -87,10 +108,19 @@ export default function ClinicListScreen({ navigation }: ClinicListScreenProps) 
       <ScrollView
         onScroll={handleScroll}
         style={styles.scroll}
-        contentContainerStyle={isGrid ? styles.scrollContentGrid : styles.scrollContent}
+        contentContainerStyle={[
+          styles.scrollContent,
+          error && {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
+        ]}
         showsVerticalScrollIndicator={false}
       >
-        {isGrid ? (
+        {error ? (
+          <EmptyClinicVisitsCard />
+        ) : isGrid ? (
           <View style={styles.clinicGrid}>
             {clinics.map((clinic) => (
               <ClinicGridItem

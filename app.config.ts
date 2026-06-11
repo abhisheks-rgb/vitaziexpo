@@ -4,7 +4,6 @@ import { ExpoConfig } from 'expo/config';
 export default (): ExpoConfig => {
   const ENV = process.env.EXPO_PUBLIC_ENV ?? 'mock';
 
-  // 👇 THIS LINE FIXES EVERYTHING
   dotenv.config({
     path: `.env.${ENV}`,
   });
@@ -16,6 +15,7 @@ export default (): ExpoConfig => {
     extra: {
       env: ENV,
       apiBaseUrl: process.env.EXPO_PUBLIC_API_BASE_URL,
+      mockDelayMs: Number(process.env.EXPO_PUBLIC_MOCK_DELAY_MS) || 0,
     },
   };
 };

@@ -2,10 +2,11 @@ import { TouchableOpacity, View } from 'react-native';
 
 import AppImage from '../../../components/AppImage';
 import AppText from '../../../components/AppText';
+import ArrowButton from '../../../components/ArrowButton';
 import Card from '../../../components/Card';
 import { AppImages } from '../../../constants';
 import { useTranslation } from '../../../hooks/useTranslation';
-import { useTheme } from '../../../theme';
+import { Colors, useTheme } from '../../../theme';
 import { emptyScreeningStyles } from '../styles/EmptyLatestScreeningCard';
 
 export default function EmptyLatestScreeningCard() {
@@ -14,42 +15,54 @@ export default function EmptyLatestScreeningCard() {
 
   return (
     <Card elevated style={emptyScreeningStyles.emptyScreeningCard}>
-      <View
-        style={emptyScreeningStyles.emptyScreeningBodyView}
-      >
-        <View style={{ flex: 1, paddingRight: 12 }}>
-          <AppText
-            variant="subtitle"
-            color={theme.colors.text}
-            style={emptyScreeningStyles.welcomeText}
-          >
-            {t('home.welcomeText')} 👋
-          </AppText>
-          <AppText
-            variant="body"
-            color={theme.colors.textMuted}
-            style={emptyScreeningStyles.subtitleWelcomeText}
-          >
-            {t('home.subtitleWelcomeText')}
-          </AppText>
-          <AppText
-            variant="body"
-            color={theme.colors.textMuted}
-            style={emptyScreeningStyles.clinicNotificationText}
-          >
-            {t('home.clinicNotification')}
-          </AppText>
-          <TouchableOpacity
-            style={emptyScreeningStyles.learnHowItWorksButton}
-          >
-            <AppText style={emptyScreeningStyles.learnHowItWorksText}>
+      <View style={emptyScreeningStyles.emptyScreeningBodyView}>
+        <View style={{ flex: 1, paddingRight: 12, justifyContent: 'space-between' }}>
+          {/* TEXT BLOCK */}
+          <View>
+            <View style={emptyScreeningStyles.welcomeRow}>
+              <AppText
+                variant="subtitle"
+                color={theme.colors.text}
+                style={emptyScreeningStyles.welcomeText}
+              >
+                {t('home.welcomeText')}
+              </AppText>
+
+              <AppImage
+                source={AppImages.logoLight} // 👈 your AI image
+                containerStyle={emptyScreeningStyles.aiIcon}
+                contentFit="contain"
+              />
+            </View>
+
+            <AppText
+              variant="body"
+              color={theme.colors.textMuted}
+              style={emptyScreeningStyles.subtitleWelcomeText}
+            >
+              {t('home.subtitleWelcomeText')}
+            </AppText>
+
+            <AppText
+              variant="body"
+              color={theme.colors.textMuted}
+              style={emptyScreeningStyles.clinicNotificationText}
+            >
+              {t('home.clinicNotification')}
+            </AppText>
+          </View>
+
+          {/* BUTTON */}
+          <TouchableOpacity style={emptyScreeningStyles.learnHowItWorksButton} activeOpacity={0.8}>
+            <AppText
+              variant="caption"
+              color={Colors.white}
+              style={{ fontWeight: '600', marginRight: 8 }}
+            >
               {t('home.learnHowItWorks')}
             </AppText>
-            <View
-              style={emptyScreeningStyles.arrowCircle}
-            >
-              <AppText style={emptyScreeningStyles.arrowText}>›</AppText>
-            </View>
+
+            <ArrowButton />
           </TouchableOpacity>
         </View>
         <AppImage

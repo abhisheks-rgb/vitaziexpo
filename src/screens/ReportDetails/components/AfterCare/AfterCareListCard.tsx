@@ -66,11 +66,9 @@ function VideoThumbnailList({ item, containerStyle }: { item: CareResource; cont
       />
       <View style={videoStyles.scrim} />
       {/* Circular play button */}
-    <PlayButton onPress={() => {}} isLoading={false} />
+      <PlayButton onPress={() => {}} isLoading={false} />
       {/* Duration pill */}
-      {item.duration && (
-        <DurationChip label={item.duration} />
-      )}
+      {item.duration && <DurationChip label={item.duration} />}
     </View>
   );
 }

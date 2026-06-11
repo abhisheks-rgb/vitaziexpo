@@ -13,10 +13,16 @@ import HomeScreen from '../screens/home/HomeScreen';
 import MoreScreen from '../screens/MoreScreen/MoreScreen';
 import NotificationDetailScreen from '../screens/notifications/NotificationDetailScreen';
 import NotificationsScreen from '../screens/notifications/NotificationScreen';
+import ReportDetailsScreen from '../screens/ReportDetails/ReportDetailsScreen';
 
-import type { AppStackParamList, EducationStackParamList, VisitsStackParamList } from './types';
+import type {
+  AppStackParamList,
+  EducationStackParamList,
+  TabParamList,
+  VisitsStackParamList,
+} from './types';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<TabParamList>();
 
 const AppStack = createNativeStackNavigator<AppStackParamList>();
 
@@ -29,7 +35,7 @@ function VisitsStack() {
     <VisitsStackNav.Navigator screenOptions={{ headerShown: false }}>
       <VisitsStackNav.Screen name="ClinicList" component={ClinicListScreen} />
       <VisitsStackNav.Screen name="ClinicVisits" component={ClinicVisitsScreen} />
-      {/* <AppStack.Screen name="ReportDetails" component={ReportDetailsScreen} /> */}
+      <AppStack.Screen name="ReportDetails" component={ReportDetailsScreen} />
     </VisitsStackNav.Navigator>
   );
 }

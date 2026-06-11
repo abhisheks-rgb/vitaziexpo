@@ -7,7 +7,6 @@ import { AppImages } from '../../../../constants';
 import { useTheme } from '../../../../theme';
 import type { ChatMessage } from '../../types/aiAssistant.types';
 
-
 import { createStyles } from './styles';
 
 interface Props {

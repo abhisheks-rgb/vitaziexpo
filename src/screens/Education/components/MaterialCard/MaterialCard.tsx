@@ -29,12 +29,8 @@ function VideoThumbnail({ material, style }: { material: EducationMaterial; styl
         showLoader={false}
       />
       <View style={styles.scrim} />
-       {material.type==='video' && (
-                  <PlayButton onPress={() => {}} />
-                )}
-      {material.duration && (
-     <DurationChip label={material.duration} />
-      )}
+      {material.type === 'video' && <PlayButton onPress={() => {}} />}
+      {material.duration && <DurationChip label={material.duration} />}
     </View>
   );
 }

@@ -10,7 +10,6 @@ const GRID_GAP = 12;
 const GRID_CARD_W = (SCREEN_W - HORIZONTAL_PADDING * 2 - GRID_GAP) / 2;
 
 export const createStyles = (theme: Theme) => {
-
   const commomComponentStyles = StyleSheet.create({
     scrim: {
       ...StyleSheet.absoluteFill,

@@ -30,7 +30,7 @@ export default function EmptyHomeScreen({ navigation }: { navigation: any }) {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        <HomeHeader navigation={navigation} />
+        <HomeHeader />
 
         <ClinicBanner />
 
