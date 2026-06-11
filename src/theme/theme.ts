@@ -1,10 +1,7 @@
-// theme/theme.ts
-
-import { useColorScheme } from 'react-native';
-
 import { Colors } from './colors';
 import { Radius } from './radius';
 import { Spacing } from './spacing';
+import { useAppTheme } from './themeProvider';
 import { Typography } from './typography';
 
 export interface Theme {
@@ -90,7 +87,5 @@ export const darkTheme: Theme = {
 };
 
 export const useTheme = (): Theme => {
-  const scheme = useColorScheme();
-
-  return scheme === 'dark' ? darkTheme : lightTheme;
+  return useAppTheme().theme;
 };

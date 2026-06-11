@@ -2,12 +2,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
 import { useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { AppFontAssets } from './src/constants';
 import RootNavigator from './src/navigation/RootNavigator';
+import { ThemeProvider, useAppTheme } from './src/theme/themeProvider';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,11 +27,21 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <SafeAreaProvider>
-        <NavigationContainer>
-          <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
-          <RootNavigator />
-        </NavigationContainer>
+        <ThemeProvider>
+          <AppContent />
+        </ThemeProvider>
       </SafeAreaProvider>
     </QueryClientProvider>
   );
 }
+
+const AppContent = () => {
+  const { theme } = useAppTheme();
+
+  return (
+    <NavigationContainer>
+      <StatusBar style={theme.isDark ? 'light' : 'dark'} />
+      <RootNavigator />
+    </NavigationContainer>
+  );
+};
