@@ -3,7 +3,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import BackgroundBlobs from '../../../components/BackgroundBlobs';
 import { useScrollStore } from '../../../hooks/useScrollStore';
-import { useTranslation } from '../../../hooks/useTranslation';
 import { Spacing, useTheme } from '../../../theme';
 import { createHomeStyles } from '../styles/Home.styles';
 
@@ -16,7 +15,6 @@ import WhatYoullSeeHereCard from './WhatYoullSeeHereCard';
 
 export default function EmptyHomeScreen({ navigation }: { navigation: any }) {
   const theme = useTheme();
-  const { t } = useTranslation();
 
   const styles = createHomeStyles(theme);
   const handleScroll = useScrollStore((state) => state.handleScroll);
