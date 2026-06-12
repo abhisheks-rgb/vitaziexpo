@@ -1,38 +1,44 @@
-// File: AIAssistant/components/SuggestedActions/styles.ts
-
 import { StyleSheet } from 'react-native';
 
-import { Colors, type Theme } from '../../../../theme';
+import type { Theme } from '../../../../theme';
+import { createCommonStyles } from '../../../../theme/styles';
 
-export const createStyles = (theme: Theme) =>
-  StyleSheet.create({
+export const createStyles = (theme: Theme) => {
+  const common = createCommonStyles(theme);
+
+  return StyleSheet.create({
+    // ── Horizontal scroll row ─────────────────────────────────────────────────
     scrollContent: {
-      flexDirection: 'row',
-      paddingHorizontal: 16,
-      paddingBottom: 10,
-      gap: 8,
+      ...common.row,
+      paddingHorizontal: theme.spacing.md,
+      paddingBottom: theme.spacing.sm,
+      gap: theme.spacing.sm,
     },
+
+    // ── Suggestion chip ───────────────────────────────────────────────────────
     chip: {
-      paddingHorizontal: 12,
-      paddingVertical: 12,
-      borderRadius: 10,
-      // backgroundColor: theme.colors.background,
+      paddingHorizontal: theme.spacing.sm,
+      paddingVertical: theme.spacing.sm,
+      borderRadius: theme.radius.md,
       borderWidth: 1,
-      borderColor: Colors.white,
+      borderColor: theme.colors.border,
       shadowColor: '#000',
       shadowOpacity: 0.04,
       shadowRadius: 4,
       shadowOffset: { width: 0, height: 1 },
       elevation: 1,
-      gap: 10,
+      gap: theme.spacing.sm,
     },
+
+    // ── Chip text ─────────────────────────────────────────────────────────────
     chipText: {
+      ...theme.typography.caption,
       fontSize: 13,
       color: theme.colors.textPrimary,
-      fontWeight: '500',
     },
     chipSubText: {
-      fontSize: 12,
+      ...theme.typography.caption,
       color: theme.colors.textSecondary,
     },
   });
+};

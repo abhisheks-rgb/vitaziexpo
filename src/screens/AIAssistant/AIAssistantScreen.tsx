@@ -1,15 +1,6 @@
-// File: AIAssistant/AIAssistantScreen.tsx
-
 import { Ionicons } from '@expo/vector-icons';
 import { useEffect } from 'react';
-import {
-  FlatList,
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { FlatList, KeyboardAvoidingView, Platform, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AppHeader from '../../components/AppHeader';
@@ -18,7 +9,7 @@ import AppText from '../../components/AppText';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { AppImages } from '../../constants';
 import { useScrollStore } from '../../hooks/useScrollStore';
-import { Colors, useTheme } from '../../theme';
+import { useTheme } from '../../theme';
 
 import ChatBubble from './components/ChatBubble/ChatBubble';
 import ChatInput from './components/ChatInput/ChatInput';
@@ -31,16 +22,20 @@ import {
   SUGGESTED_ACTIONS_MOCK,
 } from './data/aiAssistant.mock';
 import { useAIAssistant } from './hooks/useAIAssistant';
+import { createAIAssistantStyles } from './styles/aiAssistant.styles';
 
 export default function AIAssistantScreen({ route, navigation }: { route: any; navigation: any }) {
   const theme = useTheme();
+  const styles = createAIAssistantStyles(theme);
   const chatId = route.params?.chatId;
+  const handleScroll = useScrollStore((state) => state.handleScroll);
 
   useEffect(() => {
     if (chatId) {
       // loadChat(chatId);
     }
   }, [chatId]);
+
   const {
     messages,
     inputText,
@@ -55,21 +50,20 @@ export default function AIAssistantScreen({ route, navigation }: { route: any; n
     listRef,
     sendMessage,
   } = useAIAssistant();
-  const handleScroll = useScrollStore((state) => state.handleScroll);
 
   const rightActions = (
     <TouchableOpacity
       onPress={() => navigation.navigate('ChatHistory')}
       hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
     >
-      <View style={{ backgroundColor: Colors.white, padding: 8, borderRadius: 50 }}>
-        <Ionicons size={22} name="chatbubble-ellipses-outline" />
+      <View style={styles.historyBtn}>
+        <Ionicons size={22} name="chatbubble-ellipses-outline" color={theme.colors.textPrimary} />
       </View>
     </TouchableOpacity>
   );
 
   return (
-    <SafeAreaView style={[styles.screen, { backgroundColor: '#EBF0F7' }]} edges={['top']}>
+    <SafeAreaView style={styles.screen} edges={['top']}>
       <BackgroundBlobs />
 
       <AppHeader
@@ -92,9 +86,9 @@ export default function AIAssistantScreen({ route, navigation }: { route: any; n
           keyExtractor={(item) => item.id}
           contentContainerStyle={[
             styles.messageList,
-            messages.length === 0 && styles.emptyListContainer, // 👈 KEY
+            messages.length === 0 && styles.emptyListContainer,
           ]}
-          ListEmptyComponent={<EmptyChatState />} // 👈 KEY
+          ListEmptyComponent={<EmptyChatState />}
           showsVerticalScrollIndicator={false}
           renderItem={({ item, index }) => {
             const prev = messages[index - 1];
@@ -103,7 +97,7 @@ export default function AIAssistantScreen({ route, navigation }: { route: any; n
           }}
         />
 
-        {messages.length === 0 ? null : (
+        {messages.length > 0 && (
           <SuggestedActions
             actions={SUGGESTED_ACTIONS_MOCK}
             onPress={(label) => sendMessage(label)}
@@ -140,16 +134,13 @@ export default function AIAssistantScreen({ route, navigation }: { route: any; n
 }
 
 function EmptyChatState() {
+  const theme = useTheme();
+  const styles = createAIAssistantStyles(theme);
+
   return (
     <View style={styles.emptyContainer}>
-      <AppImage
-        source={AppImages.noChat} // your illustration
-        containerStyle={styles.emptyImage}
-        contentFit="contain"
-      />
-
+      <AppImage source={AppImages.noChat} containerStyle={styles.emptyImage} contentFit="contain" />
       <AppText style={styles.emptyTitle}>No Conversations Yet</AppText>
-
       <AppText style={styles.emptySubtitle}>
         Start a chat with the AI Assistant to ask questions about your retinal health, reports, and
         screenings.
@@ -157,41 +148,3 @@ function EmptyChatState() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  screen: { flex: 1 },
-  flex: { flex: 1 },
-  messageList: {
-    paddingTop: 8,
-    paddingBottom: 12,
-  },
-  emptyListContainer: {
-    flex: 1, // 👈 makes FlatList take full height
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 24,
-  },
-
-  emptyContainer: {
-    alignItems: 'center',
-  },
-
-  emptyImage: {
-    width: 180,
-    height: 180,
-    marginBottom: 16,
-  },
-
-  emptyTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-
-  emptySubtitle: {
-    fontSize: 13,
-    textAlign: 'center',
-    lineHeight: 18,
-  },
-});

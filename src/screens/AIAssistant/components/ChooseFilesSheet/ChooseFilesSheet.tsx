@@ -1,9 +1,8 @@
-// File: AIAssistant/components/ChooseFilesSheet/ChooseFilesSheet.tsx
-
 import { useState } from 'react';
-import { Modal, Text, TouchableOpacity, View } from 'react-native';
+import { Modal, TouchableOpacity, View } from 'react-native';
 
 import AppImage from '../../../../components/AppImage';
+import AppText from '../../../../components/AppText';
 import { useTheme } from '../../../../theme';
 import type { PhotoOption } from '../../types/aiAssistant.types';
 
@@ -25,27 +24,29 @@ export default function ChooseFilesSheet({ visible, photos, onConfirm, onClose }
     setSelectedIds((prev) => (prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]));
   };
 
+  const handleConfirm = () => {
+    onConfirm(selectedIds);
+    setSelectedIds([]);
+  };
+
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
       <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={onClose}>
         <TouchableOpacity activeOpacity={1} style={styles.sheet}>
           <View style={styles.handle} />
+
           <View style={styles.header}>
-            <Text style={styles.headerTitle}>Choose files</Text>
-            <TouchableOpacity
-              style={styles.confirmBtn}
-              onPress={() => {
-                onConfirm(selectedIds);
-                setSelectedIds([]);
-              }}
-            >
-              <Text style={styles.confirmIcon}>✓</Text>
+            <AppText style={styles.headerTitle}>Choose files</AppText>
+            <TouchableOpacity style={styles.confirmBtn} onPress={handleConfirm}>
+              <AppText style={styles.confirmIcon}>✓</AppText>
             </TouchableOpacity>
           </View>
-          <Text style={styles.permissionText}>
+
+          <AppText style={styles.permissionText}>
             You have given Vision access to only a select number of photos.{' '}
-            <Text style={styles.permissionLink}>Manage</Text> more.
-          </Text>
+            <AppText style={styles.permissionLink}>Manage</AppText> more.
+          </AppText>
+
           <View style={styles.grid}>
             {photos.map((photo) => {
               const isSelected = selectedIds.includes(photo.id);
@@ -64,7 +65,7 @@ export default function ChooseFilesSheet({ visible, photos, onConfirm, onClose }
                   />
                   {isSelected && (
                     <View style={styles.selectedBadge}>
-                      <Text style={styles.selectedBadgeText}>✓</Text>
+                      <AppText style={styles.selectedBadgeText}>✓</AppText>
                     </View>
                   )}
                 </TouchableOpacity>

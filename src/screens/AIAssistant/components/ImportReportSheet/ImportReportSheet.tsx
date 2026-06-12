@@ -1,7 +1,6 @@
-// File: AIAssistant/components/ImportReportSheet/ImportReportSheet.tsx
+import { Modal, ScrollView, TouchableOpacity, View } from 'react-native';
 
-import { Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
-
+import AppText from '../../../../components/AppText';
 import { useTheme } from '../../../../theme';
 import type { ReportOption } from '../../types/aiAssistant.types';
 
@@ -38,12 +37,14 @@ export default function ImportReportSheet({
       <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={onClose}>
         <TouchableOpacity activeOpacity={1} style={styles.sheet}>
           <View style={styles.handle} />
+
           <View style={styles.header}>
-            <Text style={styles.headerTitle}>Import Report</Text>
+            <AppText style={styles.headerTitle}>Import Report</AppText>
             <TouchableOpacity style={styles.confirmBtn} onPress={handleConfirm}>
-              <Text style={styles.confirmIcon}>✓</Text>
+              <AppText style={styles.confirmIcon}>✓</AppText>
             </TouchableOpacity>
           </View>
+
           <ScrollView showsVerticalScrollIndicator={false}>
             {reports.map((report) => {
               const isSelected = selectedIds.includes(report.id);
@@ -55,11 +56,11 @@ export default function ImportReportSheet({
                   activeOpacity={0.75}
                 >
                   <View style={styles.reportInfo}>
-                    <Text style={styles.reportClinic}>{report.clinicName}</Text>
-                    <Text style={styles.reportDate}>{report.date}</Text>
+                    <AppText style={styles.reportClinic}>{report.clinicName}</AppText>
+                    <AppText style={styles.reportDate}>{report.date}</AppText>
                   </View>
                   <View style={[styles.checkbox, isSelected && styles.checkboxSelected]}>
-                    {isSelected && <Text style={styles.checkmark}>✓</Text>}
+                    {isSelected && <AppText style={styles.checkmark}>✓</AppText>}
                   </View>
                 </TouchableOpacity>
               );

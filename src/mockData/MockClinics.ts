@@ -1,5 +1,5 @@
 import { AppImages } from '../constants';
-import { Clinic } from '../infrastructure/Clinic/model/clinic';
+import type { Clinic } from '../infrastructure/Clinic/model/clinic';
 
 // ─── Mock data ─────────────────────────────────────────────────────────────────
 

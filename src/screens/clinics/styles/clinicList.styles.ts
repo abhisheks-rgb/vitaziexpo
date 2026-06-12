@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
+
 import type { Theme } from '../../../theme';
 import { createCommonStyles } from '../../../theme/styles';
 

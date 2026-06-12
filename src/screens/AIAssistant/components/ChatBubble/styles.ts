@@ -1,81 +1,85 @@
-// File: AIAssistant/components/ChatBubble/styles.ts
-
 import { Dimensions, StyleSheet } from 'react-native';
 
-import { type Theme } from '../../../../theme';
+import type { Theme } from '../../../../theme';
+import { createCommonStyles } from '../../../../theme/styles';
 
 const { width: SCREEN_W } = Dimensions.get('window');
 const MAX_BUBBLE_W = SCREEN_W * 0.72;
 
-export const createStyles = (theme: Theme) =>
-  StyleSheet.create({
+export const createStyles = (theme: Theme) => {
+  const common = createCommonStyles(theme);
+
+  return StyleSheet.create({
+    // ── Message rows ──────────────────────────────────────────────────────────
     rowUser: {
       flexDirection: 'row',
       justifyContent: 'flex-end',
-      marginBottom: 10,
-      paddingHorizontal: 16,
+      marginBottom: theme.spacing.sm,
+      paddingHorizontal: theme.spacing.md,
     },
     rowAssistant: {
-      flexDirection: 'row',
+      ...common.row,
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
-      marginBottom: 10,
-      paddingHorizontal: 16,
-      gap: 8,
+      marginBottom: theme.spacing.sm,
+      paddingHorizontal: theme.spacing.md,
+      gap: theme.spacing.sm,
     },
+
+    // ── AI avatar icon ────────────────────────────────────────────────────────
     robotIconWrap: {
       width: 35,
       height: 35,
-      borderRadius: 50,
+      borderRadius: theme.radius.full,
       backgroundColor: theme.colors.primary,
       alignItems: 'center',
       justifyContent: 'center',
       marginTop: 2,
       flexShrink: 0,
-      borderColor: theme.colors.limeAccent,
+      borderColor: theme.colors.accent,
       borderWidth: 2,
     },
-    robotIcon: {
-      fontSize: 14,
-    },
+
+    // ── Bubbles ───────────────────────────────────────────────────────────────
     bubbleUser: {
       maxWidth: MAX_BUBBLE_W,
-      backgroundColor: '#1B2B4B',
+      backgroundColor: theme.colors.primary,
       borderRadius: 18,
-      borderBottomRightRadius: 4,
+      borderBottomRightRadius: theme.radius.xs,
       paddingHorizontal: 14,
-      paddingVertical: 10,
+      paddingVertical: theme.spacing.sm,
     },
     bubbleAssistant: {
+      ...common.card,
       maxWidth: MAX_BUBBLE_W,
-      backgroundColor: theme.colors.background,
       borderRadius: 18,
-      borderBottomLeftRadius: 4,
+      borderBottomLeftRadius: theme.radius.xs,
       paddingHorizontal: 14,
-      paddingVertical: 10,
-      shadowColor: '#000',
-      shadowOpacity: 0.06,
-      shadowRadius: 8,
-      shadowOffset: { width: 0, height: 2 },
-      elevation: 2,
+      paddingVertical: theme.spacing.sm,
     },
+
+    // ── Bubble text ───────────────────────────────────────────────────────────
     textUser: {
+      ...theme.typography.body,
       fontSize: 14,
-      color: '#fff',
+      color: theme.colors.textInverse,
       lineHeight: 20,
     },
     textAssistant: {
+      ...theme.typography.body,
       fontSize: 14,
       color: theme.colors.textPrimary,
       lineHeight: 20,
     },
+
+    // ── Date separator ────────────────────────────────────────────────────────
     dateSeparatorWrap: {
       alignItems: 'center',
       marginVertical: 14,
     },
     dateSeparatorText: {
-      fontSize: 12,
+      ...theme.typography.caption,
       color: theme.colors.primary,
-      fontWeight: '500',
     },
   });
+};

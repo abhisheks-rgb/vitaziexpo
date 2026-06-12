@@ -1,9 +1,8 @@
-// File: AIAssistant/components/ChatInput/ChatInput.tsx
-
 import { Feather, Ionicons } from '@expo/vector-icons';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { TextInput, TouchableOpacity, View } from 'react-native';
 
 import AppImage from '../../../../components/AppImage';
+import AppText from '../../../../components/AppText';
 import { AppImages } from '../../../../constants';
 import { useTheme } from '../../../../theme';
 import type { AttachmentSheetType, ReportOption } from '../../types/aiAssistant.types';
@@ -35,15 +34,15 @@ export default function ChatInput({
     <View style={styles.wrapper}>
       {importedReport && (
         <View style={styles.importedReportChip}>
-          <Text style={styles.importedReportIcon}>📋</Text>
-          <Text style={styles.importedReportText} numberOfLines={1}>
+          <AppText style={styles.importedReportIcon}>📋</AppText>
+          <AppText style={styles.importedReportText} numberOfLines={1}>
             {importedReport.clinicName} — {importedReport.date}
-          </Text>
+          </AppText>
           <TouchableOpacity
             onPress={onClearReport}
             hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
           >
-            <Text style={styles.importedReportClose}>✕</Text>
+            <AppText style={styles.importedReportClose}>✕</AppText>
           </TouchableOpacity>
         </View>
       )}
@@ -58,7 +57,7 @@ export default function ChatInput({
           value={value}
           onChangeText={onChangeText}
           placeholder="Ask me anything..."
-          placeholderTextColor="#9CA3AF"
+          placeholderTextColor={theme.colors.textSecondary}
           multiline
           returnKeyType="send"
           onSubmitEditing={onSend}

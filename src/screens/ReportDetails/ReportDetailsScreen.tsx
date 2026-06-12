@@ -10,9 +10,9 @@ import AppHeader from '../../components/AppHeader';
 import AppImage from '../../components/AppImage';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { AppImages } from '../../constants';
+import type { ReportDetailsScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
 
-import { ReportDetailsScreenProps } from '../../navigation/types';
 import AfterCareSection from './components/AfterCare/AfterCareSection';
 import EyeSelector from './components/EyeSelector/EyeSelector';
 import { EYE_PILL_H } from './components/EyeSelector/styles';

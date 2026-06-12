@@ -92,7 +92,7 @@ export default function ClinicVisitsScreen({ route, navigation }: ClinicVisitsSc
               style={{ transform: [{ scaleX: 0.75 }, { scaleY: 0.75 }] }}
               value={showImages}
               onValueChange={setShowImages}
-              trackColor={{ false: '#D1D5DB', true: theme.colors.limeAccent }}
+              trackColor={{ false: '#D1D5DB', true: theme.colors.accent }}
               thumbColor={'#FFFFFF'}
               ios_backgroundColor={'#D1D5DB'}
             />

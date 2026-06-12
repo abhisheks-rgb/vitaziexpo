@@ -9,11 +9,12 @@ import { AppImages } from '../../../constants';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useTheme } from '../../../theme';
 import { Colors } from '../../../theme/colors';
-import { screeningStyles } from '../styles/HomeScreening.styles';
+import { createScreeningStyles } from '../styles/HomeScreening.styles';
 
 export default function LatestScreeningCard() {
   const theme = useTheme();
   const { t } = useTranslation();
+  const screeningStyles = createScreeningStyles(theme);
 
   return (
     <>

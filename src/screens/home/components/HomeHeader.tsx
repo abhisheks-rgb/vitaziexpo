@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity, View } from 'react-native';
+
 import AppImage from '../../../components/AppImage';
 import AppText from '../../../components/AppText';
 import { AppImages } from '../../../constants';

@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+
 import { createCommonStyles } from '../../../theme/styles';
 import type { Theme } from '../../../theme/theme';
 import { CONTAINER_H } from '../../home/styles/BottomTabBar.styles';

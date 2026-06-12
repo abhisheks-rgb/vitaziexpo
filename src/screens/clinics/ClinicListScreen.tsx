@@ -9,10 +9,10 @@ import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { useInteractionReady } from '../../hooks/useInteractionReady';
 import { useScrollStore } from '../../hooks/useScrollStore';
 import { useTranslation } from '../../hooks/useTranslation';
+import type { Clinic } from '../../infrastructure/Clinic/model/clinic';
 import type { ClinicListScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
 
-import { Clinic } from '../../infrastructure/Clinic/model/clinic';
 import ClinicGridItem from './components/clinicGridItem';
 import ClinicListItem from './components/clinicListItem';
 import EmptyClinicVisitsCard from './components/EmptyClinicVisitsCard';

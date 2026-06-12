@@ -1,90 +1,92 @@
-// File: AIAssistant/components/ChatInput/styles.ts
-
 import { StyleSheet } from 'react-native';
 
-import { Colors, type Theme } from '../../../../theme';
+import type { Theme } from '../../../../theme';
+import { createCommonStyles } from '../../../../theme/styles';
 
-export const createStyles = (theme: Theme) =>
-  StyleSheet.create({
+export const createStyles = (theme: Theme) => {
+  const common = createCommonStyles(theme);
+
+  return StyleSheet.create({
+    // ── Outer wrapper ─────────────────────────────────────────────────────────
     wrapper: {
-      paddingHorizontal: 16,
-      paddingVertical: 10,
+      paddingHorizontal: theme.spacing.md,
+      paddingVertical: theme.spacing.sm,
       backgroundColor: theme.colors.background,
-      borderRadius: 40,
+      borderRadius: theme.radius.xxl,
       shadowColor: '#000',
-      shadowOffset: {
-        width: 0,
-        height: -4,
-      },
+      shadowOffset: { width: 0, height: -4 },
       shadowOpacity: 0.15,
       shadowRadius: 12,
       elevation: 8,
-
-      // borderTopWidth: 1,
-      // borderTopColor: theme.colors.border,
     },
 
-    // Imported report chip
+    // ── Imported report chip ──────────────────────────────────────────────────
     importedReportChip: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      backgroundColor: '#EBF0F7',
-      borderRadius: 10,
-      paddingHorizontal: 12,
-      paddingVertical: 8,
-      marginBottom: 8,
-      gap: 8,
+      ...common.row,
+      backgroundColor: theme.colors.accentSubtle,
+      borderRadius: theme.radius.md,
+      paddingHorizontal: theme.spacing.sm,
+      paddingVertical: theme.spacing.xs,
+      marginBottom: theme.spacing.xs,
+      gap: theme.spacing.sm,
     },
-    importedReportIcon: { fontSize: 14 },
+    importedReportIcon: {
+      ...theme.typography.caption,
+      fontSize: 14,
+    },
     importedReportText: {
+      ...theme.typography.button,
       flex: 1,
       fontSize: 13,
-      fontWeight: '600',
-      color: '#1B2B4B',
+      color: theme.colors.textPrimary,
     },
     importedReportClose: {
+      ...theme.typography.body,
       fontSize: 16,
-      color: '#9CA3AF',
-      paddingLeft: 4,
+      color: theme.colors.textSecondary,
+      paddingLeft: theme.spacing.xs,
     },
 
-    // Input row
+    // ── Input row ─────────────────────────────────────────────────────────────
     inputRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      // backgroundColor: '#F4F6FB',
+      ...common.row,
       borderRadius: 28,
-      paddingHorizontal: 4,
-      paddingVertical: 8,
+      paddingHorizontal: theme.spacing.xs,
+      paddingVertical: theme.spacing.xs,
       gap: 5,
     },
+
+    // ── Attach button ─────────────────────────────────────────────────────────
     attachBtn: {
       width: 32,
       height: 32,
       alignItems: 'center',
       justifyContent: 'center',
     },
-    attachIcon: { fontSize: 18, color: '#9CA3AF' },
-    input: {
-      flex: 1,
-      fontSize: 15,
-      color: '#1B2B4B',
-      maxHeight: 100,
-      paddingVertical: 8,
-      borderWidth: 1.5,
-      borderColor: Colors.gray,
-      paddingHorizontal: 14,
 
+    // ── Text input ────────────────────────────────────────────────────────────
+    input: {
+      ...theme.typography.body,
+      flex: 1,
+      color: theme.colors.textPrimary,
+      maxHeight: 100,
+      paddingVertical: theme.spacing.xs,
+      borderWidth: 1.5,
+      borderColor: theme.colors.border,
+      paddingHorizontal: 14,
       borderRadius: 20,
     },
 
+    // ── Upload icon button ────────────────────────────────────────────────────
     uploadIcon: {
       color: theme.colors.textPrimary,
-      borderColor: Colors.gray,
+      borderColor: theme.colors.border,
       borderWidth: 1.5,
-      borderRadius: 50,
+      borderRadius: theme.radius.full,
       padding: 6,
     },
+
+    // ── Send button ───────────────────────────────────────────────────────────
     sendBtn: {
       width: 36,
       height: 36,
@@ -92,15 +94,16 @@ export const createStyles = (theme: Theme) =>
       backgroundColor: theme.colors.primary,
       alignItems: 'center',
       justifyContent: 'center',
-      borderColor: theme.colors.limeAccent,
+      borderColor: theme.colors.accent,
       borderWidth: 2,
     },
     sendBtnDisabled: {
-      backgroundColor: '#D1D5DB',
-      borderColor: Colors.gray,
+      backgroundColor: theme.colors.textDisabled,
+      borderColor: theme.colors.border,
     },
     sendIcon: {
       width: 18,
       height: 18,
     },
   });
+};

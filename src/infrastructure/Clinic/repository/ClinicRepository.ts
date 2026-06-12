@@ -1,10 +1,10 @@
 // infrastructure/clinics/ClinicRepository.ts
 import { IS_MOCK } from '../../../config/env';
-import { IClinicRepository } from '../../../domain/Clinics/repository/IClinicRepository';
+import type { IClinicRepository } from '../../../domain/Clinics/repository/IClinicRepository';
 import { mockClinics } from '../../../mockData/MockClinics';
 import { mockDelay } from '../../../mockData/MockHelpers';
 import { apiClient } from '../../api/apiClient';
-import { Clinic } from '../model/clinic';
+import type { Clinic } from '../model/clinic';
 
 class ClinicRepositoryMock implements IClinicRepository {
   async getClinics(userId: string): Promise<Clinic[]> {

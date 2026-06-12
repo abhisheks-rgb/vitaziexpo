@@ -1,76 +1,93 @@
-// File: AIAssistant/components/ImportReportSheet/styles.ts
-
 import { StyleSheet } from 'react-native';
 
 import type { Theme } from '../../../../theme';
+import { createCommonStyles } from '../../../../theme/styles';
 
-export const createStyles = (theme: Theme) =>
-  StyleSheet.create({
+export const createStyles = (theme: Theme) => {
+  const common = createCommonStyles(theme);
+
+  return StyleSheet.create({
+    // ── Modal overlay ─────────────────────────────────────────────────────────
     overlay: {
       ...StyleSheet.absoluteFill,
       backgroundColor: 'rgba(0,0,0,0.35)',
       justifyContent: 'flex-end',
       zIndex: 100,
     },
+
+    // ── Bottom sheet ──────────────────────────────────────────────────────────
     sheet: {
       backgroundColor: theme.colors.background,
-      borderTopLeftRadius: 24,
-      borderTopRightRadius: 24,
-      paddingBottom: 32,
+      borderTopLeftRadius: theme.radius.xl,
+      borderTopRightRadius: theme.radius.xl,
+      paddingBottom: theme.spacing.xl,
       maxHeight: '70%',
     },
+
+    // ── Drag handle ───────────────────────────────────────────────────────────
     handle: {
       width: 36,
       height: 4,
-      borderRadius: 2,
+      borderRadius: theme.radius.xs,
       backgroundColor: theme.colors.border,
       alignSelf: 'center',
-      marginTop: 12,
-      marginBottom: 16,
+      marginTop: theme.spacing.sm,
+      marginBottom: theme.spacing.md,
     },
+
+    // ── Sheet header (title + confirm button) ─────────────────────────────────
     header: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      paddingHorizontal: 20,
-      marginBottom: 12,
+      ...common.row,
+      paddingHorizontal: theme.spacing.md,
+      marginBottom: theme.spacing.sm,
     },
     headerTitle: {
-      flex: 1,
+      ...theme.typography.button,
       fontSize: 16,
-      fontWeight: '700',
+      flex: 1,
       color: theme.colors.textPrimary,
     },
+
+    // ── Confirm button (checkmark circle) ─────────────────────────────────────
     confirmBtn: {
       width: 32,
       height: 32,
       borderRadius: 16,
-      backgroundColor: '#1B2B4B',
+      backgroundColor: theme.colors.primary,
       alignItems: 'center',
       justifyContent: 'center',
     },
-    confirmIcon: { fontSize: 14, color: '#fff' },
+    confirmIcon: {
+      ...theme.typography.caption,
+      color: theme.colors.textInverse,
+    },
+
+    // ── Report row ────────────────────────────────────────────────────────────
     reportRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      paddingHorizontal: 20,
+      ...common.row,
+      paddingHorizontal: theme.spacing.md,
       paddingVertical: 14,
       borderBottomWidth: 1,
       borderBottomColor: theme.colors.border,
     },
     reportRowSelected: {
-      backgroundColor: '#F0F4FF',
+      backgroundColor: theme.colors.accentSubtle,
     },
-    reportInfo: { flex: 1 },
+    reportInfo: {
+      flex: 1,
+    },
     reportClinic: {
+      ...theme.typography.button,
       fontSize: 14,
-      fontWeight: '600',
       color: theme.colors.textPrimary,
       marginBottom: 2,
     },
     reportDate: {
-      fontSize: 12,
+      ...theme.typography.caption,
       color: theme.colors.textSecondary,
     },
+
+    // ── Checkbox ──────────────────────────────────────────────────────────────
     checkbox: {
       width: 22,
       height: 22,
@@ -81,8 +98,12 @@ export const createStyles = (theme: Theme) =>
       justifyContent: 'center',
     },
     checkboxSelected: {
-      backgroundColor: '#1B2B4B',
-      borderColor: '#1B2B4B',
+      backgroundColor: theme.colors.primary,
+      borderColor: theme.colors.primary,
     },
-    checkmark: { fontSize: 11, color: '#fff' },
+    checkmark: {
+      ...theme.typography.caption,
+      color: theme.colors.textInverse,
+    },
   });
+};

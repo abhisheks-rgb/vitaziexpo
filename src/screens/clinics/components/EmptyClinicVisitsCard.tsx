@@ -5,10 +5,11 @@ import AppText from '../../../components/AppText';
 import Card from '../../../components/Card';
 import { AppImages } from '../../../constants';
 import { useTheme } from '../../../theme';
-import { emptyStyles } from '../styles/emptyClinic.styles';
+import { createEmptyStyles } from '../styles/emptyClinic.styles';
 
 export default function EmptyClinicVisitsCard() {
   const theme = useTheme();
+  const emptyStyles = createEmptyStyles(theme);
 
   return (
     <Card elevated style={emptyStyles.card}>

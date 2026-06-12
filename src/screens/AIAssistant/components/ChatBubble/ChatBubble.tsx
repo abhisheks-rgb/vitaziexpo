@@ -1,8 +1,7 @@
-// File: AIAssistant/components/ChatBubble/ChatBubble.tsx
-
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import AppImage from '../../../../components/AppImage';
+import AppText from '../../../../components/AppText';
 import { AppImages } from '../../../../constants';
 import { useTheme } from '../../../../theme';
 import type { ChatMessage } from '../../types/aiAssistant.types';
@@ -23,13 +22,14 @@ export default function ChatBubble({ message, showDateSeparator }: Props) {
     <>
       {showDateSeparator && (
         <View style={styles.dateSeparatorWrap}>
-          <Text style={styles.dateSeparatorText}>{message.timestamp}</Text>
+          <AppText style={styles.dateSeparatorText}>{message.timestamp}</AppText>
         </View>
       )}
+
       {isUser ? (
         <View style={styles.rowUser}>
           <View style={styles.bubbleUser}>
-            <Text style={styles.textUser}>{message.content}</Text>
+            <AppText style={styles.textUser}>{message.content}</AppText>
           </View>
         </View>
       ) : (
@@ -43,7 +43,7 @@ export default function ChatBubble({ message, showDateSeparator }: Props) {
             />
           </View>
           <View style={styles.bubbleAssistant}>
-            <Text style={styles.textAssistant}>{message.content}</Text>
+            <AppText style={styles.textAssistant}>{message.content}</AppText>
           </View>
         </View>
       )}

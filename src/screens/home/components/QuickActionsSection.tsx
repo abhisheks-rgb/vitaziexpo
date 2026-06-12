@@ -5,7 +5,7 @@ import AppText from '../../../components/AppText';
 import Card from '../../../components/Card';
 import { useTheme } from '../../../theme';
 import { QUICK_ACTIONS } from '../data/home.data';
-import { quickActionsStyles } from '../styles/HomeQuickActions.styles';
+import { createQuickActionsStyles } from '../styles/HomeQuickActions.styles';
 
 interface Props {
   onVisitsPress: () => void;
@@ -19,7 +19,7 @@ export default function QuickActionsSection({
   onChatHistoryPress,
 }: Props) {
   const theme = useTheme();
-
+  const quickActionsStyles = createQuickActionsStyles(theme);
   return (
     <View style={quickActionsStyles.quickActions}>
       {QUICK_ACTIONS.map((action) => (

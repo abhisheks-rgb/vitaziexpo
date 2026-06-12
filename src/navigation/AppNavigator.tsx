@@ -5,6 +5,7 @@ import AIAssistantScreen from '../screens/AIAssistant/AIAssistantScreen';
 import AppointmentsScreen from '../screens/Appointments/AppointmentsScreen';
 import ChatHistoryScreen from '../screens/ChatHistory/ChatHistoryScreen';
 import ClinicListScreen from '../screens/clinics/ClinicListScreen';
+import ClinicVisitsScreen from '../screens/clinics/ClinicVisitsScreen';
 import MaterialDetailsScreen from '../screens/Education/components/MaterialDetails/MaterialDetailsScreen';
 import EducationScreen from '../screens/Education/EducationScreen';
 import BottomTabBar from '../screens/home/components/BottomTabBar';
@@ -12,9 +13,8 @@ import HomeScreen from '../screens/home/HomeScreen';
 import MoreScreen from '../screens/MoreScreen/MoreScreen';
 import NotificationDetailScreen from '../screens/notifications/NotificationDetailScreen';
 import NotificationsScreen from '../screens/notifications/NotificationScreen';
-
-import ClinicVisitsScreen from '../screens/clinics/ClinicVisitsScreen';
 import ReportDetailsScreen from '../screens/ReportDetails/ReportDetailsScreen';
+
 import type {
   AppStackParamList,
   EducationStackParamList,
