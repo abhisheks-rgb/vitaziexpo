@@ -13,7 +13,10 @@ import doctorSethoscope from '../../assets/images/svg/doctor_sethoscope.svg';
 import haveAccount from '../../assets/images/svg/have_account.svg';
 import location from '../../assets/images/svg/location.svg';
 import needHelp from '../../assets/images/svg/need_help.svg';
+import noAppointments from '../../assets/images/svg/no_appointments.svg';
 import noChat from '../../assets/images/svg/no_chat.svg';
+import noDoctorChat from '../../assets/images/svg/no_doctor_chat.svg';
+import noNotification from '../../assets/images/svg/no_notification.svg';
 import noVisits from '../../assets/images/svg/no_visits.svg';
 import Notification from '../../assets/images/svg/notification.svg';
 import notificationYellow from '../../assets/images/svg/notification_yellow.svg';
@@ -71,4 +74,7 @@ export const AppImages = {
   chatSendButton: chatSendButton,
   noVisits: noVisits,
   noChat: noChat,
+  noNotification: noNotification,
+  noDoctorChat: noDoctorChat,
+  noAppointments: noAppointments,
 } as const;
