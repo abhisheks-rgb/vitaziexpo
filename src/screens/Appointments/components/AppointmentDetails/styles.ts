@@ -1,36 +1,39 @@
-// File: Appointments/components/AppointmentDetails/styles.ts
-
 import { StyleSheet } from 'react-native';
-
 import type { Theme } from '../../../../theme';
+import { createCommonStyles } from '../../../../theme/styles';
 
-export const createStyles = (theme: Theme) =>
-  StyleSheet.create({
+export const createStyles = (theme: Theme) => {
+  const common = createCommonStyles(theme);
+
+  // Reusable card shape for this screen — slightly stronger shadow than common.card
+  const detailCard = {
+    ...common.card,
+    backgroundColor: theme.colors.background,
+    borderRadius: 18,
+    marginHorizontal: theme.spacing.md,
+    padding: theme.spacing.md,
+    shadowOpacity: 0.06,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 3,
+  };
+
+  return StyleSheet.create({
+    // ── Screen & Scroll ───────────────────────────────────────────────────────
     screen: {
-      flex: 1,
+      ...common.screen,
       backgroundColor: '#EBF0F7',
     },
-    scroll: {
-      flex: 1,
-    },
+    scroll: common.scroll,
     scrollContent: {
-      paddingBottom: 40,
+      paddingBottom: theme.spacing.xxl,
     },
 
-    // ── Doctor header card ──────────────────────────────────────────────
+    // ── Doctor header card ────────────────────────────────────────────────────
     doctorCard: {
-      backgroundColor: theme.colors.background,
-      marginHorizontal: 16,
-      marginTop: 16,
-      borderRadius: 18,
-      flexDirection: 'row',
-      alignItems: 'center',
-      padding: 16,
-      shadowColor: '#000',
-      shadowOpacity: 0.06,
-      shadowRadius: 12,
-      shadowOffset: { width: 0, height: 3 },
-      elevation: 3,
+      ...detailCard,
+      ...common.row,
+      marginTop: theme.spacing.md,
     },
     doctorAvatar: {
       width: 64,
@@ -41,33 +44,25 @@ export const createStyles = (theme: Theme) =>
       marginRight: 14,
     },
     doctorName: {
+      ...theme.typography.button,
       fontSize: 17,
-      fontWeight: '700',
       color: theme.colors.textPrimary,
       marginBottom: 3,
     },
     doctorSpecialty: {
-      fontSize: 13,
+      ...theme.typography.caption,
       color: theme.colors.textSecondary,
       lineHeight: 18,
     },
 
-    // ── Info card ───────────────────────────────────────────────────────
+    // ── Info card ─────────────────────────────────────────────────────────────
     infoCard: {
-      backgroundColor: theme.colors.background,
-      marginHorizontal: 16,
+      ...detailCard,
       marginTop: 14,
-      borderRadius: 18,
-      padding: 16,
-      shadowColor: '#000',
-      shadowOpacity: 0.06,
-      shadowRadius: 12,
-      shadowOffset: { width: 0, height: 3 },
-      elevation: 3,
     },
     infoCardTitle: {
+      ...theme.typography.button,
       fontSize: 15,
-      fontWeight: '700',
       color: theme.colors.textPrimary,
       marginBottom: 14,
     },
@@ -75,12 +70,12 @@ export const createStyles = (theme: Theme) =>
       flexDirection: 'row',
       alignItems: 'flex-start',
       marginBottom: 14,
-      gap: 12,
+      gap: theme.spacing.sm,
     },
     infoIconWrap: {
       width: 32,
       height: 32,
-      borderRadius: 8,
+      borderRadius: theme.radius.sm,
       backgroundColor: theme.colors.surface,
       alignItems: 'center',
       justifyContent: 'center',
@@ -94,36 +89,36 @@ export const createStyles = (theme: Theme) =>
       flex: 1,
     },
     infoLabel: {
-      fontSize: 13,
-      fontWeight: '700',
+      ...theme.typography.caption,
+      fontFamily: theme.typography.button.fontFamily,
       color: theme.colors.textPrimary,
       marginBottom: 2,
     },
     infoValue: {
-      fontSize: 13,
+      ...theme.typography.caption,
       color: theme.colors.textSecondary,
       lineHeight: 18,
     },
-    infoDot: {
-      fontSize: 13,
-      color: theme.colors.textSecondary,
-      marginHorizontal: 4,
-    },
     infoValueRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
+      ...common.row,
+    },
+    infoDot: {
+      ...theme.typography.caption,
+      color: theme.colors.textSecondary,
+      marginHorizontal: theme.spacing.xs,
     },
 
-    // ── Reminder banner ─────────────────────────────────────────────────
+    // ── Reminder banner ───────────────────────────────────────────────────────
+    // Semantic warning colors kept as one-offs — add to theme if used elsewhere
     reminderBanner: {
       flexDirection: 'row',
       alignItems: 'flex-start',
       backgroundColor: '#FEF3C7',
-      marginHorizontal: 16,
+      marginHorizontal: theme.spacing.md,
       marginTop: 14,
       borderRadius: 18,
-      padding: 16,
-      gap: 12,
+      padding: theme.spacing.md,
+      gap: theme.spacing.sm,
     },
     reminderIconWrap: {
       width: 40,
@@ -134,49 +129,47 @@ export const createStyles = (theme: Theme) =>
       justifyContent: 'center',
       flexShrink: 0,
     },
-    reminderIconText: {
-      fontSize: 18,
-    },
     reminderIcon: {
       width: 39,
       height: 39,
     },
     reminderText: {
+      ...theme.typography.caption,
+      fontFamily: theme.typography.button.fontFamily,
       flex: 1,
-      fontSize: 13,
       color: '#92400E',
       lineHeight: 20,
-      fontWeight: '500',
       paddingTop: 2,
     },
 
-    // ── Prep instructions ───────────────────────────────────────────────
+    // ── Prep instructions ─────────────────────────────────────────────────────
     prepSection: {
-      marginHorizontal: 16,
-      marginTop: 20,
+      marginHorizontal: theme.spacing.md,
+      marginTop: theme.spacing.lg,
     },
     prepTitle: {
-      fontSize: 17,
-      fontWeight: '800',
+      ...theme.typography.subtitle,
       color: theme.colors.textPrimary,
       marginBottom: 14,
     },
     prepRow: {
-      flexDirection: 'row',
-      marginBottom: 12,
-      gap: 10,
+      ...common.row,
+      alignItems: 'flex-start',
+      marginBottom: theme.spacing.sm,
+      gap: theme.spacing.sm,
     },
     prepNumber: {
-      fontSize: 14,
-      fontWeight: '700',
+      ...theme.typography.body,
+      fontFamily: theme.typography.button.fontFamily,
       color: theme.colors.textPrimary,
       width: 16,
       lineHeight: 22,
     },
     prepText: {
+      ...theme.typography.body,
       flex: 1,
-      fontSize: 14,
       color: theme.colors.textPrimary,
       lineHeight: 22,
     },
   });
+};

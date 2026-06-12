@@ -1,15 +1,13 @@
-// File: Appointments/components/AppointmentDetails/AppointmentDetailsScreen.tsx
-
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AppHeader from '../../../../components/AppHeader';
 import AppImage from '../../../../components/AppImage';
+import AppText from '../../../../components/AppText';
 import BackgroundBlobs from '../../../../components/BackgroundBlobs';
 import { AppImages } from '../../../../constants';
 import { useTheme } from '../../../../theme';
 import type { Appointment } from '../../types/appointments.types';
-
 import { createStyles } from './styles';
 
 interface Props {
@@ -52,14 +50,14 @@ export default function AppointmentDetailsScreen({ appointment, navigation }: Pr
             />
           </View>
           <View style={{ flex: 1 }}>
-            <Text style={styles.doctorName}>{doctor.name}</Text>
-            <Text style={styles.doctorSpecialty}>{doctor.specialty}</Text>
+            <AppText style={styles.doctorName}>{doctor.name}</AppText>
+            <AppText style={styles.doctorSpecialty}>{doctor.specialty}</AppText>
           </View>
         </View>
 
         {/* Appointment details card */}
         <View style={styles.infoCard}>
-          <Text style={styles.infoCardTitle}>Appointment Details</Text>
+          <AppText style={styles.infoCardTitle}>Appointment Details</AppText>
 
           {/* Date & Time */}
           <View style={styles.infoRow}>
@@ -67,11 +65,11 @@ export default function AppointmentDetailsScreen({ appointment, navigation }: Pr
               <AppImage source={AppImages.calendarAppt} containerStyle={styles.infoIcon} />
             </View>
             <View style={styles.infoTextWrap}>
-              <Text style={styles.infoLabel}>Date & Time</Text>
+              <AppText style={styles.infoLabel}>Date & Time</AppText>
               <View style={styles.infoValueRow}>
-                <Text style={styles.infoValue}>{displayDate}</Text>
-                <Text style={styles.infoDot}>•</Text>
-                <Text style={styles.infoValue}>{displayTime}</Text>
+                <AppText style={styles.infoValue}>{displayDate}</AppText>
+                <AppText style={styles.infoDot}>•</AppText>
+                <AppText style={styles.infoValue}>{displayTime}</AppText>
               </View>
             </View>
           </View>
@@ -82,8 +80,8 @@ export default function AppointmentDetailsScreen({ appointment, navigation }: Pr
               <AppImage source={AppImages.location} containerStyle={styles.infoIcon} />
             </View>
             <View style={styles.infoTextWrap}>
-              <Text style={styles.infoLabel}>{clinic.name}</Text>
-              <Text style={styles.infoValue}>{clinic.address}</Text>
+              <AppText style={styles.infoLabel}>{clinic.name}</AppText>
+              <AppText style={styles.infoValue}>{clinic.address}</AppText>
             </View>
           </View>
 
@@ -93,8 +91,8 @@ export default function AppointmentDetailsScreen({ appointment, navigation }: Pr
               <AppImage source={AppImages.doctorSethoscope} containerStyle={styles.infoIcon} />
             </View>
             <View style={styles.infoTextWrap}>
-              <Text style={styles.infoLabel}>Appointment Type</Text>
-              <Text style={styles.infoValue}>{appointmentType}</Text>
+              <AppText style={styles.infoLabel}>Appointment Type</AppText>
+              <AppText style={styles.infoValue}>{appointmentType}</AppText>
             </View>
           </View>
         </View>
@@ -108,22 +106,22 @@ export default function AppointmentDetailsScreen({ appointment, navigation }: Pr
                 containerStyle={styles.reminderIcon}
               />
             </View>
-            <Text style={styles.reminderText}>
+            <AppText style={styles.reminderText}>
               {`Appointment in ${status.daysUntil} ${
                 status.daysUntil === 1 ? 'day' : 'days'
               }. A reminder will be sent again 1 day before your appointment.`}
-            </Text>
+            </AppText>
           </View>
         )}
 
         {/* Prep instructions */}
         {prepInstructions.length > 0 && (
           <View style={styles.prepSection}>
-            <Text style={styles.prepTitle}>How to Prepare for The Appointment</Text>
+            <AppText style={styles.prepTitle}>How to Prepare for The Appointment</AppText>
             {prepInstructions.map((instruction, index) => (
               <View key={index} style={styles.prepRow}>
-                <Text style={styles.prepNumber}>{index + 1}.</Text>
-                <Text style={styles.prepText}>{instruction}</Text>
+                <AppText style={styles.prepNumber}>{index + 1}.</AppText>
+                <AppText style={styles.prepText}>{instruction}</AppText>
               </View>
             ))}
           </View>

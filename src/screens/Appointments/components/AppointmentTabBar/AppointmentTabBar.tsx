@@ -1,10 +1,8 @@
-// File: Appointments/components/AppointmentTabBar/AppointmentTabBar.tsx
 import { useMemo } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
-
+import { TouchableOpacity, View } from 'react-native';
+import AppText from '../../../../components/AppText';
 import { useTheme } from '../../../../theme';
 import type { AppointmentTab } from '../../types/appointments.types';
-
 import { createStyles } from './styles';
 
 interface Props {
@@ -27,7 +25,9 @@ export default function AppointmentTabBar({ activeTab, onTabChange }: Props) {
           onPress={() => onTabChange(tab)}
           activeOpacity={0.8}
         >
-          <Text style={[styles.tabText, activeTab === tab && styles.tabTextActive]}>{tab}</Text>
+          <AppText style={[styles.tabText, activeTab === tab && styles.tabTextActive]}>
+            {tab}
+          </AppText>
         </TouchableOpacity>
       ))}
     </View>

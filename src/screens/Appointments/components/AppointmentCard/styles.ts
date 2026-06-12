@@ -1,18 +1,19 @@
-// File: Appointments/components/AppointmentCard/styles.ts
-
 import { StyleSheet } from 'react-native';
-
 import type { Theme } from '../../../../theme';
+import { createCommonStyles } from '../../../../theme/styles';
 
-export const createStyles = (theme: Theme) =>
-  StyleSheet.create({
+export const createStyles = (theme: Theme) => {
+  const common = createCommonStyles(theme);
+
+  return StyleSheet.create({
+    // ── Card ──────────────────────────────────────────────────────────────────
     card: {
+      ...common.card,
       backgroundColor: theme.colors.background,
       borderRadius: 18,
-      marginHorizontal: 16,
+      marginHorizontal: theme.spacing.md,
       marginBottom: 14,
-      paddingTop: 16,
-      shadowColor: '#000',
+      paddingTop: theme.spacing.md,
       shadowOpacity: 0.06,
       shadowRadius: 12,
       shadowOffset: { width: 0, height: 3 },
@@ -20,32 +21,31 @@ export const createStyles = (theme: Theme) =>
       overflow: 'hidden',
     },
 
-    // ── Doctor row ──────────────────────────────────────────────────────
+    // ── Doctor row ────────────────────────────────────────────────────────────
     doctorRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      paddingHorizontal: 16,
-      marginBottom: 12,
+      ...common.row,
+      paddingHorizontal: theme.spacing.md,
+      marginBottom: theme.spacing.sm,
     },
     avatar: {
       width: 52,
       height: 52,
-      borderRadius: 12,
+      borderRadius: theme.radius.md,
       backgroundColor: theme.colors.surface,
       overflow: 'hidden',
-      marginRight: 12,
+      marginRight: theme.spacing.sm,
     },
     doctorInfo: {
       flex: 1,
     },
     doctorName: {
+      ...theme.typography.button,
       fontSize: 15,
-      fontWeight: '700',
       color: theme.colors.textPrimary,
       marginBottom: 2,
     },
     doctorSpecialty: {
-      fontSize: 13,
+      ...theme.typography.caption,
       color: theme.colors.textSecondary,
       lineHeight: 18,
     },
@@ -59,18 +59,19 @@ export const createStyles = (theme: Theme) =>
       justifyContent: 'center',
     },
     chevronText: {
+      ...theme.typography.body,
       fontSize: 16,
       color: theme.colors.textPrimary,
       marginLeft: 2,
     },
 
-    // ── Location row ────────────────────────────────────────────────────
+    // ── Location row ──────────────────────────────────────────────────────────
     locationRow: {
       flexDirection: 'row',
       alignItems: 'flex-start',
-      paddingHorizontal: 16,
-      marginBottom: 12,
-      gap: 8,
+      paddingHorizontal: theme.spacing.md,
+      marginBottom: theme.spacing.sm,
+      gap: theme.spacing.sm,
     },
     locationIcon: {
       width: 20,
@@ -80,50 +81,50 @@ export const createStyles = (theme: Theme) =>
       flex: 1,
     },
     clinicName: {
+      ...theme.typography.button,
       fontSize: 14,
-      fontWeight: '600',
       color: theme.colors.textPrimary,
       marginBottom: 2,
     },
     clinicAddress: {
-      fontSize: 13,
+      ...theme.typography.caption,
       color: theme.colors.textSecondary,
       lineHeight: 18,
     },
 
-    // ── Status banners ──────────────────────────────────────────────────
+    // ── Status banners ────────────────────────────────────────────────────────
+    // Warning tones kept as semantic one-offs — not in theme palette
     reminderBanner: {
-      flexDirection: 'row',
-      alignItems: 'center',
+      ...common.row,
       backgroundColor: '#FEF3C7',
-      paddingHorizontal: 16,
-      paddingVertical: 10,
-      gap: 8,
+      paddingHorizontal: theme.spacing.md,
+      paddingVertical: theme.spacing.sm,
+      gap: theme.spacing.sm,
     },
     reminderIcon: {
-      height: 28,
       width: 28,
+      height: 28,
     },
     reminderText: {
-      fontSize: 13,
-      fontWeight: '600',
+      ...theme.typography.caption,
+      fontFamily: theme.typography.button.fontFamily,
       color: '#92400E',
     },
     reportBanner: {
-      flexDirection: 'row',
-      alignItems: 'center',
+      ...common.row,
       backgroundColor: '#E0F7FA',
-      paddingHorizontal: 16,
-      paddingVertical: 10,
-      gap: 8,
+      paddingHorizontal: theme.spacing.md,
+      paddingVertical: theme.spacing.sm,
+      gap: theme.spacing.sm,
     },
     reportIcon: {
-      height: 20,
       width: 20,
+      height: 20,
     },
     reportText: {
-      fontSize: 13,
-      fontWeight: '600',
+      ...theme.typography.caption,
+      fontFamily: theme.typography.button.fontFamily,
       color: '#006064',
     },
   });
+};

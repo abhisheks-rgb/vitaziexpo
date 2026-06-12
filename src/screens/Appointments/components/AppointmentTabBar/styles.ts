@@ -1,36 +1,41 @@
-// File: Appointments/components/AppointmentTabBar/styles.ts
-
 import { StyleSheet } from 'react-native';
-
 import type { Theme } from '../../../../theme';
+import { createCommonStyles } from '../../../../theme/styles';
 
-export const createStyles = (theme: Theme) =>
-  StyleSheet.create({
+export const createStyles = (theme: Theme) => {
+  const common = createCommonStyles(theme);
+
+  return StyleSheet.create({
+    // ── Pill container ────────────────────────────────────────────────────────
     container: {
-      flexDirection: 'row',
-      backgroundColor: '#EBF0F7',
-      borderRadius: 50, // full pill container
-      padding: 4,
-      marginHorizontal: 16,
-      marginBottom: 16,
+      ...common.row,
+      backgroundColor: theme.colors.accentSubtle,
+      borderRadius: theme.radius.full,
+      padding: theme.spacing.xs,
+      marginHorizontal: theme.spacing.md,
+      marginBottom: theme.spacing.md,
     },
+
+    // ── Tab item ──────────────────────────────────────────────────────────────
     tab: {
       flex: 1,
-      paddingVertical: 12,
-      borderRadius: 50, // full pill tab
+      paddingVertical: theme.spacing.sm,
+      borderRadius: theme.radius.full,
       alignItems: 'center',
       justifyContent: 'center',
     },
     tabActive: {
-      backgroundColor: '#1B2B4B',
+      backgroundColor: theme.colors.primary,
     },
+
+    // ── Tab text ──────────────────────────────────────────────────────────────
     tabText: {
-      fontSize: 15,
-      fontWeight: '600',
-      color: '#1B2B4B',
+      ...theme.typography.button,
+      color: theme.colors.textPrimary,
     },
     tabTextActive: {
-      color: '#FFFFFF',
-      fontWeight: '700',
+      ...theme.typography.button,
+      color: theme.colors.textInverse,
     },
   });
+};
