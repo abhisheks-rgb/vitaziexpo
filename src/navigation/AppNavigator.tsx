@@ -5,7 +5,6 @@ import AIAssistantScreen from '../screens/AIAssistant/AIAssistantScreen';
 import AppointmentsScreen from '../screens/Appointments/AppointmentsScreen';
 import ChatHistoryScreen from '../screens/ChatHistory/ChatHistoryScreen';
 import ClinicListScreen from '../screens/clinics/ClinicListScreen';
-import ClinicVisitsScreen from '../screens/clinics/ClinicVisitsScreen';
 import MaterialDetailsScreen from '../screens/Education/components/MaterialDetails/MaterialDetailsScreen';
 import EducationScreen from '../screens/Education/EducationScreen';
 import BottomTabBar from '../screens/home/components/BottomTabBar';
@@ -13,8 +12,9 @@ import HomeScreen from '../screens/home/HomeScreen';
 import MoreScreen from '../screens/MoreScreen/MoreScreen';
 import NotificationDetailScreen from '../screens/notifications/NotificationDetailScreen';
 import NotificationsScreen from '../screens/notifications/NotificationScreen';
-import ReportDetailsScreen from '../screens/ReportDetails/ReportDetailsScreen';
 
+import ClinicVisitsScreen from '../screens/clinics/ClinicVisitsScreen';
+import ReportDetailsScreen from '../screens/ReportDetails/ReportDetailsScreen';
 import type {
   AppStackParamList,
   EducationStackParamList,
@@ -34,8 +34,8 @@ function VisitsStack() {
   return (
     <VisitsStackNav.Navigator screenOptions={{ headerShown: false }}>
       <VisitsStackNav.Screen name="ClinicList" component={ClinicListScreen} />
-      <VisitsStackNav.Screen name="ClinicVisits" component={ClinicVisitsScreen} />
-      <AppStack.Screen name="ReportDetails" component={ReportDetailsScreen} />
+      {/* <VisitsStackNav.Screen name="ClinicVisits" component={ClinicVisitsScreen} /> */}
+      {/* <AppStack.Screen name="ReportDetails" component={ReportDetailsScreen} /> */}
     </VisitsStackNav.Navigator>
   );
 }
@@ -72,6 +72,8 @@ export function AppNavigator() {
       <AppStack.Screen name="MaterialDetails" component={MaterialDetailsScreen} />
       <AppStack.Screen name="Notifications" component={NotificationsScreen} />
       <AppStack.Screen name="NotificationDetail" component={NotificationDetailScreen} />
+      <AppStack.Screen name="ClinicVisits" component={ClinicVisitsScreen} />
+      <AppStack.Screen name="ReportDetails" component={ReportDetailsScreen} />
       <AppStack.Screen
         name="AIAssistant"
         component={AIAssistantScreen}

@@ -91,6 +91,10 @@ export type AppStackParamList = {
   AIAssistant: {
     chatId?: string;
   };
+
+  ClinicVisits: {
+    clinicId: string;
+  };
 };
 
 // ─────────────────────────────────────────────────────────────
@@ -141,11 +145,6 @@ export type ClinicListScreenProps = CompositeScreenProps<
   NativeStackScreenProps<AppStackParamList>
 >;
 
-export type ClinicVisitsScreenProps = CompositeScreenProps<
-  NativeStackScreenProps<VisitsStackParamList, 'ClinicVisits'>,
-  NativeStackScreenProps<AppStackParamList>
->;
-
 // Education
 export type EducationScreenProps = NativeStackScreenProps<
   EducationStackParamList,
@@ -168,3 +167,7 @@ export type NotificationDetailScreenProps = NativeStackScreenProps<
   AppStackParamList,
   'NotificationDetail'
 >;
+
+export type ReportDetailsScreenProps = NativeStackScreenProps<AppStackParamList, 'ReportDetails'>;
+
+export type ClinicVisitsScreenProps = NativeStackScreenProps<AppStackParamList, 'ClinicVisits'>;

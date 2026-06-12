@@ -2,16 +2,8 @@
 
 import { BlurView } from 'expo-blur';
 import React from 'react';
-import type {
-  NativeScrollEvent,
-  NativeSyntheticEvent} from 'react-native';
-import {
-  Animated,
-  Dimensions,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+import { Animated, Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import AppHeader from '../../components/AppHeader';
@@ -20,6 +12,7 @@ import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { AppImages } from '../../constants';
 import { useTheme } from '../../theme';
 
+import { ReportDetailsScreenProps } from '../../navigation/types';
 import AfterCareSection from './components/AfterCare/AfterCareSection';
 import EyeSelector from './components/EyeSelector/EyeSelector';
 import { EYE_PILL_H } from './components/EyeSelector/styles';
@@ -37,7 +30,7 @@ import type { ContentTab } from './types/reportDetails.types';
 const { width: SCREEN_W } = Dimensions.get('window');
 const HEADER_H = 60;
 
-export default function ReportDetailsScreen({ navigation }: { navigation: any }) {
+export default function ReportDetailsScreen({ navigation }: ReportDetailsScreenProps) {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
 
