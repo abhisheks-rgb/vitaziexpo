@@ -1,11 +1,13 @@
 import { useMemo, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import AppHeader from '../../components/AppHeader';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { useInteractionReady } from '../../hooks/useInteractionReady';
 import { useTheme } from '../../theme';
 import { createCommonStyles } from '../../theme/styles';
+
 import AppointmentCard from './components/AppointmentCard/AppointmentCard';
 import AppointmentDetailsScreen from './components/AppointmentDetails/AppointmentDetailsScreen';
 import AppointmentTabBar from './components/AppointmentTabBar/AppointmentTabBar';

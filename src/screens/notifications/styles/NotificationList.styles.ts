@@ -1,87 +1,60 @@
 import { StyleSheet } from 'react-native';
-
 import type { Theme } from '../../../theme';
+import { createCommonStyles } from '../../../theme/styles';
 
-export const createListStyles = (theme: Theme) =>
-  StyleSheet.create({
-    screen: {
-      flex: 1,
-    },
+export const createListStyles = (theme: Theme) => {
+  const common = createCommonStyles(theme);
 
-    scroll: {
-      flex: 1,
-    },
+  return StyleSheet.create({
+    // ── Screen & Scroll ───────────────────────────────────────────────────────
+    screen: common.screen,
+    scroll: common.scroll,
+    scrollContent: common.scrollContent,
 
-    scrollContent: {
-      paddingHorizontal: theme.spacing.md,
-      paddingBottom: 32,
-    },
-
-    // ── Group label ─────────────────────────────────────────────
+    // ── Group label ───────────────────────────────────────────────────────────
     groupLabelWrap: {
-      marginTop: 16,
-      marginBottom: 8,
+      marginTop: theme.spacing.md,
+      marginBottom: theme.spacing.xs,
     },
-
     groupLabel: {
-      fontSize: 13,
+      ...theme.typography.caption,
       color: theme.colors.textSecondary,
-      fontWeight: '500',
       textAlign: 'center',
     },
 
-    // ── Notification card ──────────────────────────────────────
-    card: {
-      backgroundColor: theme.colors.surface,
-      borderRadius: 14,
-      marginBottom: 10,
-
-      shadowColor: '#000',
-      shadowOpacity: 0.06,
-      shadowRadius: 8,
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      elevation: 2,
-    },
-
+    // ── Notification card ─────────────────────────────────────────────────────
+    card: common.card,
     cardBold: {
       borderWidth: 1.5,
       borderColor: theme.colors.border,
     },
-
     cardInner: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      padding: 8,
+      ...common.row,
+      padding: theme.spacing.xs,
     },
-
     bellWrap: {
       width: 42,
       height: 42,
-      marginRight: 12,
+      marginRight: theme.spacing.sm,
       flexShrink: 0,
     },
-
     cardText: {
       flex: 1,
       minWidth: 0,
     },
-
     cardMessage: {
+      ...theme.typography.caption,
       fontSize: 13.5,
       color: theme.colors.textPrimary,
       lineHeight: 19,
     },
-
     cardMessageBold: {
-      fontWeight: '700',
+      fontFamily: theme.typography.button.fontFamily,
     },
-
     cardTime: {
-      marginTop: 4,
-      fontSize: 12,
+      ...theme.typography.caption,
       color: theme.colors.textSecondary,
+      marginTop: theme.spacing.xs,
     },
   });
+};

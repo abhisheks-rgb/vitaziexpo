@@ -1,10 +1,12 @@
 import { memo, useMemo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
+
 import AppImage from '../../../../components/AppImage';
 import AppText from '../../../../components/AppText';
 import { AppImages } from '../../../../constants';
 import { useTheme } from '../../../../theme';
 import type { Appointment } from '../../types/appointments.types';
+
 import { createStyles } from './styles';
 
 interface Props {
