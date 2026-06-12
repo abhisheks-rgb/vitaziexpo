@@ -2,7 +2,7 @@ import { Colors } from './colors';
 import { Radius } from './radius';
 import { Spacing } from './spacing';
 import { useAppTheme } from './themeProvider';
-import { Typography } from './typography';
+import { typography } from './typography';
 
 export interface Theme {
   colors: {
@@ -22,7 +22,7 @@ export interface Theme {
   };
 
   spacing: typeof Spacing;
-  typography: typeof Typography;
+  typography: typeof typography;
   radius: typeof Radius;
 
   isDark: boolean;
@@ -51,7 +51,7 @@ export const lightTheme: Theme = {
   },
 
   spacing: Spacing,
-  typography: Typography,
+  typography: typography,
   radius: Radius,
 
   isDark: false,
@@ -80,7 +80,7 @@ export const darkTheme: Theme = {
   },
 
   spacing: Spacing,
-  typography: Typography,
+  typography: typography,
   radius: Radius,
 
   isDark: true,

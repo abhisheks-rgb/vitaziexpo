@@ -1,8 +1,6 @@
 import MaskedView from '@react-native-masked-view/masked-view';
 import { LinearGradient } from 'expo-linear-gradient';
-import React from 'react';
-import type { TextStyle, StyleProp } from 'react-native';
-import { Text } from 'react-native';
+import { Text, type StyleProp, type TextStyle } from 'react-native';
 
 import { useTheme } from '../theme';
 

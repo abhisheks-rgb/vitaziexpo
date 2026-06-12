@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { Typography } from './typography';
+import { typography } from './typography';
 
 export const GlobalStyles = StyleSheet.create({
   flex: {
@@ -13,10 +13,10 @@ export const GlobalStyles = StyleSheet.create({
   },
 
   title: {
-    ...Typography.title,
+    ...typography.title,
   },
 
   body: {
-    ...Typography.body,
+    ...typography.body,
   },
 });

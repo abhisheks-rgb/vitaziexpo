@@ -1,4 +1,3 @@
-// screens/clinics/ClinicListScreen.tsx
 import { useNavigationState } from '@react-navigation/native';
 import { useEffect, useMemo, useState } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';

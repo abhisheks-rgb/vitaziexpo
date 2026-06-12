@@ -1,11 +1,9 @@
-import type { TextStyle, ViewStyle } from 'react-native';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, type TextStyle, type ViewStyle } from 'react-native';
 
 import type { Theme } from '../../theme';
 
 // Radius constants — defined locally since Theme does not expose a `radii` token
 const RADIUS_PILL = 100;
-const RADIUS_SM = 6;
 
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({

@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-import type { Theme} from '../../../theme';
-import { useTheme } from '../../../theme';
+import { useTheme, type Theme } from '../../../theme';
 
 const RADIUS_PILL = 100;
 

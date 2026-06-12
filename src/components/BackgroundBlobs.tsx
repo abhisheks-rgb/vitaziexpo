@@ -1,4 +1,3 @@
-// components/BackgroundBlobs.tsx
 import { Dimensions, StyleSheet } from 'react-native';
 import Svg, { Defs, RadialGradient, Rect, Stop } from 'react-native-svg';
 

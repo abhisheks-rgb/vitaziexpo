@@ -1,7 +1,6 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
-import type { Theme} from '../../../theme';
-import { useTheme } from '../../../theme';
+import { useTheme, type Theme } from '../../../theme';
 
 interface Props {
   questionText: string;

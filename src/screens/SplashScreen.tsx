@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Animated, Dimensions, Easing, Image, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import type { AppRoute } from '../application/appRouteResolver';
 import { AppImages } from '../constants';
 import { useTheme } from '../theme';
 
@@ -31,18 +30,72 @@ const BIG_LAND_T = DOT_CY - BIG_DOT / 2;
 const SHRINK_L = BIG_LAND_CX + 12 - SMALL_DOT / 2;
 const SHRINK_T = DOT_CY + 12 - SMALL_DOT / 2;
 
-interface Props {
-  /**
-   * Called when both the animation AND route resolution are done.
-   * The resolved AppRoute is passed so RootNavigator can replace() correctly.
-   */
-  onFinish: (route: AppRoute) => void;
-}
+const runSplashAnimation = ({
+  sW,
+  sH,
+  sL,
+  sT,
+  sR,
+  logoOpacity,
+  logoScale,
+  height,
+  animateLayout,
+  animateNative,
+}: {
+  sW: Animated.Value;
+  sH: Animated.Value;
+  sL: Animated.Value;
+  sT: Animated.Value;
+  sR: Animated.Value;
+  logoOpacity: Animated.Value;
+  logoScale: Animated.Value;
+  height: number;
+  animateLayout: (
+    value: Animated.Value,
+    toValue: number,
+    duration: number,
+  ) => Animated.CompositeAnimation;
+  animateNative: (
+    value: Animated.Value,
+    toValue: number,
+    duration: number,
+  ) => Animated.CompositeAnimation;
+}) => {
+  const pillTop = height / 2 - PILL_H / 2;
+  const bigDotTop = height / 2 - BIG_DOT / 2;
+
+  return Animated.sequence([
+    Animated.delay(700),
+
+    Animated.parallel([
+      animateLayout(sW, PILL_W, 600),
+      animateLayout(sH, PILL_H, 600),
+      animateLayout(sL, PILL_LEFT_PAD, 600),
+      animateLayout(sT, pillTop, 600),
+      animateLayout(sR, PILL_H / 2, 600),
+    ]),
+
+    Animated.parallel([animateLayout(sW, BIG_DOT, 420), animateLayout(sT, bigDotTop, 420)]),
+
+    Animated.parallel([animateLayout(sL, BIG_LAND_L, 700), animateLayout(sT, BIG_LAND_T, 700)]),
+
+    Animated.parallel([animateNative(logoOpacity, 1, 380), animateNative(logoScale, 1, 380)]),
+
+    Animated.parallel([
+      animateLayout(sW, SMALL_DOT, 480),
+      animateLayout(sH, SMALL_DOT, 480),
+      animateLayout(sL, SHRINK_L, 480),
+      animateLayout(sT, SHRINK_T, 480),
+      animateLayout(sR, SMALL_DOT / 2, 480),
+    ]),
+
+    Animated.parallel([animateLayout(sW, 0, 150), animateLayout(sH, 0, 150)]),
+  ]).start();
+};
 
 export default function SplashScreen() {
   const theme = useTheme();
 
-  // ── Animation values (unchanged from original) ───────────────────────────
   const sL = useRef(new Animated.Value(0)).current;
   const sT = useRef(new Animated.Value(0)).current;
   const sW = useRef(new Animated.Value(width)).current;
@@ -52,19 +105,16 @@ export default function SplashScreen() {
   const logoOpacity = useRef(new Animated.Value(0)).current;
   const logoScale = useRef(new Animated.Value(0.94)).current;
 
-  // resolveAppRoute result — stored so it's ready when animation finishes
-  const resolvedRoute = useRef<AppRoute | null>(null);
-
-  const animateLayout = (value: Animated.Value, toValue: number, duration: number) =>
-    Animated.timing(value, {
+  const animateLayout = (animValue: Animated.Value, toValue: number, duration: number) =>
+    Animated.timing(animValue, {
       toValue,
       duration,
       easing: Easing.out(Easing.cubic),
       useNativeDriver: false,
     });
 
-  const animateNative = (value: Animated.Value, toValue: number, duration: number) =>
-    Animated.timing(value, {
+  const animateNative = (animValue: Animated.Value, toValue: number, duration: number) =>
+    Animated.timing(animValue, {
       toValue,
       duration,
       easing: Easing.out(Easing.cubic),
@@ -72,30 +122,18 @@ export default function SplashScreen() {
     });
 
   useEffect(() => {
-    const pillTop = height / 2 - PILL_H / 2;
-    const bigDotTop = height / 2 - BIG_DOT / 2;
-
-    Animated.sequence([
-      Animated.delay(700),
-      Animated.parallel([
-        animateLayout(sW, PILL_W, 600),
-        animateLayout(sH, PILL_H, 600),
-        animateLayout(sL, PILL_LEFT_PAD, 600),
-        animateLayout(sT, pillTop, 600),
-        animateLayout(sR, PILL_H / 2, 600),
-      ]),
-      Animated.parallel([animateLayout(sW, BIG_DOT, 420), animateLayout(sT, bigDotTop, 420)]),
-      Animated.parallel([animateLayout(sL, BIG_LAND_L, 700), animateLayout(sT, BIG_LAND_T, 700)]),
-      Animated.parallel([animateNative(logoOpacity, 1, 380), animateNative(logoScale, 1, 380)]),
-      Animated.parallel([
-        animateLayout(sW, SMALL_DOT, 480),
-        animateLayout(sH, SMALL_DOT, 480),
-        animateLayout(sL, SHRINK_L, 480),
-        animateLayout(sT, SHRINK_T, 480),
-        animateLayout(sR, SMALL_DOT / 2, 480),
-      ]),
-      Animated.parallel([animateLayout(sW, 0, 150), animateLayout(sH, 0, 150)]),
-    ]).start();
+    runSplashAnimation({
+      sW,
+      sH,
+      sL,
+      sT,
+      sR,
+      logoOpacity,
+      logoScale,
+      height,
+      animateLayout,
+      animateNative,
+    });
   }, []);
 
   return (

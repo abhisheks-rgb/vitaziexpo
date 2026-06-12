@@ -1,5 +1,3 @@
-// File: components/ReportImageCarousel/ReportImageCarousel.tsx
-
 import { LinearGradient } from 'expo-linear-gradient';
 import type { RefObject } from 'react';
 import type {
