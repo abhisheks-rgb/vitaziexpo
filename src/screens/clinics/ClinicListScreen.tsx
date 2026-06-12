@@ -1,9 +1,9 @@
 import { useNavigationState } from '@react-navigation/native';
 import { useEffect, useMemo, useState } from 'react';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
+import { RefreshControl, ScrollView, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { fetchAppoinments } from '../../application/appoinments/FetchAppoinment';
+import { getClinics } from '../../application/clinics/getClinics';
 import AppHeader from '../../components/AppHeader';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { useInteractionReady } from '../../hooks/useInteractionReady';
@@ -12,10 +12,11 @@ import { useTranslation } from '../../hooks/useTranslation';
 import type { ClinicListScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
 
+import { Clinic } from '../../infrastructure/Clinic/model/clinic';
 import ClinicGridItem from './components/clinicGridItem';
 import ClinicListItem from './components/clinicListItem';
 import EmptyClinicVisitsCard from './components/EmptyClinicVisitsCard';
-import { clinics } from './data';
+import { ClinicListShimmer } from './components/loading/ClinicListShimmer';
 import { createClinicListStyles } from './styles/clinicList.styles';
 
 const ListIcon = ({ color }: { color: string }) => (
@@ -38,14 +39,12 @@ type ViewMode = 'list' | 'grid';
 
 export default function ClinicListScreen({ navigation }: ClinicListScreenProps) {
   const theme = useTheme();
-  // Memoize styles so they don't recompute on every render
   const styles = useMemo(() => createClinicListStyles(theme), [theme]);
   const { t } = useTranslation();
   const [viewMode, setViewMode] = useState<ViewMode>('list');
   const handleScroll = useScrollStore((state) => state.handleScroll);
   const isReady = useInteractionReady();
 
-  // index === 0 means this screen is the root of the stack (entered via tab)
   const stackIndex = useNavigationState((state) => state.index);
   const showBackButton = stackIndex > 0;
 
@@ -53,25 +52,30 @@ export default function ClinicListScreen({ navigation }: ClinicListScreenProps) 
   const activeColor = theme.colors.text;
   const inactiveColor = theme.colors.textMuted;
 
+  const [clinics, setClinics] = useState<Clinic[]>([]);
   const [error, setError] = useState('');
-
   const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    getAppoinments();
-  }, []);
-  const getAppoinments = async () => {
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const fetchClinics = async (refresh = false) => {
     setError('');
-    setIsLoading(true);
+    refresh ? setIsRefreshing(true) : setIsLoading(true);
     try {
-      await fetchAppoinments();
-      console.log('Appoinments fetched successfully');
+      const data = await getClinics('123');
+      setClinics(data);
     } catch (e: any) {
-      console.log('e.message');
-      setError(e.message ?? 'Not implemented');
+      setError(e.message ?? 'Something went wrong');
     } finally {
-      setIsLoading(false);
+      refresh ? setIsRefreshing(false) : setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchClinics();
+  }, []);
+
+  const showEmpty = !isLoading && !isRefreshing && !error && clinics.length === 0;
+
   const toggleRight = (
     <View style={styles.toggleWrap}>
       <TouchableOpacity
@@ -93,7 +97,6 @@ export default function ClinicListScreen({ navigation }: ClinicListScreenProps) 
 
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
-      {/* Defer heavy background render until after nav animation */}
       {isReady && <BackgroundBlobs />}
 
       <AppHeader
@@ -109,15 +112,24 @@ export default function ClinicListScreen({ navigation }: ClinicListScreenProps) 
         style={styles.scroll}
         contentContainerStyle={[
           styles.scrollContent,
-          error && {
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-          },
+          // Only centre-align when showing the empty/error card
+          (error || showEmpty) && { flex: 1, justifyContent: 'center', alignItems: 'center' },
         ]}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefreshing}
+            onRefresh={() => fetchClinics(true)}
+            tintColor={theme.colors.primary}
+            colors={[theme.colors.primary]}
+          />
+        }
       >
-        {error ? (
+        {isLoading ? (
+          <ClinicListShimmer isGrid={isGrid} />
+        ) : error ? (
+          <EmptyClinicVisitsCard />
+        ) : showEmpty ? (
           <EmptyClinicVisitsCard />
         ) : isGrid ? (
           <View style={styles.clinicGrid}>

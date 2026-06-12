@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { fetchAppoinments } from '../../application/appoinments/FetchAppoinment';
+import { getUpcomingAppointments } from '../../application/appoinments/getUpcomingAppointments';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { useScrollStore } from '../../hooks/useScrollStore';
 import type { HomeScreenProps } from '../../navigation/types';
@@ -32,7 +32,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
     setError('');
     setIsLoading(true);
     try {
-      await fetchAppoinments();
+      await getUpcomingAppointments('');
       console.log('Appoinments fetched successfully');
     } catch (e: any) {
       console.log('e.message');
