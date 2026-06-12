@@ -47,18 +47,18 @@ export const createCommonStyles = (theme: Theme) =>
     },
 
     // ── Icon & Image ──────────────────────────────────────────────────────────
-    // Circular icon container with accentLight background
+    // Circular icon container with accentSubtle background
     iconCircle: {
       width: 48,
       height: 48,
       borderRadius: 24,
-      backgroundColor: theme.colors.accentLight,
+      backgroundColor: theme.colors.accentSubtle,
       alignItems: 'center',
       justifyContent: 'center',
     },
     // Rectangular placeholder used before images load (grid + list cards)
     imagePlaceholder: {
-      backgroundColor: theme.colors.accentLight,
+      backgroundColor: theme.colors.accentSubtle,
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -81,8 +81,9 @@ export const createCommonStyles = (theme: Theme) =>
       justifyContent: 'center',
       backgroundColor: 'transparent',
     },
+    // Active state uses lime accent brand color
     toggleBtnActive: {
-      backgroundColor: theme.colors.limeAccent,
+      backgroundColor: theme.colors.accent,
     },
 
     // ── Section Header ────────────────────────────────────────────────────────
@@ -96,19 +97,19 @@ export const createCommonStyles = (theme: Theme) =>
     // Section title — poppinsSemiBold 18 via typography.subtitle
     sectionHeading: {
       ...theme.typography.subtitle,
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
     },
 
     // ── Typography ────────────────────────────────────────────────────────────
     // Body text — poppinsRegular 15
     body: {
       ...theme.typography.body,
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
     },
     // Small muted text — poppinsRegular 13
     caption: {
       ...theme.typography.caption,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
     },
 
     // ── Card Typography ───────────────────────────────────────────────────────
@@ -116,13 +117,13 @@ export const createCommonStyles = (theme: Theme) =>
     cardTitle: {
       ...theme.typography.button,
       fontSize: 14,
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       marginBottom: 3,
     },
     // Secondary muted label inside cards — poppinsRegular 12
     cardSubtitle: {
       ...theme.typography.caption,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       lineHeight: 17,
     },
   });
