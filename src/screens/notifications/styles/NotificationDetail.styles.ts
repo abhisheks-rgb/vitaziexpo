@@ -24,7 +24,7 @@ export const createDetailStyles = (theme: Theme) =>
 
     detailBody: {
       ...theme.typography.body,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       marginBottom: 18,
     },
 
@@ -49,7 +49,7 @@ export const createDetailStyles = (theme: Theme) =>
     appointmentCardTitle: {
       fontSize: 15,
       fontWeight: '600',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       marginBottom: 14,
     },
 
@@ -78,12 +78,12 @@ export const createDetailStyles = (theme: Theme) =>
     doctorName: {
       fontSize: 14,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
     },
 
     doctorSpecialty: {
       fontSize: 12,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       marginTop: 1,
     },
 
@@ -106,12 +106,12 @@ export const createDetailStyles = (theme: Theme) =>
     detailLabel: {
       fontSize: 13,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
     },
 
     detailValue: {
       fontSize: 13,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       marginTop: 2,
     },
 
@@ -174,14 +174,14 @@ export const createDetailStyles = (theme: Theme) =>
     rescheduleText: {
       fontSize: 15,
       fontWeight: '600',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
     },
 
     confirmBtn: {
       flex: 1,
       paddingVertical: 14,
       borderRadius: 30,
-      backgroundColor: theme.colors.text,
+      backgroundColor: theme.colors.textPrimary,
       borderWidth: 2,
       borderColor: theme.colors.limeAccent,
       alignItems: 'center',

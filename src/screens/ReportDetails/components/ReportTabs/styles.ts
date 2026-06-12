@@ -17,11 +17,11 @@ export const createStyles = (theme: Theme) =>
     },
     tabBarText: {
       fontSize: 15,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       fontWeight: '500',
     },
     tabBarTextActive: {
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       fontWeight: '700',
     },
     tabBarUnderline: {
@@ -31,7 +31,7 @@ export const createStyles = (theme: Theme) =>
       right: 0,
       height: 2.5,
       borderRadius: 2,
-      backgroundColor: theme.colors.text,
+      backgroundColor: theme.colors.textPrimary,
     },
     divider: {
       height: 1,

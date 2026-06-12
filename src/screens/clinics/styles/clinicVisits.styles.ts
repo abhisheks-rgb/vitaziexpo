@@ -46,19 +46,19 @@ export const createVisitStyles = (theme: Theme) => {
     },
     imagesToggleLabel: {
       fontSize: 13,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
     },
 
     // ── Clinic header block ───────────────────────────────────────────────────
     visitsClinicName: {
       fontSize: 20,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       marginBottom: 2,
     },
     visitsClinicAddress: {
       fontSize: 13,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       marginBottom: 16,
     },
 
@@ -88,7 +88,7 @@ export const createVisitStyles = (theme: Theme) => {
     },
     visitGridDate: {
       fontSize: 12,
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       textAlign: 'center',
       paddingVertical: 8,
       paddingHorizontal: 4,

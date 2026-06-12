@@ -19,11 +19,11 @@ export default function EmptyClinicVisitsCard() {
           contentFit="contain"
         />
 
-        <AppText style={emptyStyles.title} color={theme.colors.text}>
+        <AppText style={emptyStyles.title} color={theme.colors.textPrimary}>
           No Visit Records Yet
         </AppText>
 
-        <AppText style={emptyStyles.subtitle} color={theme.colors.textMuted}>
+        <AppText style={emptyStyles.subtitle} color={theme.colors.textSecondary}>
           Your retinal screening visits will be listed here once a clinic submits your report.
         </AppText>
       </View>

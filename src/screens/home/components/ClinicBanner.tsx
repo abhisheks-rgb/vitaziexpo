@@ -1,4 +1,3 @@
-import React from 'react';
 import { View } from 'react-native';
 
 import AppImage from '../../../components/AppImage';
@@ -27,7 +26,11 @@ export default function ClinicBanner() {
         </View>
 
         <View style={clinicStyles.clinicInfo}>
-          <AppText variant="caption" color={theme.colors.text} style={clinicStyles.clinicName}>
+          <AppText
+            variant="caption"
+            color={theme.colors.textPrimary}
+            style={clinicStyles.clinicName}
+          >
             Macula & Retina Center
           </AppText>
 

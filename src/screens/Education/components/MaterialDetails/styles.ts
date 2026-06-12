@@ -55,19 +55,19 @@ export const createStyles = (theme: Theme) =>
     title: {
       fontSize: 18,
       fontWeight: '800',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       lineHeight: 26,
       marginBottom: 10,
     },
     description: {
       fontSize: 14,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       lineHeight: 22,
       marginBottom: 6,
     },
     date: {
       fontSize: 12,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       marginBottom: 24,
     },
 
@@ -75,7 +75,7 @@ export const createStyles = (theme: Theme) =>
     similarTitle: {
       fontSize: 17,
       fontWeight: '800',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       marginBottom: 14,
       paddingHorizontal: 16,
     },
@@ -132,13 +132,13 @@ export const createStyles = (theme: Theme) =>
     similarCardTitle: {
       fontSize: 12,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       lineHeight: 16,
       marginBottom: 3,
     },
     similarCardDesc: {
       fontSize: 11,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       lineHeight: 15,
     },
   });

@@ -43,12 +43,12 @@ export const createStyles = (theme: Theme) =>
     doctorName: {
       fontSize: 17,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       marginBottom: 3,
     },
     doctorSpecialty: {
       fontSize: 13,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       lineHeight: 18,
     },
 
@@ -68,7 +68,7 @@ export const createStyles = (theme: Theme) =>
     infoCardTitle: {
       fontSize: 15,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       marginBottom: 14,
     },
     infoRow: {
@@ -96,17 +96,17 @@ export const createStyles = (theme: Theme) =>
     infoLabel: {
       fontSize: 13,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       marginBottom: 2,
     },
     infoValue: {
       fontSize: 13,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       lineHeight: 18,
     },
     infoDot: {
       fontSize: 13,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       marginHorizontal: 4,
     },
     infoValueRow: {
@@ -158,7 +158,7 @@ export const createStyles = (theme: Theme) =>
     prepTitle: {
       fontSize: 17,
       fontWeight: '800',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       marginBottom: 14,
     },
     prepRow: {
@@ -169,14 +169,14 @@ export const createStyles = (theme: Theme) =>
     prepNumber: {
       fontSize: 14,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       width: 16,
       lineHeight: 22,
     },
     prepText: {
       flex: 1,
       fontSize: 14,
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       lineHeight: 22,
     },
   });

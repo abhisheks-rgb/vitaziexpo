@@ -25,14 +25,19 @@ export default function EmptyUpcomingAppointmentCard() {
           showLoader={false}
         />
         <AppText
-          style={{ fontSize: 14, color: theme.colors.text, marginTop: 12, textAlign: 'center' }}
+          style={{
+            fontSize: 14,
+            color: theme.colors.textPrimary,
+            marginTop: 12,
+            textAlign: 'center',
+          }}
         >
           {t('home.noAppointmentsYet')}
         </AppText>
         <AppText
           style={{
             fontSize: 13,
-            color: theme.colors.textMuted,
+            color: theme.colors.textSecondary,
             textAlign: 'center',
             marginTop: 4,
           }}

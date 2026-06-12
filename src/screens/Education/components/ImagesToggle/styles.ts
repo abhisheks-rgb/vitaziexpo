@@ -41,6 +41,6 @@ export const createStyles = (theme: Theme) =>
     label: {
       fontSize: 15,
       fontWeight: '600',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
     },
   });

@@ -49,8 +49,8 @@ export default function ClinicListScreen({ navigation }: ClinicListScreenProps) 
   const showBackButton = stackIndex > 0;
 
   const isGrid = viewMode === 'grid';
-  const activeColor = theme.colors.text;
-  const inactiveColor = theme.colors.textMuted;
+  const activeColor = theme.colors.textPrimary;
+  const inactiveColor = theme.colors.textSecondary;
 
   const [clinics, setClinics] = useState<Clinic[]>([]);
   const [error, setError] = useState('');

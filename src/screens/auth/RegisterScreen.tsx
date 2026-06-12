@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -100,7 +100,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
             <TextInput
               style={styles.input}
               placeholder={t('orgIdPlaceholder')}
-              placeholderTextColor={theme.colors.textMuted}
+              placeholderTextColor={theme.colors.textSecondary}
               autoCapitalize="characters"
               value={orgId}
               onChangeText={setOrgId}

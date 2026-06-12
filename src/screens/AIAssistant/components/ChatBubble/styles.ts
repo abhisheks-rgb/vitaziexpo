@@ -66,7 +66,7 @@ export const createStyles = (theme: Theme) =>
     },
     textAssistant: {
       fontSize: 14,
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       lineHeight: 20,
     },
     dateSeparatorWrap: {

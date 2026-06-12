@@ -25,7 +25,7 @@ export const createListStyles = (theme: Theme) =>
 
     groupLabel: {
       fontSize: 13,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       fontWeight: '500',
       textAlign: 'center',
     },
@@ -71,7 +71,7 @@ export const createListStyles = (theme: Theme) =>
 
     cardMessage: {
       fontSize: 13.5,
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       lineHeight: 19,
     },
 
@@ -82,6 +82,6 @@ export const createListStyles = (theme: Theme) =>
     cardTime: {
       marginTop: 4,
       fontSize: 12,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
     },
   });

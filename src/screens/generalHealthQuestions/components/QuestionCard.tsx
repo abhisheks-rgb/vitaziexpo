@@ -21,7 +21,7 @@ export function QuestionCard({ questionText, value, onChange, error }: Props) {
         value={value}
         onChangeText={onChange}
         placeholder="Enter your answer"
-        placeholderTextColor={theme.colors.textMuted}
+        placeholderTextColor={theme.colors.textSecondary}
         multiline
         numberOfLines={3}
         textAlignVertical="top"
@@ -41,7 +41,7 @@ const createStyles = (theme: Theme) =>
     questionText: {
       fontSize: 14,
       fontWeight: '600',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       lineHeight: 20,
       marginBottom: theme.spacing.sm + 2,
     },
@@ -53,7 +53,7 @@ const createStyles = (theme: Theme) =>
       paddingHorizontal: theme.spacing.md,
       paddingVertical: theme.spacing.sm + 2,
       fontSize: 14,
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       minHeight: 80,
     },
     inputError: {

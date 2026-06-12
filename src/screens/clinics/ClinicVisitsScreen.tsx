@@ -44,8 +44,8 @@ export default function ClinicVisitsScreen({ route, navigation }: ClinicVisitsSc
   if (!clinic) return null;
 
   const isGrid = viewMode === 'grid';
-  const activeColor = theme.colors.text;
-  const inactiveColor = theme.colors.textMuted;
+  const activeColor = theme.colors.textPrimary;
+  const inactiveColor = theme.colors.textSecondary;
 
   const toggleRight = (
     <View style={styles.toggleWrap}>

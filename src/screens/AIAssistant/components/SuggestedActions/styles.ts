@@ -28,11 +28,11 @@ export const createStyles = (theme: Theme) =>
     },
     chipText: {
       fontSize: 13,
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       fontWeight: '500',
     },
     chipSubText: {
       fontSize: 12,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
     },
   });

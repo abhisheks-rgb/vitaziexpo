@@ -19,7 +19,7 @@ export default function LatestScreeningCard() {
     <>
       <AppText
         variant="subtitle"
-        color={theme.colors.text}
+        color={theme.colors.textPrimary}
         style={{ marginBottom: 12, fontSize: 16 }}
       >
         {t('home.latestScreening')}
@@ -37,7 +37,7 @@ export default function LatestScreeningCard() {
           <View style={screeningStyles.screeningFooterLeft}>
             <AppText
               variant="caption"
-              color={theme.colors.text}
+              color={theme.colors.textPrimary}
               style={screeningStyles.screeningClinic}
             >
               Macula & Retina Center
@@ -70,7 +70,7 @@ export default function LatestScreeningCard() {
             <Feather name="arrow-up-right" size={14} color={Colors.navyDark} />
           </View>
 
-          <AppText variant="caption" color={theme.colors.text} style={{ fontWeight: '600' }}>
+          <AppText variant="caption" color={theme.colors.textPrimary} style={{ fontWeight: '600' }}>
             {t('home.followUpRecommended')}
           </AppText>
         </View>

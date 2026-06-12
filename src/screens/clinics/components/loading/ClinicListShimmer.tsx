@@ -28,7 +28,7 @@ const ShimmerBar = ({
   return (
     <Animated.View
       style={[
-        { width, height, borderRadius: 6, backgroundColor: theme.colors.textMuted, opacity },
+        { width, height, borderRadius: 6, backgroundColor: theme.colors.textSecondary, opacity },
         style,
       ]}
     />

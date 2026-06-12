@@ -41,12 +41,12 @@ export const createStyles = (theme: Theme) =>
     doctorName: {
       fontSize: 15,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       marginBottom: 2,
     },
     doctorSpecialty: {
       fontSize: 13,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       lineHeight: 18,
     },
     chevronBtn: {
@@ -60,7 +60,7 @@ export const createStyles = (theme: Theme) =>
     },
     chevronText: {
       fontSize: 16,
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       marginLeft: 2,
     },
 
@@ -82,12 +82,12 @@ export const createStyles = (theme: Theme) =>
     clinicName: {
       fontSize: 14,
       fontWeight: '600',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       marginBottom: 2,
     },
     clinicAddress: {
       fontSize: 13,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       lineHeight: 18,
     },
 

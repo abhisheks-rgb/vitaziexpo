@@ -1,6 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity, View } from 'react-native';
-
 import AppImage from '../../../components/AppImage';
 import AppText from '../../../components/AppText';
 import { AppImages } from '../../../constants';
@@ -9,7 +8,6 @@ import { useTranslation } from '../../../hooks/useTranslation';
 import type { HomeScreenProps } from '../../../navigation/types';
 import { useAuthStore } from '../../../state/store/authStore';
 import { useTheme } from '../../../theme';
-import { Colors } from '../../../theme/colors';
 import { createHeaderStyles } from '../styles/HomeHeader.styles';
 
 export default function HomeHeader() {
@@ -19,7 +17,6 @@ export default function HomeHeader() {
   const styles = createHeaderStyles(theme);
   const { logout, isLoading } = useLogout();
 
-  // Live user data from persisted store — updates instantly on login/logout
   const currentUser = useAuthStore((s) => s.currentUser);
   const greeting = useGreeting(t);
   const displayName = currentUser ? `${currentUser.firstName} ${currentUser.lastName}` : '';
@@ -27,10 +24,10 @@ export default function HomeHeader() {
   return (
     <View style={styles.header}>
       <View>
-        <AppText variant="caption" style={styles.greeting} color={Colors.muted}>
+        <AppText variant="caption" style={styles.greeting} color={theme.colors.textSecondary}>
           {greeting}
         </AppText>
-        <AppText variant="subtitle" color={theme.colors.text} style={styles.name}>
+        <AppText variant="subtitle" color={theme.colors.textPrimary} style={styles.name}>
           {displayName}
         </AppText>
       </View>
@@ -39,11 +36,9 @@ export default function HomeHeader() {
         <TouchableOpacity>
           <AppImage source={AppImages.searchAi} containerStyle={styles.headerIcon} />
         </TouchableOpacity>
-
         <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
           <AppImage source={AppImages.notification} containerStyle={styles.headerIcon} />
         </TouchableOpacity>
-
         {/* Tap avatar to log out — confirmation alert shown by useLogout */}
         <TouchableOpacity onPress={logout} disabled={isLoading}>
           <AppImage

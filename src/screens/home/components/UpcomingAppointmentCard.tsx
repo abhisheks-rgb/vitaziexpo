@@ -1,4 +1,3 @@
-import React from 'react';
 import { View } from 'react-native';
 
 import AppImage from '../../../components/AppImage';
@@ -22,7 +21,7 @@ export default function UpcomingAppointmentCard() {
     <>
       <AppText
         variant="subtitle"
-        color={theme.colors.text}
+        color={theme.colors.textPrimary}
         style={{ marginBottom: 12, fontSize: 16 }}
       >
         {t('home.upcomingAppointment')}
@@ -38,7 +37,7 @@ export default function UpcomingAppointmentCard() {
           />
 
           <View>
-            <AppText variant="caption" color={theme.colors.text} style={styles.doctorName}>
+            <AppText variant="caption" color={theme.colors.textPrimary} style={styles.doctorName}>
               Dr. Priya Patel
             </AppText>
 
@@ -61,7 +60,7 @@ export default function UpcomingAppointmentCard() {
                 {row.label}
               </AppText>
 
-              <AppText variant="caption" color={theme.colors.text}>
+              <AppText variant="caption" color={theme.colors.textPrimary}>
                 {row.value}
               </AppText>
             </View>

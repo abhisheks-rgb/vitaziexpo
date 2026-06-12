@@ -35,16 +35,16 @@ export const createStyles = (theme: Theme) =>
     clinic: {
       fontSize: 14,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       marginBottom: 2,
     },
     date: {
       fontSize: 12,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
     },
     lastMessage: {
       fontSize: 12,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       marginTop: 2,
     },
     thumbnail: {
@@ -57,7 +57,7 @@ export const createStyles = (theme: Theme) =>
     },
     chevron: {
       fontSize: 18,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
     },
 
     emptyListContainer: {

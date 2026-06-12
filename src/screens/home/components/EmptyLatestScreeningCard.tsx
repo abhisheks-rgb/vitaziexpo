@@ -22,7 +22,7 @@ export default function EmptyLatestScreeningCard() {
             <View style={emptyScreeningStyles.welcomeRow}>
               <AppText
                 variant="subtitle"
-                color={theme.colors.text}
+                color={theme.colors.textPrimary}
                 style={emptyScreeningStyles.welcomeText}
               >
                 {t('home.welcomeText')}
@@ -37,7 +37,7 @@ export default function EmptyLatestScreeningCard() {
 
             <AppText
               variant="body"
-              color={theme.colors.textMuted}
+              color={theme.colors.textSecondary}
               style={emptyScreeningStyles.subtitleWelcomeText}
             >
               {t('home.subtitleWelcomeText')}
@@ -45,7 +45,7 @@ export default function EmptyLatestScreeningCard() {
 
             <AppText
               variant="body"
-              color={theme.colors.textMuted}
+              color={theme.colors.textSecondary}
               style={emptyScreeningStyles.clinicNotificationText}
             >
               {t('home.clinicNotification')}

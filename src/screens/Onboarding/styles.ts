@@ -42,7 +42,7 @@ export const createStyles = (theme: Theme) =>
     },
 
     skip: {
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
     },
 
     content: {
@@ -85,7 +85,7 @@ export const createStyles = (theme: Theme) =>
     subtitle: {
       ...theme.typography.body,
       textAlign: 'center',
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       marginTop: 16,
       maxWidth: 340,
       lineHeight: 28,

@@ -14,7 +14,7 @@ export const createStyles = (theme: Theme) => {
     sectionTitle: {
       fontSize: 18,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       marginBottom: theme.spacing.md,
     },
 
@@ -54,11 +54,11 @@ export const createStyles = (theme: Theme) => {
 
     toggleIcon: {
       fontSize: 14,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
     },
 
     toggleIconActive: {
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
     },
 
     // ─────────────────────────────────────
@@ -99,21 +99,21 @@ export const createStyles = (theme: Theme) => {
     gridTitle: {
       fontSize: 12,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       lineHeight: 16,
       marginBottom: 4,
     },
 
     gridDesc: {
       fontSize: 11,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       lineHeight: 15,
       marginBottom: 4,
     },
 
     gridDate: {
       fontSize: 10,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
     },
 
     // ─────────────────────────────────────
@@ -145,21 +145,21 @@ export const createStyles = (theme: Theme) => {
     listTitle: {
       fontSize: 13,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       marginBottom: 4,
       lineHeight: 18,
     },
 
     listDesc: {
       fontSize: 12,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       lineHeight: 16,
       marginBottom: 4,
     },
 
     listDate: {
       fontSize: 11,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
     },
   });
 

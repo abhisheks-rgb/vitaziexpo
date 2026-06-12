@@ -32,19 +32,19 @@ export const createStyles = (theme: Theme) =>
     gridTitle: {
       fontSize: 13,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       lineHeight: 18,
       marginBottom: 4,
     },
     gridDesc: {
       fontSize: 12,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       lineHeight: 16,
       marginBottom: 4,
     },
     gridMeta: {
       fontSize: 11,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
     },
 
     // ── List card ─────────────────────────────────────────────────────────
@@ -87,19 +87,19 @@ export const createStyles = (theme: Theme) =>
     listTitle: {
       fontSize: 14,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       lineHeight: 19,
       marginBottom: 3,
     },
     listDesc: {
       fontSize: 12,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       lineHeight: 16,
       marginBottom: 3,
     },
     listMeta: {
       fontSize: 11,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
     },
     listChevron: {
       width: 28,
@@ -113,7 +113,7 @@ export const createStyles = (theme: Theme) =>
     },
     listChevronText: {
       fontSize: 14,
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       marginLeft: 2,
     },
 

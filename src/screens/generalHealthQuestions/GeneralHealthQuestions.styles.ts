@@ -31,7 +31,7 @@ export const createStyles = (theme: Theme) =>
     headerTitle: {
       fontSize: 20,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       letterSpacing: -0.3,
     } as TextStyle,
 
@@ -51,7 +51,7 @@ export const createStyles = (theme: Theme) =>
     progressLabel: {
       fontSize: 12,
       fontWeight: '500',
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
     } as TextStyle,
 
     progressTrack: {
@@ -83,7 +83,7 @@ export const createStyles = (theme: Theme) =>
     questionText: {
       fontSize: 14,
       fontWeight: '600',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       lineHeight: 20,
       marginBottom: theme.spacing.sm + 2,
     } as TextStyle,
@@ -120,7 +120,7 @@ export const createStyles = (theme: Theme) =>
     optionText: {
       fontSize: 14,
       fontWeight: '400',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
     } as TextStyle,
 
     // ── Next Button ───────────────────────────────────────────────────────
@@ -162,6 +162,6 @@ export const createStyles = (theme: Theme) =>
       marginLeft: theme.spacing.xs,
       fontSize: 15,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
     } as TextStyle,
   });

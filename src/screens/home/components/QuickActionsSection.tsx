@@ -44,7 +44,7 @@ export default function QuickActionsSection({
 
           <AppText
             variant="caption"
-            color={theme.colors.text}
+            color={theme.colors.textPrimary}
             style={quickActionsStyles.quickActionLabel}
           >
             {action.label}

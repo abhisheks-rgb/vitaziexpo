@@ -61,12 +61,14 @@ export default function WhatYoullSeeHereCard({ navigation }: { navigation: any }
             <AppText style={{ fontSize: 18 }}>{item.emoji}</AppText>
           </View>
           <View style={{ flex: 1 }}>
-            <AppText style={{ fontWeight: '700', fontSize: 14, color: theme.colors.text }}>
+            <AppText style={{ fontWeight: '700', fontSize: 14, color: theme.colors.textPrimary }}>
               {item.title}
             </AppText>
-            <AppText style={{ fontSize: 12, color: theme.colors.textMuted }}>{item.desc}</AppText>
+            <AppText style={{ fontSize: 12, color: theme.colors.textSecondary }}>
+              {item.desc}
+            </AppText>
           </View>
-          <AppText style={{ color: theme.colors.textMuted, fontSize: 18 }}>›</AppText>
+          <AppText style={{ color: theme.colors.textSecondary, fontSize: 18 }}>›</AppText>
         </TouchableOpacity>
       ))}
     </Card>

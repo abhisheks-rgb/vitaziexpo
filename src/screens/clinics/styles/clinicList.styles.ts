@@ -64,7 +64,7 @@ export const createClinicListStyles = (theme: Theme) => {
     },
     chevron: {
       fontSize: 18,
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       fontWeight: '500',
     },
 

@@ -9,13 +9,13 @@ export const createStyles = (theme: Theme) =>
     sectionLabel: {
       fontSize: 15,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       marginBottom: 6,
       marginTop: 10,
     },
     bodyText: {
       fontSize: 15,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       lineHeight: 22,
     },
     bulletRow: {
@@ -25,21 +25,21 @@ export const createStyles = (theme: Theme) =>
     },
     bulletDot: {
       fontSize: 20,
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       lineHeight: 24,
       marginRight: 10,
       marginTop: -2,
     },
     bulletText: {
       fontSize: 15,
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       flex: 1,
       lineHeight: 22,
     },
     icdCodeLabel: {
       fontSize: 15,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       lineHeight: 22,
     },
     icdCodeBlock: {
@@ -56,12 +56,12 @@ export const createStyles = (theme: Theme) =>
     },
     followUpIcon: {
       fontSize: 16,
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
     },
     followUpText: {
       fontSize: 14,
       fontWeight: '600',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
     },
     urgentBox: {
       marginTop: 14,
@@ -73,7 +73,7 @@ export const createStyles = (theme: Theme) =>
     },
     urgentText: {
       fontSize: 14,
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       lineHeight: 20,
     },
     differentialBlock: {

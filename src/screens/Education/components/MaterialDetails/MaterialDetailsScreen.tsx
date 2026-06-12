@@ -68,7 +68,7 @@ export default function MaterialDetailsScreen({ route, navigation }: MaterialDet
 
   const rightActions = (
     <TouchableOpacity activeOpacity={0.7}>
-      <Text style={{ fontSize: 20, color: theme.colors.text }}>↗</Text>
+      <Text style={{ fontSize: 20, color: theme.colors.textPrimary }}>↗</Text>
     </TouchableOpacity>
   );
 

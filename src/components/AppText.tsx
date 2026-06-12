@@ -20,7 +20,7 @@ export default function AppText({ variant = 'body', color, style, children, ...r
       style={[
         theme.typography[variant],
         {
-          color: color ?? theme.colors.text,
+          color: color ?? theme.colors.textPrimary,
         },
         style,
       ]}

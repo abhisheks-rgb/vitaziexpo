@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   ActivityIndicator,
   KeyboardAvoidingView,
@@ -106,7 +106,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           <TextInput
             style={styles.input}
             placeholder={t('login.emailPlaceholder')}
-            placeholderTextColor={theme.colors.textMuted}
+            placeholderTextColor={theme.colors.textSecondary}
             keyboardType="email-address"
             autoCapitalize="none"
             returnKeyType="next"
@@ -124,7 +124,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
             <TextInput
               style={[styles.input, styles.inputFlex]}
               placeholder={t('login.passwordPlaceholder')}
-              placeholderTextColor={theme.colors.textMuted}
+              placeholderTextColor={theme.colors.textSecondary}
               secureTextEntry={!showPassword}
               returnKeyType="done"
               value={password}

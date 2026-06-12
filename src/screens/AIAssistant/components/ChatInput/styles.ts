@@ -79,7 +79,7 @@ export const createStyles = (theme: Theme) =>
     },
 
     uploadIcon: {
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       borderColor: Colors.gray,
       borderWidth: 1.5,
       borderRadius: 50,

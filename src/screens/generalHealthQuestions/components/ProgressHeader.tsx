@@ -45,7 +45,7 @@ const createStyles = (theme: Theme) =>
     headerTitle: {
       fontSize: 20,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       letterSpacing: -0.3,
     },
     progressContainer: {
@@ -61,7 +61,7 @@ const createStyles = (theme: Theme) =>
     progressLabel: {
       fontSize: 12,
       fontWeight: '500',
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
     },
     progressTrack: {
       height: 5,

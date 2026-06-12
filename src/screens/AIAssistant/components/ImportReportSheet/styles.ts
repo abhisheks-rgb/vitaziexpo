@@ -38,7 +38,7 @@ export const createStyles = (theme: Theme) =>
       flex: 1,
       fontSize: 16,
       fontWeight: '700',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
     },
     confirmBtn: {
       width: 32,
@@ -64,12 +64,12 @@ export const createStyles = (theme: Theme) =>
     reportClinic: {
       fontSize: 14,
       fontWeight: '600',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
       marginBottom: 2,
     },
     reportDate: {
       fontSize: 12,
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
     },
     checkbox: {
       width: 22,

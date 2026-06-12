@@ -16,7 +16,7 @@ export const createStyles = (theme: Theme) =>
       flex: 1,
       fontSize: 22,
       fontWeight: '800',
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
     },
     actions: {
       flexDirection: 'row',
@@ -31,7 +31,7 @@ export const createStyles = (theme: Theme) =>
     },
     iconText: {
       fontSize: 18,
-      color: theme.colors.text,
+      color: theme.colors.textPrimary,
     },
     activeIcon: {
       color: '#1B2B4B',
