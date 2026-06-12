@@ -3,6 +3,7 @@
 import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+
 import AppHeader from '../../../../components/AppHeader';
 import AppImage from '../../../../components/AppImage';
 import BackgroundBlobs from '../../../../components/BackgroundBlobs';
@@ -10,9 +11,9 @@ import { DurationChip } from '../../../../components/DurationChip';
 import { PlayButton } from '../../../../components/PlayButton';
 import type { MaterialDetailsScreenProps } from '../../../../navigation/types';
 import { useTheme } from '../../../../theme';
-import { EDUCATION_MATERIALS_MOCK } from '../../data/education.mock';
-import type { EducationMaterial } from '../../types/education.types';
 
+import { EducationMaterial } from '../../../../domain/education/models/educationMaterial';
+import { mockEducationList } from '../../../../mockData/mockEducation';
 import { createStyles } from './styles';
 
 function SimilarCard({
@@ -64,7 +65,7 @@ export default function MaterialDetailsScreen({ route, navigation }: MaterialDet
   const styles = createStyles(theme);
   const isVideo = material.type === 'video';
 
-  const similarMaterials = EDUCATION_MATERIALS_MOCK.filter((m) => m.id !== material.id).slice(0, 6);
+  const similarMaterials = mockEducationList.filter((m) => m.id !== material.id).slice(0, 6);
 
   const rightActions = (
     <TouchableOpacity activeOpacity={0.7}>

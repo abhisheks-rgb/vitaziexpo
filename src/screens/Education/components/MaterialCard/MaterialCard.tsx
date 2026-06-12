@@ -2,11 +2,11 @@
 
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import type { EducationMaterial, ViewMode } from '../../../../application/education/types/education.types';
 import AppImage from '../../../../components/AppImage';
 import { DurationChip } from '../../../../components/DurationChip';
 import { PlayButton } from '../../../../components/PlayButton';
 import { useTheme } from '../../../../theme';
-import type { EducationMaterial, ViewMode } from '../../types/education.types';
 
 import { createStyles } from './styles';
 

@@ -15,6 +15,13 @@ export interface Clinic {
   icon?: any;
   visits: ClinicVisit[];
 }
+export const emptyClinic: Clinic = {
+  id: "",
+  name: "",
+  address: "",
+  icon: null,
+  visits: [],
+}
 
 // ─── Mock data ─────────────────────────────────────────────────────────────────
 

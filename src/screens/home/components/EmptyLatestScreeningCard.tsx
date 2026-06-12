@@ -1,5 +1,6 @@
 import { TouchableOpacity, View } from 'react-native';
 
+import { useMemo } from 'react';
 import AppImage from '../../../components/AppImage';
 import AppText from '../../../components/AppText';
 import ArrowButton from '../../../components/ArrowButton';
@@ -7,11 +8,12 @@ import Card from '../../../components/Card';
 import { AppImages } from '../../../constants';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { Colors, useTheme } from '../../../theme';
-import { emptyScreeningStyles } from '../styles/EmptyLatestScreeningCard';
+import { createEmptyScreeningStyles } from '../styles/EmptyLatestScreeningCard';
 
 export default function EmptyLatestScreeningCard() {
   const theme = useTheme();
   const { t } = useTranslation();
+  const emptyScreeningStyles = useMemo(() => createEmptyScreeningStyles(theme), [theme]);
 
   return (
     <Card elevated style={emptyScreeningStyles.emptyScreeningCard}>

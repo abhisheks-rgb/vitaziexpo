@@ -122,6 +122,9 @@
   "visits": "Visits",
   "visitHistory": "Visit History",
   "yourClinics": "Your Clinics",
+  "educationTitle": "Education",
+  "noEducationList": "No Education is there",
+  "noEducationListBody": "Education material is not available yet.",
   "reportDetails": "Report Details",
   "images": "Images",
   "generalHealth": {

@@ -1,9 +1,11 @@
 // File: Education/data/education.mock.ts
 
-import { AppImages } from '../../../constants';
-import type { EducationMaterial } from '../types/education.types';
+import { AppImages } from "../constants/AppImages";
+import { EducationMaterial } from "../domain/education/models/educationMaterial";
 
-export const EDUCATION_MATERIALS_MOCK: EducationMaterial[] = [
+
+
+export const mockEducationList: EducationMaterial[] = [
   {
     id: '1',
     type: 'video',

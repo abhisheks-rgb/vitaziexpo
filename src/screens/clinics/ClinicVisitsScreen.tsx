@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { ScrollView, Switch, Text, TouchableOpacity, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, ScrollView, Switch, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AppHeader from '../../components/AppHeader';
@@ -11,7 +11,10 @@ import { useTheme } from '../../theme';
 
 import VisitGridItem from './components/visitGridItem';
 import VisitListItem from './components/visitListItem';
-import { clinics } from './data';
+
+import { getClinicDetails } from '../../application/clinics/getClinics';
+import EmptyClinicVisitsCard from './components/EmptyClinicVisitsCard';
+import { Clinic, emptyClinic } from './data';
 import { createVisitStyles } from './styles/clinicVisits.styles';
 
 const ListIcon = ({ color }: { color: string }) => (
@@ -33,6 +36,9 @@ const GridIcon = ({ color }: { color: string }) => (
 type ViewMode = 'list' | 'grid';
 
 export default function ClinicVisitsScreen({ route, navigation }: ClinicVisitsScreenProps) {
+  const [error, setError] = useState('');
+  const [clinic, setClient] = useState<Clinic>(emptyClinic);
+  const [isLoading, setIsLoading] = useState(false);
   const theme = useTheme();
   const styles = createVisitStyles(theme);
   const { t } = useTranslation();
@@ -40,8 +46,25 @@ export default function ClinicVisitsScreen({ route, navigation }: ClinicVisitsSc
   const [showImages, setShowImages] = useState(true);
   const handleScroll = useScrollStore((state) => state.handleScroll);
 
-  const clinic = clinics.find((c) => c.id === route.params.clinicId);
-  if (!clinic) return null;
+   useEffect(() => {
+     fetchClinicDetails();
+   }, []);
+   const fetchClinicDetails = async () => {
+     setError('');
+     setIsLoading(true);
+     setClient(emptyClinic);
+     try {
+      console.log('Clinic details fetched successfully');
+      const clientDetails= await getClinicDetails('',route.params.clinicId);
+       console.log('Clinic details fetched successfully');
+       setClient(clientDetails);
+     } catch (e: any) {
+       console.log('e.message');
+       setError(e.message ?? 'Not implemented');
+     } finally {
+       setIsLoading(false);
+     }
+   };
 
   const isGrid = viewMode === 'grid';
   const activeColor = theme.colors.textPrimary;
@@ -77,10 +100,22 @@ export default function ClinicVisitsScreen({ route, navigation }: ClinicVisitsSc
         onBackPress={() => navigation.goBack()}
         rightComponent={toggleRight}
       />
-
-      <ScrollView
+        {isLoading? (
+  <View
+    style={{
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}
+  >
+    <ActivityIndicator
+      size="large"
+      color={theme.colors.primary}
+    />
+  </View>): clinic.visits.length=== 0? <EmptyClinicVisitsCard/>:  <ScrollView
         onScroll={handleScroll}
         style={styles.scroll}
+
         contentContainerStyle={isGrid ? styles.scrollContentGrid : styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
@@ -118,7 +153,8 @@ export default function ClinicVisitsScreen({ route, navigation }: ClinicVisitsSc
             />
           ))
         )}
-      </ScrollView>
+      </ScrollView>}
+
     </SafeAreaView>
   );
 }

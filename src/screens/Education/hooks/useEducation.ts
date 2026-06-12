@@ -2,15 +2,17 @@
 
 import { useState } from 'react';
 
-import { EDUCATION_MATERIALS_MOCK } from '../data/education.mock';
-import type { EducationMaterial, ViewMode } from '../types/education.types';
+
+import { EducationMaterial } from '../../../domain/education/models/educationMaterial';
+import { ViewMode } from '../../../application/education/types/education.types';
+import { mockEducationList } from '../../../mockData/mockEducation';
 
 export function useEducation() {
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [showImages, setShowImages] = useState(true);
   const [selectedMaterial, setSelectedMaterial] = useState<EducationMaterial | null>(null);
 
-  const materials = EDUCATION_MATERIALS_MOCK;
+  const materials = mockEducationList;
 
   return {
     viewMode,

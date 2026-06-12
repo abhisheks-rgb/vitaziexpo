@@ -2,7 +2,7 @@ import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import type { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import type { EducationMaterial } from '../screens/Education/types/education.types';
+import type { EducationMaterial } from '../application/education/types/education.types';
 
 // ─────────────────────────────────────────────────────────────
 // Root Stack

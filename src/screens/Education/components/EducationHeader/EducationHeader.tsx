@@ -2,8 +2,8 @@
 
 import { Text, TouchableOpacity, View } from 'react-native';
 
+import type { ViewMode } from '../../../../application/education/types/education.types';
 import { useTheme } from '../../../../theme';
-import type { ViewMode } from '../../types/education.types';
 
 import { createStyles } from './styles';
 
@@ -15,6 +15,8 @@ interface Props {
 export default function EducationHeader({ viewMode, onViewModeChange }: Props) {
   const theme = useTheme();
   const styles = createStyles(theme);
+
+  
 
   return (
     <View style={styles.container}>

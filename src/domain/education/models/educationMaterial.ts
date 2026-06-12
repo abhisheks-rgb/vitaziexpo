@@ -1,7 +1,4 @@
-// File: Education/types/education.types.ts
-
-export type MaterialType = 'video' | 'pdf' | 'doc';
-export type ViewMode = 'list' | 'grid';
+import { MaterialType } from "../../../application/education/types/education.types";
 
 export interface EducationMaterial {
   id: string;
@@ -13,4 +10,16 @@ export interface EducationMaterial {
   thumbnailSource: any;
   resourceUrl?: string;
   fileName?: string; // for pdf/doc cards
+}
+
+export const emptyEducationMaterial: EducationMaterial= {
+  id: "",
+  type: 'video',
+  title: "",
+  description: "",
+  date: "",
+  duration: "", //
+  thumbnailSource: null,
+  resourceUrl: "",
+  fileName: "",
 }
