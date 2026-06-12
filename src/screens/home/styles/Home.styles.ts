@@ -1,26 +1,21 @@
 import { StyleSheet } from 'react-native';
-
-import { Spacing } from '../../../theme/spacing';
+import { createCommonStyles } from '../../../theme/styles';
 import type { Theme } from '../../../theme/theme';
+import { CONTAINER_H } from '../../home/styles/BottomTabBar.styles';
 
-import { CONTAINER_H } from './BottomTabBar.styles';
+export const createHomeStyles = (theme: Theme) => {
+  const common = createCommonStyles(theme);
 
-export const createHomeStyles = (theme: Theme) =>
-  StyleSheet.create({
-    screen: {
-      flex: 1,
-      backgroundColor: theme.colors.background,
-    },
-    scroll: {
-      flex: 1,
-    },
+  return StyleSheet.create({
+    screen: common.screen,
+    scroll: common.scroll,
     scrollContent: {
-      paddingHorizontal: Spacing.md,
-      paddingTop: Spacing.sm,
+      ...common.scrollContent,
       paddingBottom: CONTAINER_H + 16,
     },
     sectionTitle: {
-      marginBottom: Spacing.sm,
+      marginBottom: theme.spacing.sm,
       fontSize: 16,
     },
   });
+};

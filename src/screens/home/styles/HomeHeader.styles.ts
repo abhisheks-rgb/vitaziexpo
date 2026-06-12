@@ -1,15 +1,15 @@
 import { StyleSheet } from 'react-native';
-
 import { Radius } from '../../../theme/radius';
 import { Spacing } from '../../../theme/spacing';
+import { createCommonStyles } from '../../../theme/styles';
 import type { Theme } from '../../../theme/theme';
 
-export const createHeaderStyles = (theme: Theme) =>
-  StyleSheet.create({
+export const createHeaderStyles = (theme: Theme) => {
+  const common = createCommonStyles(theme);
+
+  return StyleSheet.create({
     header: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
+      ...common.rowSpaceBetween,
       marginBottom: Spacing.md,
     },
     name: {
@@ -20,19 +20,14 @@ export const createHeaderStyles = (theme: Theme) =>
       fontSize: 13,
     },
     headerRight: {
-      flexDirection: 'row',
-      alignItems: 'center',
+      ...common.row,
       gap: Spacing.xs,
     },
-
-    headerIcon: {
-      width: 36,
-      height: 36,
-    },
+    headerIcon: common.icon36,
     avatar: {
-      width: 36,
-      height: 36,
+      ...common.icon36,
       borderRadius: Radius.full,
       marginLeft: Spacing.xs,
     },
   });
+};

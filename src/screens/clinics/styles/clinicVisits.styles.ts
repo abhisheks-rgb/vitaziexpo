@@ -1,6 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native';
-
 import { Colors, Radius, type Theme } from '../../../theme';
+import { createCommonStyles } from '../../../theme/styles';
 
 const { width } = Dimensions.get('window');
 const GRID_GAP = 10;
@@ -8,118 +8,84 @@ const GRID_PADDING = 16;
 export const VISIT_CARD_W = (width - GRID_PADDING * 2 - GRID_GAP) / 2;
 export const VISIT_CARD_H = VISIT_CARD_W * 0.9;
 
-export const createVisitStyles = (theme: Theme) =>
-  StyleSheet.create({
-    screen: {
-      flex: 1,
-    },
+export const createVisitStyles = (theme: Theme) => {
+  const common = createCommonStyles(theme);
 
-    // ── Scroll ───────────────────────────────────────────────────────────────────
-    scroll: {
-      flex: 1,
-    },
+  return StyleSheet.create({
+    screen: common.screen,
+    scroll: common.scroll,
 
     scrollContent: {
-      paddingHorizontal: theme.spacing.md,
-      paddingBottom: 32,
+      ...common.scrollContent,
       gap: 10,
     },
-
     scrollContentGrid: {
       paddingHorizontal: theme.spacing.md,
       paddingBottom: 32,
     },
 
-    // ── Header view toggle (list / grid icons) ────────────────────────────────────
-    toggleWrap: {
-      flexDirection: 'row',
-      gap: 6,
-    },
-
+    // ── View toggle ──────────────────────────────────────────────────────────
+    toggleWrap: common.toggleWrap,
     toggleBtn: {
+      ...common.toggleBtn,
       width: 38,
       height: 28,
       borderRadius: 8,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: 'transparent',
     },
+    toggleBtnActive: common.toggleBtnActive,
 
-    toggleBtnActive: {
-      backgroundColor: theme.colors.limeAccent,
-    },
-
-    // ── Visit History row (title + Images toggle) ────────────────────────────────
+    // ── Visit History header row ──────────────────────────────────────────────
     visitHistoryRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
+      ...common.sectionRow,
       marginBottom: 14,
     },
-
-    visitHistoryTitle: {
-      fontSize: 18,
-      fontWeight: '700',
-      color: theme.colors.text,
-    },
-
+    visitHistoryTitle: common.sectionHeading,
     imagesToggleWrap: {
-      flexDirection: 'row',
-      alignItems: 'center',
+      ...common.row,
       gap: 8,
     },
-
     imagesToggleLabel: {
       fontSize: 13,
       color: theme.colors.textMuted,
     },
 
-    // ── Visits clinic header block ────────────────────────────────────────────────
+    // ── Clinic header block ───────────────────────────────────────────────────
     visitsClinicName: {
       fontSize: 20,
       fontWeight: '700',
       color: theme.colors.text,
       marginBottom: 2,
     },
-
     visitsClinicAddress: {
       fontSize: 13,
       color: theme.colors.textMuted,
       marginBottom: 16,
     },
 
-    // ── Visit GRID card ───────────────────────────────────────────────────────────
+    // ── Grid layout ───────────────────────────────────────────────────────────
     visitGrid: {
       flexDirection: 'row',
       flexWrap: 'wrap',
       gap: GRID_GAP,
     },
 
+    // ── Grid card ─────────────────────────────────────────────────────────────
     visitGridCard: {
+      ...common.card,
       width: VISIT_CARD_W,
-      backgroundColor: theme.colors.surface,
       borderRadius: 12,
       overflow: 'hidden',
-      shadowColor: '#000',
-      shadowOpacity: 0.06,
-      shadowRadius: 6,
-      shadowOffset: { width: 0, height: 2 },
-      elevation: 2,
     },
-
     visitGridImage: {
       width: VISIT_CARD_W,
       height: VISIT_CARD_H,
     },
-
-    // Placeholder: smaller, with padding so the SVG doesn't fill edge-to-edge
     visitGridPlaceholder: {
+      ...common.imagePlaceholder,
       width: VISIT_CARD_W,
       height: VISIT_CARD_H * 0.65,
-      backgroundColor: theme.colors.accentLight,
       padding: 20,
     },
-
     visitGridDate: {
       fontSize: 12,
       color: theme.colors.text,
@@ -128,58 +94,41 @@ export const createVisitStyles = (theme: Theme) =>
       paddingHorizontal: 4,
     },
 
-    // ── Visit LIST card ───────────────────────────────────────────────────────────
+    // ── List card ─────────────────────────────────────────────────────────────
     visitListCard: {
-      backgroundColor: theme.colors.surface,
-      borderRadius: 14,
+      ...common.card,
       overflow: 'hidden',
-      shadowColor: '#000',
-      shadowOpacity: 0.06,
-      shadowRadius: 8,
-      shadowOffset: { width: 0, height: 2 },
-      elevation: 2,
     },
-
     visitListImage: {
       width: '100%',
       height: 200,
     },
-
-    // Placeholder: compact with generous padding around the SVG icon
     visitListPlaceholder: {
+      ...common.imagePlaceholder,
       width: '100%',
       height: 100,
-      backgroundColor: theme.colors.accentLight,
       padding: 24,
     },
-
     visitListFooter: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
+      ...common.rowSpaceBetween,
       paddingHorizontal: 14,
       paddingVertical: 12,
     },
-
     visitListTextWrap: {
       flex: 1,
     },
-
     visitListClinicName: {
+      ...common.cardTitle,
       fontSize: 14,
-      fontWeight: '700',
-      color: theme.colors.text,
-      marginBottom: 2,
     },
-
     visitListDate: {
+      ...common.cardSubtitle,
       fontSize: 12,
-      color: theme.colors.textMuted,
     },
 
+    // ── Review button ─────────────────────────────────────────────────────────
     visitReviewBtn: {
-      flexDirection: 'row',
-      alignItems: 'center',
+      ...common.row,
       backgroundColor: Colors.navyDark,
       paddingLeft: 14,
       paddingRight: 6,
@@ -195,3 +144,4 @@ export const createVisitStyles = (theme: Theme) =>
       justifyContent: 'center',
     },
   });
+};
