@@ -43,33 +43,49 @@ export default function BottomTabBar({ state, navigation }: BottomTabBarProps) {
     { key: 'More', label: t('tabs.more'), icon: 'more-horizontal' },
   ];
 
+  // ── Theme-aware dynamic values ──────────────────────────────────────────────
+
+  // Pill tint: nearly invisible in dark mode, subtle white in light
+  const pillTintColor = theme.isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.18)';
+
+  // Android pill background
+  const androidPillBg = theme.isDark ? 'rgba(18,18,18,0.96)' : 'rgba(255,255,255,0.92)';
+
+  // Solid fallback when not scrolled
+  const solidBg = theme.isDark
+    ? theme.colors.background // #171717
+    : theme.colors.background; // #FFFFFF
+
+  // FAB ring: dark mode uses a dark surface ring, light uses white
+  const fabRingBg = theme.isDark
+    ? theme.colors.surface // #1F1F1F
+    : 'rgba(255,255,255,0.95)';
+
+  const fabRingBorder = theme.isDark
+    ? theme.colors.surface // blends with dark bg
+    : 'rgba(255,255,255,0.92)';
+
+  // BlurView tint
+  const blurTint = theme.isDark ? 'dark' : 'systemUltraThinMaterialLight';
+
   return (
     <View style={[bottomTabBarStyles.wrapper, { height: CONTAINER_H }]}>
       {/* Frosted pill bar */}
       <View style={bottomTabBarStyles.pill}>
         {Platform.OS === 'ios' ? (
           <BlurView
-            intensity={80}
-            tint="systemUltraThinMaterialLight"
-            style={[
-              bottomTabBarStyles.blurLayer,
-              // When not scrolled, override blur with solid background
-              !isScrolled && { backgroundColor: theme.colors.background },
-            ]}
+            intensity={theme.isDark ? 60 : 80}
+            tint={blurTint}
+            style={[bottomTabBarStyles.blurLayer, !isScrolled && { backgroundColor: solidBg }]}
           />
         ) : (
-          // Android fallback — semi-transparent solid background
-          <View
-            style={[
-              bottomTabBarStyles.blurLayer,
-              { backgroundColor: theme.isDark ? 'rgba(0,0,0,0.92)' : 'rgba(255,255,255,0.92)' },
-            ]}
-          />
+          <View style={[bottomTabBarStyles.blurLayer, { backgroundColor: androidPillBg }]} />
         )}
-        <View style={bottomTabBarStyles.pillTint} />
+        {/* Tint overlay — nearly invisible in dark, subtle in light */}
+        <View style={[bottomTabBarStyles.pillTint, { backgroundColor: pillTintColor }]} />
       </View>
 
-      {/* Tab icons — overlaid on blur, never clipped by pill */}
+      {/* Tab icons */}
       <View style={bottomTabBarStyles.tabRow}>
         <View style={bottomTabBarStyles.side}>
           {leftTabs.map((tab) => (
@@ -83,7 +99,6 @@ export default function BottomTabBar({ state, navigation }: BottomTabBarProps) {
           ))}
         </View>
 
-        {/* Spacer for FAB */}
         <View style={{ width: FAB_TOTAL + 8 }} />
 
         <View style={bottomTabBarStyles.side}>
@@ -99,13 +114,15 @@ export default function BottomTabBar({ state, navigation }: BottomTabBarProps) {
         </View>
       </View>
 
-      {/* FAB — centered, straddles pill top edge */}
+      {/* FAB */}
       <TouchableOpacity
         style={[
           bottomTabBarStyles.fabRing,
           {
             left: SCREEN_CENTER_X - FAB_TOTAL / 2,
             bottom: FAB_OVERHANG - FAB_TOTAL / 2,
+            backgroundColor: fabRingBg,
+            borderColor: fabRingBorder,
           },
         ]}
         onPress={() => handlePress('AIAssistant')}

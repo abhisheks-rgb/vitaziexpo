@@ -5,8 +5,8 @@ import AppImage from '../../../../components/AppImage';
 import AppText from '../../../../components/AppText';
 import { AppImages } from '../../../../constants';
 import { useTheme } from '../../../../theme';
-import type { Appointment } from '../../types/appointments.types';
 
+import { Appointment } from '../../../../domain/Appointments/models/Appointment';
 import { createStyles } from './styles';
 
 interface Props {

@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { getUpcomingAppointments } from '../../application/appoinments/getUpcomingAppointments';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
+import type { Appointment } from '../../domain/Appointments/models/Appointment';
 import { useScrollStore } from '../../hooks/useScrollStore';
 import type { HomeScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
@@ -22,25 +23,30 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
   const theme = useTheme();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
 
   const styles = createHomeStyles(theme);
   const handleScroll = useScrollStore((state) => state.handleScroll);
+
   useEffect(() => {
     getAppoinments();
   }, []);
+
   const getAppoinments = async () => {
     setError('');
     setIsLoading(true);
     try {
-      await getUpcomingAppointments('');
-      console.log('Appoinments fetched successfully');
+      const data = await getUpcomingAppointments('');
+      setAppointments(data);
     } catch (e: any) {
-      console.log('e.message');
       setError(e.message ?? 'Not implemented');
     } finally {
       setIsLoading(false);
     }
   };
+
+  const hasAppointments = error === '' && appointments.length > 0;
+
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
       <BackgroundBlobs />
@@ -59,9 +65,18 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
           onAppointmentsPress={() => navigation.navigate('Appointments')}
           onChatHistoryPress={() => navigation.navigate('ChatHistory')}
         />
+
         {error === '' ? <LatestScreeningCard /> : <EmptyLatestScreeningCard />}
 
-        {error === '' ? <UpcomingAppointmentCard /> : <EmptyUpcomingAppointmentCard />}
+        {hasAppointments ? (
+          <UpcomingAppointmentCard
+            appointments={appointments}
+            isLoading={isLoading}
+            onViewAll={() => navigation.navigate('Appointments')}
+          />
+        ) : (
+          <EmptyUpcomingAppointmentCard />
+        )}
 
         <View style={{ height: Spacing.xl }} />
       </ScrollView>
@@ -73,7 +88,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
           left: 0,
           right: 0,
         }}
-       />
+      />
     </SafeAreaView>
   );
 }

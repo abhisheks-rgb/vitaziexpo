@@ -5,7 +5,7 @@ import AppImage from '../../../components/AppImage';
 import AppText from '../../../components/AppText';
 import ArrowButton from '../../../components/ArrowButton';
 import Card from '../../../components/Card';
-import { AppImages } from '../../../constants';
+import { AppImages, getLogoByTheme } from '../../../constants';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { Colors, useTheme } from '../../../theme';
 import { createEmptyScreeningStyles } from '../styles/EmptyLatestScreeningCard';
@@ -31,7 +31,7 @@ export default function EmptyLatestScreeningCard() {
               </AppText>
 
               <AppImage
-                source={AppImages.logoLight} // 👈 your AI image
+                source={getLogoByTheme(theme.isDark)}
                 containerStyle={emptyScreeningStyles.aiIcon}
                 contentFit="contain"
               />

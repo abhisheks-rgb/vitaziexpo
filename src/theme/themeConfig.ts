@@ -22,6 +22,7 @@ export interface Theme {
 
     // Brand
     primary: string;
+    buttonPrimary: string;
     accent: string;
     accentSubtle: string;
 
@@ -63,6 +64,7 @@ export const lightTheme: Theme = {
     textInverse: Colors.white,
 
     primary: Colors.navyDark,
+    buttonPrimary: Colors.navyDark,
     accent: Colors.limeGreen,
     accentSubtle: Colors.accentLight,
 
@@ -101,7 +103,8 @@ export const darkTheme: Theme = {
     textInverse: Colors.navyDark,
 
     primary: Colors.white,
-    accent: Colors.limeGreen,
+    buttonPrimary: `${Colors.skyBlue}20`,
+    accent: '#2A2A2A',
     accentSubtle: '#1A2A1A',
 
     border: Colors.borderDark,

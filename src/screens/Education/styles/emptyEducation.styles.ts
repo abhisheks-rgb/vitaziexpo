@@ -13,14 +13,16 @@ export const createEmptyStyles = (theme: Theme) => {
       marginTop: theme.spacing.md,
       padding: theme.spacing.lg,
       borderRadius: theme.radius.lg,
+      flex: 1,
+      width: '100%',
     },
 
     // ── Centered content ──────────────────────────────────────────────────────
     container: {
+      flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
     },
-
     // ── Illustration ──────────────────────────────────────────────────────────
     image: {
       width: 160,

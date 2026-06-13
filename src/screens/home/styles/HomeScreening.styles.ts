@@ -84,7 +84,7 @@ export const createScreeningStyles = (theme: Theme) => {
     // ── Visit review button ───────────────────────────────────────────────────
     visitReviewBtn: {
       ...common.row,
-      backgroundColor: theme.colors.primary,
+      backgroundColor: theme.colors.buttonPrimary,
       paddingLeft: 14,
       paddingRight: 6,
       paddingVertical: 6,

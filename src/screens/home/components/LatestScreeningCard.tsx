@@ -68,7 +68,7 @@ export default function LatestScreeningCard() {
 
         <View style={screeningStyles.followUp}>
           <View style={screeningStyles.followUpIconCircle}>
-            <Feather name="arrow-up-right" size={14} color={Colors.navyDark} />
+            <Feather name="arrow-up-right" size={14} color={theme.colors.primary} />
           </View>
 
           <AppText variant="caption" color={theme.colors.textPrimary} style={{ fontWeight: '600' }}>

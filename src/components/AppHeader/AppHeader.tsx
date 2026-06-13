@@ -3,6 +3,7 @@ import type { ViewStyle } from 'react-native';
 import { View } from 'react-native';
 
 import { AppImages } from '../../constants';
+import { useTheme } from '../../theme';
 import AppImage from '../AppImage';
 import AppText from '../AppText';
 
@@ -28,10 +29,22 @@ export default function AppHeader({
   rightComponent,
   containerStyle,
   showLogo = false,
-  logoPosition = 'center',
 }: AppHeaderProps) {
+  const theme = useTheme();
+
+  const logoSource = theme.isDark ? AppImages.logoLight : AppImages.logoDark;
+
   const renderTitle = () => (
-    <AppText variant="subtitle" numberOfLines={1} style={styles.title}>
+    <AppText
+      variant="subtitle"
+      numberOfLines={1}
+      style={[
+        styles.title,
+        {
+          color: theme.colors.textPrimary,
+        },
+      ]}
+    >
       {title}
     </AppText>
   );
@@ -48,9 +61,10 @@ export default function AppHeader({
       {/* CENTER */}
       <View style={styles.centerContainer}>
         {titlePosition === 'center' && title ? renderTitle() : null}
+
         {showLogo && (
           <AppImage
-            source={AppImages.logoDark}
+            source={logoSource}
             containerStyle={styles.logo}
             contentFit="contain"
             showLoader={false}

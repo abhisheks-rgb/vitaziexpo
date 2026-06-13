@@ -78,3 +78,6 @@ export const AppImages = {
   noDoctorChat: noDoctorChat,
   noAppointments: noAppointments,
 } as const;
+
+export const getLogoByTheme = (isDark: boolean) =>
+  isDark ? AppImages.logoDark : AppImages.logoLight;

@@ -2,8 +2,8 @@ import { Text, TouchableOpacity, View } from 'react-native';
 
 import AppImage from '../../../components/AppImage';
 import ArrowButton from '../../../components/ArrowButton';
+import { Clinic } from '../../../infrastructure/Clinic/model/clinic';
 import { useTheme } from '../../../theme';
-import type { Clinic } from '../data';
 import { createClinicListStyles } from '../styles/clinicList.styles';
 
 type Props = {

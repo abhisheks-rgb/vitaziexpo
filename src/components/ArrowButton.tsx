@@ -1,7 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import { StyleSheet, View, type ViewProps } from 'react-native';
 
-import { Colors, Spacing } from '../theme';
+import { Spacing, useTheme } from '../theme';
 
 interface Props extends ViewProps {
   backgroundColor?: string;
@@ -17,6 +17,7 @@ const ICON_SIZE: Record<ButtonSize, number> = {
   md: Spacing.md,
   lg: Spacing.lg,
 };
+
 const BUTTON_SIZE: Record<ButtonSize, number> = {
   sm: Spacing.md,
   md: Spacing.lg,
@@ -25,27 +26,33 @@ const BUTTON_SIZE: Record<ButtonSize, number> = {
 
 export default function ArrowButton({
   icon = 'chevron-right',
-  iconColor = Colors.navyDark,
+  iconColor,
   size = 'md',
-  backgroundColor = Colors.white,
+  backgroundColor,
   style,
 }: Props) {
+  const theme = useTheme();
+
   return (
     <View
       style={[
-        style,
         styles.visitReviewArrow,
-        { width: BUTTON_SIZE[size], height: BUTTON_SIZE[size], backgroundColor: backgroundColor },
+        {
+          width: BUTTON_SIZE[size],
+          height: BUTTON_SIZE[size],
+          backgroundColor: backgroundColor ?? theme.colors.surface,
+        },
+        style,
       ]}
     >
-      <Feather name={icon} size={ICON_SIZE[size]} color={iconColor} />
+      <Feather name={icon} size={ICON_SIZE[size]} color={iconColor ?? theme.colors.textPrimary} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   visitReviewArrow: {
-    borderRadius: 50,
+    borderRadius: 999,
     alignItems: 'center',
     justifyContent: 'center',
   },

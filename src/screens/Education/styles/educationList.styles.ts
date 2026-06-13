@@ -30,18 +30,24 @@ export const createEducationistStyles = (theme: Theme) => {
     toggleBtnActive: common.toggleBtnActive,
 
     // ── Grid layout ──────────────────────────────────────────────────────────
-      gridContent: {
-    paddingHorizontal: 16,
-    paddingBottom: 32,
-    gap: 12,
-  },
-  gridRow: {
-    gap: 12,
-    justifyContent: 'space-between',
-  },
+    gridContent: {
+      paddingHorizontal: 16,
+      paddingBottom: 32,
+      gap: 12,
+    },
+    gridRow: {
+      gap: 12,
+      justifyContent: 'space-between',
+    },
 
-   listContent: {
-    paddingBottom: 32,
-  },
+    listContent: {
+      paddingBottom: 32,
+    },
+    emptyContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingHorizontal: 16,
+    },
   });
 };

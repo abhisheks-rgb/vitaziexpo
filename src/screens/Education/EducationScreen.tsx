@@ -1,9 +1,6 @@
-// File: Education/EducationScreen.tsx
-
 import { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, FlatList, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 
 import { getEducationList } from '../../application/education/getEducation';
 import AppHeader from '../../components/AppHeader';
@@ -21,70 +18,70 @@ import { createEducationistStyles } from './styles/educationList.styles';
 
 export default function EducationScreen({ navigation }: { navigation: any }) {
   const theme = useTheme();
-   const { t } = useTranslation();
-  const { viewMode, setViewMode, showImages, setShowImages, } = useEducation();
+  const { t } = useTranslation();
+  const { viewMode, setViewMode, showImages, setShowImages } = useEducation();
   const handleScroll = useScrollStore((state) => state.handleScroll);
   const isGrid = viewMode === 'grid';
 
-    const [educationList, setEducationList] = useState<EducationMaterial[]>([]);
-    const [error, setError] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const [isRefreshing, setIsRefreshing] = useState(false);
-    const styles = useMemo(() => createEducationistStyles(theme), [theme]);
+  const [educationList, setEducationList] = useState<EducationMaterial[]>([]);
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const styles = useMemo(() => createEducationistStyles(theme), [theme]);
   const activeColor = theme.colors.textPrimary;
   const inactiveColor = theme.colors.textSecondary;
 
-    const ListIcon = ({ color }: { color: string }) => (
-  <View style={{ gap: 3, paddingHorizontal: 2 }}>
-    {[0, 1, 2].map((i) => (
-      <View key={i} style={{ height: 2, width: 18, borderRadius: 1, backgroundColor: color }} />
-    ))}
-  </View>
-);
+  const ListIcon = ({ color }: { color: string }) => (
+    <View style={{ gap: 3, paddingHorizontal: 2 }}>
+      {[0, 1, 2].map((i) => (
+        <View key={i} style={{ height: 2, width: 18, borderRadius: 1, backgroundColor: color }} />
+      ))}
+    </View>
+  );
 
-const GridIcon = ({ color }: { color: string }) => (
-  <View style={{ flexDirection: 'row', flexWrap: 'wrap', width: 18, gap: 3 }}>
-    {[0, 1, 2, 3].map((i) => (
-      <View key={i} style={{ width: 7, height: 7, borderRadius: 1.5, backgroundColor: color }} />
-    ))}
-  </View>
-);
+  const GridIcon = ({ color }: { color: string }) => (
+    <View style={{ flexDirection: 'row', flexWrap: 'wrap', width: 18, gap: 3 }}>
+      {[0, 1, 2, 3].map((i) => (
+        <View key={i} style={{ width: 7, height: 7, borderRadius: 1.5, backgroundColor: color }} />
+      ))}
+    </View>
+  );
 
-    const fetchEducationList = async (refresh = false) => {
-      setError('');
-      refresh ? setIsRefreshing(true) : setIsLoading(true);
-      try {
-        const data = await getEducationList('123');
-        setEducationList(data);
-      } catch (e: any) {
-        setError(e.message ?? 'Something went wrong');
-      } finally {
-        refresh ? setIsRefreshing(false) : setIsLoading(false);
-      }
-    };
+  const fetchEducationList = async (refresh = false) => {
+    setError('');
+    refresh ? setIsRefreshing(true) : setIsLoading(true);
+    try {
+      const data = await getEducationList('123');
+      setEducationList(data);
+    } catch (e: any) {
+      setError(e.message ?? 'Something went wrong');
+    } finally {
+      refresh ? setIsRefreshing(false) : setIsLoading(false);
+    }
+  };
 
-    useEffect(() => {
-      fetchEducationList();
-    }, []);
+  useEffect(() => {
+    fetchEducationList();
+  }, []);
 
-      const toggleRight = (
-        <View style={styles.toggleWrap}>
-          <TouchableOpacity
-            style={[styles.toggleBtn, !isGrid && styles.toggleBtnActive]}
-            onPress={() => setViewMode('list')}
-            activeOpacity={0.7}
-          >
-            <ListIcon color={!isGrid ? activeColor : inactiveColor} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.toggleBtn, isGrid && styles.toggleBtnActive]}
-            onPress={() => setViewMode('grid')}
-            activeOpacity={0.7}
-          >
-            <GridIcon color={isGrid ? activeColor : inactiveColor} />
-          </TouchableOpacity>
-        </View>
-      );
+  const toggleRight = (
+    <View style={styles.toggleWrap}>
+      <TouchableOpacity
+        style={[styles.toggleBtn, !isGrid && styles.toggleBtnActive]}
+        onPress={() => setViewMode('list')}
+        activeOpacity={0.7}
+      >
+        <ListIcon color={!isGrid ? activeColor : inactiveColor} />
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.toggleBtn, isGrid && styles.toggleBtnActive]}
+        onPress={() => setViewMode('grid')}
+        activeOpacity={0.7}
+      >
+        <GridIcon color={isGrid ? activeColor : inactiveColor} />
+      </TouchableOpacity>
+    </View>
+  );
 
   return (
     <SafeAreaView
@@ -93,17 +90,17 @@ const GridIcon = ({ color }: { color: string }) => (
     >
       <BackgroundBlobs />
 
-       <AppHeader
-              title={t('educationTitle')}
-              titlePosition="left"
-              showBackButton={false}
-              onBackPress={() => navigation.goBack()}
-              rightComponent={toggleRight}
-            />
+      <AppHeader
+        title={t('educationTitle')}
+        titlePosition="left"
+        showBackButton={false}
+        onBackPress={() => navigation.goBack()}
+        rightComponent={toggleRight}
+      />
 
       <ImagesToggle value={showImages} onToggle={setShowImages} />
 
-             {isLoading? (
+      {isLoading ? (
         <View
           style={{
             flex: 1,
@@ -111,13 +108,13 @@ const GridIcon = ({ color }: { color: string }) => (
             alignItems: 'center',
           }}
         >
-          <ActivityIndicator
-            size="large"
-            color={theme.colors.primary}
-          />
-        </View>): educationList.length=== 0? <EmptyEducationListCard/>:
-
-      isGrid ? (
+          <ActivityIndicator size="large" color={theme.colors.primary} />
+        </View>
+      ) : educationList.length === 0 ? (
+        <View style={styles.emptyContainer}>
+          <EmptyEducationListCard />
+        </View>
+      ) : isGrid ? (
         <FlatList
           onScroll={handleScroll}
           data={educationList}
@@ -161,8 +158,8 @@ const GridIcon = ({ color }: { color: string }) => (
 // const styles = StyleSheet.create({
 //   screen: { flex: 1 },
 
-  // listContent: {
-  //   paddingBottom: 32,
-  // },
+// listContent: {
+//   paddingBottom: 32,
+// },
 
 // });

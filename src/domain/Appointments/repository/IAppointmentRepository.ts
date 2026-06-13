@@ -5,6 +5,7 @@ import type { Appointment } from '../models/Appointment';
  */
 export interface IAppointmentRepository {
   getUpcoming(userId: string): Promise<Appointment[]>;
+  getPast(userId: string): Promise<Appointment[]>;
   getById(appointmentId: string): Promise<Appointment>;
   confirm(appointmentId: string): Promise<Appointment>;
   reschedule(appointmentId: string, newDateTime: string): Promise<Appointment>;

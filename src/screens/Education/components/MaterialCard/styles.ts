@@ -101,20 +101,18 @@ export const createStyles = (theme: Theme) =>
       fontSize: 11,
       color: theme.colors.textSecondary,
     },
-    listChevron: {
-      width: 28,
-      height: 28,
-      borderRadius: 14,
-      borderWidth: 1.5,
+    chevronWrap: {
+      borderRadius: 15,
+      borderWidth: 1,
       borderColor: theme.colors.border,
       alignItems: 'center',
       justifyContent: 'center',
-      marginLeft: 8,
+      flexShrink: 0,
     },
-    listChevronText: {
-      fontSize: 14,
+    chevron: {
+      fontSize: 18,
       color: theme.colors.textPrimary,
-      marginLeft: 2,
+      fontWeight: '500',
     },
 
     // ── Shared thumbnail overlays ─────────────────────────────────────────
@@ -163,5 +161,10 @@ export const createStyles = (theme: Theme) =>
     },
     listVideoIcon: {
       fontSize: 20,
+    },
+
+    headerIcon: {
+      width: 16,
+      height: 16,
     },
   });

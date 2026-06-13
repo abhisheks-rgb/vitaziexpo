@@ -1,27 +1,66 @@
-import { useMemo, useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { useEffect, useMemo, useState } from 'react';
+import { ActivityIndicator, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AppHeader from '../../components/AppHeader';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
+import type { Appointment } from '../../domain/Appointments/models/Appointment';
 import { useInteractionReady } from '../../hooks/useInteractionReady';
 import { useTheme } from '../../theme';
 import { createCommonStyles } from '../../theme/styles';
 
+import {
+  getPastAppointments,
+  getUpcomingAppointments,
+} from '../../application/appoinments/getUpcomingAppointments';
 import AppointmentCard from './components/AppointmentCard/AppointmentCard';
 import AppointmentDetailsScreen from './components/AppointmentDetails/AppointmentDetailsScreen';
 import AppointmentTabBar from './components/AppointmentTabBar/AppointmentTabBar';
-import { useAppointments } from './hooks/useAppointments';
-import type { Appointment } from './types/appointments.types';
+
+// ─── Hook ─────────────────────────────────────────────────────────────────────
+
+function useAppointments() {
+  const [activeTab, setActiveTab] = useState<'Upcoming' | 'Past'>('Upcoming');
+  const [upcoming, setUpcoming] = useState<Appointment[]>([]);
+  const [past, setPast] = useState<Appointment[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetch = async () => {
+      setIsLoading(true);
+      setError('');
+      try {
+        const [upcomingData, pastData] = await Promise.all([
+          getUpcomingAppointments(''),
+          getPastAppointments(''),
+        ]);
+        setUpcoming(upcomingData);
+        setPast(pastData);
+      } catch (e: any) {
+        setError(e.message ?? 'Failed to load appointments');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetch();
+  }, []);
+
+  const appointments = activeTab === 'Upcoming' ? upcoming : past;
+
+  return { activeTab, setActiveTab, appointments, isLoading, error };
+}
+
+// ─── Screen ───────────────────────────────────────────────────────────────────
 
 export default function AppointmentsScreen({ navigation }: { navigation: any }) {
   const theme = useTheme();
   const common = createCommonStyles(theme);
-  const { activeTab, setActiveTab, appointments } = useAppointments();
+  const { activeTab, setActiveTab, appointments, isLoading, error } = useAppointments();
   const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null);
   const isReady = useInteractionReady();
 
-  // Light blue tint — specific to this screen, same as AI Assistant
   const screenStyle = useMemo(() => [common.screen, { backgroundColor: '#EBF0F7' }], [theme]);
 
   if (selectedAppointment) {
@@ -51,9 +90,16 @@ export default function AppointmentsScreen({ navigation }: { navigation: any }) 
         contentContainerStyle={{ paddingTop: theme.spacing.xs }}
         showsVerticalScrollIndicator={false}
       >
-        {appointments.map((appt) => (
-          <AppointmentCard key={appt.id} appointment={appt} onPress={setSelectedAppointment} />
-        ))}
+        {isLoading && (
+          <ActivityIndicator color={theme.colors.primary} style={{ marginTop: theme.spacing.xl }} />
+        )}
+
+        {!isLoading &&
+          !error &&
+          appointments.map((appt) => (
+            <AppointmentCard key={appt.id} appointment={appt} onPress={setSelectedAppointment} />
+          ))}
+
         <View style={{ height: theme.spacing.lg }} />
       </ScrollView>
     </SafeAreaView>

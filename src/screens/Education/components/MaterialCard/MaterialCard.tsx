@@ -1,13 +1,14 @@
-// File: Education/components/MaterialCard/MaterialCard.tsx
-
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import type { EducationMaterial, ViewMode } from '../../../../application/education/types/education.types';
+import type { ViewMode } from '../../../../application/education/types/education.types';
 import AppImage from '../../../../components/AppImage';
 import { DurationChip } from '../../../../components/DurationChip';
 import { PlayButton } from '../../../../components/PlayButton';
 import { useTheme } from '../../../../theme';
 
+import ArrowButton from '../../../../components/ArrowButton';
+import { AppImages } from '../../../../constants';
+import { EducationMaterial } from '../../../../domain/education/models/educationMaterial';
 import { createStyles } from './styles';
 
 interface Props {
@@ -47,7 +48,10 @@ function DocThumbnail({ material, style }: { material: EducationMaterial; style:
         showLoader={false}
       />
       <View style={styles.docHeader}>
-        <Text style={styles.docHeaderIcon}>{material.type === 'pdf' ? '📄' : '📝'}</Text>
+        <AppImage
+          source={material.type === 'pdf' ? AppImages.pdf : AppImages.doc}
+          containerStyle={styles.headerIcon}
+        />
         <Text style={styles.docHeaderName} numberOfLines={1}>
           {material.fileName ?? material.title}
         </Text>
@@ -77,9 +81,10 @@ export default function MaterialCard({ material, viewMode, showImages, onPress }
           )
         ) : (
           <View style={styles.listIconWrap}>
-            <Text style={isVideo ? styles.listVideoIcon : styles.listDocIcon}>
-              {isVideo ? '▶️' : material.type === 'pdf' ? '📄' : '📝'}
-            </Text>
+            <AppImage
+              source={material.type === 'pdf' ? AppImages.pdf : AppImages.doc}
+              containerStyle={styles.headerIcon}
+            />
           </View>
         )}
 
@@ -93,9 +98,7 @@ export default function MaterialCard({ material, viewMode, showImages, onPress }
           {material.duration && <Text style={styles.listMeta}>{material.duration}</Text>}
         </View>
 
-        <View style={styles.listChevron}>
-          <Text style={styles.listChevronText}>›</Text>
-        </View>
+        <ArrowButton style={styles.chevronWrap} size="md" />
       </TouchableOpacity>
     );
   }
