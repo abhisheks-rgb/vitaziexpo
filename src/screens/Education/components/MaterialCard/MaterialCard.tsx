@@ -2,13 +2,13 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import type { ViewMode } from '../../../../application/education/types/education.types';
 import AppImage from '../../../../components/AppImage';
+import ArrowButton from '../../../../components/ArrowButton';
 import { DurationChip } from '../../../../components/DurationChip';
 import { PlayButton } from '../../../../components/PlayButton';
+import { AppImages } from '../../../../constants';
+import type { EducationMaterial } from '../../../../domain/education/models/educationMaterial';
 import { useTheme } from '../../../../theme';
 
-import ArrowButton from '../../../../components/ArrowButton';
-import { AppImages } from '../../../../constants';
-import { EducationMaterial } from '../../../../domain/education/models/educationMaterial';
 import { createStyles } from './styles';
 
 interface Props {

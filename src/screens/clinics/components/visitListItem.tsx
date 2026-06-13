@@ -5,7 +5,7 @@ import AppText from '../../../components/AppText';
 import ArrowButton from '../../../components/ArrowButton';
 import { AppImages } from '../../../constants';
 import { useTranslation } from '../../../hooks/useTranslation';
-import { ClinicVisit } from '../../../infrastructure/Clinic/model/clinic';
+import type { ClinicVisit } from '../../../infrastructure/Clinic/model/clinic';
 import { Colors, useTheme } from '../../../theme';
 import { createVisitStyles } from '../styles/clinicVisits.styles';
 

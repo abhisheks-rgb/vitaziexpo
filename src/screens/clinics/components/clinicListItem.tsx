@@ -2,7 +2,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 
 import AppImage from '../../../components/AppImage';
 import ArrowButton from '../../../components/ArrowButton';
-import { Clinic } from '../../../infrastructure/Clinic/model/clinic';
+import type { Clinic } from '../../../infrastructure/Clinic/model/clinic';
 import { useTheme } from '../../../theme';
 import { createClinicListStyles } from '../styles/clinicList.styles';
 

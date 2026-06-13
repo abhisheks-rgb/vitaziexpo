@@ -25,7 +25,7 @@ class AppointmentRepositoryMock implements IAppointmentRepository {
     await mockDelay();
     const all = [...APPOINTMENTS_MOCK, ...PAST_APPOINTMENTS_MOCK];
     const appt = all.find((a) => a.id === appointmentId);
-    if (!appt) throw new Error(`Mock: appointment ${appointmentId} not found`);
+    if (!appt) {throw new Error(`Mock: appointment ${appointmentId} not found`);}
     return appt;
   }
 

@@ -2,6 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import {
+  getPastAppointments,
+  getUpcomingAppointments,
+} from '../../application/appoinments/getUpcomingAppointments';
 import AppHeader from '../../components/AppHeader';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import type { Appointment } from '../../domain/Appointments/models/Appointment';
@@ -9,10 +13,6 @@ import { useInteractionReady } from '../../hooks/useInteractionReady';
 import { useTheme } from '../../theme';
 import { createCommonStyles } from '../../theme/styles';
 
-import {
-  getPastAppointments,
-  getUpcomingAppointments,
-} from '../../application/appoinments/getUpcomingAppointments';
 import AppointmentCard from './components/AppointmentCard/AppointmentCard';
 import AppointmentDetailsScreen from './components/AppointmentDetails/AppointmentDetailsScreen';
 import AppointmentTabBar from './components/AppointmentTabBar/AppointmentTabBar';

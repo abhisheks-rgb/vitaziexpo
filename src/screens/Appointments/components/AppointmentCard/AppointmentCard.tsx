@@ -4,9 +4,9 @@ import { TouchableOpacity, View } from 'react-native';
 import AppImage from '../../../../components/AppImage';
 import AppText from '../../../../components/AppText';
 import { AppImages } from '../../../../constants';
+import type { Appointment } from '../../../../domain/Appointments/models/Appointment';
 import { useTheme } from '../../../../theme';
 
-import { Appointment } from '../../../../domain/Appointments/models/Appointment';
 import { createStyles } from './styles';
 
 interface Props {

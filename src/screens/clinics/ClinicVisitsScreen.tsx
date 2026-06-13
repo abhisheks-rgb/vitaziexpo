@@ -7,10 +7,10 @@ import AppHeader from '../../components/AppHeader';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { useScrollStore } from '../../hooks/useScrollStore';
 import { useTranslation } from '../../hooks/useTranslation';
+import type { Clinic } from '../../infrastructure/Clinic/model/clinic';
 import type { ClinicVisitsScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
 
-import { Clinic } from '../../infrastructure/Clinic/model/clinic';
 import EmptyClinicVisitsCard from './components/EmptyClinicVisitsCard';
 import VisitGridItem from './components/visitGridItem';
 import VisitListItem from './components/visitListItem';
