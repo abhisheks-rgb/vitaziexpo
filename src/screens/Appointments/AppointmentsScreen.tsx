@@ -61,7 +61,7 @@ export default function AppointmentsScreen({ navigation }: { navigation: any }) 
   const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null);
   const isReady = useInteractionReady();
 
-  const screenStyle = useMemo(() => [common.screen, { backgroundColor: '#EBF0F7' }], [theme]);
+  const screenStyle = useMemo(() => [common.screen], [theme]);
 
   if (selectedAppointment) {
     return (

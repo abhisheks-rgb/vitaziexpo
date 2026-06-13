@@ -10,8 +10,6 @@ export const createAIAssistantStyles = (theme: Theme) => {
     // ── Screen ────────────────────────────────────────────────────────────────
     screen: {
       ...common.screen,
-      // Light blue tint background specific to AI Assistant
-      backgroundColor: '#EBF0F7',
     },
     flex: {
       flex: 1,

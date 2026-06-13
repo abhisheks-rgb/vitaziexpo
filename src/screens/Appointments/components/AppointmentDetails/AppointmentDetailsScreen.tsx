@@ -6,9 +6,9 @@ import AppImage from '../../../../components/AppImage';
 import AppText from '../../../../components/AppText';
 import BackgroundBlobs from '../../../../components/BackgroundBlobs';
 import { AppImages } from '../../../../constants';
-import { useTheme } from '../../../../theme';
-import type { Appointment } from '../../types/appointments.types';
+import { Colors, useTheme } from '../../../../theme';
 
+import { Appointment } from '../../../../domain/Appointments/models/Appointment';
 import { createStyles } from './styles';
 
 interface Props {
@@ -63,7 +63,11 @@ export default function AppointmentDetailsScreen({ appointment, navigation }: Pr
           {/* Date & Time */}
           <View style={styles.infoRow}>
             <View style={styles.infoIconWrap}>
-              <AppImage source={AppImages.calendarAppt} containerStyle={styles.infoIcon} />
+              <AppImage
+                source={AppImages.calendarAppt}
+                containerStyle={styles.infoIcon}
+                tintColor={theme.isDark ? Colors.skyBlue : Colors.navyDark}
+              />
             </View>
             <View style={styles.infoTextWrap}>
               <AppText style={styles.infoLabel}>Date & Time</AppText>
@@ -78,7 +82,11 @@ export default function AppointmentDetailsScreen({ appointment, navigation }: Pr
           {/* Clinic */}
           <View style={styles.infoRow}>
             <View style={styles.infoIconWrap}>
-              <AppImage source={AppImages.location} containerStyle={styles.infoIcon} />
+              <AppImage
+                source={AppImages.location}
+                containerStyle={styles.infoIcon}
+                tintColor={theme.isDark ? Colors.skyBlue : Colors.navyDark}
+              />
             </View>
             <View style={styles.infoTextWrap}>
               <AppText style={styles.infoLabel}>{clinic.name}</AppText>
@@ -89,7 +97,11 @@ export default function AppointmentDetailsScreen({ appointment, navigation }: Pr
           {/* Appointment Type */}
           <View style={[styles.infoRow, { marginBottom: 0 }]}>
             <View style={styles.infoIconWrap}>
-              <AppImage source={AppImages.doctorSethoscope} containerStyle={styles.infoIcon} />
+              <AppImage
+                source={AppImages.doctorSethoscope}
+                containerStyle={styles.infoIcon}
+                tintColor={theme.isDark ? Colors.skyBlue : Colors.navyDark}
+              />
             </View>
             <View style={styles.infoTextWrap}>
               <AppText style={styles.infoLabel}>Appointment Type</AppText>

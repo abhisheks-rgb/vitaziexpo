@@ -10,7 +10,7 @@ export const createStyles = (theme: Theme) => {
     // ── Card ──────────────────────────────────────────────────────────────────
     card: {
       ...common.card,
-      backgroundColor: theme.colors.background,
+      backgroundColor: theme.colors.surface, // ← was theme.colors.background
       borderRadius: 18,
       marginHorizontal: theme.spacing.md,
       marginBottom: 14,
@@ -126,6 +126,20 @@ export const createStyles = (theme: Theme) => {
       ...theme.typography.caption,
       fontFamily: theme.typography.button.fontFamily,
       color: '#006064',
+    },
+
+    chevronWrap: {
+      borderRadius: 15,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexShrink: 0,
+    },
+    chevron: {
+      fontSize: 18,
+      color: theme.colors.textPrimary,
+      fontWeight: '500',
     },
   });
 };

@@ -9,7 +9,7 @@ export const createStyles = (theme: Theme) => {
   // Reusable card shape for this screen — slightly stronger shadow than common.card
   const detailCard = {
     ...common.card,
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.surface, // ← was theme.colors.background
     borderRadius: 18,
     marginHorizontal: theme.spacing.md,
     padding: theme.spacing.md,
@@ -23,7 +23,6 @@ export const createStyles = (theme: Theme) => {
     // ── Screen & Scroll ───────────────────────────────────────────────────────
     screen: {
       ...common.screen,
-      backgroundColor: '#EBF0F7',
     },
     scroll: common.scroll,
     scrollContent: {

@@ -3,8 +3,8 @@ import { TouchableOpacity, View } from 'react-native';
 
 import AppText from '../../../../components/AppText';
 import { useTheme } from '../../../../theme';
-import type { AppointmentTab } from '../../types/appointments.types';
 
+import { AppointmentTab } from '../../types.ts/appointment_types';
 import { createStyles } from './styles';
 
 interface Props {

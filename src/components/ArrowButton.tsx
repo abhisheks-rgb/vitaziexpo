@@ -1,6 +1,5 @@
 import { Feather } from '@expo/vector-icons';
-import { StyleSheet, View, type ViewProps } from 'react-native';
-
+import { StyleSheet, TouchableOpacity, View, type ViewProps } from 'react-native';
 import { Spacing, useTheme } from '../theme';
 
 interface Props extends ViewProps {
@@ -8,6 +7,7 @@ interface Props extends ViewProps {
   iconColor?: string;
   icon?: 'chevron-right' | 'chevron-left';
   size?: ButtonSize;
+  onPress?: () => void;
 }
 
 export type ButtonSize = 'sm' | 'md' | 'lg';
@@ -30,28 +30,39 @@ export default function ArrowButton({
   size = 'md',
   backgroundColor,
   style,
+  onPress,
 }: Props) {
   const theme = useTheme();
 
-  return (
+  const content = (
     <View
       style={[
-        styles.visitReviewArrow,
+        styles.arrow,
         {
           width: BUTTON_SIZE[size],
           height: BUTTON_SIZE[size],
           backgroundColor: backgroundColor ?? theme.colors.surface,
         },
-        style,
+        !onPress && style, // apply style here when not wrapped in TouchableOpacity
       ]}
     >
       <Feather name={icon} size={ICON_SIZE[size]} color={iconColor ?? theme.colors.textPrimary} />
     </View>
   );
+
+  if (onPress) {
+    return (
+      <TouchableOpacity onPress={onPress} activeOpacity={0.7} style={style}>
+        {content}
+      </TouchableOpacity>
+    );
+  }
+
+  return content;
 }
 
 const styles = StyleSheet.create({
-  visitReviewArrow: {
+  arrow: {
     borderRadius: 999,
     alignItems: 'center',
     justifyContent: 'center',

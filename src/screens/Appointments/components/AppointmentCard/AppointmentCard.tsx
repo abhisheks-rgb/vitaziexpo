@@ -1,12 +1,13 @@
 import { memo, useMemo } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 
 import AppImage from '../../../../components/AppImage';
 import AppText from '../../../../components/AppText';
 import { AppImages } from '../../../../constants';
 import type { Appointment } from '../../../../domain/Appointments/models/Appointment';
-import { useTheme } from '../../../../theme';
+import { Colors, useTheme } from '../../../../theme';
 
+import ArrowButton from '../../../../components/ArrowButton';
 import { createStyles } from './styles';
 
 interface Props {
@@ -63,18 +64,16 @@ function AppointmentCard({ appointment, onPress }: Props) {
             {doctor.specialty}
           </AppText>
         </View>
-        <TouchableOpacity
-          style={styles.chevronBtn}
-          onPress={() => onPress(appointment)}
-          activeOpacity={0.7}
-        >
-          <AppText style={styles.chevronText}>›</AppText>
-        </TouchableOpacity>
+        <ArrowButton style={styles.chevronWrap} size="md" onPress={() => onPress(appointment)} />
       </View>
 
       {/* Location row */}
       <View style={styles.locationRow}>
-        <AppImage source={AppImages.location} containerStyle={styles.locationIcon} />
+        <AppImage
+          source={AppImages.location}
+          containerStyle={styles.locationIcon}
+          tintColor={theme.isDark ? Colors.skyBlue : Colors.navyDark}
+        />
         <View style={styles.locationInfo}>
           <AppText style={styles.clinicName}>{clinic.name}</AppText>
           <AppText style={styles.clinicAddress}>{clinic.address}</AppText>
