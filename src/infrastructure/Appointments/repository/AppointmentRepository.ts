@@ -19,14 +19,14 @@ class AppointmentRepositoryMock implements IAppointmentRepository {
   async getById(appointmentId: string): Promise<Appointment> {
     await mockDelay();
     const appt = this.appointments.find((a) => a.id === appointmentId);
-    if (!appt) throw new Error(`Mock: appointment ${appointmentId} not found`);
+    if (!appt) {throw new Error(`Mock: appointment ${appointmentId} not found`);}
     return { ...appt };
   }
 
   async confirm(appointmentId: string): Promise<Appointment> {
     await mockDelay();
     const idx = this.appointments.findIndex((a) => a.id === appointmentId);
-    if (idx === -1) throw new Error(`Mock: appointment ${appointmentId} not found`);
+    if (idx === -1) {throw new Error(`Mock: appointment ${appointmentId} not found`);}
     this.appointments[idx] = { ...this.appointments[idx], isConfirmed: true };
     return { ...this.appointments[idx] };
   }
@@ -34,7 +34,7 @@ class AppointmentRepositoryMock implements IAppointmentRepository {
   async reschedule(appointmentId: string, newDateTime: string): Promise<Appointment> {
     await mockDelay();
     const idx = this.appointments.findIndex((a) => a.id === appointmentId);
-    if (idx === -1) throw new Error(`Mock: appointment ${appointmentId} not found`);
+    if (idx === -1) {throw new Error(`Mock: appointment ${appointmentId} not found`);}
     this.appointments[idx] = { ...this.appointments[idx], dateTime: newDateTime };
     return { ...this.appointments[idx] };
   }

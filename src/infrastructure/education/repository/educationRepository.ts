@@ -1,6 +1,6 @@
 import { IS_MOCK } from '../../../config/env';
-import { EducationMaterial } from '../../../domain/education/models/educationMaterial';
-import { IEducationRepository } from '../../../domain/education/repository/iEducationRepository';
+import type { EducationMaterial } from '../../../domain/education/models/educationMaterial';
+import type { IEducationRepository } from '../../../domain/education/repository/iEducationRepository';
 import { mockEducationList } from '../../../mockData/mockEducation';
 import { mockDelay } from '../../../mockData/MockHelpers';
 import { apiClient } from '../../api/apiClient';

@@ -1,6 +1,6 @@
+import { useMemo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
-import { useMemo } from 'react';
 import AppImage from '../../../components/AppImage';
 import AppText from '../../../components/AppText';
 import ArrowButton from '../../../components/ArrowButton';

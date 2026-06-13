@@ -1,14 +1,18 @@
 const tsPlugin = require('@typescript-eslint/eslint-plugin');
 const tsParser = require('@typescript-eslint/parser');
 const importPlugin = require('eslint-plugin-import');
+const reactPlugin = require('eslint-plugin-react');
 const reactHooks = require('eslint-plugin-react-hooks');
+const reactNativePlugin = require('eslint-plugin-react-native');
 
 module.exports = [
   {
     ignores: ['node_modules/**', '.expo/**', 'android/**', 'ios/**'],
   },
+
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
+
     languageOptions: {
       parser: tsParser,
       parserOptions: {
@@ -16,21 +20,30 @@ module.exports = [
         sourceType: 'module',
       },
     },
+
     plugins: {
       '@typescript-eslint': tsPlugin,
       import: importPlugin,
+      react: reactPlugin,
       'react-hooks': reactHooks,
+      'react-native': reactNativePlugin,
+    },
+
+    settings: {
+      react: {
+        version: 'detect',
+      },
     },
 
     rules: {
       // ─────────────────────────────────────────────
-      // REACT HOOKS (keep as-is)
+      // REACT HOOKS
       // ─────────────────────────────────────────────
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
 
       // ─────────────────────────────────────────────
-      // IMPORT ORDER (already good, keep)
+      // IMPORTS
       // ─────────────────────────────────────────────
       'import/order': [
         'warn',
@@ -45,40 +58,60 @@ module.exports = [
       ],
 
       'import/no-duplicates': 'error',
-      'import/no-unresolved': 'off', // RN + TS handles this better
+      'import/no-unresolved': 'off',
+
+      // Optional:
+      // Enforce named exports
+      // Disable if your team prefers default exports
+      'import/no-default-export': 'off',
 
       // ─────────────────────────────────────────────
-      // TYPESCRIPT BEST PRACTICES
+      // TYPESCRIPT
       // ─────────────────────────────────────────────
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
 
-      '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/consistent-type-imports': 'warn',
+      '@typescript-eslint/no-explicit-any': [
+        'warn',
+        {
+          ignoreRestArgs: true,
+        },
+      ],
+
+      '@typescript-eslint/consistent-type-imports': [
+        'warn',
+        {
+          prefer: 'type-imports',
+        },
+      ],
+
       '@typescript-eslint/no-empty-function': 'warn',
+      '@typescript-eslint/no-shadow': 'warn',
+
+      // Enable later if you switch to type-aware ESLint
+      // '@typescript-eslint/no-floating-promises': 'error',
 
       // ─────────────────────────────────────────────
-      // CODE QUALITY (AI detection helpers)
-      // ─────────────────────────────────────────────
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
-
-      complexity: ['warn', 10], // detect over-engineered logic
-      'max-depth': ['warn', 4],
-      'max-lines': ['warn', 300],
-      'max-lines-per-function': ['warn', 80],
-
-      // ─────────────────────────────────────────────
-      // NAMING (helps catch AI-style generic names)
+      // NAMING CONVENTIONS
       // ─────────────────────────────────────────────
       '@typescript-eslint/naming-convention': [
         'warn',
+
         {
           selector: 'variable',
-          format: ['camelCase', 'UPPER_CASE'],
+          format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
         },
+
         {
           selector: 'function',
-          format: ['camelCase'],
+          format: ['camelCase', 'PascalCase'],
         },
+
         {
           selector: 'typeLike',
           format: ['PascalCase'],
@@ -86,38 +119,48 @@ module.exports = [
       ],
 
       // ─────────────────────────────────────────────
-      // CUSTOM "AI-SMELL" DETECTION
+      // CODE QUALITY
       // ─────────────────────────────────────────────
-      'no-restricted-syntax': [
+      'prefer-const': 'error',
+
+      eqeqeq: ['error', 'always'],
+
+      curly: ['error', 'all'],
+
+      'no-console': [
         'warn',
         {
-          selector: "Identifier[name='data']",
-          message: "Avoid generic name 'data' — use a meaningful name.",
-        },
-        {
-          selector: "Identifier[name='result']",
-          message: "Avoid generic name 'result' — be specific.",
-        },
-        {
-          selector: "Identifier[name='item']",
-          message: "Avoid generic name 'item' — clarify intent.",
-        },
-        {
-          selector: "Identifier[name='value']",
-          message: "Avoid generic name 'value'.",
-        },
-        {
-          selector: "Identifier[name='temp']",
-          message: "Avoid temporary variable names like 'temp'.",
+          allow: ['warn', 'error'],
         },
       ],
 
-      // ─────────────────────────────────────────────
-      // GENERAL CLEANLINESS
-      // ─────────────────────────────────────────────
       'no-duplicate-imports': 'error',
+
       'no-unused-expressions': 'warn',
+
       'no-useless-return': 'warn',
+
+      // ─────────────────────────────────────────────
+      // REACT
+      // ─────────────────────────────────────────────
+      'react/jsx-no-useless-fragment': 'warn',
+
+      'react/self-closing-comp': 'warn',
+
+      // React 17+ / Expo
+      'react/react-in-jsx-scope': 'off',
+
+      // ─────────────────────────────────────────────
+      // REACT NATIVE
+      // ─────────────────────────────────────────────
+
+      // Useful but can be noisy.
+      // Consider turning on later.
+      'react-native/no-inline-styles': 'off',
+
+      'react-native/no-unused-styles': 'warn',
+
+      'react-native/split-platform-components': 'warn',
     },
   },
 ];

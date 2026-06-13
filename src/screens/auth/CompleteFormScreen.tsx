@@ -58,8 +58,8 @@ export default function CompleteFormScreen({ navigation, route }: CompleteFormSc
     const digits = text.replace(/\D/g, '').slice(0, 8);
     let formatted = digits;
     if (digits.length > 4)
-      formatted = `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`;
-    else if (digits.length > 2) formatted = `${digits.slice(0, 2)}/${digits.slice(2)}`;
+      {formatted = `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`;}
+    else if (digits.length > 2) {formatted = `${digits.slice(0, 2)}/${digits.slice(2)}`;}
     setCompleteForm((prev) => ({ ...prev, dateOfBirth: formatted }));
   };
 
@@ -72,7 +72,7 @@ export default function CompleteFormScreen({ navigation, route }: CompleteFormSc
     completeForm.consentGiven;
 
   const handleSubmit = () => {
-    if (!isValid) return;
+    if (!isValid) {return;}
     // TODO: call completeRegistration use case here.
     // After successful registration, the user is authenticated but
     // has not yet answered the health questionnaire, so we go there next.

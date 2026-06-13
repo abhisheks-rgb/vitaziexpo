@@ -9,11 +9,12 @@ import AppImage from '../../../../components/AppImage';
 import BackgroundBlobs from '../../../../components/BackgroundBlobs';
 import { DurationChip } from '../../../../components/DurationChip';
 import { PlayButton } from '../../../../components/PlayButton';
+import type { EducationMaterial } from '../../../../domain/education/models/educationMaterial';
+import { mockEducationList } from '../../../../mockData/mockEducation';
 import type { MaterialDetailsScreenProps } from '../../../../navigation/types';
 import { useTheme } from '../../../../theme';
 
-import { EducationMaterial } from '../../../../domain/education/models/educationMaterial';
-import { mockEducationList } from '../../../../mockData/mockEducation';
+
 import { createStyles } from './styles';
 
 function SimilarCard({

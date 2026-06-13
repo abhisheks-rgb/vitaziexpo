@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator, ScrollView, Switch, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { getClinicDetails } from '../../application/clinics/getClinics';
 import AppHeader from '../../components/AppHeader';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import { useScrollStore } from '../../hooks/useScrollStore';
@@ -9,12 +10,11 @@ import { useTranslation } from '../../hooks/useTranslation';
 import type { ClinicVisitsScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
 
+import EmptyClinicVisitsCard from './components/EmptyClinicVisitsCard';
 import VisitGridItem from './components/visitGridItem';
 import VisitListItem from './components/visitListItem';
-
-import { getClinicDetails } from '../../application/clinics/getClinics';
-import EmptyClinicVisitsCard from './components/EmptyClinicVisitsCard';
-import { Clinic, emptyClinic } from './data';
+import type { Clinic} from './data';
+import { emptyClinic } from './data';
 import { createVisitStyles } from './styles/clinicVisits.styles';
 
 const ListIcon = ({ color }: { color: string }) => (

@@ -16,7 +16,7 @@ export function useAIAssistant() {
   const listRef = useRef<FlatList>(null);
 
   const sendMessage = (text: string) => {
-    if (!text.trim()) return;
+    if (!text.trim()) {return;}
     const newMsg: ChatMessage = {
       id: Date.now().toString(),
       role: 'user',

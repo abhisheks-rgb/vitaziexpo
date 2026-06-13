@@ -1,6 +1,6 @@
 // infrastructure/clinics/ClinicRepository.ts
 import { IS_MOCK } from '../../../config/env';
-import { IClinicRepository } from '../../../domain/clinics/repository/IClinicRepository';
+import type { IClinicRepository } from '../../../domain/clinics/repository/IClinicRepository';
 import { mockClinics } from '../../../mockData/MockClinics';
 import { mockDelay } from '../../../mockData/MockHelpers';
 import { apiClient } from '../../api/apiClient';
@@ -14,7 +14,7 @@ class ClinicRepositoryMock implements IClinicRepository {
   async getClinicDetails(userId: string, clinicId: string): Promise<Clinic> {
     await mockDelay();
     const clinic = mockClinics.find(clinic => clinic.id === clinicId);
-    if (!clinic) throw new Error('Clinic not found');
+    if (!clinic) {throw new Error('Clinic not found');}
     return clinic;
   }}
 

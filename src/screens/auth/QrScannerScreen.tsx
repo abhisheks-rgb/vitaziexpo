@@ -31,7 +31,7 @@ export default function QRScannerScreen({ navigation, route }: QRScannerScreenPr
   const scanLineY = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    if (!permission?.granted) requestPermission();
+    if (!permission?.granted) {requestPermission();}
   }, []);
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export default function QRScannerScreen({ navigation, route }: QRScannerScreenPr
   }, [scanLineY]);
 
   const handleScanned = ({ data }: { data: string }) => {
-    if (scanned) return;
+    if (scanned) {return;}
     setScanned(true);
     if (source === 'register') {
       // Pass scanned orgId back to ConnectClinic

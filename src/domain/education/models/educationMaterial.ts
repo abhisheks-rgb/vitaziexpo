@@ -1,4 +1,4 @@
-import { MaterialType } from "../../../application/education/types/education.types";
+import type { MaterialType } from "../../../application/education/types/education.types";
 
 export interface EducationMaterial {
   id: string;

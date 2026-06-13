@@ -3,8 +3,8 @@
 import { useState } from 'react';
 
 
-import { EducationMaterial } from '../../../domain/education/models/educationMaterial';
-import { ViewMode } from '../../../application/education/types/education.types';
+import type { ViewMode } from '../../../application/education/types/education.types';
+import type { EducationMaterial } from '../../../domain/education/models/educationMaterial';
 import { mockEducationList } from '../../../mockData/mockEducation';
 
 export function useEducation() {

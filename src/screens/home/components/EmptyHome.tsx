@@ -52,7 +52,7 @@ export default function EmptyHomeScreen({ navigation }: { navigation: any }) {
           left: 0,
           right: 0,
         }}
-      ></View>
+       />
     </SafeAreaView>
   );
 }

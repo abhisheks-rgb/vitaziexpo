@@ -54,7 +54,7 @@ class HealthRepositoryImpl implements IHealthRepository {
       const { data } = await apiClient.get(`/users/${userId}/health-questionnaire`);
       return data as HealthQuestionnaire;
     } catch (e: any) {
-      if (e.response?.status === 404) return null;
+      if (e.response?.status === 404) {return null;}
       throw e;
     }
   }

@@ -1,17 +1,18 @@
 // File: Education/EducationScreen.tsx
 
+import { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, FlatList, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import BackgroundBlobs from '../../components/BackgroundBlobs';
-import { useScrollStore } from '../../hooks/useScrollStore';
-import { useTheme } from '../../theme';
 
-import { useEffect, useMemo, useState } from 'react';
 import { getEducationList } from '../../application/education/getEducation';
 import AppHeader from '../../components/AppHeader';
-import { EducationMaterial } from '../../domain/education/models/educationMaterial';
+import BackgroundBlobs from '../../components/BackgroundBlobs';
+import type { EducationMaterial } from '../../domain/education/models/educationMaterial';
+import { useScrollStore } from '../../hooks/useScrollStore';
 import { useTranslation } from '../../hooks/useTranslation';
+import { useTheme } from '../../theme';
+
 import EmptyEducationListCard from './components/EmptyEducationListCard';
 import ImagesToggle from './components/ImagesToggle/ImagesToggle';
 import MaterialCard from './components/MaterialCard/MaterialCard';

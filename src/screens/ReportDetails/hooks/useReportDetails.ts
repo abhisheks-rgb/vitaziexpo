@@ -19,7 +19,7 @@ export function useReportDetails() {
   const handleImageScroll = (index: number) => {
     setImageIndex(index);
     const mappedEye = data.imageEyeMap[index];
-    if (mappedEye) setActiveEye(mappedEye);
+    if (mappedEye) {setActiveEye(mappedEye);}
   };
 
   const handleImageArrow = (dir: -1 | 1) => {
@@ -27,7 +27,7 @@ export function useReportDetails() {
     imageListRef.current?.scrollToIndex({ index: next, animated: true });
     setImageIndex(next);
     const mappedEye = data.imageEyeMap[next];
-    if (mappedEye) setActiveEye(mappedEye);
+    if (mappedEye) {setActiveEye(mappedEye);}
   };
 
   const handleEyeChange = (eye: EyeTab) => {

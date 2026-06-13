@@ -14,14 +14,14 @@ class UserRepositoryMock implements IUserRepository {
   async getById(userId: string): Promise<User> {
     await mockDelay();
     const user = this.users.find((u) => u.id === userId);
-    if (!user) throw new Error(`Mock: user ${userId} not found`);
+    if (!user) {throw new Error(`Mock: user ${userId} not found`);}
     return { ...user };
   }
 
   async updateProfile(userId: string, updates: Partial<User>): Promise<User> {
     await mockDelay();
     const idx = this.users.findIndex((u) => u.id === userId);
-    if (idx === -1) throw new Error(`Mock: user ${userId} not found`);
+    if (idx === -1) {throw new Error(`Mock: user ${userId} not found`);}
     this.users[idx] = { ...this.users[idx], ...updates };
     return { ...this.users[idx] };
   }

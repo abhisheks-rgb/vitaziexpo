@@ -16,7 +16,7 @@ export function useInteractionReady(fallbackMs = 400): boolean {
   useEffect(() => {
     let cancelled = false;
     const done = () => {
-      if (!cancelled) setIsReady(true);
+      if (!cancelled) {setIsReady(true);}
     };
 
     if (typeof requestIdleCallback !== 'undefined') {

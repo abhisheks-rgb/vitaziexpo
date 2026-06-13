@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import AppHeader from '../../components/AppHeader';
 import AppImage from '../../components/AppImage';
 import AppText from '../../components/AppText';
@@ -9,6 +10,7 @@ import { AppImages } from '../../constants';
 import { useTranslation } from '../../hooks/useTranslation';
 import type { NotificationDetailScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
+
 import DetailRow from './components/DetailRow';
 import { appointmentDetails } from './data';
 import { createDetailStyles } from './styles/NotificationDetail.styles';
@@ -23,7 +25,7 @@ export default function NotificationDetailScreen({
   const { notificationId } = route.params;
   const detail = appointmentDetails[notificationId];
 
-  if (!detail) return null;
+  if (!detail) {return null;}
 
   return (
     <SafeAreaView style={styles.screen} edges={['top', 'left', 'right']}>

@@ -52,7 +52,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
         showsVerticalScrollIndicator={false}
       >
         <HomeHeader />
-        {error === '' ? <ClinicBanner /> : <View></View>}
+        {error === '' ? <ClinicBanner /> : <View />}
 
         <QuickActionsSection
           onVisitsPress={() => navigation.navigate('Visits', { screen: 'ClinicList' })}
@@ -73,7 +73,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
           left: 0,
           right: 0,
         }}
-      ></View>
+       />
     </SafeAreaView>
   );
 }

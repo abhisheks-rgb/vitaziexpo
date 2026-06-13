@@ -27,9 +27,9 @@ export default function ImportReportSheet({
   const styles = createStyles(theme);
 
   const handleConfirm = () => {
-    if (selectedIds.length === 0) return;
+    if (selectedIds.length === 0) {return;}
     const report = reports.find((r) => r.id === selectedIds[0]);
-    if (report) onConfirm(report);
+    if (report) {onConfirm(report);}
   };
 
   return (

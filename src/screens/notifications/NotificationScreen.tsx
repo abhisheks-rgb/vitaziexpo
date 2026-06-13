@@ -1,11 +1,13 @@
 import { useMemo } from 'react';
 import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import AppHeader from '../../components/AppHeader';
 import AppText from '../../components/AppText';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
 import type { NotificationsScreenProps } from '../../navigation/types';
 import { useTheme } from '../../theme';
+
 import NotificationCard from './components/NotificationCard';
 import { notificationGroups } from './data';
 import { createListStyles } from './styles/NotificationList.styles';

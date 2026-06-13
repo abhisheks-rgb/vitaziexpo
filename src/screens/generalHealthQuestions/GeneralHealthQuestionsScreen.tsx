@@ -30,7 +30,7 @@ export default function GeneralHealthQuestionsScreen(_props: GeneralHealthQuesti
   const prevStepRef = useRef(stepIndex);
   if (prevStepRef.current !== stepIndex) {
     prevStepRef.current = stepIndex;
-    if (error) setError('');
+    if (error) {setError('');}
   }
 
   const totalSteps = questions.length;
@@ -39,7 +39,7 @@ export default function GeneralHealthQuestionsScreen(_props: GeneralHealthQuesti
 
   const handleChange = (text: string) => {
     setAnswers((prev) => ({ ...prev, [currentQuestion.id]: text }));
-    if (error) setError('');
+    if (error) {setError('');}
   };
 
   const handleNext = async () => {

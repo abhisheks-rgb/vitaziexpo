@@ -1,6 +1,6 @@
-import { MaterialType } from '../../../application/education/types/education.types';
-import { EducationMaterial } from '../../../domain/education/models/educationMaterial';
-import { EducationMaterialDTO } from '../dtos/educationMaterialDto';
+import type { MaterialType } from '../../../application/education/types/education.types';
+import type { EducationMaterial } from '../../../domain/education/models/educationMaterial';
+import type { EducationMaterialDTO } from '../dtos/educationMaterialDto';
 
 export const EducationMaterialMapper = {
   toDomain(dto: EducationMaterialDTO): EducationMaterial {

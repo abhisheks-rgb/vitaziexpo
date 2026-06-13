@@ -1,7 +1,7 @@
 // File: Education/data/education.mock.ts
 
 import { AppImages } from "../constants/AppImages";
-import { EducationMaterial } from "../domain/education/models/educationMaterial";
+import type { EducationMaterial } from "../domain/education/models/educationMaterial";
 
 
 

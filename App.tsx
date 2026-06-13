@@ -22,7 +22,7 @@ export default function App() {
   const [fontsLoaded] = useFonts(AppFontAssets);
   const scheme = useColorScheme();
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded) {return null;}
 
   return (
     <QueryClientProvider client={queryClient}>

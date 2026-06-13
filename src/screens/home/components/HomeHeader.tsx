@@ -57,7 +57,7 @@ export default function HomeHeader() {
 /** Returns the correct greeting based on current hour */
 function useGreeting(t: (key: string) => string): string {
   const hour = new Date().getHours();
-  if (hour < 12) return t('home.greetingMorning');
-  if (hour < 18) return t('home.greetingAfternoon');
+  if (hour < 12) {return t('home.greetingMorning');}
+  if (hour < 18) {return t('home.greetingAfternoon');}
   return t('home.greetingEvening');
 }

@@ -19,7 +19,7 @@ class NotificationRepositoryMock implements INotificationRepository {
   async markAsRead(notificationId: string): Promise<void> {
     await mockDelay(200);
     const idx = this.notifications.findIndex((n) => n.id === notificationId);
-    if (idx !== -1) this.notifications[idx].isRead = true;
+    if (idx !== -1) {this.notifications[idx].isRead = true;}
   }
 
   async markAllAsRead(userId: string): Promise<void> {
