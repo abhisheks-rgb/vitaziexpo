@@ -1,12 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, FlatList, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { getEducationList } from '../../application/education/getEducation';
 import AppHeader from '../../components/AppHeader';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
+import SmartList, {
+  SmartListToggle,
+  SmartListTogglePlacement,
+  SmartListViewMode,
+} from '../../components/SmartList/SmartList';
 import type { EducationMaterial } from '../../domain/education/models/educationMaterial';
-import { useScrollStore } from '../../hooks/useScrollStore';
 import { useTranslation } from '../../hooks/useTranslation';
 import { useTheme } from '../../theme';
 
@@ -20,43 +23,28 @@ export default function EducationScreen({ navigation }: { navigation: any }) {
   const theme = useTheme();
   const { t } = useTranslation();
   const { viewMode, setViewMode, showImages, setShowImages } = useEducation();
-  const handleScroll = useScrollStore((state) => state.handleScroll);
-  const isGrid = viewMode === 'grid';
 
   const [educationList, setEducationList] = useState<EducationMaterial[]>([]);
-  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isRefreshing, setIsRefreshing] = useState(false);
   const styles = useMemo(() => createEducationistStyles(theme), [theme]);
-  const activeColor = theme.colors.textPrimary;
-  const inactiveColor = theme.colors.textSecondary;
 
-  const ListIcon = ({ color }: { color: string }) => (
-    <View style={{ gap: 3, paddingHorizontal: 2 }}>
-      {[0, 1, 2].map((i) => (
-        <View key={i} style={{ height: 2, width: 18, borderRadius: 1, backgroundColor: color }} />
-      ))}
-    </View>
-  );
+  // useEducation's viewMode is a plain 'list' | 'grid' string — map to/from
+  // SmartListViewMode for the SmartList API.
+  const smartViewMode = viewMode === 'grid' ? SmartListViewMode.Grid : SmartListViewMode.List;
 
-  const GridIcon = ({ color }: { color: string }) => (
-    <View style={{ flexDirection: 'row', flexWrap: 'wrap', width: 18, gap: 3 }}>
-      {[0, 1, 2, 3].map((i) => (
-        <View key={i} style={{ width: 7, height: 7, borderRadius: 1.5, backgroundColor: color }} />
-      ))}
-    </View>
-  );
+  const handleViewModeChange = (mode: SmartListViewMode) => {
+    setViewMode(mode === SmartListViewMode.Grid ? 'grid' : 'list');
+  };
 
-  const fetchEducationList = async (refresh = false) => {
-    setError('');
-    refresh ? setIsRefreshing(true) : setIsLoading(true);
+  const fetchEducationList = async () => {
+    setIsLoading(true);
     try {
       const data = await getEducationList('123');
       setEducationList(data);
     } catch (e: any) {
-      setError(e.message ?? 'Something went wrong');
+      console.error(e.message ?? 'Failed to load education list');
     } finally {
-      refresh ? setIsRefreshing(false) : setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -64,23 +52,26 @@ export default function EducationScreen({ navigation }: { navigation: any }) {
     fetchEducationList();
   }, []);
 
+  const renderMaterialItem = (
+    item: EducationMaterial,
+    _index: number,
+    currentViewMode: SmartListViewMode,
+  ) => (
+    <MaterialCard
+      material={item}
+      viewMode={currentViewMode === SmartListViewMode.Grid ? 'grid' : 'list'}
+      showImages={showImages}
+      onPress={() => navigation.navigate('MaterialDetails', { material: item })}
+    />
+  );
+
   const toggleRight = (
-    <View style={styles.toggleWrap}>
-      <TouchableOpacity
-        style={[styles.toggleBtn, !isGrid && styles.toggleBtnActive]}
-        onPress={() => setViewMode('list')}
-        activeOpacity={0.7}
-      >
-        <ListIcon color={!isGrid ? activeColor : inactiveColor} />
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[styles.toggleBtn, isGrid && styles.toggleBtnActive]}
-        onPress={() => setViewMode('grid')}
-        activeOpacity={0.7}
-      >
-        <GridIcon color={isGrid ? activeColor : inactiveColor} />
-      </TouchableOpacity>
-    </View>
+    <SmartListToggle
+      viewMode={smartViewMode}
+      onViewModeChange={handleViewModeChange}
+      activeColor={theme.colors.textPrimary}
+      inactiveColor={theme.colors.textSecondary}
+    />
   );
 
   return (
@@ -98,68 +89,23 @@ export default function EducationScreen({ navigation }: { navigation: any }) {
         rightComponent={toggleRight}
       />
 
-      <ImagesToggle value={showImages} onToggle={setShowImages} />
-
-      {isLoading ? (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <ActivityIndicator size="large" color={theme.colors.primary} />
-        </View>
-      ) : educationList.length === 0 ? (
-        <View style={styles.emptyContainer}>
-          <EmptyEducationListCard />
-        </View>
-      ) : isGrid ? (
-        <FlatList
-          onScroll={handleScroll}
-          data={educationList}
-          key="grid"
-          numColumns={2}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={styles.gridContent}
-          columnWrapperStyle={styles.gridRow}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }: { item: EducationMaterial }) => (
-            <MaterialCard
-              material={item}
-              viewMode="grid"
-              showImages={showImages}
-              onPress={() => navigation.navigate('MaterialDetails', { material: item })}
-            />
-          )}
-        />
-      ) : (
-        <FlatList
-          onScroll={handleScroll}
-          data={educationList}
-          key="list"
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={styles.listContent}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }: { item: EducationMaterial }) => (
-            <MaterialCard
-              material={item}
-              viewMode="list"
-              showImages={showImages}
-              onPress={() => navigation.navigate('MaterialDetails', { material: item })}
-            />
-          )}
-        />
-      )}
+      <SmartList
+        data={educationList}
+        keyExtractor={(item) => item.id}
+        renderItem={renderMaterialItem}
+        isLoading={isLoading}
+        onRefresh={fetchEducationList}
+        numColumns={2}
+        gridGap={10}
+        listPadding={16}
+        viewMode={smartViewMode}
+        onViewModeChange={handleViewModeChange}
+        togglePlacement={SmartListTogglePlacement.External}
+        stickySubHeader
+        subHeaderElevation={4}
+        EmptyComponent={<EmptyEducationListCard />}
+        subHeaderLeft={<ImagesToggle value={showImages} onToggle={setShowImages} />}
+      />
     </SafeAreaView>
   );
 }
-
-// const styles = StyleSheet.create({
-//   screen: { flex: 1 },
-
-// listContent: {
-//   paddingBottom: 32,
-// },
-
-// });

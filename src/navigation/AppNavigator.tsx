@@ -8,11 +8,11 @@ import ClinicListScreen from '../screens/Clinics/ClinicListScreen';
 import ClinicVisitsScreen from '../screens/Clinics/ClinicVisitsScreen';
 import MaterialDetailsScreen from '../screens/Education/components/MaterialDetails/MaterialDetailsScreen';
 import EducationScreen from '../screens/Education/EducationScreen';
-import BottomTabBar from '../screens/home/components/BottomTabBar';
-import HomeScreen from '../screens/home/HomeScreen';
+import BottomTabBar from '../screens/Home/components/BottomTabBar';
+import HomeScreen from '../screens/Home/HomeScreen';
 import MoreScreen from '../screens/MoreScreen/MoreScreen';
-import NotificationDetailScreen from '../screens/notifications/NotificationDetailScreen';
-import NotificationsScreen from '../screens/notifications/NotificationScreen';
+import NotificationDetailScreen from '../screens/Notifications/NotificationDetailScreen';
+import NotificationsScreen from '../screens/Notifications/NotificationScreen';
 import ReportDetailsScreen from '../screens/ReportDetails/ReportDetailsScreen';
 
 import type {

@@ -1,0 +1,94 @@
+import { useEffect, useState } from 'react';
+import { ScrollView, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { getUpcomingAppointments } from '../../application/appoinments/getUpcomingAppointments';
+import BackgroundBlobs from '../../components/BackgroundBlobs';
+import type { Appointment } from '../../domain/Appointments/models/Appointment';
+import { useScrollStore } from '../../hooks/useScrollStore';
+import type { HomeScreenProps } from '../../navigation/types';
+import { useTheme } from '../../theme';
+import { Spacing } from '../../theme/spacing';
+
+import ClinicBanner from './components/ClinicBanner';
+import EmptyLatestScreeningCard from './components/EmptyLatestScreeningCard';
+import EmptyUpcomingAppointmentCard from './components/EmptyUpcomingAppointmentCard';
+import HomeHeader from './components/HomeHeader';
+import LatestScreeningCard from './components/LatestScreeningCard';
+import QuickActionsSection from './components/QuickActionsSection';
+import UpcomingAppointmentCard from './components/UpcomingAppointmentCard';
+import { createHomeStyles } from './styles/Home.styles';
+
+export default function HomeScreen({ navigation }: HomeScreenProps) {
+  const theme = useTheme();
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+
+  const styles = createHomeStyles(theme);
+  const handleScroll = useScrollStore((state) => state.handleScroll);
+
+  useEffect(() => {
+    getAppoinments();
+  }, []);
+
+  const getAppoinments = async () => {
+    setError('');
+    setIsLoading(true);
+    try {
+      const data = await getUpcomingAppointments('');
+      setAppointments(data);
+    } catch (e: any) {
+      setError(e.message ?? 'Not implemented');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const hasAppointments = error === '' && appointments.length > 0;
+
+  return (
+    <SafeAreaView style={styles.screen} edges={['top']}>
+      <BackgroundBlobs />
+
+      <ScrollView
+        onScroll={handleScroll}
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <HomeHeader />
+        {error === '' ? <ClinicBanner /> : <View />}
+
+        <QuickActionsSection
+          onVisitsPress={() => navigation.navigate('Visits', { screen: 'ClinicList' })}
+          onAppointmentsPress={() => navigation.navigate('Appointments')}
+          onChatHistoryPress={() => navigation.navigate('ChatHistory')}
+        />
+
+        {error === '' ? <LatestScreeningCard /> : <EmptyLatestScreeningCard />}
+
+        {hasAppointments ? (
+          <UpcomingAppointmentCard
+            appointments={appointments}
+            isLoading={isLoading}
+            onViewAll={() => navigation.navigate('Appointments')}
+          />
+        ) : (
+          <EmptyUpcomingAppointmentCard />
+        )}
+
+        <View style={{ height: Spacing.xl }} />
+      </ScrollView>
+
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+        }}
+      />
+    </SafeAreaView>
+  );
+}
