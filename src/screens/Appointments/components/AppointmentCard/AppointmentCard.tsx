@@ -3,11 +3,11 @@ import { View } from 'react-native';
 
 import AppImage from '../../../../components/AppImage';
 import AppText from '../../../../components/AppText';
+import ArrowButton from '../../../../components/ArrowButton';
 import { AppImages } from '../../../../constants';
 import type { Appointment } from '../../../../domain/Appointments/models/Appointment';
 import { Colors, useTheme } from '../../../../theme';
 
-import ArrowButton from '../../../../components/ArrowButton';
 import { createStyles } from './styles';
 
 interface Props {

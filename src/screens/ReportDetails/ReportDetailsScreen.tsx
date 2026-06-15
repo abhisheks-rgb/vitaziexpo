@@ -1,9 +1,14 @@
-// File: ReportDetailsScreen.tsx
-
 import { BlurView } from 'expo-blur';
 import React from 'react';
-import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
-import { Animated, Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  Animated,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+} from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import AppHeader from '../../components/AppHeader';

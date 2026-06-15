@@ -1,5 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native';
+
 import AppText from '../../../components/AppText';
 import { useTheme } from '../../../theme';
 import { bottomTabBarStyles } from '../styles/BottomTabBar.styles';

@@ -6,9 +6,9 @@ import AppImage from '../../../../components/AppImage';
 import AppText from '../../../../components/AppText';
 import BackgroundBlobs from '../../../../components/BackgroundBlobs';
 import { AppImages } from '../../../../constants';
+import type { Appointment } from '../../../../domain/Appointments/models/Appointment';
 import { Colors, useTheme } from '../../../../theme';
 
-import { Appointment } from '../../../../domain/Appointments/models/Appointment';
 import { createStyles } from './styles';
 
 interface Props {

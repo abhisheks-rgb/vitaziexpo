@@ -122,13 +122,13 @@ function AppointmentItem({
       <View style={[styles.actionRow, { paddingHorizontal: 16, paddingBottom: 16 }]}>
         <TouchableOpacity
           style={styles.actionButton}
-          onPress={() => console.log('Direction →', appointment.clinic.address)}
+          onPress={() => console.warn('Direction →', appointment.clinic.address)}
         >
           <AppText style={styles.actionButtonText}>Direction</AppText>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.actionButton}
-          onPress={() => console.log('Contact →', appointment.doctor.name)}
+          onPress={() => console.warn('Contact →', appointment.doctor.name)}
         >
           <AppText style={styles.actionButtonText}>Contact</AppText>
         </TouchableOpacity>
