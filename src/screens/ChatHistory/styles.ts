@@ -1,5 +1,3 @@
-// File: AIAssistant/components/ChatHistory/styles.ts
-
 import { StyleSheet } from 'react-native';
 
 import type { Theme } from '../../theme';
@@ -10,42 +8,57 @@ export const createStyles = (theme: Theme) =>
       flex: 1,
       backgroundColor: theme.colors.background,
     },
-    list: { flex: 1 },
-    listContent: { paddingTop: 8, paddingBottom: 32 },
+
+    // ── Row ───────────────────────────────────────────────────────────────────
     row: {
       flexDirection: 'row',
       alignItems: 'center',
-      paddingHorizontal: 16,
       paddingVertical: 14,
       borderBottomWidth: 1,
       borderBottomColor: theme.colors.border,
       gap: 12,
     },
+
+    // ── Avatar ────────────────────────────────────────────────────────────────
     iconWrap: {
-      width: 38,
-      height: 38,
-      borderRadius: 10,
+      width: 42,
+      height: 42,
+      borderRadius: 12,
       backgroundColor: '#EBF0F7',
       alignItems: 'center',
       justifyContent: 'center',
       flexShrink: 0,
+      overflow: 'hidden',
     },
-    iconText: { fontSize: 16 },
-    rowInfo: { flex: 1 },
+    iconText: { fontSize: 18 },
+
+    // ── Content ───────────────────────────────────────────────────────────────
+    rowInfo: { flex: 1, minWidth: 0 },
     clinic: {
       fontSize: 14,
       fontWeight: '700',
       color: theme.colors.textPrimary,
-      marginBottom: 2,
-    },
-    date: {
-      fontSize: 12,
-      color: theme.colors.textSecondary,
+      marginBottom: 3,
     },
     lastMessage: {
       fontSize: 12,
       color: theme.colors.textSecondary,
-      marginTop: 2,
+      flexShrink: 1,
+    },
+    lastMessageUnread: {
+      color: theme.colors.textPrimary,
+      fontWeight: '600',
+    },
+
+    // ── Right column (time + badge + thumbnail) ───────────────────────────────
+    rowRight: {
+      alignItems: 'flex-end',
+      gap: 4,
+      flexShrink: 0,
+    },
+    date: {
+      fontSize: 11,
+      color: theme.colors.textSecondary,
     },
     thumbnail: {
       width: 44,
@@ -53,40 +66,44 @@ export const createStyles = (theme: Theme) =>
       borderRadius: 8,
       overflow: 'hidden',
       backgroundColor: theme.colors.surface,
-      flexShrink: 0,
-    },
-    chevron: {
-      fontSize: 18,
-      color: theme.colors.textSecondary,
     },
 
-    emptyListContainer: {
-      flex: 1, // 👈 FULL HEIGHT
-      justifyContent: 'center',
+    // ── Unread badge ──────────────────────────────────────────────────────────
+    badge: {
+      minWidth: 18,
+      height: 18,
+      borderRadius: 9,
+      paddingHorizontal: 4,
       alignItems: 'center',
-      paddingHorizontal: 24,
+      justifyContent: 'center',
+    },
+    badgeText: {
+      fontSize: 10,
+      fontWeight: '700',
+      color: '#fff',
     },
 
+    // ── Empty state ───────────────────────────────────────────────────────────
     emptyContainer: {
       alignItems: 'center',
       maxWidth: 420,
+      paddingHorizontal: 24,
     },
-
     emptyImage: {
       width: 180,
       height: 180,
       marginBottom: 16,
     },
-
     emptyTitle: {
       fontSize: 16,
       fontWeight: '600',
+      color: theme.colors.textPrimary,
       marginBottom: 8,
       textAlign: 'center',
     },
-
     emptySubtitle: {
       fontSize: 13,
+      color: theme.colors.textSecondary,
       textAlign: 'center',
       lineHeight: 18,
     },

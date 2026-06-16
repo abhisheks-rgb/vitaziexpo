@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import {
@@ -8,6 +7,7 @@ import {
 } from '../../application/appoinments/getUpcomingAppointments';
 import AppHeader from '../../components/AppHeader';
 import BackgroundBlobs from '../../components/BackgroundBlobs';
+import SmartList, { SmartListTogglePlacement } from '../../components/SmartList/SmartList';
 import type { Appointment } from '../../domain/Appointments/models/Appointment';
 import { useInteractionReady } from '../../hooks/useInteractionReady';
 import { useTheme } from '../../theme';
@@ -26,30 +26,30 @@ function useAppointments() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    const fetch = async () => {
-      setIsLoading(true);
-      setError('');
-      try {
-        const [upcomingData, pastData] = await Promise.all([
-          getUpcomingAppointments(''),
-          getPastAppointments(''),
-        ]);
-        setUpcoming(upcomingData);
-        setPast(pastData);
-      } catch (e: any) {
-        setError(e.message ?? 'Failed to load appointments');
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const fetchAll = async () => {
+    setIsLoading(true);
+    setError('');
+    try {
+      const [upcomingData, pastData] = await Promise.all([
+        getUpcomingAppointments(''),
+        getPastAppointments(''),
+      ]);
+      setUpcoming(upcomingData);
+      setPast(pastData);
+    } catch (e: any) {
+      setError(e.message ?? 'Failed to load appointments');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    fetch();
+  useEffect(() => {
+    fetchAll();
   }, []);
 
   const appointments = activeTab === 'Upcoming' ? upcoming : past;
 
-  return { activeTab, setActiveTab, appointments, isLoading, error };
+  return { activeTab, setActiveTab, appointments, isLoading, error, refresh: fetchAll };
 }
 
 // ─── Screen ───────────────────────────────────────────────────────────────────
@@ -57,7 +57,7 @@ function useAppointments() {
 export default function AppointmentsScreen({ navigation }: { navigation: any }) {
   const theme = useTheme();
   const common = createCommonStyles(theme);
-  const { activeTab, setActiveTab, appointments, isLoading, error } = useAppointments();
+  const { activeTab, setActiveTab, appointments, isLoading, error, refresh } = useAppointments();
   const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null);
   const isReady = useInteractionReady();
 
@@ -83,25 +83,28 @@ export default function AppointmentsScreen({ navigation }: { navigation: any }) 
         onBackPress={() => navigation.goBack()}
       />
 
+      {/* Tab bar sits above the list, outside SmartList */}
       <AppointmentTabBar activeTab={activeTab} onTabChange={setActiveTab} />
 
-      <ScrollView
-        style={common.scroll}
-        contentContainerStyle={{ paddingTop: theme.spacing.xs }}
-        showsVerticalScrollIndicator={false}
-      >
-        {isLoading && (
-          <ActivityIndicator color={theme.colors.primary} style={{ marginTop: theme.spacing.xl }} />
+      <SmartList
+        data={appointments}
+        keyExtractor={(appt) => appt.id}
+        renderItem={(appt) => (
+          <AppointmentCard appointment={appt} onPress={setSelectedAppointment} />
         )}
-
-        {!isLoading &&
-          !error &&
-          appointments.map((appt) => (
-            <AppointmentCard key={appt.id} appointment={appt} onPress={setSelectedAppointment} />
-          ))}
-
-        <View style={{ height: theme.spacing.lg }} />
-      </ScrollView>
+        isLoading={isLoading}
+        onRefresh={refresh}
+        togglePlacement={SmartListTogglePlacement.External}
+        listPadding={0}
+        emptyMessage={
+          error
+            ? error
+            : activeTab === 'Upcoming'
+              ? 'No upcoming appointments'
+              : 'No past appointments'
+        }
+        contentContainerStyle={{ paddingTop: theme.spacing.xs }}
+      />
     </SafeAreaView>
   );
 }
