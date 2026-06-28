@@ -172,7 +172,7 @@ export type ReportDetailsScreenProps = NativeStackScreenProps<AppStackParamList,
 
 export type ClinicVisitsScreenProps = NativeStackScreenProps<AppStackParamList, 'ClinicVisits'>;
 
-export type TwoFAVerifyScreenProps = CompositeScreenProps
+export type TwoFAVerifyScreenProps = CompositeScreenProps<
   NativeStackScreenProps<AuthStackParamList, 'TwoFAVerify'>,
   NativeStackScreenProps<RootStackParamList>
 >;
