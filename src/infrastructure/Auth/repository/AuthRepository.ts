@@ -10,38 +10,27 @@ import type {
 import { mockDelay } from '../../../mockData/MockHelpers';
 import { mockUsers } from '../../../mockData/MockUsers';
 import { apiClient } from '../../api/apiClient';
+import type { AuthResponseDTO, PreAuthResponseDTO } from '../dtos/AuthDTO';
+import type { UserProfileResponseDTO } from '../dtos/UserDTO';
 import { AuthMapper } from '../mappers/AuthMapper';
 import { UserMapper } from '../mappers/UserMapper';
 
 // ── Mock implementation ───────────────────────────────────────────────────────
+// (unchanged — keeping mock working independently)
 
-/**
- * In mock mode, login() matches email against mockUsers[].
- * Any password is accepted. This lets you test both users:
- *
- *   sarah.mitchell@example.com  → hasCompletedHealthQuestions: false
- *                                 → will be routed to GeneralHealthQuestions
- *
- *   james.carter@example.com    → hasCompletedHealthQuestions: true
- *                                 → goes straight to Home
- */
 class AuthRepositoryMock implements IAuthRepository {
   async login(credentials: LoginCredentials): Promise<{ session: AuthSession; user: User }> {
     await mockDelay();
-
     const user = mockUsers.find((u) => u.email.toLowerCase() === credentials.email.toLowerCase());
-
     if (!user) {
       throw new Error('No account found with that email address.');
     }
-
     const session: AuthSession = {
       accessToken: `mock-token-${user.id}-${Date.now()}`,
       refreshToken: `mock-refresh-${user.id}`,
       userId: user.id,
-      expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days
+      expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000,
     };
-
     return { session, user };
   }
 
@@ -54,7 +43,6 @@ class AuthRepositoryMock implements IAuthRepository {
     payload: CompleteFormPayload,
   ): Promise<{ session: AuthSession; user: User }> {
     await mockDelay();
-    // Simulate creating a new user who hasn't done health questions yet
     const newUser: User = {
       id: 'user-new-' + Date.now(),
       firstName: payload.firstName,
@@ -89,10 +77,6 @@ class AuthRepositoryMock implements IAuthRepository {
     };
   }
 
-  /**
-   * Always return null — session comes from Zustand AsyncStorage persistence,
-   * not from this method. Returning a session here would bypass the login screen.
-   */
   async getStoredSession(): Promise<AuthSession | null> {
     return null;
   }
@@ -101,16 +85,44 @@ class AuthRepositoryMock implements IAuthRepository {
 // ── Real implementation ───────────────────────────────────────────────────────
 
 class AuthRepositoryImpl implements IAuthRepository {
+  /**
+   * Login flow:
+   *   1. POST /users/login  → "Access Key" JWT  (or pre_auth_token if 2FA enabled)
+   *   2. GET  /users/profile → user details
+   *
+   * The userId in AuthSession is set to the user's email (stable Vitazi identifier).
+   */
   async login(credentials: LoginCredentials): Promise<{ session: AuthSession; user: User }> {
-    const { data } = await apiClient.post('/auth/login', {
+    const { data } = await apiClient.post<AuthResponseDTO | PreAuthResponseDTO>('/users/login', {
       email: credentials.email,
       password: credentials.password,
-      remember_me: credentials.rememberMe,
     });
-    return {
-      session: AuthMapper.toDomain(data.session),
-      user: UserMapper.toDomain(data.user),
-    };
+
+    // ── 2FA path ──────────────────────────────────────────────────────────────
+    if ('2fa_required' in data && data['2fa_required']) {
+      // Caller (use case / screen) must handle 2FA — throw a typed signal
+      const err = new TwoFARequiredError(data.pre_auth_token);
+      throw err;
+    }
+
+    // ── Normal path ───────────────────────────────────────────────────────────
+    const authData = data as AuthResponseDTO;
+    const session = AuthMapper.toDomain(authData);
+
+    // Fetch the user profile using the freshly-obtained token.
+    // apiClient interceptor will attach the token automatically, but we set it
+    // here directly so the profile call doesn't race against Zustand being set.
+    const { data: profileData } = await apiClient.get<UserProfileResponseDTO>('/users/profile', {
+      params: { email: credentials.email },
+      headers: { Authorization: `Bearer ${session.accessToken}` },
+    });
+
+    const user = UserMapper.toDomain(profileData.body);
+
+    // Back-fill userId into the session now that we have it
+    const hydratedSession: AuthSession = { ...session, userId: user.id };
+
+    return { session: hydratedSession, user };
   }
 
   async register(payload: RegisterPayload): Promise<{ userId: string }> {
@@ -136,18 +148,39 @@ class AuthRepositoryImpl implements IAuthRepository {
   }
 
   async logout(): Promise<void> {
-    await apiClient.post('/auth/logout');
+    // Vitazi API has no explicit logout endpoint; just clear client state
+    // If one is added later, call it here
   }
 
-  async refreshSession(refreshToken: string): Promise<AuthSession> {
-    const { data } = await apiClient.post('/auth/refresh', { refresh_token: refreshToken });
-    return AuthMapper.toDomain(data);
+  /**
+   * Vitazi issues no refresh token. When the session expires the user must log in again.
+   * If a refresh endpoint is added, wire it here.
+   */
+  async refreshSession(_refreshToken: string): Promise<AuthSession> {
+    throw new Error('Session refresh is not supported by this API. Please log in again.');
   }
 
   async getStoredSession(): Promise<AuthSession | null> {
     return null;
   }
 }
+
+// ── 2FA error signal ──────────────────────────────────────────────────────────
+
+/**
+ * Thrown by login() when the server requires a 2FA code.
+ * The login screen catches this, stores the pre_auth_token, and shows the 2FA input.
+ */
+export class TwoFARequiredError extends Error {
+  readonly preAuthToken: string;
+  constructor(preAuthToken: string) {
+    super('2FA verification required');
+    this.name = 'TwoFARequiredError';
+    this.preAuthToken = preAuthToken;
+  }
+}
+
+// ── Export ────────────────────────────────────────────────────────────────────
 
 export const authRepository: IAuthRepository = IS_MOCK
   ? new AuthRepositoryMock()

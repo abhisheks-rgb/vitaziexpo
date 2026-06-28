@@ -1,32 +1,34 @@
 import type { User } from '../../../domain/Auth/models/User';
-import type { UserDTO } from '../dtos/UserDTO';
+import type { UserProfileBodyDTO } from '../dtos/UserDTO';
+
+/**
+ * Splits "Firstname Lastname" into parts.
+ * Everything after the first space is treated as lastName.
+ */
+function splitFullName(fullName: string): { firstName: string; lastName: string } {
+  const idx = fullName.indexOf(' ');
+  if (idx === -1) {
+    return { firstName: fullName, lastName: '' };
+  }
+  return {
+    firstName: fullName.slice(0, idx),
+    lastName: fullName.slice(idx + 1),
+  };
+}
 
 export const UserMapper = {
-  toDomain(dto: UserDTO): User {
+  toDomain(dto: UserProfileBodyDTO): User {
+    const { firstName, lastName } = splitFullName(dto.full_name);
     return {
-      id: dto.user_id,
-      firstName: dto.first_name,
-      lastName: dto.last_name,
+      id: dto.email, // Vitazi uses email as the stable identifier
+      firstName,
+      lastName,
       email: dto.email,
-      dateOfBirth: dto.date_of_birth,
-      organizationId: dto.org_id,
-      hasCompletedHealthQuestions: dto.health_questions_completed,
-      hasCompletedOnboarding: dto.onboarding_completed,
-      consentGiven: dto.consent_given,
-    };
-  },
-
-  toDTO(domain: User): UserDTO {
-    return {
-      user_id: domain.id,
-      first_name: domain.firstName,
-      last_name: domain.lastName,
-      email: domain.email,
-      date_of_birth: domain.dateOfBirth,
-      org_id: domain.organizationId,
-      health_questions_completed: domain.hasCompletedHealthQuestions,
-      onboarding_completed: domain.hasCompletedOnboarding,
-      consent_given: domain.consentGiven,
+      dateOfBirth: '', // not returned by profile endpoint
+      organizationId: dto.clinic_id,
+      hasCompletedHealthQuestions: false, // not surfaced by API; default false
+      hasCompletedOnboarding: true, // existing users are onboarded
+      consentGiven: true, // not surfaced by API; assume true for existing users
     };
   },
 };

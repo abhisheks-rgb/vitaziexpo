@@ -2,7 +2,7 @@ import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import type { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import type { EducationMaterial } from '../application/education/types/education.types';
+import type { EducationMaterial } from '../domain/education/models/educationMaterial';
 
 // ─────────────────────────────────────────────────────────────
 // Root Stack
@@ -25,7 +25,7 @@ export type RootStackParamList = {
 export type AuthStackParamList = {
   Login: undefined;
   Register: undefined;
-
+  TwoFAVerify: { preAuthToken: string; email: string };
   QRScanner: { source: 'register' | 'connectClinic' };
   ConnectClinic: { orgId: string };
   CompleteForm: { orgId: string };
@@ -171,3 +171,8 @@ export type NotificationDetailScreenProps = NativeStackScreenProps<
 export type ReportDetailsScreenProps = NativeStackScreenProps<AppStackParamList, 'ReportDetails'>;
 
 export type ClinicVisitsScreenProps = NativeStackScreenProps<AppStackParamList, 'ClinicVisits'>;
+
+export type TwoFAVerifyScreenProps = CompositeScreenProps
+  NativeStackScreenProps<AuthStackParamList, 'TwoFAVerify'>,
+  NativeStackScreenProps<RootStackParamList>
+>;

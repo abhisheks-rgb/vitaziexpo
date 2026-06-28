@@ -41,10 +41,14 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     setError('');
     setIsLoading(true);
     try {
-      await loginUseCase({ email: email.trim(), password, rememberMe });
-      // RootNavigator reacts to session being set — no navigation.replace() needed.
-      // If user.hasCompletedHealthQuestions=false  → GeneralHealthQuestions
-      // If user.hasCompletedHealthQuestions=true   → App (Home)
+      const result = await loginUseCase({ email: email.trim(), password, rememberMe });
+      if (result.kind === '2fa_required') {
+        navigation.navigate('TwoFAVerify', {
+          preAuthToken: result.preAuthToken,
+          email: email.trim(),
+        });
+      }
+      // kind === 'success' → RootNavigator reacts to session being set automatically
     } catch (e: any) {
       setError(e.message ?? 'Login failed. Please try again.');
     } finally {

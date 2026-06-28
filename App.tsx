@@ -2,7 +2,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
-import { useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { AppFontAssets } from './src/constants';
@@ -20,9 +19,10 @@ const queryClient = new QueryClient({
 
 export default function App() {
   const [fontsLoaded] = useFonts(AppFontAssets);
-  const scheme = useColorScheme();
 
-  if (!fontsLoaded) {return null;}
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
