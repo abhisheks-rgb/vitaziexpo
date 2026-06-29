@@ -17,6 +17,7 @@ import AppHeader from '../../components/AppHeader';
 import AppImage from '../../components/AppImage';
 import AppText from '../../components/AppText';
 import GradientText from '../../components/GradientText';
+import { IS_MOCK } from '../../config/env';
 import { AppImages } from '../../constants';
 import { useTranslation } from '../../hooks/useTranslation';
 import type { LoginScreenProps } from '../../navigation/types';
@@ -94,15 +95,28 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           bounces={false}
         >
           {/* Mock mode hint */}
-          <View
-            style={{ backgroundColor: '#FFF8E1', borderRadius: 8, padding: 10, marginBottom: 12 }}
-          >
-            <AppText variant="caption" style={{ color: '#856404', fontSize: 11 }}>
-              {
-                '🧪 Mock mode — use:\nsarah.mitchell@example.com  (needs health Qs)\njames.carter@example.com  (goes to Home directly)\nAny password works.'
-              }
-            </AppText>
-          </View>
+          {IS_MOCK && (
+            <View
+              style={{
+                backgroundColor: '#FFF8E1',
+                borderRadius: 8,
+                padding: 10,
+                marginBottom: 12,
+              }}
+            >
+              <AppText
+                variant="caption"
+                style={{ color: '#856404', fontSize: 11 }}
+              >
+                {`🧪 Mock mode — use:
+
+                    sarah.mitchell@example.com  (needs health Qs)
+                    james.carter@example.com  (goes to Home directly)
+
+                    Any password works.`}
+              </AppText>
+            </View>
+          )}
 
           <AppText variant="caption" style={styles.label}>
             {t('login.emailLabel')}

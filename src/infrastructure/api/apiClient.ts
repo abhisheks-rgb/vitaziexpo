@@ -20,8 +20,8 @@ apiClient.interceptors.request.use(
   (config) => {
     // Token is read from Zustand store / SecureStore at call time
     // Import lazily to avoid circular deps
-    const { getState } = require('../../state/store/authStore');
-    const token = getState().session?.accessToken;
+    const { useAuthStore } = require('../../state/store/authStore');
+    const token = useAuthStore.getState().session?.accessToken;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -38,8 +38,8 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        const { getState, setState } = require('../../state/store/authStore');
-        const refreshToken = getState().session?.refreshToken;
+        const { useAuthStore } = require('../../state/store/authStore');
+        const refreshToken = useAuthStore.getState().session?.refreshToken;
         if (!refreshToken) {throw new Error('No refresh token');}
 
         const { data } = await axios.post(`${API_BASE_URL}/auth/refresh`, {
@@ -47,15 +47,15 @@ apiClient.interceptors.response.use(
         });
 
         const newAccessToken = data.access_token;
-        setState((s: any) => ({
+        useAuthStore.setState((s: any) => ({
           session: s.session ? { ...s.session, accessToken: newAccessToken } : null,
         }));
 
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return apiClient(originalRequest);
       } catch {
-        const { getState } = require('../../state/store/authStore');
-        getState().clearSession();
+        const { useAuthStore } = require('../../state/store/authStore');
+        useAuthStore.getState().clearSession();
         return Promise.reject(error);
       }
     }
