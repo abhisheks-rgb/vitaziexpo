@@ -1,6 +1,6 @@
 import { AppFonts } from '../constants/AppFonts';
 
-export const Typography = {
+export const typography = {
   titleXL: {
     fontFamily: AppFonts.afacadMedium,
     fontSize: 36,

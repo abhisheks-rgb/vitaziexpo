@@ -1,5 +1,5 @@
-import React from 'react';
-import { Text, TextProps, StyleProp, TextStyle } from 'react-native';
+import type { StyleProp, TextProps, TextStyle } from 'react-native';
+import { Text } from 'react-native';
 
 import { useTheme } from '../theme';
 
@@ -20,7 +20,7 @@ export default function AppText({ variant = 'body', color, style, children, ...r
       style={[
         theme.typography[variant],
         {
-          color: color ?? theme.colors.text,
+          color: color ?? theme.colors.textPrimary,
         },
         style,
       ]}

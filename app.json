@@ -19,6 +19,17 @@
         "backgroundColor": "#C8F000"
       }
     },
-    "plugins": ["expo-font", "expo-image"]
+    "plugins": [
+      "expo-font",
+      "expo-image"
+    ],
+    "extra": {
+      "env": "mock",
+      "apiBaseUrl": "http://mock.api",
+      "mockDelayMs": 500,
+      "eas": {
+        "projectId": "51e1d6ad-2f08-4186-8cd6-05cd28cd7c9e"
+      }
+    }
   }
 }

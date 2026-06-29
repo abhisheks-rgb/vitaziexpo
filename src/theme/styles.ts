@@ -1,22 +1,130 @@
 import { StyleSheet } from 'react-native';
 
-import { Typography } from './typography';
+import type { Theme } from './theme';
 
-export const GlobalStyles = StyleSheet.create({
-  flex: {
-    flex: 1,
-  },
+export const createCommonStyles = (theme: Theme) =>
+  StyleSheet.create({
+    // ── Screen & Scroll ──────────────────────────────────────────────────────
+    screen: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+    scroll: {
+      flex: 1,
+    },
+    scrollContent: {
+      paddingHorizontal: theme.spacing.md,
+      paddingBottom: 32,
+    },
 
-  center: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+    // ── Flex & Layout ─────────────────────────────────────────────────────────
+    row: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    rowSpaceBetween: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
 
-  title: {
-    ...Typography.title,
-  },
+    // ── Card (surface + shadow) ───────────────────────────────────────────────
+    // Base card style — extend with width, overflow, borderRadius overrides
+    card: {
+      backgroundColor: theme.colors.surface,
+      borderRadius: 14,
+      shadowColor: '#000',
+      shadowOpacity: 0.05,
+      shadowRadius: 8,
+      shadowOffset: { width: 0, height: 2 },
+      elevation: 2,
+    },
+    // Inner row used for list card content (icon + text + chevron)
+    cardInner: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      padding: 14,
+      gap: 12,
+    },
 
-  body: {
-    ...Typography.body,
-  },
-});
+    // ── Icon & Image ──────────────────────────────────────────────────────────
+    // Circular icon container with accentSubtle background
+    iconCircle: {
+      width: 48,
+      height: 48,
+      borderRadius: 24,
+      backgroundColor: theme.colors.accentSubtle,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    // Rectangular placeholder used before images load (grid + list cards)
+    imagePlaceholder: {
+      backgroundColor: theme.colors.accentSubtle,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    // Standard header/action icon size
+    icon36: {
+      width: 36,
+      height: 36,
+    },
+
+    // ── View-mode Toggle (list / grid) ────────────────────────────────────────
+    toggleWrap: {
+      flexDirection: 'row',
+      gap: 6,
+    },
+    toggleBtn: {
+      width: 34,
+      height: 34,
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'transparent',
+    },
+    // Active state uses lime accent brand color
+    toggleBtnActive: {
+      backgroundColor: theme.colors.accent,
+    },
+
+    // ── Section Header ────────────────────────────────────────────────────────
+    // Row containing a section title + optional right action
+    sectionRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: 14,
+    },
+    // Section title — poppinsSemiBold 18 via typography.subtitle
+    sectionHeading: {
+      ...theme.typography.subtitle,
+      color: theme.colors.textPrimary,
+    },
+
+    // ── Typography ────────────────────────────────────────────────────────────
+    // Body text — poppinsRegular 15
+    body: {
+      ...theme.typography.body,
+      color: theme.colors.textPrimary,
+    },
+    // Small muted text — poppinsRegular 13
+    caption: {
+      ...theme.typography.caption,
+      color: theme.colors.textSecondary,
+    },
+
+    // ── Card Typography ───────────────────────────────────────────────────────
+    // Primary label inside cards — poppinsSemiBold, slightly smaller than button
+    cardTitle: {
+      ...theme.typography.button,
+      fontSize: 14,
+      color: theme.colors.textPrimary,
+      marginBottom: 3,
+    },
+    // Secondary muted label inside cards — poppinsRegular 12
+    cardSubtitle: {
+      ...theme.typography.caption,
+      color: theme.colors.textSecondary,
+      lineHeight: 17,
+    },
+  });

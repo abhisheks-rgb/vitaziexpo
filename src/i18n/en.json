@@ -9,7 +9,7 @@
     "rememberMe": "Remember Me",
     "forgotPassword": "Forgot Password?",
     "continue": "Continue",
-    "noAccount": "👤 Don't have account?"
+    "noAccount": "Don't have account?"
   },
   "register": {
     "title": "Register to Vitazi.ai",
@@ -29,7 +29,6 @@
     "passwordPlaceholder": "Enter password",
     "confirmPassword": "Confirm Password",
     "confirmPasswordPlaceholder": "Confirm password",
-    "submit": "Submit",
     "consent": "I authorize Vitazi.ai Inc. to share my de-identified health information with third-party (such as research organizations) for purposes of medical research."
   },
   "connectClinic": {
@@ -54,12 +53,49 @@
     },
 
     "latestScreening": "Latest Screening",
+    "welcomeText": "Welcome to",
+    "subtitleWelcomeText": "Your eye health reports for participating clinics will appear here automatically",
+    "eyeHealth": "Let`s get started on your eye health",
+    "noUpcomingAppointments": "No upcoming appointments found",
     "visitReview": "Visit Review",
     "followUpRecommended": "Follow-up recommended in 6 months",
 
     "upcomingAppointment": "Upcoming Appointment",
     "dateTime": "Date & Time",
-    "appointmentType": "Appointment Type"
+    "appointmentType": "Appointment Type",
+    "welcomeToYour": "Welcome to Your",
+    "eyeCareJourney": "Eye Care Journey",
+
+    "eyeCareJourneySubtitle": "Let's get started with your first retinal screening to protect your vision.",
+
+    "step1Title": "Schedule Screening",
+    "step1Desc": "Book your appointment",
+    "step2Title": "Complete Screening",
+    "step2Desc": "Visit the clinic for your screening",
+    "step3Title": "Review Results",
+    "step3Desc": "We'll analyze and share insights",
+    "step4Title": "Follow-up Care",
+    "step4Desc": "Personalized recommendations",
+
+    "scheduleScreening": "Schedule Screening",
+
+    "noUpcomingAppointmentTitle": "No Upcoming Appointment",
+    "noUpcomingAppointmentDesc": "You don't have any appointments yet. Book your first screening to get started.",
+    "bookNow": "Book Now",
+    "clinicNotification": "When a clinic uploads a new report you'll be notified instantly.",
+    "learnHowItWorks": "Learn How It Works",
+    "appointmentsTitle": "Appointments",
+    "noAppointmentsYet": "You don't have any upcoming appointments yet.",
+    "noAppointmentsClinicNote": "When your clinic schedules a visit, it will appear here.",
+    "whatYoullSeeTitle": "What You'll See Here",
+    "whatYoullSee": {
+      "reportsTitle": "Reports",
+      "reportsDesc": "Clinic findings and retinal images",
+      "aiTitle": "AI Summaries",
+      "aiDesc": "Easy-to-understand explanations",
+      "apptsTitle": "Appointments",
+      "apptsDesc": "Upcoming visits and reminders"
+    }
   },
   "tabs": {
     "home": "Home",
@@ -79,10 +115,39 @@
     "appointmentType": "Appointment Type"
   },
   "continue": "Continue",
-  "needHelp": "❓ Need Help?",
-  "haveAccount": "👤 Have an account?",
+  "needHelp": "Need Help?",
+  "haveAccount": "Have an account?",
   "orgIdLabel": "Organization ID",
   "orgIdPlaceholder": "Enter the organization ID",
   "visits": "Visits",
-  "yourClinics": "Your Clinics"
+  "visitHistory": "Visit History",
+  "yourClinics": "Your Clinics",
+  "educationTitle": "Education",
+  "noEducationList": "No Education is there",
+  "noEducationListBody": "Education material is not available yet.",
+  "reportDetails": "Report Details",
+  "images": "Images",
+  "generalHealth": {
+    "screenTitle": "General Health Questions",
+    "progress": {
+      "label": "{{current}} out of {{total}}"
+    },
+    "next": "Next",
+    "options": {
+      "yes": "Yes",
+      "no": "No",
+      "notSure": "Not Sure"
+    },
+    "questions": {
+      "allergies": "Do you have any known allergies?",
+      "medications": "Are you currently taking any regular medications?",
+      "chronicConditions": "Do you have any chronic conditions (e.g., diabetes, hypertension, asthma)?",
+      "recentSymptoms": "In the past 7 days, have you experienced any unusual symptoms like fever, chest pain, or severe headaches?"
+    },
+    "errors": {
+      "required": "Please answer before continuing.",
+      "submitFailed": "Something went wrong. Please try again."
+    }
+  },
+  "submit": "Submit"
 }

@@ -1,16 +1,18 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Animated, TouchableOpacity, View } from 'react-native';
 import PagerView from 'react-native-pager-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import AppImage, { AppImageSource } from '../../components/AppImage';
+import type { AppImageSource } from '../../components/AppImage';
+import AppImage from '../../components/AppImage';
 import AppText from '../../components/AppText';
 import GradientText from '../../components/GradientText';
 import { AppImages } from '../../constants';
+import { useAuthStore } from '../../state/store/authStore';
 import { useTheme } from '../../theme';
 
-import { createStyles, DOT_SIZE, STEP, PILL_WIDTH } from './styles';
+import { createStyles, DOT_SIZE, PILL_WIDTH, STEP } from './styles';
 
 interface Props {
   onFinish: () => void;
@@ -41,7 +43,7 @@ const slides: Slide[] = [
     title: 'Digital Wallet',
     subtitle: 'View encounters, track trends and share your data with health care professionals.',
     image: AppImages.onboarding3,
-    imageScale: 0.96,
+    imageScale: 1.08,
   },
 ];
 
@@ -57,6 +59,7 @@ export default function OnboardingScreen({ onFinish }: Props) {
 
   const pillX = useRef(new Animated.Value(pillTargetX(0))).current;
   const pillScaleX = useRef(new Animated.Value(1)).current;
+  const setOnboardingSeen = useAuthStore((s) => s.setOnboardingSeen);
 
   const animateIndicator = (nextIndex: number) => {
     Animated.parallel([
@@ -93,6 +96,8 @@ export default function OnboardingScreen({ onFinish }: Props) {
       pagerRef.current?.setPage(index + 1);
       return;
     }
+
+    setOnboardingSeen();
     onFinish();
   };
 
@@ -114,7 +119,13 @@ export default function OnboardingScreen({ onFinish }: Props) {
           {/* Header */}
           <View style={[styles.topBar, styles.paddedRow]}>
             <AppImage source={AppImages.logoDark} containerStyle={styles.logo} />
-            <TouchableOpacity style={styles.skipButton} onPress={onFinish}>
+            <TouchableOpacity
+              style={styles.skipButton}
+              onPress={() => {
+                setOnboardingSeen();
+                onFinish();
+              }}
+            >
               <AppText variant="body" style={styles.skip}>
                 Skip
               </AppText>

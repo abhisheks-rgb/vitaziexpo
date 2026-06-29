@@ -1,21 +1,35 @@
 import { StyleSheet } from 'react-native';
 
-import { Colors } from '../../theme/colors';
-import { Spacing } from '../../theme/spacing';
-
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    height: 48,
+    height: 56,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: Spacing.md,
+    paddingHorizontal: 16,
   },
 
-  leftSection: {
-    flex: 1,
+  left: {
+    flex: 2,
     flexDirection: 'row',
     alignItems: 'center',
-    zIndex: 2,
+    minWidth: 0,
+  },
+
+  right: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+
+  title: {
+    marginLeft: 8,
+    flexShrink: 1,
+  },
+
+  logo: {
+    width: 120,
+    height: 32,
   },
 
   centerContainer: {
@@ -25,30 +39,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
-  leftLogoContainer: {
-    alignItems: 'flex-start',
-    paddingLeft: 60,
-  },
-
-  rightSection: {
-    marginLeft: 'auto',
-    minWidth: 48,
-    alignItems: 'flex-end',
-  },
-
-  logo: {
-    width: 120,
-    height: 32,
-  },
-
-  title: {
-    color: Colors.navyDark,
-    fontWeight: '600',
-    flexShrink: 1,
-  },
-  titleContainerLeft: {
-    flex: 1,
-    marginLeft: Spacing.sm,
-  },
 });
+
+export default styles;

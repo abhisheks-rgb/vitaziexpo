@@ -1,0 +1,14 @@
+{
+  "build": {
+    "mock": {
+      "env": {
+        "EXPO_PUBLIC_ENV": "mock",
+        "EXPO_PUBLIC_API_BASE_URL": "http://mock.api",
+        "EXPO_PUBLIC_MOCK_DELAY_MS": "500"
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    }
+  }
+}

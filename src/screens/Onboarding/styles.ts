@@ -1,6 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
-import { Theme } from '../../theme';
+import type { Theme } from '../../theme';
 
 const { width } = Dimensions.get('window');
 
@@ -42,7 +42,7 @@ export const createStyles = (theme: Theme) =>
     },
 
     skip: {
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
     },
 
     content: {
@@ -65,7 +65,8 @@ export const createStyles = (theme: Theme) =>
 
     image: {
       width: width * 0.86,
-      height: 300,
+      height: undefined,
+      aspectRatio: 1,
     },
 
     textWrap: {
@@ -84,7 +85,7 @@ export const createStyles = (theme: Theme) =>
     subtitle: {
       ...theme.typography.body,
       textAlign: 'center',
-      color: theme.colors.textMuted,
+      color: theme.colors.textSecondary,
       marginTop: 16,
       maxWidth: 340,
       lineHeight: 28,

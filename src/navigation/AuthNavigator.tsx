@@ -1,11 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
 
-import CompleteFormScreen from '../screens/auth/CompleteFormScreen';
-import ConnectClinicScreen from '../screens/auth/ConnectClinicScreen';
-import LoginScreen from '../screens/auth/LoginScreen';
-import QRScannerScreen from '../screens/auth/QrScannerScreen';
-import RegisterScreen from '../screens/auth/RegisterScreen';
+import CompleteFormScreen from '../screens/Auth/CompleteFormScreen';
+import ConnectClinicScreen from '../screens/Auth/ConnectClinicScreen';
+import LoginScreen from '../screens/Auth/LoginScreen';
+import QRScannerScreen from '../screens/Auth/QrScannerScreen';
+import RegisterScreen from '../screens/Auth/RegisterScreen';
+import TwoFAVerifyScreen from '../screens/Auth/TwoFAVerifyScreen';
 
 import type { AuthStackParamList } from './types';
 
@@ -16,6 +16,7 @@ export default function AuthNavigator() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
+      <Stack.Screen name="TwoFAVerify" component={TwoFAVerifyScreen} />
       <Stack.Screen
         name="QRScanner"
         component={QRScannerScreen}

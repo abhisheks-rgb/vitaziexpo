@@ -1,7 +1,9 @@
-import { Image, ImageSource } from 'expo-image';
+import type { ImageSource } from 'expo-image';
+import { Image } from 'expo-image';
 import React, { useState } from 'react';
-import { ActivityIndicator, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import { SvgProps } from 'react-native-svg';
+import type { StyleProp, ViewStyle } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import type { SvgProps } from 'react-native-svg';
 
 export type AppImageSource = string | number | ImageSource | React.ComponentType<SvgProps>;
 
@@ -13,6 +15,12 @@ interface AppImageProps {
   showLoader?: boolean;
   transition?: number;
   cachePolicy?: 'none' | 'disk' | 'memory' | 'memory-disk';
+  /**
+   * SVG only. The SVG must use `currentColor` for fill or stroke.
+   * Only `color` is passed — this drives `currentColor` without
+   * explicitly overriding fill or stroke, preserving line icons.
+   */
+  tintColor?: string;
 }
 
 const AppImage: React.FC<AppImageProps> = ({
@@ -23,17 +31,24 @@ const AppImage: React.FC<AppImageProps> = ({
   showLoader = true,
   transition = 300,
   cachePolicy = 'memory-disk',
+  tintColor,
 }) => {
   const [loading, setLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  // SVG Support
   if (typeof source === 'function') {
     const SvgComponent = source;
-
     return (
       <View style={[styles.container, containerStyle]}>
-        <SvgComponent width="100%" height="100%" />
+        <SvgComponent
+          width="100%"
+          height="100%"
+          // Only pass `color` — it sets currentColor which SVG paths
+          // inherit via fill="currentColor" or stroke="currentColor".
+          // Do NOT pass explicit fill/stroke as that overrides individual
+          // path attributes and breaks line (stroke-only) icons.
+          {...(tintColor ? { color: tintColor } : {})}
+        />
       </View>
     );
   }
@@ -53,15 +68,12 @@ const AppImage: React.FC<AppImageProps> = ({
           setLoading(true);
           setHasError(false);
         }}
-        onLoad={() => {
-          setLoading(false);
-        }}
+        onLoad={() => setLoading(false)}
         onError={() => {
           setLoading(false);
           setHasError(true);
         }}
       />
-
       {loading && showLoader && (
         <View style={styles.loader}>
           <ActivityIndicator />
@@ -72,14 +84,8 @@ const AppImage: React.FC<AppImageProps> = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    overflow: 'hidden',
-  },
-  loader: {
-    ...StyleSheet.absoluteFill,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  container: { overflow: 'hidden' },
+  loader: { ...StyleSheet.absoluteFill, justifyContent: 'center', alignItems: 'center' },
 });
 
 export default AppImage;

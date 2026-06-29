@@ -31,4 +31,5 @@ export const Colors = {
 
   border: '#0099E8',
   borderDark: '#2D2D2D',
+  gray: '#E5E7EB',
 } as const;
