@@ -57,7 +57,15 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         });
       }
     } catch (e: any) {
-      setError(e.message ?? 'Login failed. Please try again.');
+      const apiErr = e.response?.data;
+      const errorMessage =
+        apiErr?.error?.details?.data?.error ||
+        (apiErr?.message && apiErr.message !== 'An unexpected error occurred' ? apiErr.message : null) ||
+        apiErr?.error?.message ||
+        e.message ||
+        'Login failed. Please try again.';
+
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }

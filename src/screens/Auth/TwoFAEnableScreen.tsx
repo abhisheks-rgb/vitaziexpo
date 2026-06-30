@@ -55,7 +55,15 @@ export default function TwoFAEnableScreen({ navigation, route }: TwoFAEnableScre
       useAuthStore.getState().setSession(session, user);
       // RootNavigator reacts to session being set — no manual navigate needed
     } catch (e: any) {
-      setError(e.response?.data?.message ?? e.message ?? 'Verification failed. Please try again.');
+      const apiErr = e.response?.data;
+      const errorMessage =
+        apiErr?.error?.details?.data?.error ||
+        (apiErr?.message && apiErr.message !== 'An unexpected error occurred' ? apiErr.message : null) ||
+        apiErr?.error?.message ||
+        e.message ||
+        'Verification failed. Please try again.';
+
+      setError(errorMessage);
       setCode('');
       inputRef.current?.focus();
     } finally {
