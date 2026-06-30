@@ -34,8 +34,7 @@ export default function TwoFASetupScreen({ navigation, route }: TwoFASetupScreen
   const [copied, setCopied] = useState(false);
 
   const handleContinue = () => {
-    setIsLoading(true);
-    useAuthStore.getState().setSession(session, user);
+    navigation.navigate('TwoFAEnable', { session, user });
   };
 
   const handleSkip = () => {
