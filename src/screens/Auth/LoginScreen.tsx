@@ -48,8 +48,14 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           preAuthToken: result.preAuthToken,
           email: email.trim(),
         });
+      } else if (result.kind === '2fa_setup_required') {
+        navigation.navigate('TwoFASetup', {
+          secret: result.secret,
+          qrCode: result.qrCode,
+          session: result.session,
+          user: result.user,
+        });
       }
-      // kind === 'success' → RootNavigator reacts to session being set automatically
     } catch (e: any) {
       setError(e.message ?? 'Login failed. Please try again.');
     } finally {

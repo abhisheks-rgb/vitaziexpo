@@ -122,6 +122,20 @@ class AuthRepositoryImpl implements IAuthRepository {
     // Back-fill userId into the session now that we have it
     const hydratedSession: AuthSession = { ...session, userId: user.id };
 
+    if (authData.two_factor_auth_enabled === false) {
+      // Hit the 2FA generate endpoint
+      const { data: generateData } = await apiClient.get('/2fa/generate', {
+        headers: { Authorization: `Bearer ${session.accessToken}` },
+      });
+      
+      throw new TwoFASetupRequiredError(
+        generateData.data.secret,
+        generateData.data.qr_code,
+        hydratedSession,
+        user
+      );
+    }
+
     return { session: hydratedSession, user };
   }
 
@@ -177,6 +191,26 @@ export class TwoFARequiredError extends Error {
     super('2FA verification required');
     this.name = 'TwoFARequiredError';
     this.preAuthToken = preAuthToken;
+  }
+}
+
+/**
+ * Thrown by login() when the user has not set up 2FA yet.
+ * The login screen catches this, and navigates to the 2FA setup screen.
+ */
+export class TwoFASetupRequiredError extends Error {
+  readonly secret: string;
+  readonly qrCode: string;
+  readonly session: AuthSession;
+  readonly user: User;
+
+  constructor(secret: string, qrCode: string, session: AuthSession, user: User) {
+    super('2FA setup required');
+    this.name = 'TwoFASetupRequiredError';
+    this.secret = secret;
+    this.qrCode = qrCode;
+    this.session = session;
+    this.user = user;
   }
 }
 

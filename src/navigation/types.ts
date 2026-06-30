@@ -26,6 +26,12 @@ export type AuthStackParamList = {
   Login: undefined;
   Register: undefined;
   TwoFAVerify: { preAuthToken: string; email: string };
+  TwoFASetup: {
+    secret: string;
+    qrCode: string;
+    session: import('../domain/Auth/models/AuthSession').AuthSession;
+    user: import('../domain/Auth/models/User').User;
+  };
   QRScanner: { source: 'register' | 'connectClinic' };
   ConnectClinic: { orgId: string };
   CompleteForm: { orgId: string };
@@ -174,5 +180,10 @@ export type ClinicVisitsScreenProps = NativeStackScreenProps<AppStackParamList, 
 
 export type TwoFAVerifyScreenProps = CompositeScreenProps<
   NativeStackScreenProps<AuthStackParamList, 'TwoFAVerify'>,
+  NativeStackScreenProps<RootStackParamList>
+>;
+
+export type TwoFASetupScreenProps = CompositeScreenProps<
+  NativeStackScreenProps<AuthStackParamList, 'TwoFASetup'>,
   NativeStackScreenProps<RootStackParamList>
 >;

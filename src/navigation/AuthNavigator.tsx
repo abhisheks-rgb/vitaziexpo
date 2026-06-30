@@ -5,6 +5,7 @@ import ConnectClinicScreen from '../screens/Auth/ConnectClinicScreen';
 import LoginScreen from '../screens/Auth/LoginScreen';
 import QRScannerScreen from '../screens/Auth/QrScannerScreen';
 import RegisterScreen from '../screens/Auth/RegisterScreen';
+import TwoFASetupScreen from '../screens/Auth/TwoFASetupScreen';
 import TwoFAVerifyScreen from '../screens/Auth/TwoFAVerifyScreen';
 
 import type { AuthStackParamList } from './types';
@@ -17,6 +18,7 @@ export default function AuthNavigator() {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="TwoFAVerify" component={TwoFAVerifyScreen} />
+      <Stack.Screen name="TwoFASetup" component={TwoFASetupScreen} />
       <Stack.Screen
         name="QRScanner"
         component={QRScannerScreen}
