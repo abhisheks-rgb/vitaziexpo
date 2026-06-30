@@ -93,20 +93,22 @@ class AuthRepositoryImpl implements IAuthRepository {
    * The userId in AuthSession is set to the user's email (stable Vitazi identifier).
    */
   async login(credentials: LoginCredentials): Promise<{ session: AuthSession; user: User }> {
-    const { data } = await apiClient.post<AuthResponseDTO | PreAuthResponseDTO>('/users/login', {
+    const { data: rawResponse } = await apiClient.post<any>('/users/login', {
       email: credentials.email,
       password: credentials.password,
     });
 
+    const payload = rawResponse.data || rawResponse;
+
     // ── 2FA path ──────────────────────────────────────────────────────────────
-    if ('2fa_required' in data && data['2fa_required']) {
+    if ('2fa_required' in payload && payload['2fa_required']) {
       // Caller (use case / screen) must handle 2FA — throw a typed signal
-      const err = new TwoFARequiredError(data.pre_auth_token);
+      const err = new TwoFARequiredError(payload.pre_auth_token);
       throw err;
     }
 
     // ── Normal path ───────────────────────────────────────────────────────────
-    const authData = data as AuthResponseDTO;
+    const authData = payload as AuthResponseDTO;
     const session = AuthMapper.toDomain(authData);
 
     // Fetch the user profile using the freshly-obtained token.
@@ -117,7 +119,8 @@ class AuthRepositoryImpl implements IAuthRepository {
       headers: { Authorization: `Bearer ${session.accessToken}` },
     });
 
-    const user = UserMapper.toDomain(profileData.body);
+    const profilePayload = (profileData as any).data?.body || profileData.body || profileData;
+    const user = UserMapper.toDomain(profilePayload);
 
     // Back-fill userId into the session now that we have it
     const hydratedSession: AuthSession = { ...session, userId: user.id };

@@ -14,19 +14,21 @@ export const twoFAVerifyUseCase = async (params: {
     throw new Error('Please enter the 6-digit code from your authenticator app.');
   }
 
-  const { data } = await apiClient.post<AuthResponseDTO>('/2fa/verify', {
+  const { data: rawResponse } = await apiClient.post<any>('/2fa/verify', {
     pre_auth_token: params.preAuthToken,
     verification_code: params.verificationCode,
   });
 
-  const session = AuthMapper.toDomain(data);
+  const payload = rawResponse.data || rawResponse;
+  const session = AuthMapper.toDomain(payload as AuthResponseDTO);
 
   const { data: profileData } = await apiClient.get<UserProfileResponseDTO>('/users/profile', {
     params: { email: params.email },
     headers: { Authorization: `Bearer ${session.accessToken}` },
   });
 
-  const user = UserMapper.toDomain(profileData.body);
+  const profilePayload = (profileData as any).data?.body || profileData.body || profileData;
+  const user = UserMapper.toDomain(profilePayload);
   const hydratedSession = { ...session, userId: user.id };
 
   useAuthStore.getState().setSession(hydratedSession, user);
