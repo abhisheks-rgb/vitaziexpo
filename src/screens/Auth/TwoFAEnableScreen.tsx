@@ -40,21 +40,22 @@ export default function TwoFAEnableScreen({ navigation, route }: TwoFAEnableScre
 
   const digits = code.padEnd(CODE_LENGTH, ' ').split('');
 
-  const handleVerify = async () => {
+  const handleVerify = async (codeOverride?: string) => {
+    const finalCode = codeOverride ?? code;
     setError('');
-    if (code.length !== CODE_LENGTH) {
+    if (finalCode.length !== CODE_LENGTH) {
       setError('Please enter all 6 digits.');
       return;
     }
     setIsLoading(true);
     try {
-      await enableTwoFAUseCase({ accessToken: session.accessToken, verificationCode: code });
+      await enableTwoFAUseCase({ accessToken: session.accessToken, verificationCode: finalCode });
       
       // Successfully enabled! Log the user in now.
       useAuthStore.getState().setSession(session, user);
       // RootNavigator reacts to session being set — no manual navigate needed
     } catch (e: any) {
-      setError(e.message ?? 'Verification failed. Please try again.');
+      setError(e.response?.data?.message ?? e.message ?? 'Verification failed. Please try again.');
       setCode('');
       inputRef.current?.focus();
     } finally {
@@ -141,7 +142,7 @@ export default function TwoFAEnableScreen({ navigation, route }: TwoFAEnableScre
             if (clean.length === CODE_LENGTH) {
               // Auto-submit when all digits entered
               setTimeout(() => {
-                handleVerify();
+                handleVerify(clean);
               }, 120);
             }
           }}
