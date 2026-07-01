@@ -36,6 +36,8 @@ export default function RootNavigator() {
   }
 
   // 🔥 3. Needs health questions
+  // Temporarily bypassed so all users (even with stale storage) go to Home Screen
+  /*
   if (!currentUser?.hasCompletedHealthQuestions) {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -43,6 +45,7 @@ export default function RootNavigator() {
       </Stack.Navigator>
     );
   }
+  */
 
   // 🔥 4. Needs onboarding (device-level)
   if (!hasSeenOnboarding) {

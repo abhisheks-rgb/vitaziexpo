@@ -26,7 +26,7 @@ export const UserMapper = {
       email: dto.email,
       dateOfBirth: '', // not returned by profile endpoint
       organizationId: dto.clinic_id,
-      hasCompletedHealthQuestions: false, // not surfaced by API; default false
+      hasCompletedHealthQuestions: true, // bypassed for now to go to home screen
       hasCompletedOnboarding: true, // existing users are onboarded
       consentGiven: true, // not surfaced by API; assume true for existing users
     };

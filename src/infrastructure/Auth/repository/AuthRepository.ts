@@ -130,7 +130,7 @@ class AuthRepositoryImpl implements IAuthRepository {
       const { data: generateData } = await apiClient.get('/2fa/generate', {
         headers: { Authorization: `Bearer ${session.accessToken}` },
       });
-      
+
       throw new TwoFASetupRequiredError(
         generateData.data.secret,
         generateData.data.qr_code,
